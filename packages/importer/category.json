@@ -1,0 +1,1061 @@
+{
+  "category": {
+    "3WC7mLFO3mDUhvM79Fo9": {
+      "posts": [
+        {
+          "price": 2000,
+          "geohash": "9q8yyjjpsh",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/markus-spiske-744547-unsplash.jpg?alt=media&token=f785578a-2f6f-4a27-8d61-2abaf8dab5b3",
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_markus-spiske-744547-unsplash.jpg?alt=media&token=f785578a-2f6f-4a27-8d61-2abaf8dab5b3"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 37.7778,
+            "lng": -122.4246,
+            "formattedAddress": "490 Grove St, San Francisco, CA 94102, USA"
+          },
+          "id": "E46b9Lpz8EzqSJQISbSq",
+          "createdAt": { "_nanoseconds": 740000000, "_seconds": 1552902570 },
+          "title": "CONTEND SL 2 DISC",
+          "location": { "_latitude": 37.7778, "_longitude": -122.4246 },
+          "slug": "contend-sl-2-disc"
+        },
+        {
+          "price": 2100,
+          "geohash": "gcpn7q08xu",
+          "condition": false,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_markus-spiske-127943-unsplash.jpg?alt=media&token=e1a38e07-dfd3-45e8-8863-bdeb2def3960",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/markus-spiske-127943-unsplash.jpg?alt=media&token=e1a38e07-dfd3-45e8-8863-bdeb2def3960"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lng": -1.2624,
+            "formattedAddress": "38 St John St, Oxford OX1 2LH, UK",
+            "lat": 51.7567
+          },
+          "id": "Hx6ISd0zFuxbspf8sY7c",
+          "createdAt": { "_nanoseconds": 271000000, "_seconds": 1552824172 },
+          "title": "TCX ADVANCED PRO 1",
+          "location": { "_latitude": 51.7567, "_longitude": -1.2624 },
+          "slug": "tcx-advanced-pro-1"
+        },
+        {
+          "price": 2500,
+          "geohash": "dhwfxhwgpd",
+          "condition": false,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_markus-spiske-717237-unsplash.jpg?alt=media&token=406a32bf-cab0-45b5-a2aa-fb4369aa01e6",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/markus-spiske-717237-unsplash.jpg?alt=media&token=406a32bf-cab0-45b5-a2aa-fb4369aa01e6"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lng": -80.1906,
+            "formattedAddress": "135-199 NE 3rd St, Miami, FL 33132, USA",
+            "lat": 25.7772
+          },
+          "id": "QT1IuDIaI3qKqCf1X1I1",
+          "createdAt": { "_seconds": 1552823579, "_nanoseconds": 354000000 },
+          "title": "Giant properl",
+          "location": { "_longitude": -80.1906, "_latitude": 25.7772 },
+          "slug": "giant-properl"
+        },
+        {
+          "id": "ftpXfWKDwDAElzhdafWN",
+          "createdAt": { "_nanoseconds": 706000000, "_seconds": 1552824618 },
+          "title": "FASTROAD SL 2 (ASIA)",
+          "location": { "_longitude": 121.4694, "_latitude": 31.233 },
+          "slug": "fastroad-sl-2-asia",
+          "price": 2100,
+          "geohash": "wtw3sjg36j",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_tiffany-nutt-2.jpg?alt=media&token=257f8fc8-7581-4d6d-94d5-c826b069699f",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/tiffany-nutt-2.jpg?alt=media&token=257f8fc8-7581-4d6d-94d5-c826b069699f"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 31.233,
+            "lng": 121.4694,
+            "formattedAddress": "Zhi Fu Guang Chang, Huangpu Qu, Shanghai Shi, China, 200000"
+          }
+        },
+        {
+          "condition": false,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_markus-spiske-1154465-unsplash.jpg?alt=media&token=36edb3a6-d528-4f99-9b5a-9acc79d316cb",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/markus-spiske-1154465-unsplash.jpg?alt=media&token=36edb3a6-d528-4f99-9b5a-9acc79d316cb"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "formattedAddress": "Unnamed Road, Wada, Nagawa-machi, Chiisagata-gun, Nagano-ken 386-0701, Japan",
+            "lat": 36.2117,
+            "lng": 138.226
+          },
+          "id": "ixggh09l6vP5GOJf5M3L",
+          "createdAt": { "_nanoseconds": 95000000, "_seconds": 1552824284 },
+          "title": "GLORY ADVANCED 1",
+          "location": { "_latitude": 36.2117, "_longitude": 138.226 },
+          "slug": "glory-advanced-1",
+          "price": 3000,
+          "geohash": "xn6q12jh7n"
+        },
+        {
+          "price": 3200,
+          "geohash": "wecnvvmkjb",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/robert-bye-200735-unsplash.jpg?alt=media&token=fdcc2a04-33e6-4b12-91a5-fbf26079ff6a",
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_robert-bye-200735-unsplash.jpg?alt=media&token=fdcc2a04-33e6-4b12-91a5-fbf26079ff6a"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 22.3098,
+            "lng": 114.1664,
+            "formattedAddress": "1 Yau Cheung Rd, Yau Ma Tei, Hong Kong"
+          },
+          "id": "rOcgUXWTU7OA6TVUJu2P",
+          "createdAt": { "_nanoseconds": 377000000, "_seconds": 1552824444 },
+          "title": "CONTEND SL 1",
+          "location": { "_latitude": 22.3098, "_longitude": 114.1664 },
+          "slug": "contend-sl-1"
+        }
+      ],
+      "updatedAt": { "_seconds": 1554975313, "_nanoseconds": 723000000 },
+      "slug": "cycle",
+      "image": {
+        "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/cycle.svg?alt=media&token=b1ca3d57-f122-4afb-ae63-fed5bd116f9a"
+      },
+      "name": "Cycle",
+      "id": "3WC7mLFO3mDUhvM79Fo9"
+    },
+    "SEFTGEq988i7Uw39I5bq": {
+      "posts": [
+        {
+          "slug": "bmw-s1000rr",
+          "price": 200000,
+          "geohash": "sr2yjzxnb2",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/1_2.jpg?alt=media&token=10132868-47d8-46aa-b323-32ea15541cc7",
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_1_2.jpg?alt=media&token=10132868-47d8-46aa-b323-32ea15541cc7"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lng": 12.567,
+            "formattedAddress": "Via degli Aceri, 75, 00172 Roma RM, Italy",
+            "lat": 41.8783
+          },
+          "id": "IBejPhEExylJSM06fbqg",
+          "createdAt": { "_seconds": 1552820974, "_nanoseconds": 881000000 },
+          "title": "BMW S1000RR",
+          "location": { "_longitude": 12.567, "_latitude": 41.8783 }
+        },
+        {
+          "id": "zLqswJjTUMemUi3Jb59e",
+          "createdAt": { "_seconds": 1552821411, "_nanoseconds": 269000000 },
+          "title": "Harley-Davidson Super Glide",
+          "location": { "_latitude": 55.7588, "_longitude": 37.6063 },
+          "slug": "harley-davidson-super-glide",
+          "price": 150000,
+          "geohash": "ucftpy84d3",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/2_4.jpg?alt=media&token=4c20995b-cb5e-468d-82c5-1ff491c3003a",
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_2_4.jpg?alt=media&token=4c20995b-cb5e-468d-82c5-1ff491c3003a"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "formattedAddress": "Voznesenskiy Pereulok, 14, Moskva, Russia, 125009",
+            "lat": 55.7588,
+            "lng": 37.6063
+          }
+        },
+        {
+          "id": "PnSxJxTqgnAEXO8dYSg6",
+          "createdAt": { "_seconds": 1552821606, "_nanoseconds": 517000000 },
+          "title": "Honda CBR1000RR",
+          "location": { "_latitude": 40.7959, "_longitude": -74.1373 },
+          "slug": "honda-cbr1000rr",
+          "price": 2000,
+          "geohash": "dr720fwv7d",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_daniel-von-appen-3.jpg?alt=media&token=373b0ac0-a5a6-494b-b76b-a187179b923f",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/daniel-von-appen-3.jpg?alt=media&token=373b0ac0-a5a6-494b-b76b-a187179b923f"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 40.7959,
+            "lng": -74.1373,
+            "formattedAddress": "79 Locust Ave, North Arlington, NJ 07031, USA"
+          }
+        },
+        {
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_roland-kettenring-1.jpg?alt=media&token=ec833273-f1a1-453f-af9b-e292bb709681",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/roland-kettenring-1.jpg?alt=media&token=ec833273-f1a1-453f-af9b-e292bb709681"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "formattedAddress": "5145 Middlesex St, Dearborn, MI 48126, USA",
+            "lat": 42.3254,
+            "lng": -83.1809
+          },
+          "id": "fJ0Vlnhag3lIT6Lt58aE",
+          "createdAt": { "_seconds": 1552908786, "_nanoseconds": 661000000 },
+          "title": "Harley-Davidson Topper",
+          "location": { "_latitude": 42.3254, "_longitude": -83.1809 },
+          "slug": "harley-davidson-topper",
+          "price": 32000,
+          "geohash": "dpsbg1je2d"
+        },
+        {
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 48.8619,
+            "lng": 2.3521,
+            "formattedAddress": "31 Rue Beaubourg, 75003 Paris, France"
+          },
+          "id": "I3JorEIb8QHUIHQ1KCIU",
+          "createdAt": { "_seconds": 1552908953, "_nanoseconds": 821000000 },
+          "title": "BMW DEPARTED",
+          "location": { "_longitude": 2.3521, "_latitude": 48.8619 },
+          "slug": "bmw-departed",
+          "price": 25000,
+          "geohash": "u09tvx09py",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_roland-kettenring-3.jpg?alt=media&token=81c7117a-9839-42fa-8074-ceb089ba5c71",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/roland-kettenring-3.jpg?alt=media&token=81c7117a-9839-42fa-8074-ceb089ba5c71"
+          }
+        }
+      ],
+      "updatedAt": { "_seconds": 1555320646, "_nanoseconds": 763000000 },
+      "slug": "motor-cycle",
+      "image": {
+        "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/bike.svg?alt=media&token=4efdb257-75f7-435e-9fca-96b046915960"
+      },
+      "name": "Motor Cycle",
+      "id": "SEFTGEq988i7Uw39I5bq"
+    },
+    "dYFhHdgDBlwHU3okmuQ4": {
+      "updatedAt": { "_seconds": 1555154685, "_nanoseconds": 767000000 },
+      "slug": "watch",
+      "image": {
+        "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/watch.svg?alt=media&token=3b034202-1029-470a-98af-29d7621080af"
+      },
+      "name": "Watch",
+      "id": "dYFhHdgDBlwHU3okmuQ4",
+      "posts": [
+        {
+          "price": 2100,
+          "geohash": "dr5refefby",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_Group%209.jpg?alt=media&token=0f213cfc-75a4-4816-9286-ef5e734f4ef6",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/Group%209.jpg?alt=media&token=0f213cfc-75a4-4816-9286-ef5e734f4ef6"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "formattedAddress": "20 Pine St, New York, NY 10005, USA",
+            "lat": 40.7076,
+            "lng": -74.0097
+          },
+          "id": "8kbL2trNx32iJHBnJwca",
+          "createdAt": { "_nanoseconds": 597000000, "_seconds": 1552907741 },
+          "title": "Tommy Hilfiger",
+          "location": { "_longitude": -74.0097, "_latitude": 40.7076 },
+          "slug": "tommy-hilfiger"
+        },
+        {
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lng": 6.3788,
+            "formattedAddress": "Hohe Buschstraße 5, 41747 Viersen, Germany",
+            "lat": 51.259
+          },
+          "id": "zU2jkkqCzBP2UQF8Lr6u",
+          "createdAt": { "_seconds": 1552907968, "_nanoseconds": 448000000 },
+          "title": "DZ4500 Chronograph Black and Gray Watch",
+          "location": { "_latitude": 51.259, "_longitude": 6.3788 },
+          "slug": "dz4500-chronograph-black-and-gray-watch",
+          "price": 2500,
+          "geohash": "u1he95kvkf",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_Group%2012.jpg?alt=media&token=7451eef3-1a9e-4164-b22d-69e75419d749",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/Group%2012.jpg?alt=media&token=7451eef3-1a9e-4164-b22d-69e75419d749"
+          }
+        },
+        {
+          "id": "8TCH2BBByNJzUJGhJqNE",
+          "createdAt": { "_seconds": 1552908208, "_nanoseconds": 941000000 },
+          "title": "Silver-Toned Analogue Watch ",
+          "location": { "_longitude": -3.8693, "_latitude": 40.3292 },
+          "slug": "silver-toned-analogue-watch",
+          "price": 155,
+          "geohash": "ezjjrvwqwg",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/Group%2019.jpg?alt=media&token=c42c7946-3e66-44f4-965f-bc173f1d0c87",
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_Group%2019.jpg?alt=media&token=c42c7946-3e66-44f4-965f-bc173f1d0c87"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lng": -3.8693,
+            "formattedAddress": "Calle Pintor Ribera, 15, 28933 Móstoles, Madrid, Spain",
+            "lat": 40.3292
+          }
+        },
+        {
+          "price": 99,
+          "geohash": "gcp1p7tk51",
+          "condition": false,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_Group%2023.jpg?alt=media&token=d3d94df5-0661-4e9d-aa41-b1253105d6d5",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/Group%2023.jpg?alt=media&token=d3d94df5-0661-4e9d-aa41-b1253105d6d5"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "formattedAddress": "67 Wadham Rd, Portsmouth PO2 9BQ, UK",
+            "lat": 50.8207,
+            "lng": -1.0803
+          },
+          "id": "PdP8KNEKV45OECMf0Tcv",
+          "createdAt": { "_nanoseconds": 697000000, "_seconds": 1552908443 },
+          "title": "White Analogue Watch",
+          "location": { "_latitude": 50.8207, "_longitude": -1.0803 },
+          "slug": "white-analogue-watch"
+        }
+      ]
+    },
+    "fKJqetAGRZElL8ct0gJT": {
+      "slug": "car",
+      "image": {
+        "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/car.svg?alt=media&token=1c2330f8-8a85-48eb-930c-94e57fe80f00"
+      },
+      "name": "Car",
+      "id": "fKJqetAGRZElL8ct0gJT",
+      "posts": [
+        {
+          "id": "C779BHIeoHKqILN5P9Oa",
+          "createdAt": { "_seconds": 1552132935, "_nanoseconds": 674000000 },
+          "title": "Dodge Viper",
+          "location": { "_latitude": 29.9564, "_longitude": -90.072 },
+          "slug": "d",
+          "price": 25000,
+          "geohash": "9vrfqm7sdm",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_7.jpg?alt=media&token=5e55da1e-c8fd-4710-9fd5-6f86d052d200",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/7.jpg?alt=media&token=5e55da1e-c8fd-4710-9fd5-6f86d052d200"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "formattedAddress": "1037 Iberville St, New Orleans, LA 70112, USA",
+            "lat": 29.9564,
+            "lng": -90.072
+          }
+        },
+        {
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 61.9238,
+            "lng": 25.7301,
+            "formattedAddress": "Vespuolentie 1545, 41880 Jyväskylä, Finland"
+          },
+          "id": "iAqO3qFbC54dhndo5hWy",
+          "createdAt": { "_seconds": 1552133020, "_nanoseconds": 344000000 },
+          "title": "Mercedes-Benz C-Class",
+          "location": { "_latitude": 61.9238, "_longitude": 25.7301 },
+          "slug": "mercedes-benz-c-class",
+          "price": 18000,
+          "geohash": "ue4238bh6b",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_8.jpg?alt=media&token=c62bf1ef-d2d2-4518-8eb5-8464ab73ffa1",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/8.jpg?alt=media&token=c62bf1ef-d2d2-4518-8eb5-8464ab73ffa1"
+          }
+        },
+        {
+          "slug": "f",
+          "price": 30000,
+          "geohash": "c2b2qh6vh2",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/2.jpg?alt=media&token=beb1edc1-10d9-4472-a9de-e6d922e707fe",
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_2.jpg?alt=media&token=beb1edc1-10d9-4472-a9de-e6d922e707fe"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "formattedAddress": "1388 Haro St, Vancouver, BC V6E 1G2, Canada",
+            "lat": 49.2869,
+            "lng": -123.1308
+          },
+          "id": "YFx2F8EHHFTxJ4xQHYR8",
+          "createdAt": { "_seconds": 1552133118, "_nanoseconds": 690000000 },
+          "title": "Ferrari F50",
+          "location": { "_latitude": 49.2869, "_longitude": -123.1308 }
+        },
+        {
+          "id": "fKutIhHmXcju3YYA9lVP",
+          "createdAt": { "_seconds": 1552133613, "_nanoseconds": 906000000 },
+          "title": "Porsche 918 Spyder",
+          "location": { "_latitude": 46.8307, "_longitude": 8.1756 },
+          "slug": "porsche-918-spyder",
+          "price": 21000,
+          "geohash": "u0mf6j3297",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_3.jpg?alt=media&token=d764f2a1-ec19-446d-8c6c-bab3d1278580",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/3.jpg?alt=media&token=d764f2a1-ec19-446d-8c6c-bab3d1278580"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 46.8307,
+            "lng": 8.1756,
+            "formattedAddress": "Mühlemattli 25, 6074 Giswil, Switzerland"
+          }
+        },
+        {
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_11.jpg?alt=media&token=673a20e7-9624-47b7-a7de-4f735e8a840c",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/11.jpg?alt=media&token=673a20e7-9624-47b7-a7de-4f735e8a840c"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lng": -96.7463,
+            "formattedAddress": "14900 TX-121, Frisco, TX 75035, USA",
+            "lat": 33.1221
+          },
+          "id": "G7STofRkJgkHzBIi7Aa6",
+          "createdAt": { "_seconds": 1552133716, "_nanoseconds": 848000000 },
+          "title": "BMW i8",
+          "location": { "_latitude": 33.1221, "_longitude": -96.7463 },
+          "slug": "b",
+          "price": 25000,
+          "geohash": "9vghqmxqpy"
+        }
+      ],
+      "updatedAt": { "_seconds": 1555155032, "_nanoseconds": 545000000 }
+    },
+    "foTqXSXxnL4qxDLBxTx4": {
+      "posts": [
+        {
+          "slug": "sarah-designer-dress",
+          "price": 2500,
+          "geohash": "te7vnq3p51",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/f5bb2b786a36ecad5dcc4e571f0654ab.jpg?alt=media&token=85c97ecd-d99a-44ce-8397-745fbb2f5a7e",
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_f5bb2b786a36ecad5dcc4e571f0654ab.jpg?alt=media&token=85c97ecd-d99a-44ce-8397-745fbb2f5a7e"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lng": 73.0496,
+            "formattedAddress": "Maharashtra 400612, India",
+            "lat": 19.1957
+          },
+          "id": "WrsUQ5PHI8crd2NyrmDv",
+          "createdAt": { "_nanoseconds": 601000000, "_seconds": 1552820044 },
+          "title": "Sarah Designer dress",
+          "location": { "_latitude": 19.1957, "_longitude": 73.0496 }
+        },
+        {
+          "slug": "rain-a-bit-art-by-nikki-frog-nature-lovers-top-fashion-best-women-s-beach-party-dress",
+          "price": 185,
+          "geohash": "gcw2kbbnwg",
+          "condition": false,
+          "status": "publish",
+          "image": {
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/Group%205.jpg?alt=media&token=127971ff-4314-499e-b976-96c446622712",
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_Group%205.jpg?alt=media&token=127971ff-4314-499e-b976-96c446622712"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lng": -2.2519,
+            "formattedAddress": "45 Queen St, Salford M3 7DQ, UK",
+            "lat": 53.4867
+          },
+          "id": "ckBEdlvDqUVw6T7QfMKN",
+          "createdAt": { "_seconds": 1552820369, "_nanoseconds": 208000000 },
+          "title": "Rain A Bit Art by Nikki Frog Nature Lovers Top Fashion Best Women's Beach Party Dress",
+          "location": { "_latitude": 53.4867, "_longitude": -2.2519 }
+        },
+        {
+          "slug": "tiana-dress-the-princess-and-the-frog",
+          "price": 200,
+          "geohash": "dr5rsmpezm",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/30e8b80ecfc64e684c6104c3ac1d3aaf.jpg?alt=media&token=459efe50-3ac9-4197-aad9-ad2b445da698",
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_30e8b80ecfc64e684c6104c3ac1d3aaf.jpg?alt=media&token=459efe50-3ac9-4197-aad9-ad2b445da698"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "formattedAddress": "231 E 2nd St, New York, NY 10009, USA",
+            "lat": 40.7215,
+            "lng": -73.9823
+          },
+          "id": "ZF7gPEBLoNFXSLtmMS5N",
+          "createdAt": { "_nanoseconds": 834000000, "_seconds": 1552820522 },
+          "title": "Tiana Dress, The Princess and the Frog, ",
+          "location": { "_latitude": 40.7215, "_longitude": -73.9823 }
+        },
+        {
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_9fea4cbb0ce1652fd1d200b528a9aad1.jpg?alt=media&token=fb614b79-fff8-4aeb-aca4-90971bde458b",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/9fea4cbb0ce1652fd1d200b528a9aad1.jpg?alt=media&token=fb614b79-fff8-4aeb-aca4-90971bde458b"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "formattedAddress": "Lugar Barrio Campanzar, 5A, 48920 Portugalete, Bizkaia, Spain",
+            "lat": 43.3207,
+            "lng": -3.0263
+          },
+          "id": "Z37QtGt0n4ZOaACX8cxP",
+          "createdAt": { "_seconds": 1552820674, "_nanoseconds": 518000000 },
+          "title": "Adrianna Papell",
+          "location": { "_latitude": 43.3207, "_longitude": -3.0263 },
+          "slug": "adrianna-papell",
+          "price": 180,
+          "geohash": "ezty7nk365",
+          "condition": true
+        },
+        {
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_45950d848e314ea33e0ebc8502beb878.jpg?alt=media&token=eec547e0-638f-4a90-bbd1-3d1287cf6568",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/45950d848e314ea33e0ebc8502beb878.jpg?alt=media&token=eec547e0-638f-4a90-bbd1-3d1287cf6568"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 43.937962,
+            "lng": 2.084186000000045,
+            "formattedAddress": "France, Castelnau-de-Lévis, France"
+          },
+          "id": "A0KaOBlWpY3ycTPDP80m",
+          "createdAt": { "_nanoseconds": 808000000, "_seconds": 1552820799 },
+          "title": "Adrianna Papell",
+          "location": {
+            "_latitude": 43.937962,
+            "_longitude": 2.084186000000045
+          },
+          "slug": "adrianna-papell",
+          "price": 220,
+          "geohash": "spc3zqttjj",
+          "condition": true
+        }
+      ],
+      "updatedAt": { "_seconds": 1555320863, "_nanoseconds": 369000000 },
+      "slug": "clothing",
+      "image": {
+        "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/dress.svg?alt=media&token=9faa01d4-9fd3-41b1-b609-fc07d679212c"
+      },
+      "name": "Clothing",
+      "id": "foTqXSXxnL4qxDLBxTx4"
+    },
+    "k8DKwdO51huPwLV7SF9S": {
+      "slug": "gadget",
+      "image": {
+        "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/sound.svg?alt=media&token=749797a0-25d1-43b0-ae86-e917f0b21177"
+      },
+      "name": "Gadget",
+      "id": "k8DKwdO51huPwLV7SF9S",
+      "posts": [
+        {
+          "isNegotiable": true,
+          "formattedLocation": {
+            "formattedAddress": "71430 Lassier Rd, Bruce Township, MI 48065, USA",
+            "lat": 42.819,
+            "lng": -83.0628
+          },
+          "id": "5igb0Njh3ZnBCv8ji33p",
+          "createdAt": { "_seconds": 1552825305, "_nanoseconds": 890000000 },
+          "title": "Pulse 3",
+          "location": { "_latitude": 42.819, "_longitude": -83.0628 },
+          "slug": "pulse-3",
+          "price": 100,
+          "geohash": "dpsgtfgwb2",
+          "condition": false,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_8697f5d11e39011d532ee41cc60b5b6e.jpg?alt=media&token=768736fb-9918-4bb6-b7f6-c2b069f2ddf0",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/8697f5d11e39011d532ee41cc60b5b6e.jpg?alt=media&token=768736fb-9918-4bb6-b7f6-c2b069f2ddf0"
+          }
+        },
+        {
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_871039551b9f517e7bb33b7bb6c184eb.jpg?alt=media&token=b67a400d-c95b-4966-be55-b76b9c05ec97",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/871039551b9f517e7bb33b7bb6c184eb.jpg?alt=media&token=b67a400d-c95b-4966-be55-b76b9c05ec97"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 51.5188,
+            "lng": -0.0848,
+            "formattedAddress": "5 Finsbury Ave, London EC2M 2PG, UK"
+          },
+          "id": "MhJdQ18Lknl4wC9ui0AE",
+          "createdAt": { "_seconds": 1552825447, "_nanoseconds": 47000000 },
+          "title": "Bose Earphones",
+          "location": { "_latitude": 51.5188, "_longitude": -0.0848 },
+          "slug": "bose-earphones",
+          "price": 50,
+          "geohash": "gcpvn4dqb0"
+        },
+        {
+          "id": "Oz6fOltgcw5Dx0auiDUj",
+          "createdAt": { "_seconds": 1552825600, "_nanoseconds": 132000000 },
+          "title": "Z1R Premium Headphones",
+          "location": { "_longitude": 11.5847, "_latitude": 48.1381 },
+          "slug": "z1r-premium-headphones",
+          "price": 150,
+          "geohash": "u281ze78z0",
+          "condition": false,
+          "status": "publish",
+          "image": {
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/ee4de7754ba2cd24853bc1b6667677f6.jpg?alt=media&token=8187f8d5-cf97-47c6-8f90-1353f5577e2a",
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_ee4de7754ba2cd24853bc1b6667677f6.jpg?alt=media&token=8187f8d5-cf97-47c6-8f90-1353f5577e2a"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "formattedAddress": "Thomas-Wimmer-Ring, 80539 München, Germany",
+            "lat": 48.1381,
+            "lng": 11.5847
+          }
+        },
+        {
+          "price": 95,
+          "geohash": "r3grsm7suy",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_41c8f66dc5acad917694256a34853406.jpg?alt=media&token=a9782ccc-6458-46d8-a156-f8da62c6a559",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/41c8f66dc5acad917694256a34853406.jpg?alt=media&token=a9782ccc-6458-46d8-a156-f8da62c6a559"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lng": 151.0121,
+            "formattedAddress": "88 Ross St, North Parramatta NSW 2151, Australia",
+            "lat": -33.8082
+          },
+          "id": "TGQx0KgdG1y6pfaH7Bce",
+          "createdAt": { "_seconds": 1552825082, "_nanoseconds": 709000000 },
+          "title": "JBL Flip 4",
+          "location": { "_longitude": 151.0121, "_latitude": -33.8082 },
+          "slug": "jbl-flip-4"
+        }
+      ],
+      "updatedAt": { "_nanoseconds": 986000000, "_seconds": 1552904316 }
+    },
+    "lEw0xHGv4aqKnKfuljow": {
+      "id": "lEw0xHGv4aqKnKfuljow",
+      "posts": [
+        {
+          "price": 1250,
+          "geohash": "sr2y7kmqu4",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_nicholas-santoianni-667514-unsplash.jpg?alt=media&token=a93a0764-f390-48cf-abdc-5f5810c13ad0",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/nicholas-santoianni-667514-unsplash.jpg?alt=media&token=a93a0764-f390-48cf-abdc-5f5810c13ad0"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 41.9044,
+            "lng": 12.4549,
+            "formattedAddress": "Unnamed Road, 00120 Città del Vaticano, Vatican City"
+          },
+          "id": "Ckw6RV3dmNcWzmdmsDLP",
+          "createdAt": { "_seconds": 1552825852, "_nanoseconds": 348000000 },
+          "title": "i phone x",
+          "location": { "_latitude": 41.9044, "_longitude": 12.4549 },
+          "slug": "i-phone-x"
+        },
+        {
+          "slug": "galaxy-s9-or",
+          "price": 1200,
+          "geohash": "tuhsv6pgb3",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_christian-wiediger-626857-unsplash.jpg?alt=media&token=061d50b6-7df4-4589-8927-397548dfe1f1",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/christian-wiediger-626857-unsplash.jpg?alt=media&token=061d50b6-7df4-4589-8927-397548dfe1f1"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 23.3466,
+            "lng": 85.3195,
+            "formattedAddress": "F/2, Magistrate Colony, Forest Officers' Colony, Doranda, Ranchi, Jharkhand 834002, India"
+          },
+          "id": "MdEwdoNA8AfnnOeWZvH3",
+          "createdAt": { "_nanoseconds": 256000000, "_seconds": 1552907308 },
+          "title": "Galaxy S9 |",
+          "location": { "_latitude": 23.3466, "_longitude": 85.3195 }
+        },
+        {
+          "id": "EHUNwmVpQG4Iuk8lEB9V",
+          "createdAt": { "_seconds": 1552907449, "_nanoseconds": 816000000 },
+          "title": "I phone 8",
+          "location": { "_latitude": -35.3139, "_longitude": 149.1257 },
+          "slug": "i-phone-8",
+          "price": 1500,
+          "geohash": "r3dp17q18e",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/steven-wei-1406399-unsplash.jpg?alt=media&token=2674b3f3-b8fc-4358-b46a-6289f719e8aa",
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_steven-wei-1406399-unsplash.jpg?alt=media&token=2674b3f3-b8fc-4358-b46a-6289f719e8aa"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "formattedAddress": "1 Hobart Ave, Forrest ACT 2603, Australia",
+            "lat": -35.3139,
+            "lng": 149.1257
+          }
+        },
+        {
+          "slug": "i-phone-xr",
+          "price": 1400,
+          "geohash": "dqcjqk48nh",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_tom-barrett-1428388-unsplash.jpg?alt=media&token=a9457522-7273-4dcd-a75d-f640cab4b42b",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/tom-barrett-1428388-unsplash.jpg?alt=media&token=a9457522-7273-4dcd-a75d-f640cab4b42b"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "formattedAddress": "3238-3240 R St NW, Washington, DC 20007, USA",
+            "lat": 38.9136,
+            "lng": -77.0654
+          },
+          "id": "af6Tjt4rEnGeTKlfooil",
+          "createdAt": { "_seconds": 1552909437, "_nanoseconds": 314000000 },
+          "title": "I phone XR",
+          "location": { "_latitude": 38.9136, "_longitude": -77.0654 }
+        }
+      ],
+      "updatedAt": { "_seconds": 1554981208, "_nanoseconds": 251000000 },
+      "slug": "mobile",
+      "image": {
+        "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/mobile.svg?alt=media&token=8f640f67-e192-4528-a9ef-765f9f121cff"
+      },
+      "name": "Mobile"
+    },
+    "ub06G8j7inNpjhTdpNra": {
+      "posts": [
+        {
+          "price": 125000,
+          "geohash": "sr2ykkgh4z",
+          "condition": false,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_ialicante-mediterranean-homes-475777-unsplash%20(1).jpg?alt=media&token=327ea2fb-1ca6-4cd4-bf55-cd51aad65935",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/ialicante-mediterranean-homes-475777-unsplash%20(1).jpg?alt=media&token=327ea2fb-1ca6-4cd4-bf55-cd51aad65935"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 41.9067,
+            "lng": 12.4957,
+            "formattedAddress": "Via Aureliana, 39, 00187 Roma RM, Italy"
+          },
+          "id": "r7h8wx7aGLOGNX1cN6G7",
+          "createdAt": { "_seconds": 1552135282, "_nanoseconds": 273000000 },
+          "title": "David Villa",
+          "location": { "_longitude": 12.4957, "_latitude": 41.9067 },
+          "slug": "d-1552135281675"
+        },
+        {
+          "slug": "d-1552135378721",
+          "price": 200000,
+          "geohash": "dqcjrj4z5t",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_landscape-4.jpg?alt=media&token=f86a132e-a9b3-4ddb-9a6d-b7230b5db477",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/landscape-4.jpg?alt=media&token=f86a132e-a9b3-4ddb-9a6d-b7230b5db477"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lng": -77.0322,
+            "formattedAddress": "1414 Belmont St NW, Washington, DC 20009, USA",
+            "lat": 38.9203
+          },
+          "id": "4oIbDkvIghPbfh3l6RNt",
+          "createdAt": { "_seconds": 1552135378, "_nanoseconds": 936000000 },
+          "title": "Duplex house",
+          "location": { "_latitude": 38.9203, "_longitude": -77.0322 }
+        },
+        {
+          "condition": false,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_4.jpg?alt=media&token=ac250cbb-13a3-4bde-bcc9-648b15203f93",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/4.jpg?alt=media&token=ac250cbb-13a3-4bde-bcc9-648b15203f93"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 38.912,
+            "lng": -77.0463,
+            "formattedAddress": "2029 Hillyer Pl NW, Washington, DC 20009, USA"
+          },
+          "id": "pbnrCsVqhYDyn3onSf68",
+          "createdAt": { "_seconds": 1552137064, "_nanoseconds": 628000000 },
+          "title": "Solander villa",
+          "location": { "_latitude": 38.912, "_longitude": -77.0463 },
+          "slug": "s",
+          "price": 210000,
+          "geohash": "dqcjqg8wg4"
+        },
+        {
+          "id": "2ymWdLhAEJFUr2Edljuj",
+          "createdAt": { "_seconds": 1552137146, "_nanoseconds": 421000000 },
+          "title": "Davidson Garden",
+          "location": { "_latitude": 51.166, "_longitude": 10.4189 },
+          "slug": "n",
+          "price": 195000,
+          "geohash": "u1p7j46z9c",
+          "condition": false,
+          "status": "publish",
+          "image": {
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/appertment-1.jpg?alt=media&token=ab159687-789f-4766-bc05-28409c140a7a",
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_appertment-1.jpg?alt=media&token=ab159687-789f-4766-bc05-28409c140a7a"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 51.166,
+            "lng": 10.4189,
+            "formattedAddress": "Wiggerstraße 9, 99986 Oberdorla, Germany"
+          }
+        },
+        {
+          "price": 165000,
+          "geohash": "gcpvhc54zj",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_Untitled-1-Recovered.jpg?alt=media&token=b3820062-50c7-419a-b7bd-3b0cbe024bb7",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/Untitled-1-Recovered.jpg?alt=media&token=b3820062-50c7-419a-b7bd-3b0cbe024bb7"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 51.5099,
+            "lng": -0.1384,
+            "formattedAddress": "21 Sackville St, Mayfair, London W1S 3DN, UK"
+          },
+          "id": "Kclc1uNWjn8V7EorKpZp",
+          "createdAt": { "_seconds": 1552137421, "_nanoseconds": 47000000 },
+          "title": "Lake View Apartments",
+          "location": { "_longitude": -0.1384, "_latitude": 51.5099 },
+          "slug": "l"
+        },
+        {
+          "slug": "d-1552137955962",
+          "price": 2300000,
+          "geohash": "gcmzgusjyr",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/24.jpg?alt=media&token=4c813c98-411d-4d13-824b-7ba78d6cf70a",
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_24.jpg?alt=media&token=4c813c98-411d-4d13-824b-7ba78d6cf70a"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 53.4193,
+            "lng": -2.9935,
+            "formattedAddress": "10 Fleming Ct, Liverpool L3 6LE, UK"
+          },
+          "id": "mOLtG1MnVWI6R72sSjGl",
+          "createdAt": { "_seconds": 1552137956, "_nanoseconds": 625000000 },
+          "title": "Sunrise villa",
+          "location": { "_latitude": 53.4193, "_longitude": -2.9935 }
+        },
+        {
+          "slug": "r-1552138305417",
+          "price": 300000,
+          "geohash": "u173zmt929",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_9.jpg?alt=media&token=daac597e-fe1f-4e2e-97b0-a0c027f77f31",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/9.jpg?alt=media&token=daac597e-fe1f-4e2e-97b0-a0c027f77f31"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "formattedAddress": "Oudemanhuispoort, 1012 CZ Amsterdam, Netherlands",
+            "lat": 52.3693,
+            "lng": 4.8965
+          },
+          "id": "cZWfuCjAavQ4LzgSyl9u",
+          "createdAt": { "_seconds": 1552138306, "_nanoseconds": 85000000 },
+          "title": "Royal Palace Villa",
+          "location": { "_latitude": 52.3693, "_longitude": 4.8965 }
+        },
+        {
+          "slug": "sky-view-villa",
+          "price": 300000,
+          "geohash": "9q5bc8cn1d",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_appertment-2.jpg?alt=media&token=579f8d94-010b-4b89-b1c9-ac127e6c14b9",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/appertment-2.jpg?alt=media&token=579f8d94-010b-4b89-b1c9-ac127e6c14b9"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 33.887,
+            "lng": -118.4092,
+            "formattedAddress": "420 15th St, Manhattan Beach, CA 90266, USA"
+          },
+          "id": "l6y7ml4zR9jotrQLxMCJ",
+          "createdAt": { "_seconds": 1552138306, "_nanoseconds": 384000000 },
+          "title": "Sky View Villa",
+          "location": { "_latitude": 33.887, "_longitude": -118.4092 }
+        },
+        {
+          "condition": false,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_17.jpg?alt=media&token=ae4b449a-46c2-4561-b4c8-5531ec4b36c8",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/17.jpg?alt=media&token=ae4b449a-46c2-4561-b4c8-5531ec4b36c8"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 25.2205,
+            "lng": 55.2601,
+            "formattedAddress": "26 51st St - Dubai - United Arab Emirates"
+          },
+          "id": "xYU0YW4bkEpNseGjf3wq",
+          "createdAt": { "_nanoseconds": 543000000, "_seconds": 1552138387 },
+          "title": "Craven cottage",
+          "location": { "_latitude": 25.2205, "_longitude": 55.2601 },
+          "slug": "c-1552138387388",
+          "price": 200000,
+          "geohash": "thrr3rr0j9"
+        },
+        {
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": -33.886,
+            "lng": 151.1707,
+            "formattedAddress": "29 Trafalgar St, Annandale NSW 2038, Australia"
+          },
+          "id": "ZnwLr19aU6ZgqwW8I8Qs",
+          "createdAt": { "_nanoseconds": 320000000, "_seconds": 1552138486 },
+          "title": "Michigan Villa",
+          "location": { "_latitude": -33.886, "_longitude": 151.1707 },
+          "slug": "m",
+          "price": 250000,
+          "geohash": "r3grpzppsx",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_19.jpg?alt=media&token=735a9b2b-5032-47d0-a0f4-5eb348d928bb",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/19.jpg?alt=media&token=735a9b2b-5032-47d0-a0f4-5eb348d928bb"
+          }
+        },
+        {
+          "createdAt": { "_nanoseconds": 51000000, "_seconds": 1552138594 },
+          "title": "Fresh Homes Aparment",
+          "location": { "_latitude": 40.7245, "_longitude": -74.0431 },
+          "slug": "f-1552138593915",
+          "price": 230000,
+          "geohash": "dr5rejemqt",
+          "condition": true,
+          "status": "publish",
+          "image": {
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/21.jpg?alt=media&token=f4bcc3b8-d8d0-4aaf-b9f2-d389cab09186",
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_21.jpg?alt=media&token=f4bcc3b8-d8d0-4aaf-b9f2-d389cab09186"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "formattedAddress": "211 5th St, Jersey City, NJ 07302, USA",
+            "lat": 40.7245,
+            "lng": -74.0431
+          },
+          "id": "0pvCrPAbghiWeMec8UDB"
+        },
+        {
+          "price": 185000,
+          "geohash": "u09tvqx8r3",
+          "condition": false,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_14.jpg?alt=media&token=376cba47-9f0f-4eea-9797-ab67c68dea65",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/14.jpg?alt=media&token=376cba47-9f0f-4eea-9797-ab67c68dea65"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 48.859,
+            "lng": 2.3507,
+            "formattedAddress": "78 Rue Saint-Martin, 75004 Paris, France"
+          },
+          "id": "UipzPZFBwuGIqEbmwL2z",
+          "createdAt": { "_seconds": 1552138687, "_nanoseconds": 925000000 },
+          "title": "Old taunton House",
+          "location": { "_latitude": 48.859, "_longitude": 2.3507 },
+          "slug": "o"
+        },
+        {
+          "price": 230000,
+          "geohash": "dr5ru4y7rt",
+          "condition": false,
+          "status": "publish",
+          "image": {
+            "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/thumb_15.jpg?alt=media&token=4cdb65d6-8947-4f84-a005-8980d028b9b9",
+            "largeUrl": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/15.jpg?alt=media&token=4cdb65d6-8947-4f84-a005-8980d028b9b9"
+          },
+          "isNegotiable": true,
+          "formattedLocation": {
+            "lat": 40.753,
+            "lng": -73.995,
+            "formattedAddress": "333 W 34th St, New York, NY 10001, USA"
+          },
+          "id": "6XZuYsklCI60bZetNv6Z",
+          "createdAt": { "_seconds": 1552138792, "_nanoseconds": 710000000 },
+          "title": "Mason Homes",
+          "location": { "_latitude": 40.753, "_longitude": -73.995 },
+          "slug": "m-1552138792564"
+        }
+      ],
+      "updatedAt": { "_seconds": 1555158665, "_nanoseconds": 655000000 },
+      "slug": "property",
+      "image": {
+        "url": "https://firebasestorage.googleapis.com/v0/b/headless-graphql.appspot.com/o/property.svg?alt=media&token=be6a33cd-3047-4b81-a795-57a18d02091b"
+      },
+      "name": "Property",
+      "id": "ub06G8j7inNpjhTdpNra"
+    }
+  }
+}

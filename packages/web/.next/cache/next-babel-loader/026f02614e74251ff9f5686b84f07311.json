@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport React from 'react';\nimport Head from 'next/head';\n\nconst PageMeta = ({\n  title,\n  description\n}) => __jsx(Head, null, __jsx(\"title\", null, title), __jsx(\"meta\", {\n  name: \"description\",\n  content: description\n}));\n\nexport default PageMeta;","map":null,"metadata":{},"sourceType":"module"}

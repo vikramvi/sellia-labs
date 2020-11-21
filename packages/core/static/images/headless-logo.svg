@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <g id="Group_374" data-name="Group 374" transform="translate(-128 -129)">
+    <g id="Group_373" data-name="Group 373">
+      <rect id="Rectangle_307" data-name="Rectangle 307" width="24" height="4" transform="translate(128 147)" fill="#292929"/>
+      <g id="Rectangle_306" data-name="Rectangle 306" transform="translate(128 129)" fill="none" stroke="#292929" stroke-width="4">
+        <rect width="40" height="40" stroke="none"/>
+        <rect x="2" y="2" width="36" height="36" fill="none"/>
+      </g>
+      <rect id="Rectangle_308" data-name="Rectangle 308" width="4" height="24" transform="translate(140 137)" fill="#292929"/>
+      <rect id="Rectangle_309" data-name="Rectangle 309" width="4" height="24" transform="translate(152 137)" fill="#292929"/>
+    </g>
+    <rect id="Rectangle_310" data-name="Rectangle 310" width="20" height="4" transform="translate(132 147)" fill="#ff5858"/>
+  </g>
+</svg>

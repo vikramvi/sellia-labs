@@ -1,0 +1,23 @@
+{
+  "name": "headless-import-exporter",
+  "version": "1.0.1",
+  "description": "Import and export Headless data to firestore",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sync": "firebase firestore:delete --all-collections --project sellia && node import.js posts.json geo=location && node import.js category.json && node import.js users.json",
+    "export": "node export.js posts && node export.js category && node export.js users"
+  },
+  "keywords": [
+    "firestore",
+    "export",
+    "import"
+  ],
+  "author": "RedQ, Inc",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "firebase-admin": "^8.4.0",
+    "js-yaml": "^3.12.1"
+  }
+}

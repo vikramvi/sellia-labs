@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport React from 'react';\nimport { Progress } from './LoadingIndicator.style';\nexport default function LoadingIndicator() {\n  return __jsx(Progress, null);\n}","map":null,"metadata":{},"sourceType":"module"}
