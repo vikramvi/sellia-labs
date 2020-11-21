@@ -1,0 +1,5 @@
+# Change Log
+
+In this update we have provided the documentation file which was missing previously.
+
+We have fixed the firebase deployment issue. Check the readme.tx file for the instruction if you face any deployment issue.
