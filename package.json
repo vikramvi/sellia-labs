@@ -1,0 +1,51 @@
+{
+  "name": "headless-graphql",
+  "version": "0.0.2",
+  "private": true,
+  "author": "RedQ, Inc.",
+  "devDependencies": {
+    "husky": "^3.0.4",
+    "lerna": "^3.16.4",
+    "lint-staged": "^9.2.4",
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "clean": "lerna clean --yes && rimraf node_modules",
+    "clean:build": "lerna exec -- rimraf \"{.next,dist,out,build,.docz,.cache, public,cloud}\"",
+    "start": "lerna run --parallel dev",
+    "preweb:build": "rm -rf packages/cloud",
+    "preweb:staging": "rm -rf packages/cloud",
+    "web:build": "yarn workspace web run build",
+    "web:staging": "yarn workspace web run buildstaging",
+    "web": "yarn workspace web run dev",
+    "server": "yarn workspace server run dev",
+    "server:build": "babel packages/server --out-dir packages/cloud --ignore packages/server/node_modules && cp packages/server/package.json packages/cloud/ & cp packages/server/.env packages/cloud/ && cp -r \"packages/web/.next\" \"packages/cloud/next\"",
+    "serve": "cd packages/cloud && NODE_ENV=production firebase serve",
+    "deploy": "cd packages/cloud && NODE_ENV=production firebase deploy",
+    "debug": "yarn workspace server run debug",
+    "format": "prettier --trailing-comma es5 --single-quote --write 'packages/*/*.js' 'packages/*/!(node_modules)/**/*.js'"
+  },
+  "resolutions": {
+    "graphql": "^14.5.3",
+    "next": "^9.0.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,md,css}": [
+      "prettier --trailing-comma es5 --single-quote --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "grpc": "^1.24.4"
+  }
+}
