@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { styled } from 'baseui';\nconst Wrapper = styled('form', {\n  position: 'relative'\n});\nexport const Send = styled('div', {\n  paddingLeft: '16px',\n  paddingRight: '16px',\n  display: 'flex',\n  alignItems: 'center',\n  justifyContent: 'center',\n  cursor: 'pointer'\n});\nexport default Wrapper;","map":null,"metadata":{},"sourceType":"module"}

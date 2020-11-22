@@ -6,6 +6,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "@redq/reuse-modal/lib/index.css";
 import "rc-slider/assets/index.css";
 
+import { Provider as StyletronProvider } from "styletron-react";
+import { styletron, debug } from "../../../styletron";
+
 import { theme } from "../theme";
 
 export default class CustomApp extends App {
@@ -13,10 +16,12 @@ export default class CustomApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <ThemeProvider theme={theme}>
-        <>
-          <GlobalStyles />
-          <Component {...pageProps} />
-        </>
+        <StyletronProvider value={styletron} debugAfterHydration>
+          <>
+            <GlobalStyles />
+            <Component {...pageProps} />
+          </>
+        </StyletronProvider>
       </ThemeProvider>
     );
   }

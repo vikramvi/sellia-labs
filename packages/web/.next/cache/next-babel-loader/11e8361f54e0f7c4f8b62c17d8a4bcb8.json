@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport React from 'react';\nimport ContainerArea from './Container.styled';\n\nvar Container = function Container(_ref) {\n  var children = _ref.children;\n  return __jsx(ContainerArea, null, children);\n};\n\nexport default Container;","map":null,"metadata":{},"sourceType":"module"}

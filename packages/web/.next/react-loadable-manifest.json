@@ -1,56 +1,22 @@
 {
+  "./dev/noop": [
+    {
+      "id": "../../node_modules/next/dist/client/dev/noop.js",
+      "file": "static/chunks/0.js"
+    }
+  ],
   "@apollo/react-ssr": [
     {
-      "id": "7nmT",
-      "file": "static/chunks/framework.aae3a82b340e2b1f8f51.js"
+      "id": "../../node_modules/@apollo/react-ssr/lib/react-ssr.esm.js",
+      "file": "static/chunks/1.js"
     },
     {
-      "id": "ERkP",
-      "file": "static/chunks/framework.aae3a82b340e2b1f8f51.js"
+      "id": "../../node_modules/react-dom/cjs/react-dom-server.browser.development.js",
+      "file": "static/chunks/1.js"
     },
     {
-      "id": "Q/r/",
-      "file": "static/chunks/framework.aae3a82b340e2b1f8f51.js"
-    },
-    {
-      "id": "YjNL",
-      "file": "static/chunks/framework.aae3a82b340e2b1f8f51.js"
-    },
-    {
-      "id": "aJbU",
-      "file": "static/chunks/framework.aae3a82b340e2b1f8f51.js"
-    },
-    {
-      "id": "aWzz",
-      "file": "static/chunks/framework.aae3a82b340e2b1f8f51.js"
-    },
-    {
-      "id": "emlf",
-      "file": "static/chunks/framework.aae3a82b340e2b1f8f51.js"
-    },
-    {
-      "id": "hLw4",
-      "file": "static/chunks/framework.aae3a82b340e2b1f8f51.js"
-    },
-    {
-      "id": "hf2P",
-      "file": "static/chunks/framework.aae3a82b340e2b1f8f51.js"
-    },
-    {
-      "id": "jiMj",
-      "file": "static/chunks/framework.aae3a82b340e2b1f8f51.js"
-    },
-    {
-      "id": "w/UT",
-      "file": "static/chunks/framework.aae3a82b340e2b1f8f51.js"
-    },
-    {
-      "id": "1U1M",
-      "file": "static/chunks/507c3902cf9a1fd0d83a34000b064e0f48cb7a95.b74f5dfeaf1baf7a30ad.js"
-    },
-    {
-      "id": "G0jJ",
-      "file": "static/chunks/45.0ac0a2e7314bb8891a5b.js"
+      "id": "../../node_modules/react-dom/server.browser.js",
+      "file": "static/chunks/1.js"
     }
   ]
 }

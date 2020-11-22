@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport React from 'react';\nimport SignInForm from '../../SignInForm';\n\nconst LoginModal = () => {\n  return __jsx(\"div\", {\n    className: \"NoMargin\"\n  }, __jsx(SignInForm, null));\n};\n\nexport default LoginModal;","map":null,"metadata":{},"sourceType":"module"}
