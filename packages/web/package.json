@@ -32,7 +32,6 @@
     "formik": "^1.5.8",
     "fuse.js": "^3.4.5",
     "graphql": "^14.5.3",
-    "graphql-middleware": "^4.0.1",
     "graphql-shield": "^6.0.6",
     "graphql-yoga": "^1.18.3",
     "history": "^4.9.0",
@@ -73,7 +72,15 @@
     "styled-theme": "^0.3.3",
     "winston": "^3.1.0",
     "with-url-state": "^3.0.0-beta.1",
-    "yup": "^0.27.0"
+    "yup": "^0.27.0",
+    "elizabot": "^0.0.3",
+    "react-emoji-render": "^1.2.4",
+    "styletron": "^3.0.4",
+    "styletron-engine-atomic": "^1.4.6",
+    "styletron-react": "^5.2.7",
+    "typescript": "^4.1.2",
+    "@types/react": "^17.0.0",
+    "baseui": "^9.105.0"
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.10.6",

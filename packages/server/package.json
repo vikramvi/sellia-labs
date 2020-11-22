@@ -22,7 +22,6 @@
     "dotenv": "^8.1.0",
     "dotenv-webpack": "^1.7.0",
     "emotion": "^10.0.17",
-    "graphql-middleware": "^4.0.1",
     "graphql-shield": "^6.0.6",
     "graphql-yoga": "^1.18.3",
     "mkdirp-promise": "^5.0.1",
@@ -86,7 +85,15 @@
     "react-with-styles": "^3.2.1",
     "react-with-styles-interface-aphrodite": "^5.0.1",
     "rheostat": "^3.0.1",
-    "styled-system": "^3.1.11"
+    "styled-system": "^3.1.11",
+    "elizabot": "^0.0.3",
+    "react-emoji-render": "^1.2.4",
+    "styletron": "^3.0.4",
+    "styletron-engine-atomic": "^1.4.6",
+    "styletron-react": "^5.2.7",
+    "typescript": "^4.1.2",
+    "@types/react": "^17.0.0",
+    "baseui": "^9.105.0"
   },
   "private": true,
   "engines": {

@@ -5,7 +5,7 @@
   "author": "RedQ, Inc.",
   "devDependencies": {
     "husky": "^3.0.4",
-    "lerna": "^3.16.4",
+    "lerna": "^3.22.1",
     "lint-staged": "^9.2.4",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0"
@@ -23,7 +23,7 @@
     "web:staging": "yarn workspace web run buildstaging",
     "web": "yarn workspace web run dev",
     "server": "yarn workspace server run dev",
-    "server:build": "babel packages/server --out-dir packages/cloud --ignore packages/server/node_modules && cp packages/server/package.json packages/cloud/ & cp packages/server/.env packages/cloud/ && cp -r \"packages/web/.next\" \"packages/cloud/next\"",
+    "server:build": "babel packages/server --out-dir packages/cloud --ignore packages/server/node_modules && cp packages/server/{package.json,.env} packages/cloud/ && cp -r \"packages/web/.next\" \"packages/cloud/next\"",
     "serve": "cd packages/cloud && NODE_ENV=production firebase serve",
     "deploy": "cd packages/cloud && NODE_ENV=production firebase deploy",
     "debug": "yarn workspace server run debug",
@@ -45,16 +45,6 @@
     ]
   },
   "dependencies": {
-    "@types/react": "^17.0.0",
-    "baseui": "^9.105.0",
-    "dotenv": "^8.1.0",
-    "elizabot": "^0.0.3",
-    "grpc": "^1.24.4",
-    "react-emoji-render": "^1.2.4",
-    "react-image": "^4.0.3",
-    "styletron": "^3.0.4",
-    "styletron-engine-atomic": "^1.4.6",
-    "styletron-react": "^5.2.7",
-    "typescript": "^4.1.2"
+    "dotenv": "^8.1.0"
   }
 }
