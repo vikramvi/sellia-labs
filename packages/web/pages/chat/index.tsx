@@ -1,4 +1,6 @@
 import { NextPage } from "next";
+import { useRouter } from "next/router";
+
 // import dynamic from 'next/dynamic';
 import Head from "next/head";
 import { Block } from "baseui/block";
@@ -15,7 +17,12 @@ import { withApollo } from "../../helpers/apollo";
 // );
 
 export default withApollo(
-  withLayout(function ChatPage() {
+  withLayout(({ userId }) => {
+    const {
+      query: { post },
+    } = useRouter();
+
+    const postData = JSON.parse(post);
     return (
       <>
         <Head>
@@ -25,7 +32,7 @@ export default withApollo(
 
         <Container>
           <Block paddingTop={["15px", "20px", "30px", "40px"]}>
-            <Chat />
+            <Chat currentPost={postData} userId={userId} />
           </Block>
         </Container>
       </>

@@ -1,47 +1,48 @@
-import React, { Fragment, useState } from 'react';
-import Link from 'next/link';
-import Router from 'next/router';
-import Tag, { TagGroup, LabelTag } from '../../../components/TagGroup';
-import { openModal } from '@redq/reuse-modal';
-import ShareModal from '../../ModalContainer/ShareModal';
-import LoginModal from '../../ModalContainer/LoginModal';
-import ContactInfoModal from '../../ModalContainer/ContactInfoModal';
-import { CURRENCY } from '../../../Config';
-import { useMutation } from '@apollo/react-hooks';
-import { HANDLE_FAV } from 'core/graphql/Mutations';
-import AuthHelper from '../../../helpers/authHelper';
-import AddressBox from '../../../components/AddressBox';
-import Text from 'reusecore/src/elements/Text';
-import Icon from '../../../components/Icon';
-import Button from 'reusecore/src/elements/Button';
-import InfoBox from '../../../components/UserInfoBox';
-import ReadMore from '../../../components/Truncate';
+import React, { Fragment, useState } from "react";
+import Link from "next/link";
+import Router from "next/router";
+import Tag, { TagGroup, LabelTag } from "../../../components/TagGroup";
+import { openModal } from "@redq/reuse-modal";
+import ShareModal from "../../ModalContainer/ShareModal";
+import LoginModal from "../../ModalContainer/LoginModal";
+import ContactInfoModal from "../../ModalContainer/ContactInfoModal";
+import { CURRENCY } from "../../../Config";
+import { useMutation } from "@apollo/react-hooks";
+import { HANDLE_FAV } from "core/graphql/Mutations";
+import AuthHelper from "../../../helpers/authHelper";
+import AddressBox from "../../../components/AddressBox";
+import Text from "reusecore/src/elements/Text";
+import Icon from "../../../components/Icon";
+import Button from "reusecore/src/elements/Button";
+import InfoBox from "../../../components/UserInfoBox";
+import ReadMore from "../../../components/Truncate";
 
-import { ADD_POST, SINGLE_CATEGORY_PAGE } from 'core/navigation/constant';
+import { ADD_POST, SINGLE_CATEGORY_PAGE } from "core/navigation/constant";
 
 import {
   DescriptionBlock,
   AlignCenterWrapper,
   InfoBoxWrapper,
   ButtonWrapper,
-} from './description.style';
+} from "./description.style";
+import { json } from "body-parser";
 
-const timeFormatAMPM = date => {
-  return date.toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
+const timeFormatAMPM = (date) => {
+  return date.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
     hour12: true,
   });
 };
 const Description = ({ postData, isLoggedIn, userId }) => {
   let userFavList = [];
   let userNewFavList = [];
-  let publishTime = '';
+  let publishTime = "";
   const [btnLoading, setBtnLoading] = useState(false);
   const favouritedBy =
     postData && postData.favouritedBy ? postData.favouritedBy : [];
   const contactNumber =
-    postData && postData.contactNumber ? postData.contactNumber : '';
+    postData && postData.contactNumber ? postData.contactNumber : "";
   const authorImage =
     postData.author && postData.author.image && postData.author.image.url
       ? postData.author.image.url
@@ -56,7 +57,7 @@ const Description = ({ postData, isLoggedIn, userId }) => {
   }
   const [userFav, setUserfav] = useState(userFavList);
   const isFavourite = (id, favList) => {
-    const favItem = favList.filter(item => item.id === id);
+    const favItem = favList.filter((item) => item.id === id);
     if (favItem.length) {
       return true;
     }
@@ -100,9 +101,9 @@ const Description = ({ postData, isLoggedIn, userId }) => {
       openModal({
         config: {
           disableDragging: false,
-          minHeight: 'auto',
-          width: 'auto',
-          height: 'auto',
+          minHeight: "auto",
+          width: "auto",
+          height: "auto",
           enableResizing: false,
           disableDragging: true,
           transition: {
@@ -110,10 +111,10 @@ const Description = ({ postData, isLoggedIn, userId }) => {
           },
         },
         springStyle: {
-          backgroundColor: '#ffffff',
-          overflowY: 'auto',
+          backgroundColor: "#ffffff",
+          overflowY: "auto",
         },
-        modalClass: 'customModal',
+        modalClass: "customModal",
         closeOnClickOutside: true,
         component: LoginModal,
         componentProps: {},
@@ -153,7 +154,7 @@ const Description = ({ postData, isLoggedIn, userId }) => {
         fontWeight={600}
         color="#333333"
       />
-      <TagGroup marginBottom="25px" style={{ marginTop: 25, width: '100%' }}>
+      <TagGroup marginBottom="25px" style={{ marginTop: 25, width: "100%" }}>
         <LabelTag tagContent={`${CURRENCY} ${postData.price}`} />
         {postData.isNegotiable && (
           <Text
@@ -171,14 +172,14 @@ const Description = ({ postData, isLoggedIn, userId }) => {
           distance={
             postData.distance
               ? `Approximately ${Math.floor(postData.distance)} km away`
-              : ''
+              : ""
           }
           location={
             postData.formattedLocation
               ? postData.formattedLocation.formattedAddress
-              : ''
+              : ""
           }
-          style={{ marginBottom: '20px' }}
+          style={{ marginBottom: "20px" }}
         />
       ) : (
         <p />
@@ -189,15 +190,15 @@ const Description = ({ postData, isLoggedIn, userId }) => {
         iconPosition="left"
         title="Show Contact"
         bg="#30C56D"
-        style={{ marginBottom: 38, width: '100%' }}
+        style={{ marginBottom: 38, width: "100%" }}
         icon={<Icon name="ios-call" fontSize={19} color="#fff" mr={10} />}
         onClick={() =>
           openModal({
             config: {
               disableDragging: false,
-              className: 'contactModal',
-              width: 'auto',
-              height: 'auto',
+              className: "contactModal",
+              width: "auto",
+              height: "auto",
               enableResizing: false,
               disableDragging: true,
               transition: {
@@ -214,6 +215,45 @@ const Description = ({ postData, isLoggedIn, userId }) => {
           })
         }
       />
+
+      <Link
+        href={{
+          pathname: "/chat",
+          query: { post: JSON.stringify(postData) },
+        }}
+      >
+        <a>Chat</a>
+      </Link>
+
+      {/* <Button
+        iconPosition="left"
+        title="Chat"
+        bg="#30C56D"
+        style={{ marginBottom: 38, width: "100%" }}
+        icon={<Icon name="ios-call" fontSize={19} color="#fff" mr={10} />}
+        onClick={() =>
+          openModal({
+            config: {
+              disableDragging: false,
+              className: "contactModal",
+              width: "auto",
+              height: "auto",
+              enableResizing: false,
+              disableDragging: true,
+              transition: {
+                tension: 150,
+              },
+            },
+            closeOnClickOutside: true,
+            component: ContactInfoModal,
+            componentProps: {
+              data: {
+                contactNumber: contactNumber,
+              },
+            },
+          })
+        }
+      /> */}
       <InfoBoxWrapper>
         <InfoBox
           imgWidth="45px"
@@ -223,10 +263,10 @@ const Description = ({ postData, isLoggedIn, userId }) => {
           title={
             postData && postData.author && postData.author.name
               ? postData.author.name
-              : ''
+              : ""
           }
           author={postData.authorId}
-          postedTime={publishTime !== '' ? `Ad posted at ${publishTime}` : ''}
+          postedTime={publishTime !== "" ? `Ad posted at ${publishTime}` : ""}
           style={{
             flexGrow: 1,
           }}
@@ -241,19 +281,19 @@ const Description = ({ postData, isLoggedIn, userId }) => {
             className="outlineButton"
             style={{
               marginRight: 10,
-              borderWidth: '1px',
-              borderStyle: 'solid',
-              borderColor: '#e2e2e2',
-              minHeight: 'auto',
-              minWidth: 'auto',
+              borderWidth: "1px",
+              borderStyle: "solid",
+              borderColor: "#e2e2e2",
+              minHeight: "auto",
+              minWidth: "auto",
             }}
             onClick={() =>
               openModal({
                 config: {
                   disableDragging: false,
-                  className: 'shareModal',
-                  width: 'auto',
-                  height: 'auto',
+                  className: "shareModal",
+                  width: "auto",
+                  height: "auto",
                   enableResizing: false,
                   disableDragging: true,
                   transition: {
@@ -282,17 +322,17 @@ const Description = ({ postData, isLoggedIn, userId }) => {
               <Icon
                 name="ios-heart"
                 fontSize={18}
-                color={isFav ? '#30C56D' : '#8C8C8C'}
+                color={isFav ? "#30C56D" : "#8C8C8C"}
               />
             }
             height={40}
             width={40}
             style={{
-              borderWidth: '1px',
-              borderStyle: 'solid',
-              borderColor: isFav ? '#30C56D' : '#e2e2e2',
-              minHeight: 'auto',
-              minWidth: 'auto',
+              borderWidth: "1px",
+              borderStyle: "solid",
+              borderColor: isFav ? "#30C56D" : "#e2e2e2",
+              minHeight: "auto",
+              minWidth: "auto",
               padding: 0,
             }}
             onClick={handleFavourite}
@@ -306,12 +346,12 @@ const Description = ({ postData, isLoggedIn, userId }) => {
         fontWeight={600}
         color="#333333"
         mb={15}
-        style={{ display: 'inline-block' }}
+        style={{ display: "inline-block" }}
       />
       {postData && (
         <Tag
-          bgColor={postData.condition ? '#00b6ff' : '#30C56D'}
-          tagContent={postData.condition ? 'New' : 'Used'}
+          bgColor={postData.condition ? "#00b6ff" : "#30C56D"}
+          tagContent={postData.condition ? "New" : "Used"}
           size="14px"
           tagColor="#ffffff"
           style={{
@@ -336,8 +376,8 @@ const Description = ({ postData, isLoggedIn, userId }) => {
           title="Edit"
           variant="textButton"
           style={{
-            minHeight: 'auto',
-            minWidth: 'auto',
+            minHeight: "auto",
+            minWidth: "auto",
           }}
           onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
         />
