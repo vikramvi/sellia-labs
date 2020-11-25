@@ -8,7 +8,6 @@ Setup:
 
 Developement:
 
-0) From root directoy, yarn
 1) From root directory, yarn web
 2) From root directory, yarn server
 
