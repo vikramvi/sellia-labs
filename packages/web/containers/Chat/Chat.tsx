@@ -22,9 +22,11 @@ const eliza = new Eliza();
 const Chat = (props) => {
   const { user } = useContext(ChatContext);
 
-  console.log(user);
+  console.log("user ->", user);
 
   const { currentPost, userId } = props;
+
+  const [currentListing, setcurrentListing] = useState({});
 
   const [chats, setChats] = useState([]);
   const [value, setValue] = useState("");
@@ -53,6 +55,7 @@ const Chat = (props) => {
         title: currentPost.title,
         listingID: listingID,
         sellerID: sellerID,
+        image: currentPost.gallery && currentPost.gallery[0],
       },
     };
 
@@ -74,12 +77,13 @@ const Chat = (props) => {
     }
   };
 
-  if (currentPost) {
-    setupCloudChat(currentPost);
-  }
-
   useEffect(() => {
     console.log("useEffect in");
+
+    console.log("currentPost ->", currentPost);
+    if (currentPost) {
+      setupCloudChat(currentPost);
+    }
 
     const setReply = () => {
       const reply = eliza.transform(value);
@@ -107,19 +111,30 @@ const Chat = (props) => {
     setListen(true);
 
     //send to firebase chat
-    await chatdb.ref("chats/" + generalChannel).push({
-      content: message,
-      timestamp: Date.now(),
-      uid: 21,
-      sellerID: email.sellerID,
-      listingID: email.listingID,
-      author: firstName || companyEmail,
-      fromID: companyEmail,
-    });
+    if (currentListing) {
+      await chatdb.ref("chats/" + currentListing.chatId).push({
+        message: value,
+        timestamp: Date.now(),
+        uid: userId,
+        listingID: currentPost.id,
+      });
+    }
   };
 
   const resetChat = () => {
     setChats([]);
+  };
+
+  const onListingSelect = (item) => {
+    setcurrentListing(item);
+    chatdb.ref("chats/" + item.chatId).on("value", (snapshot) => {
+      let chats = [];
+      snapshot.forEach((snap) => {
+        chats.push(snap.val());
+      });
+      console.log("snapshot ->", chats);
+      setChats(chats);
+    });
   };
 
   return (
@@ -130,6 +145,7 @@ const Chat = (props) => {
             userId={userId}
             resetChat={resetChat}
             setToggleSidebar={setToggleSidebar}
+            onListingSelect={onListingSelect}
           />
         </Sidebar>
         <Message>

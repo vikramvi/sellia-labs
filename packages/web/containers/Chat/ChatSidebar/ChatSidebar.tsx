@@ -16,12 +16,18 @@ import {
 import { chatData } from "../../../data/chatApp";
 import { chatdb } from "../../../helpers/init";
 
-const ChatSidebar = ({ setToggleSidebar, resetChat, userId }) => {
+const ChatSidebar = ({
+  setToggleSidebar,
+  resetChat,
+  userId,
+  onListingSelect,
+}) => {
   const [data, setData] = useState([]);
   const [text, setText] = useState("");
   const { user, handleSelectedUser } = useContext(ChatContext);
   const handleOnClick = (item) => {
     setToggleSidebar(false);
+    onListingSelect(item);
     handleSelectedUser(item);
     resetChat();
   };
@@ -65,7 +71,7 @@ const ChatSidebar = ({ setToggleSidebar, resetChat, userId }) => {
             $isActive={item.id === user.id}
             onClick={() => handleOnClick(item)}
           >
-            <UserListItemImage src={item.image} alt={item.name} />
+            <UserListItemImage src={item.image.largeUrl} alt={item.name} />
             <UserListItemInfo>
               <UserName>{item.title}</UserName>
               <UserMessage>{item.from}</UserMessage>
