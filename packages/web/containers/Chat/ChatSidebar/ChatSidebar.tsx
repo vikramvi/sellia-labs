@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { ChatContext } from "../ChatContext";
 import {
@@ -14,9 +14,10 @@ import {
 } from "./ChatSidebar.styled";
 // demo data
 import { chatData } from "../../../data/chatApp";
+import { chatdb } from "../../../helpers/init";
 
-const ChatSidebar = ({ setToggleSidebar, resetChat }) => {
-  const [data, setData] = useState(chatData);
+const ChatSidebar = ({ setToggleSidebar, resetChat, userId }) => {
+  const [data, setData] = useState([]);
   const [text, setText] = useState("");
   const { user, handleSelectedUser } = useContext(ChatContext);
   const handleOnClick = (item) => {
@@ -25,8 +26,24 @@ const ChatSidebar = ({ setToggleSidebar, resetChat }) => {
     resetChat();
   };
 
+  //listen users_chat
+  useEffect(() => {
+    console.log("listen userId ->", userId);
+    chatdb.ref("user_chats/" + userId).on("value", (snapshot) => {
+      let chats = [];
+      snapshot.forEach((snap) => {
+        console.log("snapshot -->", snapshot.val());
+
+        chats.push(snap.val());
+      });
+
+      console.log("chats -->", chats);
+      setData(chats);
+    });
+  }, []);
+
   const filteredUser = data.filter((item) =>
-    item.name.toLowerCase().includes(text.toLowerCase())
+    item.from.toLowerCase().includes(text.toLowerCase())
   );
 
   return (
@@ -38,7 +55,7 @@ const ChatSidebar = ({ setToggleSidebar, resetChat }) => {
         <Input
           onChange={(e) => setText(e.target.value)}
           type="text"
-          placeholder="Search Friend"
+          placeholder="Search"
         />
       </SearchInput>
       <UserList>
@@ -50,8 +67,8 @@ const ChatSidebar = ({ setToggleSidebar, resetChat }) => {
           >
             <UserListItemImage src={item.image} alt={item.name} />
             <UserListItemInfo>
-              <UserName>{item.name}</UserName>
-              <UserMessage>{item.message}</UserMessage>
+              <UserName>{item.title}</UserName>
+              <UserMessage>{item.from}</UserMessage>
             </UserListItemInfo>
           </UserListItem>
         ))}

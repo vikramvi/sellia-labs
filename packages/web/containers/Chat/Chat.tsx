@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Eliza from "elizabot";
 import { BsArrowLeft } from "react-icons/bs";
 import ChatProvider from "./ChatContext";
@@ -15,10 +15,17 @@ import Wrapper, {
   Footer,
 } from "./Chat.styled";
 import { chatdb } from "../../helpers/init";
+import { ChatContext } from "./ChatContext";
 
 const eliza = new Eliza();
 
-const Chat = ({ currentPost, userId }) => {
+const Chat = (props) => {
+  const { user } = useContext(ChatContext);
+
+  console.log(user);
+
+  const { currentPost, userId } = props;
+
   const [chats, setChats] = useState([]);
   const [value, setValue] = useState("");
   const [listen, setListen] = useState(false);
@@ -72,6 +79,8 @@ const Chat = ({ currentPost, userId }) => {
   }
 
   useEffect(() => {
+    console.log("useEffect in");
+
     const setReply = () => {
       const reply = eliza.transform(value);
       chats.push({ id: Date.now(), type: "eliza", message: reply });
@@ -118,6 +127,7 @@ const Chat = ({ currentPost, userId }) => {
       <Wrapper>
         <Sidebar $isActive={toggleSidebar}>
           <ChatSidebar
+            userId={userId}
             resetChat={resetChat}
             setToggleSidebar={setToggleSidebar}
           />

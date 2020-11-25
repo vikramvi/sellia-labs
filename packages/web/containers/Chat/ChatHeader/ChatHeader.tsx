@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import { BsBell } from 'react-icons/bs';
-import { ChatContext } from '../ChatContext';
+import React, { useContext } from "react";
+import { BsBell } from "react-icons/bs";
+import { ChatContext } from "../ChatContext";
 import Wrapper, {
   User,
   Image,
@@ -8,7 +8,7 @@ import Wrapper, {
   Name,
   Indicator,
   Button,
-} from './ChatHeader.styled';
+} from "./ChatHeader.styled";
 
 const ChatHeader = () => {
   const { user } = useContext(ChatContext);
@@ -17,7 +17,7 @@ const ChatHeader = () => {
       <User>
         <Image src={user.image} alt={user.name} />
         <Info>
-          <Name>{user.name}</Name>
+          <Name>{user.from}</Name>
           {user.isActive && <Indicator />}
         </Info>
       </User>
