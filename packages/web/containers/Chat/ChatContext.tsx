@@ -14,17 +14,7 @@ interface ContextProps {
 export const ChatContext = React.createContext({} as ContextProps);
 
 const ChatProvider = (props) => {
-  const [user, setUser] = useState<any>({
-    from: "Terry White",
-    listingID: "0pvCrPAbghiWeMec8UDB",
-    sellerID: "Wp9vIwTYgDYt5vPbwAFQP5FrGMQ2",
-    title: "Fresh Homes Aparment",
-
-    id: "1",
-    image: "https://uifaces.co/our-content/donated/xZ4wg2Xj.jpg",
-    message: "Nice to meet you!",
-    isActive: true,
-  });
+  const [user, setUser] = useState<any>();
 
   const handleSelectedUser = (data) => {
     setUser(data);

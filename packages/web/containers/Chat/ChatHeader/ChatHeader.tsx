@@ -12,16 +12,17 @@ import Wrapper, {
 
 const ChatHeader = () => {
   const { user } = useContext(ChatContext);
-  console.log("setting ->", user.image.largeUrl);
   return (
     <Wrapper>
-      <User>
-        <Image src={user.image.largeUrl} alt={user.name} />
-        <Info>
-          <Name>{user.title}</Name>
-          {user.isActive && <Indicator />}
-        </Info>
-      </User>
+      {user && (
+        <User>
+          <Image src={user && user.image.largeUrl} alt={user.name} />
+          <Info>
+            <Name>{user && user.title}</Name>
+            {user && user.isActive && <Indicator />}
+          </Info>
+        </User>
+      )}
       <Button>
         <BsBell />
       </Button>

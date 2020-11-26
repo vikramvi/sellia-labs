@@ -71,7 +71,7 @@ var corsOptions = {
   origin: process.env.APP_FRONT_END_URL,
   credentials: true, // <-- REQUIRED backend setting
 };
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 server.start(options, ({ port }) =>

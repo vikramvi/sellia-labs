@@ -68,7 +68,7 @@ const ChatSidebar = ({
         {filteredUser.map((item) => (
           <UserListItem
             key={`user-item--${item.id}`}
-            $isActive={item.id === user.id}
+            $isActive={false}
             onClick={() => handleOnClick(item)}
           >
             <UserListItemImage src={item.image.largeUrl} alt={item.name} />
