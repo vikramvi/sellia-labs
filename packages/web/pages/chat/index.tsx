@@ -22,14 +22,9 @@ export default withApollo(
       query: { post },
     } = useRouter();
 
-    const postData = JSON.parse(post);
+    const postData = post && JSON.parse(post);
     return (
       <>
-        <Head>
-          <title>Chat | INST.</title>
-          <meta name="Description" content="Inst chat app ui" />
-        </Head>
-
         <Container>
           <Block paddingTop={["15px", "20px", "30px", "40px"]}>
             <Chat currentPost={postData} userId={userId} />

@@ -56,12 +56,9 @@ const Chat = (props) => {
         listingID: listingID,
         sellerID: sellerID,
         image: currentPost.gallery && currentPost.gallery[0],
+        from: from ? from : "",
       },
     };
-
-    if (from) {
-      chatNode[chat_id].from = from;
-    }
 
     console.log(chatNode);
 
@@ -110,13 +107,17 @@ const Chat = (props) => {
     setValue("");
     setListen(true);
 
+    console.log("currentListing -->", currentListing);
+
     //send to firebase chat
     if (currentListing) {
       await chatdb.ref("chats/" + currentListing.chatId).push({
         message: value,
         timestamp: Date.now(),
         uid: userId,
-        listingID: currentPost.id,
+        listingID: currentListing.listingID
+          ? currentListing.listingID
+          : currentListing.id,
       });
     }
   };
