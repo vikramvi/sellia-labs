@@ -1,10 +1,10 @@
-import React from 'react';
-import Link from 'next/link';
-import Button from 'reusecore/src/elements/Button';
-import DropdownMenu from '../DropdownMenu';
-import Image from 'react-image';
-import { MenuWrapper, MenuItemWrapper } from './style';
-import profileImg from 'core/static/images/user-placeholder.svg';
+import React from "react";
+import Link from "next/link";
+import Button from "reusecore/src/elements/Button";
+import DropdownMenu from "../DropdownMenu";
+import Image from "react-image";
+import { MenuWrapper, MenuItemWrapper } from "./style";
+import profileImg from "core/static/images/user-placeholder.svg";
 import {
   HOME_PAGE,
   SEARCH_PAGE,
@@ -15,8 +15,9 @@ import {
   SIGNIN_PAGE,
   ADD_POST,
   ACCOUNT_SETTING_PAGE,
-} from 'core/navigation/constant';
-const imageStyle = { width: 40, height: 40, borderRadius: '50%' };
+  CHAT_PAGE,
+} from "core/navigation/constant";
+const imageStyle = { width: 40, height: 40, borderRadius: "50%" };
 
 const DROPDOWN_MENU_ITEMS = [
   <Link href={SEARCH_PAGE}>
@@ -46,6 +47,9 @@ const Menu = ({
     <Link href={`${PROFILE_PAGE}/[username]`} as={`${PROFILE_PAGE}/${userId}`}>
       <a>Profile</a>
     </Link>,
+    <Link href={`${CHAT_PAGE}`}>
+      <a>Inbox</a>
+    </Link>,
     <Link href={`${ACCOUNT_SETTING_PAGE}?view=edit-profile`}>
       <a>Account Setting</a>
     </Link>,
@@ -56,11 +60,11 @@ const Menu = ({
       width={1}
       color="#EF5A5A"
       style={{
-        minHeight: 'auto',
-        minWidth: 'auto',
-        textDecoration: 'none',
-        justifyContent: 'flex-start',
-        marginLeft: '-4px',
+        minHeight: "auto",
+        minWidth: "auto",
+        textDecoration: "none",
+        justifyContent: "flex-start",
+        marginLeft: "-4px",
       }}
     />,
   ];

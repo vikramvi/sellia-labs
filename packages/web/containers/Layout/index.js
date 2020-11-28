@@ -192,7 +192,7 @@ export default ({
                     href={`${PROFILE_PAGE}/[username]`}
                     as={`${PROFILE_PAGE}/${userId}`}
                   >
-                    <a>Profile changes</a>
+                    <a>Profile</a>
                   </Link>
                 </DrawerLink>
 

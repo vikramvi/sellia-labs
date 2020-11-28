@@ -40,7 +40,7 @@ export default withApollo(
     return (
       <>
         <PageMeta
-          title="Headless GraphQL"
+          title="Sellia - Marketplace"
           description="Place where you can buy &amp; sell products"
         />
         <Card as="section" {...bannerStyle}>
