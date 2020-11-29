@@ -11,6 +11,8 @@ import CategoryPost from "../containers/Home/Categories";
 import withLayout from "../hoc/withLayout";
 import PageMeta from "../components/PageMeta";
 import { withApollo } from "../helpers/apollo";
+import SecretPage from "../hoc/secretPage";
+
 // Static Images
 import BannerImage from "core/static/images/banner.png";
 
@@ -35,40 +37,40 @@ const bannerStyle = {
   backgroundPosition: "bottom center",
 };
 
-export default withApollo(
-  withLayout(({ location, ...props }) => {
-    return (
-      <>
-        <PageMeta
-          title="Sellia - Marketplace"
-          description="Place where you can buy &amp; sell products"
-        />
-        <Card as="section" {...bannerStyle}>
-          <Grid style={{ padding: 0 }}>
-            <InfoBlock
-              className="banner-infoblock"
-              title="Sellia - Market place for Professionals"
-              description="Buy and sell everything from used cars to mobile phones and computers, or search for property, jobs and more around the world. Easily post your Ad and share the Ad in any social media. 🎁"
-              textAlign="center"
-              style={{ paddingLeft: "2rem", paddingRight: "2rem" }}
-            />
-            <TextSearch />
-            <CategoryPost />
-          </Grid>
-        </Card>
+const FeedPage = withLayout(({ location, ...props }) => {
+  return (
+    <>
+      <PageMeta
+        title="Sellia - Marketplace"
+        description="Place where you can buy &amp; sell products"
+      />
+      <Card as="section" {...bannerStyle}>
+        <Grid style={{ padding: 0 }}>
+          <InfoBlock
+            className="banner-infoblock"
+            title="Sellia - Market place for Professionals"
+            description="Buy and sell everything from used cars to mobile phones and computers, or search for property, jobs and more around the world. Easily post your Ad and share the Ad in any social media. 🎁"
+            textAlign="center"
+            style={{ paddingLeft: "2rem", paddingRight: "2rem" }}
+          />
+          <TextSearch />
+          <CategoryPost />
+        </Grid>
+      </Card>
 
-        <Box as="section" pt={60} pb={0}>
-          <Grid>
-            <RecentPost />
-          </Grid>
-        </Box>
+      <Box as="section" pt={60} pb={0}>
+        <Grid>
+          <RecentPost />
+        </Grid>
+      </Box>
 
-        <Box as="section" pt={60} pb={40}>
-          <Grid>
-            <NearestPost location={location} />
-          </Grid>
-        </Box>
-      </>
-    );
-  })
-);
+      <Box as="section" pt={60} pb={40}>
+        <Grid>
+          <NearestPost location={location} />
+        </Grid>
+      </Box>
+    </>
+  );
+});
+
+export default withApollo(SecretPage(FeedPage));

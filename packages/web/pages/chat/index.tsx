@@ -10,30 +10,31 @@ import Chat from "../../containers/Chat/Chat";
 import withLayout from "../../hoc/withLayout";
 import PageMeta from "../../components/PageMeta";
 import { withApollo } from "../../helpers/apollo";
+import SecretPage from "../../hoc/secretPage";
 
 // const DynamicChatWithNoSSR = dynamic(
 //   () => import('../containers/Chat/Chat'),
 //   { ssr: false }
 // );
 
-export default withApollo(
-  withLayout(({ userId }) => {
-    const {
-      query: { post },
-    } = useRouter();
+const ChatPage = withLayout(({ userId }) => {
+  const {
+    query: { post },
+  } = useRouter();
 
-    const postData = post && JSON.parse(post);
-    return (
-      <>
-        <Container>
-          <Block paddingTop={["15px", "20px", "30px", "40px"]}>
-            <Chat currentPost={postData} userId={userId} />
-          </Block>
-        </Container>
-      </>
-    );
-  })
-);
+  const postData = post && JSON.parse(post);
+  return (
+    <>
+      <Container>
+        <Block paddingTop={["15px", "20px", "30px", "40px"]}>
+          <Chat currentPost={postData} userId={userId} />
+        </Block>
+      </Container>
+    </>
+  );
+});
+
+export default withApollo(SecretPage(ChatPage));
 
 // const ChatPage: NextPage<{}> = () => {
 //   return (
