@@ -19,6 +19,7 @@ const ChatHeader = () => {
           <Image src={user && user.image.largeUrl} alt={user.name} />
           <Info>
             <Name>{user && user.title}</Name>
+
             {user && user.isActive && <Indicator />}
           </Info>
         </User>
