@@ -37,11 +37,6 @@
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/chunks/pages/signin.js"
-    ],
-    "/signup": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/signup.js"
     ]
   },
   "ampFirstPages": []
