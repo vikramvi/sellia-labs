@@ -20,7 +20,7 @@ import redirect from "../../helpers/redirect";
 
 const SignupEnhancher = withFormik({
   enableReinitialize: true,
-  mapPropsToValues: (props) => ({ email: "", password: "" }),
+  mapPropsToValues: (props) => ({ name: "", email: "", password: "" }),
   validationSchema: Yup.object().shape({
     email: Yup.string()
       .email("Invalid email address")
@@ -44,10 +44,11 @@ const SignUpForm = ({
   handleSubmit = async () => {
     setLoading(true);
     if (!Object.keys(errors).length) {
-      const { email, password } = values;
+      const { name, email, password } = values;
       const provider = "password";
-      const { user, error } = await AuthHelper.signUp(
+      const { user, error } = await AuthHelper.signupWithEmail(
         provider,
+        name,
         email,
         password
       );
@@ -70,9 +71,9 @@ const SignUpForm = ({
           if (res && res.data && res.data.register) {
             setLoading(false);
             const user = res.data.register;
-            setFirebaseCookie("id_token", token);
-            setFirebaseCookie("user", { ...user });
-            // redirect({}, '/');
+            // setFirebaseCookie("id_token", token);
+            // setFirebaseCookie("user", { ...user });
+            redirect({}, "/signin");
           }
         }
       } catch (error) {
@@ -86,6 +87,26 @@ const SignUpForm = ({
       <AuthHeader />
 
       {/* signup form */}
+
+      <FormGroup className={errors.email ? "hasErrorMsg" : ""}>
+        <Input
+          elementType="input"
+          elementConfig={{
+            type: "name",
+          }}
+          value={values.name}
+          error={errors.name}
+          touched={touched}
+          label="Name"
+          onBlur={handleBlur("name")}
+          changed={handleChange("name")}
+          highlightColor="#f09"
+        />
+        <span className="errorMsg">
+          {errors.name && touched.name && errors.name}
+        </span>
+      </FormGroup>
+
       <FormGroup className={errors.email ? "hasErrorMsg" : ""}>
         <Input
           elementType="input"

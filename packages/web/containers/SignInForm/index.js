@@ -71,6 +71,7 @@ const SignInForm = ({
 
   useEffect(() => {
     (async function() {
+      console.log("res.data.login ->", values.token);
       try {
         if (values.token) {
           const res = await loginMutation({
@@ -79,6 +80,7 @@ const SignInForm = ({
           if (res && res.data && res.data.login) {
             setLoading(false);
             const user = res.data.login;
+
             setFirebaseCookie("id_token", values.token);
             setFirebaseCookie("user", { ...user });
             redirect({}, "/");

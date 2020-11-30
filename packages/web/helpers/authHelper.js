@@ -1,3 +1,4 @@
+import { async } from "regenerator-runtime";
 import { firebaseAuth } from "./init";
 import { setFirebaseCookie } from "./session";
 
@@ -7,22 +8,51 @@ import { setFirebaseCookie } from "./session";
 class AuthHelper {
   constructor() {}
 
-  signUp = async (provider, email, password) => {
+  signupWithEmail = async (provider, name, email, password) => {
+    try {
+      //create user
+      const result = await firebaseAuth().createUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      //update profile
+      await firebaseAuth().currentUser.updateProfile({
+        displayName: name,
+      });
+
+      // send verfication email
+      firebaseAuth().currentUser.sendEmailVerification();
+
+      return result;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  signUp = async (provider, name, email, password) => {
     try {
       switch (provider) {
         case "password":
-          return new Promise((resolve, reject) => {
-            firebaseAuth()
-              .createUserWithEmailAndPassword(email, password)
-              .then((result) => {
-                //send verfication email
-                // firebaseAuth().currentUser.sendEmailVerification();
-                resolve(result);
-              })
-              .catch((error) => {
-                resolve({ error });
-              });
-          });
+        //   return new Promise((resolve, reject) => {
+
+        //     try {
+        //     //create user
+        //     const result = await firebaseAuth().createUserWithEmailAndPassword(email, password)
+
+        //      //update profile
+        //      await firebaseAuth().currentUser.updateProfile({
+        //       displayName: name
+        //     })
+
+        //      // send verfication email
+        //      firebaseAuth().currentUser.sendEmailVerification();
+
+        //      resolve(result);
+        //   } catch(error) {
+        //     reject({ error });
+        //   }
+        // });
       }
     } catch (error) {
       console.log(error);
