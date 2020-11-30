@@ -26,6 +26,8 @@ const ChatSidebar = ({
   const [text, setText] = useState("");
   const { user, handleSelectedUser } = useContext(ChatContext);
   const handleOnClick = (item) => {
+    console.log("handleOnClick ->", item);
+
     setToggleSidebar(false);
     onListingSelect(item);
     handleSelectedUser(item);
@@ -37,9 +39,9 @@ const ChatSidebar = ({
     console.log("listen userId ->", userId);
     chatdb.ref("user_chats/" + userId).on("value", (snapshot) => {
       let chats = [];
-      snapshot.forEach((snap) => {
-        console.log("snapshot -->", snapshot.val());
+      console.log("snapshot -->", snapshot.val());
 
+      snapshot.forEach((snap) => {
         chats.push(snap.val());
       });
 
@@ -65,19 +67,21 @@ const ChatSidebar = ({
         />
       </SearchInput>
       <UserList>
-        {filteredUser.map((item) => (
-          <UserListItem
-            key={`user-item--${item.id}`}
-            $isActive={false}
-            onClick={() => handleOnClick(item)}
-          >
-            <UserListItemImage src={item.image.largeUrl} alt={item.name} />
-            <UserListItemInfo>
-              <UserName>{item.title}</UserName>
-              <UserMessage>{item.from}</UserMessage>
-            </UserListItemInfo>
-          </UserListItem>
-        ))}
+        {filteredUser.map((item) => {
+          return (
+            <UserListItem
+              key={`user-item--${item.listingID}`}
+              $isActive={item.listingID === (user && user.listingID)}
+              onClick={() => handleOnClick(item)}
+            >
+              <UserListItemImage src={item.image.largeUrl} alt={item.name} />
+              <UserListItemInfo>
+                <UserName>{item.title}</UserName>
+                <UserMessage>{item.from}</UserMessage>
+              </UserListItemInfo>
+            </UserListItem>
+          );
+        })}
       </UserList>
     </>
   );

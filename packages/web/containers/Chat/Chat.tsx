@@ -110,18 +110,22 @@ const Chat = (props) => {
   };
 
   const resetChat = () => {
-    setChats([]);
+    console.log("resetChat ->");
+    // setChats([]);
   };
 
   const onListingSelect = (item) => {
     setcurrentListing(item);
     chatdb.ref("chats/" + item.chatId).on("value", (snapshot) => {
-      let chats = [];
+      let arrChat = [];
       snapshot.forEach((snap) => {
-        chats.push(snap.val());
+        arrChat.push(snap.val());
       });
-      console.log("snapshot ->", chats);
-      setChats(chats);
+      console.log("snapshot ->", arrChat);
+      setChats([...arrChat]);
+      // scroll to bottom
+      const chatBody = document.getElementById("chatBody");
+      chatBody.scrollTop = chatBody.scrollHeight;
     });
   };
 

@@ -1,13 +1,17 @@
-import React from 'react';
-import Emoji from 'react-emoji-render';
-import Response from './ShowChats.styled';
+import React, { useContext } from "react";
+import Emoji from "react-emoji-render";
+import Response from "./ShowChats.styled";
+import { ChatContext } from "../ChatContext";
 
 const ShowChats = ({ chats }) => {
+  const { user } = useContext(ChatContext);
+
   return (
     <>
+      {console.log("new chat", chats)}
       {chats && chats.length
         ? chats.map((chat, index) => (
-            <Response key={index} $authorType={chat.type}>
+            <Response key={index} $authorTypeMe={chat.uid === user.id}>
               <Emoji text={chat.message} />
             </Response>
           ))
