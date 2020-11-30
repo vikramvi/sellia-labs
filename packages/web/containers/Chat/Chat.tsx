@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import Eliza from "elizabot";
 import { BsArrowLeft } from "react-icons/bs";
 import ChatProvider from "./ChatContext";
 import ChatSidebar from "./ChatSidebar/ChatSidebar";
@@ -17,8 +16,6 @@ import Wrapper, {
 import { chatdb } from "../../helpers/init";
 import { ChatContext } from "./ChatContext";
 
-const eliza = new Eliza();
-
 const Chat = (props) => {
   const { user } = useContext(ChatContext);
 
@@ -26,7 +23,7 @@ const Chat = (props) => {
 
   const { currentPost, userId } = props;
 
-  const [currentListing, setcurrentListing] = useState({});
+  const [currentListing, setcurrentListing] = useState(null);
 
   const [chats, setChats] = useState([]);
   const [value, setValue] = useState("");
@@ -82,20 +79,10 @@ const Chat = (props) => {
       setupCloudChat(currentPost);
     }
 
-    const setReply = () => {
-      const reply = eliza.transform(value);
-      chats.push({ id: Date.now(), type: "eliza", message: reply });
-      setChats([...chats]);
-      setListen(false);
-    };
-    setTimeout(() => {
-      if (listen) setReply();
-    }, 1000);
-
     // scroll to bottom
     const chatBody = document.getElementById("chatBody");
     chatBody.scrollTop = chatBody.scrollHeight;
-  }, [listen]);
+  }, []);
 
   const handleChat = async (e) => {
     e.preventDefault();

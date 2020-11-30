@@ -1,5 +1,5 @@
-import { firebaseAuth } from './init';
-import { setFirebaseCookie } from './session';
+import { firebaseAuth } from "./init";
+import { setFirebaseCookie } from "./session";
 
 /**
  * Firebase Authentication helper functions
@@ -10,14 +10,16 @@ class AuthHelper {
   signUp = async (provider, email, password) => {
     try {
       switch (provider) {
-        case 'password':
+        case "password":
           return new Promise((resolve, reject) => {
             firebaseAuth()
               .createUserWithEmailAndPassword(email, password)
-              .then(result => {
+              .then((result) => {
+                //send verfication email
+                // firebaseAuth().currentUser.sendEmailVerification();
                 resolve(result);
               })
-              .catch(error => {
+              .catch((error) => {
                 resolve({ error });
               });
           });
@@ -27,20 +29,20 @@ class AuthHelper {
     }
   };
 
-  forgetPass = async email => {
+  forgetPass = async (email) => {
     return new Promise((resolve, reject) => {
       firebaseAuth()
         .sendPasswordResetEmail(email)
-        .then(result => {
+        .then((result) => {
           resolve(true);
         })
-        .catch(error => {
+        .catch((error) => {
           resolve({ error });
         });
     });
   };
 
-  reauthenticate = async currentPassword => {
+  reauthenticate = async (currentPassword) => {
     var user = firebaseAuth().currentUser;
     var cred = firebaseAuth.EmailAuthProvider.credential(
       user.email,
@@ -60,11 +62,11 @@ class AuthHelper {
               .then(() => {
                 resolve(true);
               })
-              .catch(error => {
+              .catch((error) => {
                 resolve({ error });
               });
           })
-          .catch(error => {
+          .catch((error) => {
             resolve({ error });
           });
       } catch (error) {
@@ -80,36 +82,37 @@ class AuthHelper {
   ) => {
     try {
       switch (provider) {
-        case 'password':
+        case "password":
           return new Promise((resolve, reject) => {
             firebaseAuth()
               .signInWithEmailAndPassword(email, password)
-              .then(result => {
+              .then((result) => {
+                console.log("sign in ->", JSON.stringify(result));
                 resolve(result);
               })
-              .catch(error => {
+              .catch((error) => {
                 resolve({ error });
               });
           });
-        case 'google':
+        case "google":
           var authProvider = new firebaseAuth.GoogleAuthProvider();
           return firebaseAuth().signInWithPopup(authProvider);
-        case 'facebook':
+        case "facebook":
           var authProvider = new firebaseAuth.FacebookAuthProvider();
           return firebaseAuth().signInWithPopup(authProvider);
-        case 'twitter':
+        case "twitter":
           var authProvider = new firebaseAuth.TwitterAuthProvider();
           return firebaseAuth().signInWithPopup(authProvider);
-        case 'phone':
+        case "phone":
           let appVerifier;
           appVerifier = window.recaptchaVerifier;
           return new Promise((resolve, reject) => {
             firebaseAuth()
               .signInWithPhoneNumber(phoneNumber, appVerifier)
-              .then(result => {
+              .then((result) => {
                 resolve(result);
               })
-              .catch(error => {
+              .catch((error) => {
                 resolve({ error });
               });
           });
@@ -123,7 +126,7 @@ class AuthHelper {
     return new Promise((resolve, reject) => {
       confirmationResult
         .confirm(code)
-        .then(result => {
+        .then((result) => {
           resolve(result.user);
         })
         .catch(function(error) {
@@ -132,7 +135,7 @@ class AuthHelper {
     });
   };
 
-  getToken = async User => {
+  getToken = async (User) => {
     try {
       return User.getIdToken();
     } catch (error) {
@@ -144,7 +147,7 @@ class AuthHelper {
     await firebaseAuth()
       .currentUser.getIdToken(true)
       .then(function(idToken) {
-        setFirebaseCookie('id_token', idToken);
+        setFirebaseCookie("id_token", idToken);
       })
       .catch(function(error) {});
   };
@@ -166,12 +169,12 @@ class AuthHelper {
   isAuthenticated = async () => {
     return new Promise((resolve, reject) => {
       const unsubscribe = firebaseAuth().onAuthStateChanged(
-        authUser => {
+        (authUser) => {
           resolve(authUser);
           unsubscribe();
         },
 
-        error => reject(error)
+        (error) => reject(error)
       );
     });
   };

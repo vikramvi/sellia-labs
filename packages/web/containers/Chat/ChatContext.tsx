@@ -4,7 +4,8 @@ interface ContextProps {
   user: {
     id: string;
     name: string;
-    image: string;
+    title: string;
+    image: any;
     message: string;
     isActive: boolean;
   };
