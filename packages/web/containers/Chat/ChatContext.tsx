@@ -8,6 +8,7 @@ interface ContextProps {
     image: any;
     message: string;
     isActive: boolean;
+    listingID: String;
   };
   handleSelectedUser: Function;
 }

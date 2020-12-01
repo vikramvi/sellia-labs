@@ -1,7 +1,7 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheet } from 'styled-components';
-import { GOOGLE_API_KEY } from '../Config';
-import Favicon from 'core/static/favicon.png';
+import Document, { Html, Head, Main, NextScript } from "next/document";
+import { ServerStyleSheet } from "styled-components";
+import { GOOGLE_API_KEY } from "../Config";
+import Favicon from "core/static/favicon.png";
 
 export default class CustomDocument extends Document {
   static async getInitialProps(ctx) {
@@ -11,7 +11,8 @@ export default class CustomDocument extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
         });
 
       const initialProps = await Document.getInitialProps(ctx);

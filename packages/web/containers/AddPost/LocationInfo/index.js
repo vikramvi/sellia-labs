@@ -1,20 +1,20 @@
-import React, { useState, useContext, useEffect } from 'react';
-import Icon from 'react-icons-kit';
-import { archive } from 'react-icons-kit/ionicons/archive';
-import { chevronRight } from 'react-icons-kit/ionicons/chevronRight';
-import { chevronLeft } from 'react-icons-kit/ionicons/chevronLeft';
-import { uploadMultipleImages } from '../../../helpers/uploadMultipleImage';
-import Box from 'reusecore/src/elements/Box';
-import Button from 'reusecore/src/elements/Button';
-import Text from 'reusecore/src/elements/Text';
-import LocationSearchInput from '../../../components/InputGooglePlace/altered';
-import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
-import { ADD_POST } from 'core/graphql/Mutations';
-import { useMutation } from '@apollo/react-hooks';
-import AuthHelper from '../../../helpers/authHelper';
-import { AddPostContext } from '../../../contexts/AddPostContext';
+import React, { useState, useContext, useEffect } from "react";
+import Icon from "react-icons-kit";
+import { archive } from "react-icons-kit/ionicons/archive";
+import { chevronRight } from "react-icons-kit/ionicons/chevronRight";
+import { chevronLeft } from "react-icons-kit/ionicons/chevronLeft";
+import { uploadMultipleImages } from "../../../helpers/uploadMultipleImage";
+import Box from "reusecore/src/elements/Box";
+import Button from "reusecore/src/elements/Button";
+import Text from "reusecore/src/elements/Text";
+import LocationSearchInput from "../../../components/InputGooglePlace/altered";
+import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import { ADD_POST } from "core/graphql/Mutations";
+import { useMutation } from "@apollo/react-hooks";
+import AuthHelper from "../../../helpers/authHelper";
+import { AddPostContext } from "../../../contexts/AddPostContext";
 
-const MapView = withGoogleMap(props => {
+const MapView = withGoogleMap((props) => {
   return (
     <GoogleMap
       defaultZoom={13}
@@ -47,7 +47,7 @@ export default () => {
     let locationObject = {
       lat: false,
       lng: false,
-      formattedAddress: '',
+      formattedAddress: "",
     };
     const location = {
       ...locationObject,
@@ -56,8 +56,8 @@ export default () => {
       formattedAddress: selected,
     };
     dispatch({
-      type: 'UPDATE_ADPOST',
-      payload: { key: 'location', value: location },
+      type: "UPDATE_ADPOST",
+      payload: { key: "location", value: location },
     });
   };
 
@@ -70,7 +70,7 @@ export default () => {
       imagesUrl = await uploadMultipleImages(adPost.localGallery);
       if (imagesUrl && imagesUrl.length > 0) {
         dispatch({
-          type: 'UPDATE_FULL_ADPOST',
+          type: "UPDATE_FULL_ADPOST",
           payload: {
             gallery: adPost.gallery.concat(imagesUrl[0]),
             image: !adPost.image.url ? imagesUrl[0][0] : adPost.image,
@@ -89,8 +89,8 @@ export default () => {
         setBtnLoading(false);
         if (!adPost.id) {
           dispatch({
-            type: 'UPDATE_ADPOST',
-            payload: { key: 'id', value: data.data.addPost.id },
+            type: "UPDATE_ADPOST",
+            payload: { key: "id", value: data.data.addPost.id },
           });
         }
       } catch (error) {
@@ -127,8 +127,8 @@ export default () => {
           setBtnLoading(false);
           if (!adPost.id) {
             dispatch({
-              type: 'UPDATE_ADPOST',
-              payload: { key: 'id', value: data.data.addPost.id },
+              type: "UPDATE_ADPOST",
+              payload: { key: "id", value: data.data.addPost.id },
             });
           }
         } catch (error) {
@@ -149,7 +149,7 @@ export default () => {
       longitude: adPost.location.lng,
     };
   }
-  const markerDrag = async marker => {
+  const markerDrag = async (marker) => {
     var geocoder = new google.maps.Geocoder();
     latlng = {
       lat: Number(marker.latLng.lat().toFixed(4)),
@@ -163,17 +163,17 @@ export default () => {
           formattedAddress: results[0].formatted_address,
         };
         dispatch({
-          type: 'UPDATE_ADPOST',
-          payload: { key: 'location', value: location },
+          type: "UPDATE_ADPOST",
+          payload: { key: "location", value: location },
         });
       }
     });
   };
-  const handleChange = address => {
+  const handleChange = (address) => {
     dispatch({
-      type: 'UPDATE_ADPOST',
+      type: "UPDATE_ADPOST",
       payload: {
-        key: 'location',
+        key: "location",
         value: { ...adPost.location, formattedAddress: address },
       },
     });
@@ -183,23 +183,23 @@ export default () => {
       <Text
         content="Enter your location"
         pb={20}
-        style={{ fontSize: 16, fontWeight: 400, color: '#595959' }}
+        style={{ fontSize: 16, fontWeight: 400, color: "#595959" }}
       />
       <LocationSearchInput
         address={
           adPost.location && adPost.location.formattedAddress
             ? adPost.location.formattedAddress
-            : ''
+            : ""
         }
         handleChange={handleChange}
         handleAddress={handleAddress}
         handleLocation={handleLocation}
       />
       <MapView
-        containerElement={<div style={{ height: `195px`, marginTop: '8px' }} />}
+        containerElement={<div style={{ height: `195px`, marginTop: "8px" }} />}
         mapElement={<div style={{ height: `100%` }} />}
         location={latlng}
-        markerDrag={marker => markerDrag(marker)}
+        markerDrag={(marker) => markerDrag(marker)}
       />
 
       <Box flexBox justifyContent="space-between" mt={40}>
@@ -216,7 +216,7 @@ export default () => {
           iconPosition="left"
           onClick={() =>
             dispatch({
-              type: 'UPDATE_STEP',
+              type: "UPDATE_STEP",
               payload: { step: step - 1 },
             })
           }
@@ -232,14 +232,14 @@ export default () => {
           disabled={adPost.location == null || btnLoading}
           onClick={() =>
             dispatch({
-              type: 'UPDATE_STEP',
+              type: "UPDATE_STEP",
               payload: { step: step + 1 },
             })
           }
           icon={<Icon icon={chevronRight} size={21} color="#ffffff" />}
           style={{
             backgroundColor:
-              adPost.location == null || btnLoading ? '#e2e2e2' : '#30C56D',
+              adPost.location == null || btnLoading ? "#e2e2e2" : "#30C56D",
           }}
         />
       </Box>

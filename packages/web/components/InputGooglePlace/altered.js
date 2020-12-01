@@ -1,24 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
-} from 'react-places-autocomplete';
+} from "react-places-autocomplete";
 
-import Input from '../Input';
-import LocationWrapper, { SearchResultWrapper } from './style';
+import Input from "../Input";
+import LocationWrapper, { SearchResultWrapper } from "./style";
 
-const LocationSearchInput = props => {
-  const handleSelect = selected => {
+const LocationSearchInput = (props) => {
+  const handleSelect = (selected) => {
     const address = selected;
     props.handleAddress(address);
     geocodeByAddress(selected)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => props.handleLocation(latLng, address))
-      .catch(error => console.error('Error', error));
+      .then((results) => getLatLng(results[0]))
+      .then((latLng) => props.handleLocation(latLng, address))
+      .catch((error) => console.error("Error", error));
   };
 
   const handleCloseClick = () => {
-    setAddressState({ ...addressState, address: '' });
+    setAddressState({ ...addressState, address: "" });
+  };
+
+  const searchOptions = {
+    types: ["(cities)"],
+    componentRestrictions: { country: "us" },
   };
 
   return (
@@ -26,6 +31,7 @@ const LocationSearchInput = props => {
       value={props.address}
       onChange={props.handleChange}
       onSelect={handleSelect}
+      searchOptions={searchOptions}
     >
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
         <LocationWrapper>
@@ -38,17 +44,17 @@ const LocationSearchInput = props => {
           {props.address && (
             <SearchResultWrapper className="autocomplete-dropdown-container">
               {loading && <div>Loading...</div>}
-              {suggestions.map(suggestion => {
+              {suggestions.map((suggestion) => {
                 const className = suggestion.active
-                  ? 'suggestion-item--active'
-                  : 'suggestion-item';
+                  ? "suggestion-item--active"
+                  : "suggestion-item";
                 // inline style for demonstration purpose
                 const style = suggestion.active
                   ? {
-                      backgroundColor: '#e2e2e2',
+                      backgroundColor: "#e2e2e2",
                     }
                   : {
-                      backgroundColor: '#ffffff',
+                      backgroundColor: "#ffffff",
                     };
                 return (
                   <div

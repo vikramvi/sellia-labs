@@ -1,17 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
-import Dropzone from 'react-dropzone';
-import { useMutation } from '@apollo/react-hooks';
+import React, { useContext, useEffect, useState } from "react";
+import Dropzone from "react-dropzone";
+import { useMutation } from "@apollo/react-hooks";
 
-import AuthHelper from '../../../helpers/authHelper';
-import { ADD_POST } from 'core/graphql/Mutations';
-import Text from 'reusecore/src/elements/Text';
-import Heading from 'reusecore/src/elements/Heading';
-import Box from 'reusecore/src/elements/Box';
-import Alert from 'reusecore/src/elements/Alert';
-import DropArea from '../../../components/DropArea';
-import { AddPostContext } from '../../../contexts/AddPostContext';
-import { uploadMultipleImages } from '../../../helpers/uploadMultipleImage';
-import LoadingIndicator from '../../../components/LoadingIndicator';
+import AuthHelper from "../../../helpers/authHelper";
+import Button from "reusecore/src/elements/Button";
+import Icon from "react-icons-kit";
+import { chevronRight } from "react-icons-kit/ionicons/chevronRight";
+
+import { ADD_POST } from "core/graphql/Mutations";
+import Text from "reusecore/src/elements/Text";
+import Heading from "reusecore/src/elements/Heading";
+import Box from "reusecore/src/elements/Box";
+import Alert from "reusecore/src/elements/Alert";
+import DropArea from "../../../components/DropArea";
+import { AddPostContext } from "../../../contexts/AddPostContext";
+import { uploadMultipleImages } from "../../../helpers/uploadMultipleImage";
+import LoadingIndicator from "../../../components/LoadingIndicator";
 
 let imagesUrl = [];
 const PickImages = ({ userId }) => {
@@ -22,7 +26,7 @@ const PickImages = ({ userId }) => {
   const authorId = userId;
   const [postMutation, { data }] = useMutation(ADD_POST);
 
-  const onPreviewDrop = async selectedImages => {
+  const onPreviewDrop = async (selectedImages) => {
     setUploadRejected(false);
     if (selectedImages.length) {
       ToggleLoader(true);
@@ -30,7 +34,7 @@ const PickImages = ({ userId }) => {
       imagesUrl = await uploadMultipleImages(selectedImages);
       if (imagesUrl && imagesUrl.length > 0) {
         dispatch({
-          type: 'UPDATE_FULL_ADPOST',
+          type: "UPDATE_FULL_ADPOST",
           payload: {
             gallery: adPost.gallery.concat(imagesUrl[0]),
             image: !adPost.image.url ? imagesUrl[0][0] : adPost.image,
@@ -40,7 +44,7 @@ const PickImages = ({ userId }) => {
         });
       }
 
-      dispatch({ type: 'UPDATE_STEP', payload: { step: step + 1 } });
+      dispatch({ type: "UPDATE_STEP", payload: { step: step + 1 } });
     }
   };
   const {
@@ -62,8 +66,8 @@ const PickImages = ({ userId }) => {
           ToggleLoader(false);
           if (!adPost.id) {
             dispatch({
-              type: 'UPDATE_ADPOST',
-              payload: { key: 'id', value: data.data.addPost.id },
+              type: "UPDATE_ADPOST",
+              payload: { key: "id", value: data.data.addPost.id },
             });
           }
         } catch (error) {
@@ -81,9 +85,10 @@ const PickImages = ({ userId }) => {
       flexBox
       height="100%"
       justifyContent="center"
+      flexDirection="column"
       alignItems="center"
       style={{
-        minHeight: 'inherit',
+        minHeight: "inherit",
       }}
     >
       <Box width="305px">
@@ -92,12 +97,12 @@ const PickImages = ({ userId }) => {
           content="Post Ads"
           textAlign="center"
           mb={40}
-          style={{ fontSize: 24, fontWeight: 600, color: '#333333' }}
+          style={{ fontSize: 24, fontWeight: 600, color: "#333333" }}
         />
         {uploadLoader && <LoadingIndicator />}
         {uploadRejected && (
           <Alert colors="error" mb={30}>
-            <div style={{ textAlign: 'center' }}>Maximum upload size 1MB</div>
+            <div style={{ textAlign: "center" }}>Maximum upload size 1MB</div>
           </Alert>
         )}
         <Dropzone
@@ -114,14 +119,21 @@ const PickImages = ({ userId }) => {
             );
           }}
         </Dropzone>
-
-        <Text
-          content="World’s largest free buy and selling advertising platform ."
-          textAlign="center"
-          lineHeight="22px"
-          style={{ fontSize: 16, fontWeight: 400, color: '#595959' }}
-        />
       </Box>
+      <Button
+        title="Skip"
+        iconPosition="right"
+        onClick={() =>
+          dispatch({
+            type: "UPDATE_STEP",
+            payload: { step: step + 1 },
+          })
+        }
+        icon={<Icon icon={chevronRight} size={21} color="#ffffff" />}
+        style={{
+          backgroundColor: "#30C56D",
+        }}
+      />
     </Box>
   );
 };
