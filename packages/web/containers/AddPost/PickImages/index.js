@@ -26,9 +26,8 @@ const PickImages = ({ userId }) => {
   const authorId = userId;
   const [postMutation, { data }] = useMutation(ADD_POST);
 
-  const onPreviewDrop = async (selectedImages) => {
-    setUploadRejected(false);
-    if (selectedImages.length) {
+  const moveNextStep = async (selectedImages) => {
+    if (selectedImages && selectedImages.length) {
       ToggleLoader(true);
       await AuthHelper.refreshToken();
       imagesUrl = await uploadMultipleImages(selectedImages);
@@ -43,9 +42,22 @@ const PickImages = ({ userId }) => {
           },
         });
       }
-
-      dispatch({ type: "UPDATE_STEP", payload: { step: step + 1 } });
+    } else {
+      dispatch({
+        type: "UPDATE_FULL_ADPOST",
+        payload: {
+          authorId: authorId,
+          slug: new Date(),
+        },
+      });
     }
+
+    dispatch({ type: "UPDATE_STEP", payload: { step: step + 1 } });
+  };
+
+  const onPreviewDrop = async (selectedImages) => {
+    setUploadRejected(false);
+    moveNextStep(selectedImages);
   };
   const {
     preImage,
@@ -54,6 +66,7 @@ const PickImages = ({ userId }) => {
     localGallery,
     ...prossedAdPostData
   } = adPost;
+
   useEffect(() => {
     (async function() {
       if (imagesUrl.length) {
@@ -123,12 +136,7 @@ const PickImages = ({ userId }) => {
       <Button
         title="Skip"
         iconPosition="right"
-        onClick={() =>
-          dispatch({
-            type: "UPDATE_STEP",
-            payload: { step: step + 1 },
-          })
-        }
+        onClick={moveNextStep}
         icon={<Icon icon={chevronRight} size={21} color="#ffffff" />}
         style={{
           backgroundColor: "#30C56D",

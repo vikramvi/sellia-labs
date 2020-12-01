@@ -9,8 +9,6 @@ import Text from "reusecore/src/elements/Text";
 import Dropdown from "../../../components/DropdownSelect";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ADD_POST } from "core/graphql/Mutations";
-import { openModal, closeModal } from "@redq/reuse-modal";
-import PublishModal from "../../ModalContainer/PostPublishModal";
 import AuthHelper from "../../../helpers/authHelper";
 import Link from "next/link";
 import { ACCOUNT_SETTING_PAGE } from "core/navigation/constant";
@@ -28,45 +26,6 @@ const GET_AUTHOR_MOBILE_NUMBER = gql`
   }
 `;
 
-const publishModal = (newPost) => {
-  if (
-    newPost &&
-    newPost.data &&
-    newPost.data.addPost &&
-    newPost.data.addPost.status === "publish"
-  ) {
-    openModal({
-      config: {
-        disableDragging: false,
-        size: {
-          width: 360,
-          height: 320,
-        },
-        enableResizing: {
-          bottom: true,
-          bottomLeft: true,
-          bottomRight: true,
-          left: true,
-          right: true,
-          top: true,
-          topLeft: true,
-          topRight: true,
-        },
-      },
-      closeOnClickOutside: true,
-      component: PublishModal,
-      componentProps: {
-        data: {
-          closeModal,
-          title: "Congrats!!!",
-          message: "Your account information saved successfully",
-          slug: newPost.data.addPost.slug,
-        },
-      },
-    });
-  }
-};
-
 let imagesUrl = [];
 const ContactNumberInfo = ({ userId }) => {
   const { data, loading, error } = useQuery(GET_AUTHOR_MOBILE_NUMBER, {
@@ -78,47 +37,6 @@ const ContactNumberInfo = ({ userId }) => {
   const { step, adPost } = state;
   const [postMutation] = useMutation(ADD_POST);
 
-  const handlePostSubmit = async () => {
-    await AuthHelper.refreshToken();
-    setPublishBtnLoading(true);
-    dispatch({
-      type: "UPDATE_ADPOST",
-      payload: { key: "status", value: "publish" },
-    });
-    if (adPost.localGallery.length) {
-      imagesUrl = await uploadMultipleImages(adPost.localGallery);
-      if (imagesUrl && imagesUrl.length > 0) {
-        dispatch({
-          type: "UPDATE_FULL_ADPOST",
-          payload: {
-            gallery: adPost.gallery.concat(imagesUrl[0]),
-            image: !adPost.image.url ? imagesUrl[0][0] : adPost.image,
-            localImage: {},
-            localGallery: [],
-          },
-        });
-      }
-    } else {
-      try {
-        const data = await postMutation({
-          variables: {
-            post: { ...finalData, status: "publish" },
-          },
-        });
-        setPublishBtnLoading(false);
-        if (!adPost.id) {
-          dispatch({
-            type: "UPDATE_ADPOST",
-            payload: { key: "id", value: data.data.addPost.id },
-          });
-        }
-        publishModal(data);
-      } catch (error) {
-        console.log(error, "error");
-        setPublishBtnLoading(false);
-      }
-    }
-  };
   const {
     preImage,
     preGallery,
