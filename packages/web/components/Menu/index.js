@@ -5,6 +5,12 @@ import DropdownMenu from "../DropdownMenu";
 import Image from "react-image";
 import { MenuWrapper, MenuItemWrapper } from "./style";
 import profileImg from "core/static/images/user-placeholder.svg";
+import Badge from "../UiElements/Badge/Badge";
+import SvgIcon from "../UiElements/SvgIcon/SvgIcon";
+import { styled } from "baseui";
+
+import { BsBell } from "react-icons/bs";
+
 import {
   HOME_PAGE,
   SEARCH_PAGE,
@@ -18,6 +24,24 @@ import {
   CHAT_PAGE,
 } from "core/navigation/constant";
 const imageStyle = { width: 40, height: 40, borderRadius: "50%" };
+
+export const BellButton = styled("button", ({ $theme }) => ({
+  border: 0,
+  padding: 0,
+  backgroundColor: "transparent",
+  cursor: "pointer",
+  fontSize: "20px",
+  display: "flex",
+  alignItems: "center",
+  color: $theme.colors.primaryA,
+  transition: "color 0.2s ease",
+  ":focus": {
+    outline: 0,
+  },
+  ":hover": {
+    color: $theme.colors.accent,
+  },
+}));
 
 const DROPDOWN_MENU_ITEMS = [
   <Link href={SEARCH_PAGE}>
@@ -76,6 +100,18 @@ const Menu = ({
           <a> Home </a>
         </Link>
       </MenuItemWrapper>
+
+      <MenuItemWrapper>
+        <Badge
+          path="/chat"
+          icon={
+            <BellButton>
+              <BsBell />
+            </BellButton>
+          }
+        />
+      </MenuItemWrapper>
+
       <MenuItemWrapper>
         <DropdownMenu
           content={dropdownMenuIcon}
