@@ -84,7 +84,7 @@ const SignUpVerificationForm = ({
 
   const handleVerifyEmailSuccess = () => {
     setTimeout(() => {
-      redirect({}, "/signin");
+      redirect({ isVerified: true }, "/signin");
     }, 300);
   };
 

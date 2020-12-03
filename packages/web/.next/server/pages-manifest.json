@@ -1,8 +1,22 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/_error": "pages/_error.js",
-  "/signin": "pages/signin.js",
+  "/account-settings": "pages/account-settings.js",
+  "/add-post/[id]": "pages/add-post/[id].js",
+  "/categories": "pages/categories.js",
+  "/category/[slug]": "pages/category/[slug].js",
+  "/chat": "pages/chat.js",
+  "/forget-password": "pages/forget-password.js",
   "/": "pages/index.js",
-  "/signup": "pages/signup.js"
+  "/mobile-signin": "pages/mobile-signin.js",
+  "/nearest-posts": "pages/nearest-posts.js",
+  "/post/[slug]": "pages/post/[slug].js",
+  "/profile/[username]": "pages/profile/[username].js",
+  "/recent-posts": "pages/recent-posts.js",
+  "/search": "pages/search.js",
+  "/signin": "pages/signin.js",
+  "/signup-verification": "pages/signup-verification.js",
+  "/signup": "pages/signup.js",
+  "/_error": "pages/_error.js",
+  "/404": "pages/404.html"
 }

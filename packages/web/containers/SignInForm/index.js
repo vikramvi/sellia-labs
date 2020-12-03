@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Router from "next/router";
+import { useRouter } from "next/router";
+
 import { withFormik } from "formik";
 import * as Yup from "yup";
 import Icon from "react-icons-kit";
@@ -40,6 +42,9 @@ const SignInForm = ({
 }) => {
   const [error, setError] = useState({});
   const [loading, setLoading] = useState(false);
+  const {
+    query: { isVerified },
+  } = useRouter();
   const handleCheckboxChange = (checked) => {
     setFieldValue("remember", checked);
   };
@@ -98,6 +103,11 @@ const SignInForm = ({
       {/* auth page header section */}
       <AuthHeader />
       {/* signin form */}
+
+      {isVerified && (
+        <Text content={"Your email has been verified, please sign-in!"} />
+      )}
+
       <FormGroup className={errors.email ? "hasErrorMsg" : ""}>
         <Input
           elementType="input"
