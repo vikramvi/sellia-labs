@@ -12,7 +12,7 @@ const ShowChats = ({ chats }) => {
       {chats && chats.length
         ? chats.map((chat, index) => (
             <Response key={index} $authorTypeMe={chat.uid === user.id}>
-              <Emoji text={chat.message} />
+              <Emoji text={chat.content} />
             </Response>
           ))
         : null}

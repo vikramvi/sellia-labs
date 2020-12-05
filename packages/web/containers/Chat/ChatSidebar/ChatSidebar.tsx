@@ -14,7 +14,7 @@ import {
 } from "./ChatSidebar.styled";
 // demo data
 import { chatData } from "../../../data/chatApp";
-import { chatdb } from "../../../helpers/init";
+import { chatdb, db } from "../../../helpers/init";
 
 const ChatSidebar = ({
   setToggleSidebar,
@@ -36,18 +36,24 @@ const ChatSidebar = ({
 
   //listen users_chat
   useEffect(() => {
-    console.log("listen userId ->", userId);
-    chatdb.ref("user_chats/" + userId).on("value", (snapshot) => {
-      let chats = [];
-      console.log("snapshot -->", snapshot.val());
+    async function fetchUserChats() {
+      console.log("listen userId ->", userId);
 
-      snapshot.forEach((snap) => {
-        chats.push(snap.val());
+      const snapshot = await db
+        .collection("user_chats")
+        .doc(userId)
+        .collection("chats")
+        .get();
+
+      let chats = [];
+      snapshot.forEach((doc) => {
+        console.log("my chat ->", doc.data());
+        chats.push(doc.data());
       });
 
-      console.log("chats -->", chats);
       setData(chats);
-    });
+    }
+    fetchUserChats();
   }, []);
 
   const filteredUser = data.filter((item) =>
@@ -74,7 +80,7 @@ const ChatSidebar = ({
               $isActive={item.listingID === (user && user.listingID)}
               onClick={() => handleOnClick(item)}
             >
-              <UserListItemImage src={item.image.largeUrl} alt={item.name} />
+              <UserListItemImage src={item.image} alt={item.name} />
               <UserListItemInfo>
                 <UserName>{item.title}</UserName>
                 <UserMessage>{item.from}</UserMessage>

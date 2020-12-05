@@ -13,7 +13,7 @@ import Wrapper, {
   Body,
   Footer,
 } from "./Chat.styled";
-import { chatdb } from "../../helpers/init";
+import { chatdb, db } from "../../helpers/init";
 import { ChatContext } from "./ChatContext";
 
 const Chat = (props) => {
@@ -89,7 +89,7 @@ const Chat = (props) => {
     if (value === "") {
       return alert("Please write your message!");
     }
-    chats.push({ id: Date.now(), type: "author", message: value });
+    chats.push({ id: Date.now(), type: "author", content: value });
     setChats([...chats]);
     setValue("");
     setListen(true);
@@ -98,14 +98,18 @@ const Chat = (props) => {
 
     //send to firebase chat
     if (currentListing) {
-      await chatdb.ref("chats/" + currentListing.chatId).push({
-        message: value,
+      const data = {
+        content: value,
         timestamp: Date.now(),
         uid: userId,
         listingID: currentListing.listingID
           ? currentListing.listingID
           : currentListing.id,
-      });
+      };
+      db.collection("chat_messages")
+        .doc(currentListing.chatId)
+        .collection("messages")
+        .add(data);
     }
   };
 
@@ -114,13 +118,21 @@ const Chat = (props) => {
     // setChats([]);
   };
 
-  const onListingSelect = (item) => {
+  const onListingSelect = async (item) => {
     setcurrentListing(item);
-    chatdb.ref("chats/" + item.chatId).on("value", (snapshot) => {
-      let arrChat = [];
-      snapshot.forEach((snap) => {
-        arrChat.push(snap.val());
-      });
+
+    //read from firestore
+    const snapshot = await db
+      .collection("chat_messages")
+      .doc(item.chatId)
+      .collection("messages")
+      .get();
+
+    let arrChat = [];
+    snapshot.forEach((doc) => {
+      console.log("my chat ->", doc.data());
+      arrChat.push(doc.data());
+
       console.log("snapshot ->", arrChat);
       setChats([...arrChat]);
       // scroll to bottom

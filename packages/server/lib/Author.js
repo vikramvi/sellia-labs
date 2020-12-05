@@ -1,4 +1,4 @@
-import Base from './Base';
+import Base from "./Base";
 
 /**
  * Author class to run author base query
@@ -6,7 +6,7 @@ import Base from './Base';
 class Author extends Base {
   constructor(args) {
     super(args);
-    this.collection = 'users';
+    this.collection = "users";
   }
 
   /**
@@ -21,12 +21,12 @@ class Author extends Base {
       const user = await firebaseAdmin
         .auth()
         .verifyIdToken(token)
-        .then(user => {
+        .then((user) => {
           return user;
         });
       return { userId: user.user_id, email: user.email, error: false };
     } catch (error) {
-      return { userId: '', email: '', error };
+      return { userId: "", email: "", error };
     }
   }
 
@@ -36,36 +36,36 @@ class Author extends Base {
    */
   async posts(query = {}) {
     const id = query.id ? query.id : null;
-    const status = query.status ? query.status : 'publish';
+    const status = query.status ? query.status : "publish";
     const limit = query.limit ? query.limit : 10;
     const page = query.page ? query.page : 1;
     try {
-      const data = await this.getRef('posts')
-        .where('authorId', '==', id)
-        .where('status', '==', status)
+      const data = await this.getRef("posts")
+        .where("authorId", "==", id)
+        .where("status", "==", status)
         .get()
-        .then(async snapshot => {
+        .then(async (snapshot) => {
           const docsAt = (page - 1) * limit;
           const startAt = snapshot.docs[docsAt];
           const total = snapshot.docs.length;
           return { startAt, total };
         });
       const { startAt, total } = data;
-      const nextData = await this.getRef('posts')
-        .where('authorId', '==', id)
-        .where('status', '==', status)
+      const nextData = await this.getRef("posts")
+        .where("authorId", "==", id)
+        .where("status", "==", status)
         .limit(Number(limit))
         .startAt(startAt)
         .get()
-        .then(docSnapshot => {
-          const data = docSnapshot.docs.map(doc => {
+        .then((docSnapshot) => {
+          const data = docSnapshot.docs.map((doc) => {
             return { ...doc.data(), id: doc.id };
           });
           return data;
         });
       return { data: nextData, total };
     } catch (error) {
-      console.log(error, 'Error');
+      console.log(error, "Error");
     }
   }
 
@@ -81,7 +81,7 @@ class Author extends Base {
       const data = await this.getRef(this.collection)
         .doc(id)
         .get()
-        .then(item => {
+        .then((item) => {
           return { ...item.data(), id };
         });
       const posts = data ? data.favourite : [];
