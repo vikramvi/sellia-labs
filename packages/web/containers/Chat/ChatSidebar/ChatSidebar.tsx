@@ -1,4 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
+// RCE CSS
+import "react-chat-elements/dist/main.css";
 import { IoIosSearch } from "react-icons/io";
 import { ChatContext } from "../ChatContext";
 import {
@@ -15,6 +17,7 @@ import {
 // demo data
 import { chatData } from "../../../data/chatApp";
 import { chatdb, db } from "../../../helpers/init";
+import { ChatItem } from "react-chat-elements";
 
 const ChatSidebar = ({
   setToggleSidebar,
@@ -107,11 +110,14 @@ const ChatSidebar = ({
               $isActive={item.listingID === (user && user.listingID)}
               onClick={() => handleOnClick(item)}
             >
-              <UserListItemImage src={item.image} alt={item.name} />
-              <UserListItemInfo>
-                <UserName>{item.title}</UserName>
-                <UserMessage>{item.from}</UserMessage>
-              </UserListItemInfo>
+              <ChatItem
+                avatar={item.image}
+                alt={item.name}
+                title={item.title}
+                subtitle={item.from}
+                date={new Date()}
+                unread={0}
+              />
             </UserListItem>
           );
         })}

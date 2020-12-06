@@ -16,5 +16,6 @@ const db = firebase.firestore();
 const storage = firebase.storage();
 const firebaseAuth = firebase.auth;
 const chatdb = firebase.database();
+const firebaseTimeStamp = firebase.database.ServerValue.TIMESTAMP;
 
-export { db, storage, firebaseAuth, chatdb };
+export { db, storage, firebaseAuth, chatdb, firebaseTimeStamp };

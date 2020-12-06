@@ -13,7 +13,7 @@ import Wrapper, {
   Body,
   Footer,
 } from "./Chat.styled";
-import { chatdb, db } from "../../helpers/init";
+import { chatdb, db, firebaseTimeStamp } from "../../helpers/init";
 import { ChatContext } from "./ChatContext";
 
 const Chat = (props) => {
@@ -44,6 +44,10 @@ const Chat = (props) => {
     const sellerID = currentPost.authorId;
     const listingID = currentPost.id;
     const from = currentPost.author && currentPost.author.name;
+    const image =
+      currentPost.gallery && currentPost.gallery.length > 0
+        ? currentPost.gallery[0]
+        : "";
 
     let chat_id = getNodename(userId, sellerID, listingID);
     const chatNode = {
@@ -51,7 +55,7 @@ const Chat = (props) => {
       title: currentPost.title,
       listingID: listingID,
       sellerID: sellerID,
-      image: currentPost.gallery && currentPost.gallery[0],
+      image: image,
       from: from ? from : "",
     };
 
@@ -111,6 +115,7 @@ const Chat = (props) => {
       const data = {
         content: value,
         timestamp: Date.now(),
+        createdAt: firebaseTimeStamp,
         uid: userId,
         listingID: currentListing.listingID
           ? currentListing.listingID
@@ -132,22 +137,30 @@ const Chat = (props) => {
     setcurrentListing(item);
 
     //read from firestore
-    const snapshot = await db
+    const doc = await db
       .collection("chat_messages")
       .doc(item.chatId)
       .collection("messages")
-      .get();
+      .orderBy("createdAt", "desc");
 
-    let arrChat = [];
-    snapshot.forEach((doc) => {
-      console.log("my chat ->", doc.data());
-      arrChat.push(doc.data());
+    const observer = doc.onSnapshot((docSnapshot) => {
+      console.log(`Received doc snapshot: ${docSnapshot}`);
+      let arrChat = [];
+      docSnapshot.forEach(
+        (doc) => {
+          console.log("my chat ->", doc.data());
+          arrChat.push(doc.data());
 
-      console.log("snapshot ->", arrChat);
-      setChats([...arrChat]);
-      // scroll to bottom
-      const chatBody = document.getElementById("chatBody");
-      chatBody.scrollTop = chatBody.scrollHeight;
+          console.log("snapshot ->", arrChat);
+          setChats([...arrChat]);
+          // scroll to bottom
+          const chatBody = document.getElementById("chatBody");
+          chatBody.scrollTop = chatBody.scrollHeight;
+        },
+        (err) => {
+          console.log(`Encountered error: ${err}`);
+        }
+      );
     });
   };
 
@@ -170,7 +183,7 @@ const Chat = (props) => {
             <ChatHeader />
           </Header>
           <Body id="chatBody">
-            <ShowChats chats={chats} />
+            <ShowChats userId={userId} chats={chats} />
           </Body>
           <Footer>
             <ChatInput
