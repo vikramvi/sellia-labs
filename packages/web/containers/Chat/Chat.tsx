@@ -30,11 +30,8 @@ const Chat = (props) => {
   const [listen, setListen] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
 
-  const getNodename = (senderID, receiverID, listingID) => {
-    const chatNode =
-      senderID > receiverID
-        ? "" + senderID + receiverID + listingID
-        : "" + receiverID + senderID + listingID;
+  const getNodename = (buyerID, sellerID, listingID) => {
+    const chatNode = buyerID + sellerID + listingID;
     console.log("chat node ->", chatNode);
 
     return chatNode;
@@ -57,6 +54,7 @@ const Chat = (props) => {
       sellerID: sellerID,
       image: image,
       from: from ? from : "",
+      updatedAt: firebaseTimeStamp,
     };
 
     console.log(chatNode);
@@ -85,6 +83,29 @@ const Chat = (props) => {
     }
   };
 
+  const updateCloudChat = async () => {
+    const sellerID = currentListing.sellerID;
+    const listingID = currentListing.id;
+
+    let chat_id = getNodename(userId, sellerID, listingID);
+
+    //check for user id
+    if (userId !== sellerID) {
+      //update channel
+      db.collection("user_chats")
+        .doc(userId)
+        .collection("chats")
+        .doc(chat_id)
+        .set({ updatedAt: firebaseTimeStamp }, { merge: true });
+
+      db.collection("user_chats")
+        .doc(sellerID)
+        .collection("chats")
+        .doc(chat_id)
+        .set({ updatedAt: firebaseTimeStamp }, { merge: true });
+    }
+  };
+
   useEffect(() => {
     console.log("useEffect in");
 
@@ -103,8 +124,14 @@ const Chat = (props) => {
     if (value === "") {
       return alert("Please write your message!");
     }
-    chats.push({ id: Date.now(), type: "author", content: value, uid: userId });
-    setChats([...chats]);
+    // chats.push({
+    //   id: Date.now(),
+    //   type: "author",
+    //   content: value,
+    //   uid: userId,
+    //   createdAt: firebaseTimeStamp,
+    // });
+    // setChats([...chats]);
     setValue("");
     setListen(true);
 
@@ -114,7 +141,6 @@ const Chat = (props) => {
     if (currentListing) {
       const data = {
         content: value,
-        timestamp: Date.now(),
         createdAt: firebaseTimeStamp,
         uid: userId,
         listingID: currentListing.listingID
@@ -125,12 +151,24 @@ const Chat = (props) => {
         .doc(currentListing.chatId)
         .collection("messages")
         .add(data);
+
+      db.collection("user_chats")
+        .doc(userId)
+        .collection("chats")
+        .doc(currentListing.chatId)
+        .set({ updatedAt: firebaseTimeStamp }, { merge: true });
+
+      db.collection("user_chats")
+        .doc(currentListing.sellerID)
+        .collection("chats")
+        .doc(currentListing.chatId)
+        .set({ updatedAt: firebaseTimeStamp }, { merge: true });
     }
   };
 
   const resetChat = () => {
     console.log("resetChat ->");
-    // setChats([]);
+    setChats([]);
   };
 
   const onListingSelect = async (item) => {
@@ -141,7 +179,7 @@ const Chat = (props) => {
       .collection("chat_messages")
       .doc(item.chatId)
       .collection("messages")
-      .orderBy("createdAt", "desc");
+      .orderBy("createdAt", "asc");
 
     const observer = doc.onSnapshot((docSnapshot) => {
       console.log(`Received doc snapshot: ${docSnapshot}`);

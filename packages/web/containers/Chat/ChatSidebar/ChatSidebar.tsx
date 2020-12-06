@@ -39,40 +39,28 @@ const ChatSidebar = ({
 
   //listen users_chat
   useEffect(() => {
-    async function fetchUserChats() {
-      console.log("listen userId ->", userId);
-
-      const snapshot = await db
-        .collection("user_chats")
-        .doc(userId)
-        .collection("chats")
-        .get();
-
-      let chats = [];
-      snapshot.forEach((doc) => {
-        console.log("my chat ->", doc.data());
-        chats.push(doc.data());
-      });
-
-      setData(chats);
-    }
-
     async function subscribeUserChat() {
       const doc = db
         .collection("user_chats")
         .doc(userId)
-        .collection("chats");
+        .collection("chats")
+        .orderBy("updatedAt", "desc");
 
       const observer = doc.onSnapshot(
         (docSnapshot) => {
-          console.log(`Received doc snapshot: ${docSnapshot}`);
           let chats = [];
-          docSnapshot.forEach((doc) => {
-            console.log("my chat ->", doc.data());
-            chats.push(doc.data());
+          docSnapshot.docChanges().forEach((change) => {
+            console.log(
+              `Received doc snapshot: ${docSnapshot} - ${change.type}`
+            );
+
+            if (change.type === "added") {
+              console.log("my chat ->", change.doc.data());
+              chats.push(change.doc.data());
+              setData(chats);
+            }
           });
 
-          setData(chats);
           // ...
         },
         (err) => {
@@ -81,7 +69,6 @@ const ChatSidebar = ({
       );
     }
 
-    // fetchUserChats();
     subscribeUserChat();
   }, []);
 
@@ -115,7 +102,7 @@ const ChatSidebar = ({
                 alt={item.name}
                 title={item.title}
                 subtitle={item.from}
-                date={new Date()}
+                date={(item.updatedAt && item.updatedAt.toDate()) || new Date()}
                 unread={0}
               />
             </UserListItem>

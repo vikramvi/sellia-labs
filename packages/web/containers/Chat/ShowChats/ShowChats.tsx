@@ -3,6 +3,7 @@ import Emoji from "react-emoji-render";
 import Response from "./ShowChats.styled";
 import { ChatContext } from "../ChatContext";
 import { MessageBox, Avatar } from "react-chat-elements";
+import { date } from "yup";
 
 const ShowChats = ({ chats, userId }) => {
   const { user } = useContext(ChatContext);
@@ -17,6 +18,7 @@ const ShowChats = ({ chats, userId }) => {
               <MessageBox
                 position={chat.uid === userId ? "right" : "left"}
                 text={chat.content}
+                date={chat.createdAt && chat.createdAt.toDate()}
                 notch={false}
               />
             </>
