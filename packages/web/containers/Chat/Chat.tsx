@@ -218,7 +218,9 @@ const Chat = (props) => {
             <ChatHeader />
           </Header>
           <Body id="chatBody">
-            <ShowChats userId={userId} chats={chats} />
+            <div>
+              <ShowChats userId={userId} chats={chats} />
+            </div>
           </Body>
           <Footer>
             <ChatInput
