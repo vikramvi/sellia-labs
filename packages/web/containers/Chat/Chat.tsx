@@ -47,27 +47,37 @@ const Chat = (props) => {
 
     let chat_id = getNodename(userId, sellerID, listingID);
     const chatNode = {
-      [chat_id]: {
-        chatId: chat_id,
-        title: currentPost.title,
-        listingID: listingID,
-        sellerID: sellerID,
-        image: currentPost.gallery && currentPost.gallery[0],
-        from: from ? from : "",
-      },
+      chatId: chat_id,
+      title: currentPost.title,
+      listingID: listingID,
+      sellerID: sellerID,
+      image: currentPost.gallery && currentPost.gallery[0],
+      from: from ? from : "",
     };
 
     console.log(chatNode);
 
     //check for user id
     if (userId !== sellerID) {
-      await chatdb.ref("user_chats/" + userId).update({
-        ...chatNode,
-      });
+      db.collection("user_chats")
+        .doc(userId)
+        .collection("chats")
+        .doc(chat_id)
+        .set(chatNode, { merge: true });
 
-      await chatdb.ref("user_chats/" + sellerID).update({
-        ...chatNode,
-      });
+      db.collection("user_chats")
+        .doc(sellerID)
+        .collection("chats")
+        .doc(chat_id)
+        .set(chatNode, { merge: true });
+
+      // await chatdb.ref("user_chats/" + userId).update({
+      //   ...chatNode,
+      // });
+
+      // await chatdb.ref("user_chats/" + sellerID).update({
+      //   ...chatNode,
+      // });
     }
   };
 
@@ -89,7 +99,7 @@ const Chat = (props) => {
     if (value === "") {
       return alert("Please write your message!");
     }
-    chats.push({ id: Date.now(), type: "author", content: value });
+    chats.push({ id: Date.now(), type: "author", content: value, uid: userId });
     setChats([...chats]);
     setValue("");
     setListen(true);

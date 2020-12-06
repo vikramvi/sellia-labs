@@ -53,12 +53,39 @@ const ChatSidebar = ({
 
       setData(chats);
     }
-    fetchUserChats();
+
+    async function subscribeUserChat() {
+      const doc = db
+        .collection("user_chats")
+        .doc(userId)
+        .collection("chats");
+
+      const observer = doc.onSnapshot(
+        (docSnapshot) => {
+          console.log(`Received doc snapshot: ${docSnapshot}`);
+          let chats = [];
+          docSnapshot.forEach((doc) => {
+            console.log("my chat ->", doc.data());
+            chats.push(doc.data());
+          });
+
+          setData(chats);
+          // ...
+        },
+        (err) => {
+          console.log(`Encountered error: ${err}`);
+        }
+      );
+    }
+
+    // fetchUserChats();
+    subscribeUserChat();
   }, []);
 
-  const filteredUser = data.filter((item) =>
-    item.from.toLowerCase().includes(text.toLowerCase())
-  );
+  const filteredUser = data.filter((item) => {
+    console.log("item -->", item);
+    return item.from.toLowerCase().includes(text.toLowerCase());
+  });
 
   return (
     <>
