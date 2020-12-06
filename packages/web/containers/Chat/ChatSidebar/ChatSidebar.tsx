@@ -103,7 +103,11 @@ const ChatSidebar = ({
                 title={item.title}
                 subtitle={item.from}
                 date={(item.updatedAt && item.updatedAt.toDate()) || new Date()}
-                unread={0}
+                unread={
+                  item.listingID === (user && user.listingID)
+                    ? 0
+                    : item.unreadCount || 0
+                }
               />
             </UserListItem>
           );

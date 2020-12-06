@@ -101,16 +101,9 @@ const Menu = ({
         </Link>
       </MenuItemWrapper>
 
-      <MenuItemWrapper>
-        <Badge
-          path="/chat"
-          icon={
-            <BellButton>
-              <BsBell />
-            </BellButton>
-          }
-        />
-      </MenuItemWrapper>
+      {/* <MenuItemWrapper>
+        <Badge path="/chat" count={0} />
+      </MenuItemWrapper> */}
 
       <MenuItemWrapper>
         <DropdownMenu

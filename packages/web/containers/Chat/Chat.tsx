@@ -13,7 +13,7 @@ import Wrapper, {
   Body,
   Footer,
 } from "./Chat.styled";
-import { chatdb, db, firebaseTimeStamp } from "../../helpers/init";
+import { chatdb, db, firebaseFieldValue } from "../../helpers/init";
 import { ChatContext } from "./ChatContext";
 
 const Chat = (props) => {
@@ -51,10 +51,12 @@ const Chat = (props) => {
       chatId: chat_id,
       title: currentPost.title,
       listingID: listingID,
+      buyerID: userId,
       sellerID: sellerID,
       image: image,
       from: from ? from : "",
-      updatedAt: firebaseTimeStamp,
+      updatedAt: firebaseFieldValue.serverTimestamp(),
+      unreadCount: 0,
     };
 
     console.log(chatNode);
@@ -72,37 +74,6 @@ const Chat = (props) => {
         .collection("chats")
         .doc(chat_id)
         .set(chatNode, { merge: true });
-
-      // await chatdb.ref("user_chats/" + userId).update({
-      //   ...chatNode,
-      // });
-
-      // await chatdb.ref("user_chats/" + sellerID).update({
-      //   ...chatNode,
-      // });
-    }
-  };
-
-  const updateCloudChat = async () => {
-    const sellerID = currentListing.sellerID;
-    const listingID = currentListing.id;
-
-    let chat_id = getNodename(userId, sellerID, listingID);
-
-    //check for user id
-    if (userId !== sellerID) {
-      //update channel
-      db.collection("user_chats")
-        .doc(userId)
-        .collection("chats")
-        .doc(chat_id)
-        .set({ updatedAt: firebaseTimeStamp }, { merge: true });
-
-      db.collection("user_chats")
-        .doc(sellerID)
-        .collection("chats")
-        .doc(chat_id)
-        .set({ updatedAt: firebaseTimeStamp }, { merge: true });
     }
   };
 
@@ -124,14 +95,7 @@ const Chat = (props) => {
     if (value === "") {
       return alert("Please write your message!");
     }
-    // chats.push({
-    //   id: Date.now(),
-    //   type: "author",
-    //   content: value,
-    //   uid: userId,
-    //   createdAt: firebaseTimeStamp,
-    // });
-    // setChats([...chats]);
+
     setValue("");
     setListen(true);
 
@@ -141,7 +105,7 @@ const Chat = (props) => {
     if (currentListing) {
       const data = {
         content: value,
-        createdAt: firebaseTimeStamp,
+        createdAt: firebaseFieldValue.serverTimestamp(),
         uid: userId,
         listingID: currentListing.listingID
           ? currentListing.listingID
@@ -153,16 +117,39 @@ const Chat = (props) => {
         .add(data);
 
       db.collection("user_chats")
-        .doc(userId)
+        .doc(currentListing.buyerID)
         .collection("chats")
         .doc(currentListing.chatId)
-        .set({ updatedAt: firebaseTimeStamp }, { merge: true });
+        .set(
+          { updatedAt: firebaseFieldValue.serverTimestamp() },
+          { merge: true }
+        );
 
       db.collection("user_chats")
         .doc(currentListing.sellerID)
         .collection("chats")
         .doc(currentListing.chatId)
-        .set({ updatedAt: firebaseTimeStamp }, { merge: true });
+        .set(
+          { updatedAt: firebaseFieldValue.serverTimestamp() },
+          { merge: true }
+        );
+
+      //update other's unread count
+      let otherID;
+      if (userId === currentListing.buyerID) {
+        otherID = currentListing.sellerID;
+      } else {
+        otherID = currentListing.buyerID;
+      }
+
+      const increment = firebaseFieldValue.increment(1);
+
+      // Document reference
+      db.collection("user_chats")
+        .doc(otherID)
+        .collection("chats")
+        .doc(currentListing.chatId)
+        .update({ unreadCount: increment });
     }
   };
 
@@ -200,6 +187,16 @@ const Chat = (props) => {
         }
       );
     });
+
+    //clear unread count
+    //update other's unread count
+
+    // Document reference
+    db.collection("user_chats")
+      .doc(userId)
+      .collection("chats")
+      .doc(item.chatId)
+      .set({ unreadCount: 0 }, { merge: true });
   };
 
   return (
