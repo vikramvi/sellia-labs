@@ -7,26 +7,33 @@ import Wrapper, {
   Info,
   Name,
   Indicator,
+  UserImage,
   Button,
 } from "./ChatHeader.styled";
 
-const ChatHeader = () => {
+const ChatHeader = ({ opponentUser }) => {
   const { user } = useContext(ChatContext);
   return (
     <Wrapper>
       {user && (
-        <User>
-          <Image src={user && user.image.largeUrl} alt={user.name} />
-          <Info>
-            <Name>{user && user.title}</Name>
-
-            {user && user.isActive && <Indicator />}
-          </Info>
-        </User>
+        <>
+          <Button>
+            <Image src={user && user.image.largeUrl} alt={user.name} />
+            <Info>
+              <Name>
+                {user && user.title} - {user.price}$
+              </Name>
+            </Info>
+          </Button>
+          <User>
+            <UserImage src={opponentUser && opponentUser.profilePic} alt={""} />
+            <Info>
+              <Name>{opponentUser && opponentUser.name}</Name>
+              {user && user.isActive && <Indicator />}
+            </Info>
+          </User>
+        </>
       )}
-      <Button>
-        <BsBell />
-      </Button>
     </Wrapper>
   );
 };

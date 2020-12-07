@@ -5,6 +5,7 @@ interface ContextProps {
     id: string;
     name: string;
     title: string;
+    price: number;
     image: any;
     message: string;
     isActive: boolean;

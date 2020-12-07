@@ -1,25 +1,26 @@
-import React, { Component } from 'react';
-import redirect from '../helpers/redirect';
-import { getFirebaseCookie } from '../helpers/session';
+import React, { Component } from "react";
+import redirect from "../helpers/redirect";
+import { getFirebaseCookie } from "../helpers/session";
 
 /**
  * HOC for all the secret route
  */
-export default ComposedComponent =>
+export default (ComposedComponent) =>
   class SecretPage extends Component {
     static async getInitialProps(context) {
-      const token = getFirebaseCookie('id_token', context);
+      const token = getFirebaseCookie("id_token", context);
       let user = false;
-      user = getFirebaseCookie('user', context);
+      user = getFirebaseCookie("user", context);
       const isLoggedIn = token ? true : false;
       if (!isLoggedIn) {
-        redirect(context, '/signin');
+        redirect(context, "/signin");
       }
       return {
         isLoggedIn,
-        userId: user ? user.userId : 'false',
+        userId: user ? user.userId : "false",
         email: user ? user.email : false,
         error: user ? user.error : false,
+        user: user,
       };
       // return {
       //   isLoggedIn: true,

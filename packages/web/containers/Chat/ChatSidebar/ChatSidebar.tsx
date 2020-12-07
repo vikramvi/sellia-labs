@@ -98,10 +98,12 @@ const ChatSidebar = ({
               onClick={() => handleOnClick(item)}
             >
               <ChatItem
-                avatar={item.image}
+                avatar={item.image.largeUrl}
                 alt={item.name}
                 title={item.title}
-                subtitle={item.from}
+                subtitle={
+                  userId == item.buyer.id ? item.seller.name : item.buyer.name
+                }
                 date={(item.updatedAt && item.updatedAt.toDate()) || new Date()}
                 unread={
                   item.listingID === (user && user.listingID)

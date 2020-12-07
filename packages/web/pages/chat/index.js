@@ -17,17 +17,19 @@ import SecretPage from "../../hoc/secretPage";
 //   { ssr: false }
 // );
 
-const ChatPage = withLayout(({ userId }) => {
+const ChatPage = withLayout(({ userId, user }) => {
   const {
     query: { post },
   } = useRouter();
+
+  console.log("ChatPage withLayout ->", user);
 
   const postData = post && JSON.parse(post);
   return (
     <>
       <Container>
         <Block paddingTop={["15px", "20px", "30px", "40px"]}>
-          <Chat currentPost={postData} userId={userId} />
+          <Chat currentPost={postData} userId={userId} loginUser={user} />
         </Block>
       </Container>
     </>

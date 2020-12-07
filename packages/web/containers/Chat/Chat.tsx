@@ -14,14 +14,17 @@ import Wrapper, {
   Footer,
 } from "./Chat.styled";
 import { chatdb, db, firebaseFieldValue } from "../../helpers/init";
+import AuthHelper from "../../helpers/authHelper";
+
 import { ChatContext } from "./ChatContext";
+import { MessageList } from "react-chat-elements";
 
 const Chat = (props) => {
   const { user } = useContext(ChatContext);
 
-  console.log("user ->", user);
+  console.log("chat props ->", props);
 
-  const { currentPost, userId } = props;
+  const { currentPost, userId, loginUser } = props;
 
   const [currentListing, setcurrentListing] = useState(null);
 
@@ -29,6 +32,8 @@ const Chat = (props) => {
   const [value, setValue] = useState("");
   const [listen, setListen] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
+
+  const [opponentUser, setOpponentUser] = useState(null);
 
   const getNodename = (buyerID, sellerID, listingID) => {
     const chatNode = buyerID + sellerID + listingID;
@@ -47,16 +52,29 @@ const Chat = (props) => {
         : "";
 
     let chat_id = getNodename(userId, sellerID, listingID);
-    const chatNode = {
+    let chatNode = {
       chatId: chat_id,
       title: currentPost.title,
       listingID: listingID,
-      buyerID: userId,
-      sellerID: sellerID,
+      price: currentPost.price,
       image: image,
       from: from ? from : "",
       updatedAt: firebaseFieldValue.serverTimestamp(),
       unreadCount: 0,
+    };
+
+    const loginUser = await AuthHelper.getCurrentUser();
+
+    chatNode.buyer = {
+      id: loginUser.uid,
+      name: loginUser.displayName,
+      profilePic: loginUser.photoURL,
+    };
+
+    chatNode.seller = {
+      id: currentPost.author && currentPost.authorId,
+      name: currentPost.author && currentPost.author.name,
+      profilePic: currentPost.author && currentPost.author.image.url,
     };
 
     console.log(chatNode);
@@ -87,7 +105,9 @@ const Chat = (props) => {
 
     // scroll to bottom
     const chatBody = document.getElementById("chatBody");
-    chatBody.scrollTop = chatBody.scrollHeight;
+    if (chatBody) {
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
   }, []);
 
   const handleChat = async (e) => {
@@ -104,8 +124,9 @@ const Chat = (props) => {
     //send to firebase chat
     if (currentListing) {
       const data = {
-        content: value,
-        createdAt: firebaseFieldValue.serverTimestamp(),
+        text: value,
+        date: new Date(),
+        // date: firebaseFieldValue.serverTimestamp(),
         uid: userId,
         listingID: currentListing.listingID
           ? currentListing.listingID
@@ -117,7 +138,7 @@ const Chat = (props) => {
         .add(data);
 
       db.collection("user_chats")
-        .doc(currentListing.buyerID)
+        .doc(currentListing.buyer.id)
         .collection("chats")
         .doc(currentListing.chatId)
         .set(
@@ -126,7 +147,7 @@ const Chat = (props) => {
         );
 
       db.collection("user_chats")
-        .doc(currentListing.sellerID)
+        .doc(currentListing.seller.id)
         .collection("chats")
         .doc(currentListing.chatId)
         .set(
@@ -136,10 +157,10 @@ const Chat = (props) => {
 
       //update other's unread count
       let otherID;
-      if (userId === currentListing.buyerID) {
-        otherID = currentListing.sellerID;
+      if (userId === currentListing.buyer.id) {
+        otherID = currentListing.seller.id;
       } else {
-        otherID = currentListing.buyerID;
+        otherID = currentListing.buyer.id;
       }
 
       const increment = firebaseFieldValue.increment(1);
@@ -161,12 +182,16 @@ const Chat = (props) => {
   const onListingSelect = async (item) => {
     setcurrentListing(item);
 
+    const otherUser = item.seller.id == userId ? item.buyer : item.seller;
+
+    setOpponentUser(otherUser);
+
     //read from firestore
     const doc = await db
       .collection("chat_messages")
       .doc(item.chatId)
       .collection("messages")
-      .orderBy("createdAt", "asc");
+      .orderBy("date", "asc");
 
     const observer = doc.onSnapshot((docSnapshot) => {
       console.log(`Received doc snapshot: ${docSnapshot}`);
@@ -174,13 +199,25 @@ const Chat = (props) => {
       docSnapshot.forEach(
         (doc) => {
           console.log("my chat ->", doc.data());
-          arrChat.push(doc.data());
+          const dataSource = doc.data();
+
+          arrChat.push(dataSource);
+
+          // arrChat.push({
+          //   ...dataSource,
+          //   date: dataSource.date.toDate(),
+          //   position: dataSource.uid === userId ? "right" : "left",
+          //   title: dataSource.uid === userId ? "You" : opponentUser.name,
+          // });
 
           console.log("snapshot ->", arrChat);
           setChats([...arrChat]);
+
           // scroll to bottom
           const chatBody = document.getElementById("chatBody");
-          chatBody.scrollTop = chatBody.scrollHeight;
+          if (chatBody) {
+            chatBody.scrollTop = chatBody.scrollHeight;
+          }
         },
         (err) => {
           console.log(`Encountered error: ${err}`);
@@ -215,11 +252,16 @@ const Chat = (props) => {
             <ArrowButton onClick={() => setToggleSidebar(!toggleSidebar)}>
               <BsArrowLeft />
             </ArrowButton>
-            <ChatHeader />
+            <ChatHeader opponentUser={opponentUser} />
           </Header>
           <Body id="chatBody">
+            {/* <MessageList dataSource={chats} /> */}
             <div>
-              <ShowChats userId={userId} chats={chats} />
+              <ShowChats
+                userId={userId}
+                chats={chats}
+                opponentUser={opponentUser}
+              />
             </div>
           </Body>
           <Footer>

@@ -17,6 +17,13 @@ export const User = styled("div", {
 export const Image = styled("img", {
   width: "44px",
   height: "44px",
+  borderRadius: "10%",
+  objectFit: "cover",
+});
+
+export const UserImage = styled("img", {
+  width: "44px",
+  height: "44px",
   borderRadius: "50%",
   objectFit: "cover",
 });

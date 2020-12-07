@@ -54,7 +54,6 @@ export const UserList = styled("div", {
 export const UserListItem = styled("div", (props: any) => ({
   cursor: "pointer",
   padding: "15px 20px",
-  display: "flex",
   alignItems: "center",
   backgroundColor: props.$isActive
     ? props.$theme.colors.primaryB

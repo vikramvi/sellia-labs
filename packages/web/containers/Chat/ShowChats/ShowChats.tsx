@@ -5,8 +5,9 @@ import { ChatContext } from "../ChatContext";
 import { MessageBox, Avatar } from "react-chat-elements";
 import { date } from "yup";
 
-const ShowChats = ({ chats, userId }) => {
+const ShowChats = ({ chats, userId, opponentUser }) => {
   const { user } = useContext(ChatContext);
+  const opponentProfilePic = opponentUser && opponentUser.profilePic;
 
   return (
     <>
@@ -16,11 +17,12 @@ const ShowChats = ({ chats, userId }) => {
         ? chats.map((chat, index) => (
             <>
               <MessageBox
+                title={chat.uid === userId ? "You" : opponentUser.name}
                 position={chat.uid === userId ? "right" : "left"}
-                text={chat.content}
-                date={chat.createdAt && chat.createdAt.toDate()}
+                text={chat.text}
+                date={chat.date && chat.date.toDate()}
                 notch={false}
-              />
+              ></MessageBox>
             </>
             // <Response key={index} $authorTypeMe={chat.uid === userId}>
             //   <Emoji text={chat.content} />
