@@ -52,6 +52,8 @@ const Chat = (props) => {
         : "";
 
     let chat_id = getNodename(userId, sellerID, listingID);
+    const loginUser = await AuthHelper.getCurrentUser();
+
     let chatNode = {
       chatId: chat_id,
       title: currentPost.title,
@@ -61,20 +63,16 @@ const Chat = (props) => {
       from: from ? from : "",
       updatedAt: firebaseFieldValue.serverTimestamp(),
       unreadCount: 0,
-    };
-
-    const loginUser = await AuthHelper.getCurrentUser();
-
-    chatNode.buyer = {
-      id: loginUser.uid,
-      name: loginUser.displayName,
-      profilePic: loginUser.photoURL,
-    };
-
-    chatNode.seller = {
-      id: currentPost.author && currentPost.authorId,
-      name: currentPost.author && currentPost.author.name,
-      profilePic: currentPost.author && currentPost.author.image.url,
+      seller: {
+        id: currentPost.author && currentPost.authorId,
+        name: currentPost.author && currentPost.author.name,
+        profilePic: currentPost.author && currentPost.author.image.url,
+      },
+      buyer: {
+        id: loginUser.uid,
+        name: loginUser.displayName,
+        profilePic: loginUser.photoURL,
+      },
     };
 
     console.log(chatNode);
@@ -264,13 +262,15 @@ const Chat = (props) => {
               />
             </div>
           </Body>
-          <Footer>
-            <ChatInput
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              onSubmit={handleChat}
-            />
-          </Footer>
+          {currentListing && (
+            <Footer>
+              <ChatInput
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                onSubmit={handleChat}
+              />
+            </Footer>
+          )}
         </Message>
       </Wrapper>
     </ChatProvider>
