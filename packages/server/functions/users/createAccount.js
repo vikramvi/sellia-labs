@@ -50,7 +50,7 @@ export const createAccount = functions.https.onRequest(async (req, res) => {
     return res.status(200).json({
       success: true,
       isUserRegistered: true,
-      newUser,
+      user: newUser,
     });
   } else {
     // 3) add user to waitlist
