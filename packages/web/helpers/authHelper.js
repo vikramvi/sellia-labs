@@ -1,6 +1,7 @@
 import { async } from "regenerator-runtime";
 import { firebaseAuth } from "./init";
 import { setFirebaseCookie } from "./session";
+import firebase from "firebase/app";
 
 /**
  * Firebase Authentication helper functions
@@ -10,25 +11,43 @@ class AuthHelper {
 
   signupWithEmail = async (provider, name, email, password) => {
     try {
-      //create user
-      const result = await firebaseAuth().createUserWithEmailAndPassword(
-        email,
-        password
-      );
+      console.log("email ->", email);
 
-      //update profile
-      await firebaseAuth().currentUser.updateProfile({
-        displayName: name,
-      });
+      //call function
+      const result = await firebase
+        .functions()
+        .httpsCallable("createAccount")
+        .call({ name, email, password });
 
-      // send verfication email
-      firebaseAuth().currentUser.sendEmailVerification();
+      console.log("return ->", result);
 
       return result;
     } catch (error) {
       return error;
     }
   };
+
+  // signupWithEmail = async (provider, name, email, password) => {
+  //   try {
+  //     //create user
+  //     const result = await firebaseAuth().createUserWithEmailAndPassword(
+  //       email,
+  //       password
+  //     );
+
+  //     //update profile
+  //     await firebaseAuth().currentUser.updateProfile({
+  //       displayName: name,
+  //     });
+
+  //     // send verfication email
+  //     firebaseAuth().currentUser.sendEmailVerification();
+
+  //     return result;
+  //   } catch (error) {
+  //     return error;
+  //   }
+  // };
 
   signUp = async (provider, name, email, password) => {
     try {
