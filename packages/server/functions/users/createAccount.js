@@ -35,29 +35,37 @@ const THUMB_PREFIX = "thumb_";
 import { createAuthUser } from "./createAuthUser";
 import { createWaitListUser } from "./createWaitListUser";
 import { validateAccount } from "./validateAccount";
+const cors = require("cors")({ origin: true });
 
-export const createAccount = functions.https.onRequest(async (req, res) => {
+export const createAccount = functions.https.onRequest((req, res) => {
   // response.send("sign up worked");
 
-  const { newUserInfo } = req.body;
+  return cors(req, res, async () => {
+    const { newUserInfo } = req.body;
 
-  // 1) validate email domain
-  const isCompanyRegistered = await validateAccount(newUserInfo);
+    console.log("req.body ->", req.body);
+    console.log("newUserInfo ->", newUserInfo);
 
-  if (isCompanyRegistered) {
-    // 2) create user for allowed user
-    const newUser = await createAuthUser(newUserInfo);
-    return res.status(200).json({
-      success: true,
-      isUserRegistered: true,
-      user: newUser,
-    });
-  } else {
-    // 3) add user to waitlist
-    await createWaitListUser(newUserInfo);
-    return res.status(200).json({
-      success: true,
-      isUserRegistered: false,
-    });
-  }
+    // 1) validate email domain
+    const isCompanyRegistered = await validateAccount(newUserInfo);
+
+    if (isCompanyRegistered) {
+      // 2) create user for allowed user
+      const { user, error } = await createAuthUser(newUserInfo);
+
+      return res.status(200).json({
+        success: user ? true : false,
+        isCompanyRegistered: true,
+        user: user,
+        error: error && error.message,
+      });
+    } else {
+      // 3) add user to waitlist
+      await createWaitListUser(newUserInfo);
+      return res.status(200).json({
+        success: true,
+        isCompanyRegistered: false,
+      });
+    }
+  });
 });

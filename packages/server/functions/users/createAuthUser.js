@@ -5,10 +5,14 @@ export const createAuthUser = async (newUserInfo) => {
   const auth = admin.auth();
   const { email, password } = newUserInfo;
 
-  const newUser = await auth.createUser({
-    email: email,
-    password,
-  });
+  try {
+    const newUser = await auth.createUser({
+      email: email,
+      password,
+    });
 
-  return newUserInfo.uid;
+    return { user: newUser, error: null };
+  } catch (error) {
+    return { user: null, error: error };
+  }
 };

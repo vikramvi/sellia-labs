@@ -1,10 +1,10 @@
 require("@babel/polyfill");
 require("dotenv").config();
 
-import api from "./functions/api";
 // import app from './functions/app';
 import generateThumbnail from "./functions/generateThumb";
 import { createAccount } from "./functions/users/createAccount";
+import api from "./functions/api";
 
 const functions = require("firebase-functions");
 const next = require("next");

@@ -2,6 +2,7 @@
   "name": "web",
   "version": "0.0.2",
   "private": true,
+  "proxy": "https://us-central1-sellia-42377.cloudfunctions.net/api",
   "main": "index.js",
   "scripts": {
     "dev": "next",

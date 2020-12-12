@@ -9,8 +9,6 @@ export const validateAccount = async (newUserInfo) => {
 
   var emailDomain = email.substring(email.lastIndexOf("@") + 1);
 
-  console.log("emailDomain ->", emailDomain);
-
   const doc = await store
     .collection("sellia-admin")
     .doc("companies")

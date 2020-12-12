@@ -2,6 +2,7 @@ import { async } from "regenerator-runtime";
 import { firebaseAuth } from "./init";
 import { setFirebaseCookie } from "./session";
 import firebase from "firebase/app";
+import axios from "axios";
 
 /**
  * Firebase Authentication helper functions
@@ -14,14 +15,34 @@ class AuthHelper {
       console.log("email ->", email);
 
       //call function
-      const result = await firebase
-        .functions()
-        .httpsCallable("createAccount")
-        .call({ name, email, password });
 
-      console.log("return ->", result);
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
 
-      return result;
+      const newUserInfo = {
+        email,
+        password,
+      };
+
+      // const result = await fetch(
+      //   "http://localhost:5001/sellia-42377/us-central1/createAccount",
+      //   {
+      //     method: "POST",
+      //     body: JSON.stringify({ newUserInfo }),
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //   }
+      // );
+
+      const resp = await axios.post(
+        "http://localhost:5001/sellia-42377/us-central1/createAccount",
+        { newUserInfo }
+      );
+
+      console.log("return ->", resp.data);
+
+      return resp.data;
     } catch (error) {
       return error;
     }

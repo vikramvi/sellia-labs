@@ -3,6 +3,7 @@ import "firebase/firestore";
 import "firebase/storage";
 import "firebase/auth";
 import "firebase/database";
+import "firebase/functions";
 
 import { config } from "./firebase.config";
 
@@ -11,6 +12,9 @@ import { config } from "./firebase.config";
 if (!firebase.apps.length) {
   firebase.initializeApp(config);
 }
+
+//emulator
+firebase.functions().useFunctionsEmulator("http://localhost:5001");
 
 const db = firebase.firestore();
 const storage = firebase.storage();

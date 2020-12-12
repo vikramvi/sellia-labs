@@ -46,18 +46,29 @@ const SignUpForm = ({
     if (!Object.keys(errors).length) {
       const { name, email, password } = values;
       const provider = "password";
-      const { user, error } = await AuthHelper.signupWithEmail(
-        provider,
-        name,
-        email,
-        password
-      );
-      if (user) {
-        token = await user.getIdToken();
-        setFieldValue("token", token);
+      const {
+        user,
+        error,
+        isCompanyRegistered,
+      } = await AuthHelper.signupWithEmail(provider, name, email, password);
+
+      if (!isCompanyRegistered) {
+        setLoading(false);
+        setError(
+          new Error(
+            "Thank you for your interest! You have been added to waitlist, as at the moment your company is not supported."
+          )
+        );
+      } else if (user) {
+        // token = await user.getIdToken();
+        // setFieldValue("token", token);
+
+        redirect({}, "/signin");
+
+        // setFieldValue("token", user.uid);
       } else if (error) {
         setLoading(false);
-        setError(error);
+        setError(new Error(error));
       }
     }
   };
