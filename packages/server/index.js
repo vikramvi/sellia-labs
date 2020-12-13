@@ -4,6 +4,8 @@ require("dotenv").config();
 // import app from './functions/app';
 import generateThumbnail from "./functions/generateThumb";
 import { createAccount } from "./functions/users/createAccount";
+import { sendEmailVerification } from "./functions/users/sendVerificationEmail";
+
 import api from "./functions/api";
 
 const functions = require("firebase-functions");
@@ -25,6 +27,7 @@ var handle = app.getRequestHandler();
 
 exports.api = functions.https.onRequest(api);
 exports.generateThumbnail = generateThumbnail;
+exports.sendEmailVerification = sendEmailVerification;
 exports.createAccount = createAccount;
 exports.next = functions.https.onRequest((req, res) => {
   console.log("File: " + req.originalUrl); // log the page.js file that is being requested

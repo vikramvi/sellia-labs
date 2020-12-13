@@ -20,12 +20,13 @@ import { chatdb, db } from "../../../helpers/init";
 import { ChatItem } from "react-chat-elements";
 
 const ChatSidebar = ({
+  data,
   setToggleSidebar,
   resetChat,
   userId,
   onListingSelect,
 }) => {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [text, setText] = useState("");
   const { user, handleSelectedUser } = useContext(ChatContext);
   const handleOnClick = (item) => {
@@ -39,37 +40,33 @@ const ChatSidebar = ({
 
   //listen users_chat
   useEffect(() => {
-    async function subscribeUserChat() {
-      const doc = db
-        .collection("user_chats")
-        .doc(userId)
-        .collection("chats")
-        .orderBy("updatedAt", "desc");
-
-      const observer = doc.onSnapshot(
-        (docSnapshot) => {
-          let chats = [];
-          docSnapshot.docChanges().forEach((change) => {
-            console.log(
-              `Received doc snapshot: ${docSnapshot} - ${change.type}`
-            );
-
-            if (change.type === "added") {
-              console.log("my chat ->", change.doc.data());
-              chats.push(change.doc.data());
-              setData(chats);
-            }
-          });
-
-          // ...
-        },
-        (err) => {
-          console.log(`Encountered error: ${err}`);
-        }
-      );
-    }
-
-    subscribeUserChat();
+    // async function subscribeUserChat() {
+    //   const doc = db
+    //     .collection("user_chats")
+    //     .doc(userId)
+    //     .collection("chats")
+    //     .orderBy("updatedAt", "desc");
+    //   const observer = doc.onSnapshot(
+    //     (docSnapshot) => {
+    //       let chats = [];
+    //       docSnapshot.docChanges().forEach((change) => {
+    //         console.log(
+    //           `Received doc snapshot: ${docSnapshot} - ${change.type}`
+    //         );
+    //         if (change.type === "added") {
+    //           console.log("my chat ->", change.doc.data());
+    //           chats.push(change.doc.data());
+    //           setData(chats);
+    //         }
+    //       });
+    //       // ...
+    //     },
+    //     (err) => {
+    //       console.log(`Encountered error: ${err}`);
+    //     }
+    //   );
+    // }
+    // subscribeUserChat();
   }, []);
 
   const filteredUser = data.filter((item) => {

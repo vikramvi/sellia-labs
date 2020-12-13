@@ -5,6 +5,8 @@ import ChatSidebar from "./ChatSidebar/ChatSidebar";
 import ChatHeader from "./ChatHeader/ChatHeader";
 import ShowChats from "./ShowChats/ShowChats";
 import ChatInput from "./ChatInput/ChatInput";
+import Box from "reusecore/src/elements/Box";
+
 import Wrapper, {
   Sidebar,
   Message,
@@ -19,6 +21,54 @@ import AuthHelper from "../../helpers/authHelper";
 import { ChatContext } from "./ChatContext";
 import { MessageList } from "react-chat-elements";
 
+const NoConversation = () => (
+  <Box flexBox mt={20} justifyContent="center" alignItems="center">
+    <div class="_3WOCp">
+      <div class="_2ZFwQ">
+        <div class="_3WOCp">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="https://statics.olx.in/external/base/img/emptyChat.webp"
+            />
+            <img
+              src="https://statics.olx.in/external/base/img/emptyChat.png"
+              class=""
+              alt=""
+            />
+          </picture>
+        </div>
+        <div class="_30hp2">
+          <span>We’ll keep messages for any item you’re selling in here</span>
+        </div>
+      </div>
+    </div>
+  </Box>
+);
+
+const NoListingSelected = () => (
+  <Box flexBox alignItems="center" ml={200}>
+    <div class="_2ZFwQ">
+      <div class="_3WOCp">
+        <picture>
+          <source
+            type="image/webp"
+            srcset="https://statics.olx.in/external/base/img/emptyChat.webp"
+          />
+          <img
+            src="https://statics.olx.in/external/base/img/emptyChat.png"
+            class=""
+            alt=""
+          />
+        </picture>
+      </div>
+      <div class="_30hp2">
+        <span>Select a conversation to see messages</span>
+      </div>
+    </div>
+  </Box>
+);
+
 const Chat = (props) => {
   const { user } = useContext(ChatContext);
 
@@ -32,6 +82,7 @@ const Chat = (props) => {
   const [value, setValue] = useState("");
   const [listen, setListen] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
+  const [data, setData] = useState([]);
 
   const [opponentUser, setOpponentUser] = useState(null);
 
@@ -100,6 +151,39 @@ const Chat = (props) => {
     if (currentPost) {
       setupCloudChat(currentPost);
     }
+
+    //get conversations
+    async function subscribeUserChat() {
+      const doc = db
+        .collection("user_chats")
+        .doc(userId)
+        .collection("chats")
+        .orderBy("updatedAt", "desc");
+
+      const observer = doc.onSnapshot(
+        (docSnapshot) => {
+          let chats = [];
+          docSnapshot.docChanges().forEach((change) => {
+            console.log(
+              `Received doc snapshot: ${docSnapshot} - ${change.type}`
+            );
+
+            if (change.type === "added") {
+              console.log("my chat ->", change.doc.data());
+              chats.push(change.doc.data());
+              setData(chats);
+            }
+          });
+
+          // ...
+        },
+        (err) => {
+          console.log(`Encountered error: ${err}`);
+        }
+      );
+    }
+
+    subscribeUserChat();
 
     // scroll to bottom
     const chatBody = document.getElementById("chatBody");
@@ -236,43 +320,50 @@ const Chat = (props) => {
 
   return (
     <ChatProvider>
-      <Wrapper>
-        <Sidebar $isActive={toggleSidebar}>
-          <ChatSidebar
-            userId={userId}
-            resetChat={resetChat}
-            setToggleSidebar={setToggleSidebar}
-            onListingSelect={onListingSelect}
-          />
-        </Sidebar>
-        <Message>
-          <Header>
-            <ArrowButton onClick={() => setToggleSidebar(!toggleSidebar)}>
-              <BsArrowLeft />
-            </ArrowButton>
-            <ChatHeader opponentUser={opponentUser} />
-          </Header>
-          <Body id="chatBody">
-            {/* <MessageList dataSource={chats} /> */}
-            <div>
-              <ShowChats
-                userId={userId}
-                chats={chats}
-                opponentUser={opponentUser}
-              />
-            </div>
-          </Body>
-          {currentListing && (
-            <Footer>
-              <ChatInput
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                onSubmit={handleChat}
-              />
-            </Footer>
+      {data.length > 0 ? (
+        <Wrapper>
+          <Sidebar $isActive={toggleSidebar}>
+            <ChatSidebar
+              data={data}
+              userId={userId}
+              resetChat={resetChat}
+              setToggleSidebar={setToggleSidebar}
+              onListingSelect={onListingSelect}
+            />
+          </Sidebar>
+          {currentListing ? (
+            <Message>
+              <Header>
+                <ArrowButton onClick={() => setToggleSidebar(!toggleSidebar)}>
+                  <BsArrowLeft />
+                </ArrowButton>
+                <ChatHeader opponentUser={opponentUser} />
+              </Header>
+              <Body id="chatBody">
+                {/* <MessageList dataSource={chats} /> */}
+                <div>
+                  <ShowChats
+                    userId={userId}
+                    chats={chats}
+                    opponentUser={opponentUser}
+                  />
+                </div>
+              </Body>
+              <Footer>
+                <ChatInput
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                  onSubmit={handleChat}
+                />
+              </Footer>
+            </Message>
+          ) : (
+            <NoListingSelected />
           )}
-        </Message>
-      </Wrapper>
+        </Wrapper>
+      ) : (
+        <NoConversation />
+      )}
     </ChatProvider>
   );
 };
