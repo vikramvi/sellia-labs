@@ -7,8 +7,9 @@ import "firebase/functions";
 import { config } from "../firebase.config";
 
 firebase.initializeApp(config);
+
 //emulator
-firebase.functions().useFunctionsEmulator("http://localhost:5001");
+//firebase.functions().useFunctionsEmulator("http://localhost:5001");
 
 const db = firebase.firestore();
 const storage = firebase.storage();

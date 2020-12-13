@@ -3,6 +3,7 @@ import { firebaseAuth } from "./init";
 import { setFirebaseCookie } from "./session";
 import firebase from "firebase/app";
 import axios from "axios";
+axios.defaults.baseURL = "https://us-central1-sellia-42377.cloudfunctions.net";
 
 /**
  * Firebase Authentication helper functions
@@ -24,21 +25,7 @@ class AuthHelper {
         password,
       };
 
-      // const result = await fetch(
-      //   "http://localhost:5001/sellia-42377/us-central1/createAccount",
-      //   {
-      //     method: "POST",
-      //     body: JSON.stringify({ newUserInfo }),
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
-
-      const resp = await axios.post(
-        "http://localhost:5001/sellia-42377/us-central1/createAccount",
-        { newUserInfo }
-      );
+      const resp = await axios.post("/createAccount", { newUserInfo });
 
       console.log("return ->", resp.data);
 

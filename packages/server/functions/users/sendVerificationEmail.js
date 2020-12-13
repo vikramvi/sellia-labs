@@ -5,12 +5,16 @@ import sendEmail from "../../helper/sendEmail";
 export const sendEmailVerification = functions.auth
   .user()
   .onCreate(async (user, context) => {
+    console.log("sendEmailVerification starts");
     const email = user.email;
     const link = await admin.auth().generateEmailVerificationLink(email, {
       url: "https://sellia-42377.web.app/signup-verification",
     });
 
-    // sendEmail() is a helper defined elsewhere that puts the link into a custom
-    // email template, and sends it out using SendGrid.
-    return await sendEmail(email, link);
+    return sendEmail({
+      to: email,
+      from: "noreply@sellia.com",
+      subject: "Sellia Email Verification",
+      message: `Click this link to verify your email: ${link}`,
+    });
   });

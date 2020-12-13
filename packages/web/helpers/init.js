@@ -14,7 +14,7 @@ if (!firebase.apps.length) {
 }
 
 //emulator
-firebase.functions().useFunctionsEmulator("http://localhost:5001");
+// firebase.functions().useFunctionsEmulator("http://localhost:5001");
 
 const db = firebase.firestore();
 const storage = firebase.storage();
