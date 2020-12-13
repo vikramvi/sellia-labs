@@ -1,6 +1,6 @@
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
-import sendEmail from "../../helper/sendEmail";
+import { sendEmail } from "../../helper/sendEmail";
 
 export const sendEmailVerification = functions.auth
   .user()

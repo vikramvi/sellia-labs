@@ -23,22 +23,22 @@ import { MessageList } from "react-chat-elements";
 
 const NoConversation = () => (
   <Box flexBox mt={20} justifyContent="center" alignItems="center">
-    <div class="_3WOCp">
-      <div class="_2ZFwQ">
-        <div class="_3WOCp">
+    <div className="_3WOCp">
+      <div className="_2ZFwQ">
+        <div className="_3WOCp">
           <picture>
             <source
               type="image/webp"
-              srcset="https://statics.olx.in/external/base/img/emptyChat.webp"
+              srcSet="https://statics.olx.in/external/base/img/emptyChat.webp"
             />
             <img
               src="https://statics.olx.in/external/base/img/emptyChat.png"
-              class=""
+              className=""
               alt=""
             />
           </picture>
         </div>
-        <div class="_30hp2">
+        <div className="_30hp2">
           <span>We’ll keep messages for any item you’re selling in here</span>
         </div>
       </div>
@@ -48,21 +48,21 @@ const NoConversation = () => (
 
 const NoListingSelected = () => (
   <Box flexBox alignItems="center" ml={200}>
-    <div class="_2ZFwQ">
-      <div class="_3WOCp">
+    <div className="_2ZFwQ">
+      <div className="_3WOCp">
         <picture>
           <source
             type="image/webp"
-            srcset="https://statics.olx.in/external/base/img/emptyChat.webp"
+            srcSet="https://statics.olx.in/external/base/img/emptyChat.webp"
           />
           <img
             src="https://statics.olx.in/external/base/img/emptyChat.png"
-            class=""
+            className=""
             alt=""
           />
         </picture>
       </div>
-      <div class="_30hp2">
+      <div className="_30hp2">
         <span>Select a conversation to see messages</span>
       </div>
     </div>
