@@ -20,14 +20,21 @@ import redirect from "../../helpers/redirect";
 
 const SignupEnhancher = withFormik({
   enableReinitialize: true,
-  mapPropsToValues: (props) => ({ name: "", email: "", password: "" }),
+  mapPropsToValues: (props) => ({
+    name: "",
+    email: "",
+    password: "",
+    remember: false,
+  }),
   validationSchema: Yup.object().shape({
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required!"),
     password: Yup.string().required("Password is required"),
+    name: Yup.string().required("Name is required"),
   }),
 });
+
 let token = "";
 const SignUpForm = ({
   values,
@@ -41,8 +48,12 @@ const SignUpForm = ({
   const [error, setError] = useState({});
   const [loading, setLoading] = useState(false);
   const [registerMutation, { data }] = useMutation(REGISTER);
+
   handleSubmit = async () => {
     setLoading(true);
+
+    console.log("errors ->", errors);
+
     if (!Object.keys(errors).length) {
       const { name, email, password } = values;
       const provider = "password";
@@ -70,6 +81,8 @@ const SignUpForm = ({
         setLoading(false);
         setError(new Error(error));
       }
+    } else {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -99,11 +112,12 @@ const SignUpForm = ({
 
       {/* signup form */}
 
-      <FormGroup className={errors.email ? "hasErrorMsg" : ""}>
+      <FormGroup className={errors.name ? "hasErrorMsg" : ""}>
         <Input
           elementType="input"
           elementConfig={{
             type: "name",
+            required: "required",
           }}
           value={values.name}
           error={errors.name}

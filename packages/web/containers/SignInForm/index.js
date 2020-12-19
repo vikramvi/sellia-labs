@@ -53,6 +53,7 @@ const SignInForm = ({
 
   handleSubmit = async () => {
     setLoading(true);
+    console.log("sign in errors ->", errors);
     if (!Object.keys(errors).length) {
       const { email, password } = values;
       const provider = "password";

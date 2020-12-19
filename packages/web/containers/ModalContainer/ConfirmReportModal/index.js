@@ -1,9 +1,9 @@
-import React from 'react';
-import Icon from 'react-icons-kit';
-import { iosTrash } from 'react-icons-kit/ionicons/iosTrash';
-import { ReportModalWrapper, ButtonWrapper, IconWrapper } from './style';
-import Text from 'reusecore/src/elements/Text';
-import Button from 'reusecore/src/elements/Button';
+import React from "react";
+import Icon from "react-icons-kit";
+import { iosTrash } from "react-icons-kit/ionicons/iosTrash";
+import { ReportModalWrapper, ButtonWrapper, IconWrapper } from "./style";
+import Text from "reusecore/src/elements/Text";
+import Button from "reusecore/src/elements/Button";
 
 const ConfirmReportModal = ({
   data: { handleRemoveMobile, item, closeModal },
@@ -33,7 +33,7 @@ const ConfirmReportModal = ({
         fontSize={16}
         fontWeight={400}
         color="#8C8C8C"
-        style={{ textAlign: 'center' }}
+        style={{ textAlign: "center" }}
       />
       <ButtonWrapper>
         <Button
@@ -41,9 +41,9 @@ const ConfirmReportModal = ({
           mr={20}
           onClick={closeModal}
           style={{
-            width: '100%',
-            backgroundColor: '#E2E2E2',
-            color: '#595959',
+            width: "100%",
+            backgroundColor: "#E2E2E2",
+            color: "#595959",
             fontWeight: 600,
           }}
         />
@@ -51,9 +51,9 @@ const ConfirmReportModal = ({
           title="Delete"
           onClick={removeMobile}
           style={{
-            width: '100%',
-            backgroundColor: '#EF5A5A',
-            color: '#FFFFFF',
+            width: "100%",
+            backgroundColor: "#EF5A5A",
+            color: "#FFFFFF",
             fontWeight: 600,
           }}
         />

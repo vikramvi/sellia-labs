@@ -1,19 +1,19 @@
-import React from 'react';
-import InputField from './Input.style';
+import React from "react";
+import InputField from "./Input.style";
 
 // get input focus class
-const getInputFocusClass = value => {
-  if (value !== '' && value != null) {
-    return 'is-focus';
+const getInputFocusClass = (value) => {
+  if (value !== "" && value != null) {
+    return "is-focus";
   } else {
-    return '';
+    return "";
   }
 };
 
-const input = props => {
+const input = (props) => {
   let inputElement;
   switch (props.elementType) {
-    case 'input':
+    case "input":
       inputElement = (
         <input
           {...props.elementConfig}
@@ -23,10 +23,10 @@ const input = props => {
         />
       );
       break;
-    case 'select':
+    case "select":
       inputElement = (
         <select value={props.value} onChange={props.changed}>
-          {props.elementConfig.options.map(option => (
+          {props.elementConfig.options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.name}
             </option>
@@ -34,7 +34,7 @@ const input = props => {
         </select>
       );
       break;
-    case 'textarea':
+    case "textarea":
       inputElement = (
         <textarea
           {...props.elementConfig}

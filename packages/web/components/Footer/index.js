@@ -33,7 +33,7 @@ const SOCIAL_ICONS = [
 
 const footer = () => (
   <FooterWrapper>
-    <SocialIcon className="social-icon" icons={SOCIAL_ICONS} />
+    {/* <SocialIcon className="social-icon" icons={SOCIAL_ICONS} /> */}
     <p className="footer-copyright">&copy; {new Date().getFullYear()} Sellia</p>
   </FooterWrapper>
 );

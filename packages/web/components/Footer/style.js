@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-const FooterWrapper = styled('footer')`
+const FooterWrapper = styled("footer")`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   padding-left: 2rem;
   padding-right: 2rem;

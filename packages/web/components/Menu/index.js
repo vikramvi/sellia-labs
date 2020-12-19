@@ -101,9 +101,13 @@ const Menu = ({
         </Link>
       </MenuItemWrapper>
 
-      {/* <MenuItemWrapper>
-        <Badge path="/chat" count={0} />
-      </MenuItemWrapper> */}
+      <MenuItemWrapper>
+        <Link href={CHAT_PAGE}>
+          <span>
+            <a>Inbox</a> <Badge path="/chat" />
+          </span>
+        </Link>
+      </MenuItemWrapper>
 
       <MenuItemWrapper>
         <DropdownMenu
