@@ -19,6 +19,9 @@ import { useMutation } from "@apollo/react-hooks";
 import AuthHelper from "../../helpers/authHelper";
 import { setFirebaseCookie } from "../../helpers/session";
 import redirect from "../../helpers/redirect";
+import { openModal, closeModal } from "@redq/reuse-modal";
+import { Modal } from "@redq/reuse-modal";
+import SignUpSuccessModal from "../ModalContainer/SignUpSuccessModal";
 
 const SignInEnhancher = withFormik({
   enableReinitialize: true,
@@ -43,7 +46,7 @@ const SignInForm = ({
   const [error, setError] = useState({});
   const [loading, setLoading] = useState(false);
   const {
-    query: { isVerified },
+    query: { isVerified, initiateSignup },
   } = useRouter();
   const handleCheckboxChange = (checked) => {
     setFieldValue("remember", checked);
@@ -104,6 +107,28 @@ const SignInForm = ({
       {/* auth page header section */}
       <AuthHeader />
       {/* signin form */}
+
+      {/* {initiateSignup &&
+        openModal({
+          config: {
+            width: 400,
+            height: 200,
+            transition: {
+              tension: 200,
+            },
+          },
+          springStyle: {
+            backgroundColor: "#ffffff",
+            padding: 0,
+          },
+          closeOnClickOutside: true,
+          component: SignUpSuccessModal,
+          componentProps: {
+            data: {
+              closeModal,
+            },
+          },
+        })} */}
 
       {isVerified && (
         <Text content={"Your email has been verified, please sign-in!"} />
@@ -231,6 +256,7 @@ const SignInForm = ({
           }}
         />
       </Box>
+      <Modal />
     </>
   );
 };

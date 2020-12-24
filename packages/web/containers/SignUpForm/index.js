@@ -73,8 +73,7 @@ const SignUpForm = ({
       } else if (user) {
         // token = await user.getIdToken();
         // setFieldValue("token", token);
-
-        redirect({}, "/signin");
+        redirect({ initiateSignup: true }, "/signin");
 
         // setFieldValue("token", user.uid);
       } else if (error) {
@@ -85,6 +84,7 @@ const SignUpForm = ({
       setLoading(false);
     }
   };
+
   useEffect(() => {
     (async function() {
       try {
@@ -194,22 +194,6 @@ const SignUpForm = ({
         icon={<Icon icon={locked} size={21} />}
         mt={20}
       />
-
-      {/* <Text
-        fontSize={14}
-        content="Or"
-        color="#8C8C8C"
-        textAlign="center"
-        mt={16}
-      /> */}
-
-      {/* <Button
-        onClick={handleSubmit}
-        title="Sign up with"
-        icon={<Icon icon={phone} size={21} />}
-        width={1}
-        bg="#5CABE6"
-      /> */}
 
       {/* signin page redirection section */}
 

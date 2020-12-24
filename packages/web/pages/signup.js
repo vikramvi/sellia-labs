@@ -4,6 +4,7 @@ import IsAuthenticated from "../hoc/isAuthenticated";
 import SignUpForm from "../containers/SignUpForm";
 import PageMeta from "../components/PageMeta";
 import { withApollo } from "../helpers/apollo";
+
 function SignUp({ history }) {
   return (
     <>
