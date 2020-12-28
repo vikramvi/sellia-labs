@@ -1,8 +1,12 @@
+Active branch: develop
+
 Setup:
 
 1) Checkout the repository
 2) With nvm make sure node 12.0.0 is used
 3) Install firebase tools 8.16.2
+4) From root directory, yarn
+
 
 Developement:
 
