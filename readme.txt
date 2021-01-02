@@ -1,3 +1,5 @@
+Active branch: develop
+
 Setup:
 
 1) Checkout the repository
