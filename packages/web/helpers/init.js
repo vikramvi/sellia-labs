@@ -15,9 +15,15 @@ if (!firebase.apps.length) {
 }
 
 //emulator
-// firebase.functions().useFunctionsEmulator("http://localhost:5001");
+firebase.functions().useFunctionsEmulator("http://localhost:5000");
+// firebase.firestore().settings({
+//   host: "localhost:8081",
+// });
 
-const db = firebase.firestore();
+var db = firebase.firestore();
+// if (location.hostname === "localhost") {
+// db.useEmulator("localhost", 8080);
+// }
 const storage = firebase.storage();
 const firebaseAuth = firebase.auth;
 const chatdb = firebase.database();

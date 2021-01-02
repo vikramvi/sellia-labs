@@ -5,6 +5,7 @@ require("dotenv").config();
 import generateThumbnail from "./functions/generateThumb";
 import { createAccount } from "./functions/users/createAccount";
 import { sendEmailVerification } from "./functions/users/sendVerificationEmail";
+import { userActivityNotification } from "./functions/notifications/userActivityNotification";
 
 import api from "./functions/api";
 
@@ -29,6 +30,8 @@ exports.api = functions.https.onRequest(api);
 exports.generateThumbnail = generateThumbnail;
 exports.sendEmailVerification = sendEmailVerification;
 exports.createAccount = createAccount;
+exports.userActivityNotification = userActivityNotification;
+
 exports.next = functions.https.onRequest((req, res) => {
   console.log("File: " + req.originalUrl); // log the page.js file that is being requested
   return app.prepare().then(() => handle(req, res));
