@@ -20,3 +20,8 @@ Deployment:
 3) Once 1 completed, from root directory, yarn server:build
 4) Confirm cloud/next exists
 5) From root directory, yarn deploy 
+
+
+Firebase Helper commands:
+
+cd packages/cloud && NODE_ENV=production firebase deploy --only functions:userActivityNotificationListner

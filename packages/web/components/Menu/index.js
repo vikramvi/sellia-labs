@@ -104,7 +104,7 @@ const Menu = ({
       <MenuItemWrapper>
         <Link href={CHAT_PAGE}>
           <span>
-            <a>Inbox</a> <Badge path="/chat" />
+            <a>Inbox</a>
           </span>
         </Link>
       </MenuItemWrapper>

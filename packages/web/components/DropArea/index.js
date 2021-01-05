@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import Image from 'reusecore/src/elements/Image';
-import Text from 'reusecore/src/elements/Text';
-import Heading from 'reusecore/src/elements/Heading';
-import UpIcon from 'core/static/images/UploadIcon.png';
+import React from "react";
+import styled from "styled-components";
+import Image from "reusecore/src/elements/Image";
+import Text from "reusecore/src/elements/Text";
+import Heading from "reusecore/src/elements/Heading";
+import UpIcon from "core/static/images/UploadIcon.png";
 const Container = styled.div`
   border: none;
   width: 100%;
@@ -21,18 +21,18 @@ const Container = styled.div`
 export default function DropArea() {
   return (
     <Container>
-      <Image src={UpIcon} alt={'upload icon'} width={82} height={50} mb={35} />
+      <Image src={UpIcon} alt={"upload icon"} width={82} height={50} mb={35} />
 
       <Heading
         as="h3"
         mb={10}
-        content="Choose form Gallery"
-        style={{ fontSize: 20, fontWeight: 600, color: '#333333' }}
+        content="Choose from Gallery"
+        style={{ fontSize: 20, fontWeight: 600, color: "#333333" }}
       />
 
       <Text
         content="Maximum image size 1MB"
-        style={{ fontSize: 16, fontWeight: 400, color: '#595959' }}
+        style={{ fontSize: 16, fontWeight: 400, color: "#595959" }}
       />
     </Container>
   );

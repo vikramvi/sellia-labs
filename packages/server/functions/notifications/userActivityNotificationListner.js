@@ -11,8 +11,8 @@ export const userActivityNotificationListner = functions.firestore
     const userId = context.params.userId;
     const newValue = snap.data();
 
-    //check user is not seller
-    if (userId == newValue.seller.id) {
+    // check user is not buyer
+    if (userId == newValue.buyer.id) {
       // do nothing
       return;
     }
@@ -29,9 +29,9 @@ export const userActivityNotificationListner = functions.firestore
       //opt for notification
       var notificationObject = {
         type: "user_activity",
-        subject: "Buyer is interested in you listing",
+        subject: "Sellia - Buyer is interested in your listing",
         email: toUserEmail,
-        body: `<h1>Your Listing:</h1>
+        body: `<h2>Your Listing:</h2>
           <p> <b>Name: </b>${newValue.title} </p>`,
       };
 

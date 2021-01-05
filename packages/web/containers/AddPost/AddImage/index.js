@@ -1,22 +1,24 @@
-import React, { useContext, Fragment } from 'react';
-import Dropzone from 'react-dropzone';
-import styled from 'styled-components';
-import { Col } from 'react-styled-flexboxgrid';
-import Icon from 'react-icons-kit';
+import React, { useContext, Fragment } from "react";
+import Dropzone from "react-dropzone";
+import styled from "styled-components";
+import { Col } from "react-styled-flexboxgrid";
+import Icon from "react-icons-kit";
 import {
   checkmarkCircled,
   closeCircled,
   androidClose,
-} from 'react-icons-kit/ionicons';
-import UpIcon from 'core/static/images/UploadIcon.png';
-import { AddPostContext } from '../../../contexts/AddPostContext';
+} from "react-icons-kit/ionicons";
+import UpIcon from "core/static/images/UploadIcon.png";
+import Heading from "reusecore/src/elements/Heading";
 
-import Box from 'reusecore/src/elements/Box';
-import Image from 'reusecore/src/elements/Image';
+import { AddPostContext } from "../../../contexts/AddPostContext";
 
-const UpButton = styled('button')`
-  width: 75px;
-  height: 75px;
+import Box from "reusecore/src/elements/Box";
+import Image from "reusecore/src/elements/Image";
+
+const UpButton = styled("button")`
+  width: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,12 +26,13 @@ const UpButton = styled('button')`
   border: 2px dashed #dfdfdf;
   border-radius: 3px;
   outline: 0;
-
+  flex-direction: column;
+  margin-top: 15px;
   margin-bottom: 15px;
   cursor: pointer;
 `;
 
-const DeleteBtn = styled('button')`
+const DeleteBtn = styled("button")`
   width: 18px;
   height: 18px;
   display: flex;
@@ -45,7 +48,7 @@ const DeleteBtn = styled('button')`
   left: -9px;
 `;
 
-const ThumbWrapper = styled('div')`
+const ThumbWrapper = styled("div")`
   height: 295px;
   overflow: hidden;
   overflow-y: auto;
@@ -63,32 +66,32 @@ export default () => {
   const { state, dispatch } = useContext(AddPostContext);
   const { adPost } = state;
 
-  const onPreviewDrop = selectedImages => {
-    selectedImages.map(image => {
+  const onPreviewDrop = (selectedImages) => {
+    selectedImages.map((image) => {
       image.preview = URL.createObjectURL(image);
     });
 
     dispatch({
-      type: 'UPDATE_ADPOST',
+      type: "UPDATE_ADPOST",
       payload: {
-        key: 'localGallery',
+        key: "localGallery",
         value: adPost.localGallery.concat(selectedImages),
       },
     });
   };
 
-  const handleRemoveImage = item => {
+  const handleRemoveImage = (item) => {
     const gallery = adPost.gallery;
     const localGallery = adPost.localGallery;
 
-    const index = gallery.findIndex(image => {
+    const index = gallery.findIndex((image) => {
       return item.url === image.url;
     });
     if (index !== -1) {
       gallery.splice(index, 1);
     }
 
-    const localImageIndex = localGallery.findIndex(image => {
+    const localImageIndex = localGallery.findIndex((image) => {
       return item.preview === image.preview;
     });
 
@@ -99,30 +102,30 @@ export default () => {
     if (item.url) {
       if (item.url === adPost.preImage.url) {
         dispatch({
-          type: 'UPDATE_ADPOST',
-          payload: { key: 'image', value: gallery[0] },
+          type: "UPDATE_ADPOST",
+          payload: { key: "image", value: gallery[0] },
         });
       }
       dispatch({
-        type: 'UPDATE_ADPOST',
-        payload: { key: 'gallery', value: gallery },
+        type: "UPDATE_ADPOST",
+        payload: { key: "gallery", value: gallery },
       });
     }
     if (item.preview) {
       if (item.preview === adPost.localImage.preview) {
         dispatch({
-          type: 'UPDATE_ADPOST',
-          payload: { key: 'localImage', value: localGallery[0] },
+          type: "UPDATE_ADPOST",
+          payload: { key: "localImage", value: localGallery[0] },
         });
       }
       dispatch({
-        type: 'UPDATE_ADPOST',
-        payload: { key: 'localGallery', value: localGallery },
+        type: "UPDATE_ADPOST",
+        payload: { key: "localGallery", value: localGallery },
       });
     }
   };
 
-  let headerImgUri = '';
+  let headerImgUri = "";
 
   if (adPost.localImage && adPost.localImage.preview) {
     headerImgUri = adPost.localImage.preview;
@@ -149,7 +152,7 @@ export default () => {
         mb={15}
         width="75px"
         style={{
-          position: 'relative',
+          position: "relative",
         }}
       >
         {combinedGallery.length > 1 &&
@@ -160,7 +163,7 @@ export default () => {
               icon={androidClose}
               size={12}
               style={{
-                color: '#333333',
+                color: "#333333",
               }}
             />
           </DeleteBtn>
@@ -169,26 +172,26 @@ export default () => {
           key={index}
           width="75px"
           style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            border: '1px solid #dfdfdf',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            border: "1px solid #dfdfdf",
           }}
           onClick={() => {
             if (image.preview) {
               dispatch({
-                type: 'UPDATE_ADPOST',
-                payload: { key: 'localImage', value: image },
+                type: "UPDATE_ADPOST",
+                payload: { key: "localImage", value: image },
               });
               dispatch({
-                type: 'UPDATE_ADPOST',
-                payload: { key: 'image', value: {} },
+                type: "UPDATE_ADPOST",
+                payload: { key: "image", value: {} },
               });
             }
             if (image.url) {
               dispatch({
-                type: 'UPDATE_ADPOST',
-                payload: { key: 'image', value: image },
+                type: "UPDATE_ADPOST",
+                payload: { key: "image", value: image },
               });
             }
           }}
@@ -198,11 +201,11 @@ export default () => {
               icon={checkmarkCircled}
               size={18}
               style={{
-                position: 'absolute',
+                position: "absolute",
                 top: -9,
                 right: -9,
                 zIndex: 1,
-                color: '#30C56D',
+                color: "#30C56D",
               }}
             />
           ) : null}
@@ -211,11 +214,11 @@ export default () => {
               icon={checkmarkCircled}
               size={20}
               style={{
-                position: 'absolute',
+                position: "absolute",
                 top: -15,
                 right: -10,
                 zIndex: 1,
-                color: '#30C56D',
+                color: "#30C56D",
               }}
             />
           ) : null}
@@ -235,8 +238,8 @@ export default () => {
       mb={50}
       flexBox
       style={{
-        width: '100%',
-        display: 'flex',
+        width: "100%",
+        display: "flex",
       }}
     >
       {/* Featured Image Banner */}
@@ -248,7 +251,14 @@ export default () => {
               <div {...getRootProps()}>
                 <input {...getInputProps()} />
                 <UpButton>
-                  <Image src={UpIcon} alt={'upload icon'} width={40} />
+                  <Image src={UpIcon} alt={"upload icon"} width={40} />
+                  <Heading
+                    as="h5"
+                    mb={2}
+                    mt={2}
+                    content="Choose from Gallery"
+                    style={{ fontSize: 12, fontWeight: 400, color: "#333333" }}
+                  />
                 </UpButton>
               </div>
             );
@@ -263,14 +273,14 @@ export default () => {
 
       <Box
         style={{
-          border: '1px solid #e2e2e2',
-          width: '100%',
+          border: "1px solid #e2e2e2",
+          width: "100%",
           height: 400,
-          textAlign: 'center',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          overflow: 'hidden',
+          textAlign: "center",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          overflow: "hidden",
         }}
       >
         <Image
@@ -278,7 +288,7 @@ export default () => {
           alt={headerImgUri}
           height="100%"
           style={{
-            objectFit: 'cover',
+            objectFit: "cover",
           }}
         />
       </Box>
