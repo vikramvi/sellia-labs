@@ -15,7 +15,7 @@ export const sendEmail = ({ to, from, subject, message }) => {
     to,
     from,
     subject,
-    text: message,
+    html: message,
   };
 
   return transporter.sendMail(mailOptions);

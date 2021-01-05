@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/XjdZXCWfyxqD1J0SMrMBH/_buildManifest.js",
-    "static/XjdZXCWfyxqD1J0SMrMBH/_ssgManifest.js"
+    "static/gumbNhBaXx0-LNg8kE2gY/_buildManifest.js",
+    "static/gumbNhBaXx0-LNg8kE2gY/_ssgManifest.js"
   ],
   "pages": {
     "/": [
@@ -164,7 +164,7 @@
       "static/chunks/07eb8ff1bf0df693f731ce524fe9e8f34406562d.739a606106cccd865ceb.js",
       "static/css/styles.586ce674.chunk.css",
       "static/chunks/styles.e220ffb9f22261428d19.js",
-      "static/chunks/pages/chat-24c897d956264b092598.js"
+      "static/chunks/pages/chat-fef73776813a898bacc7.js"
     ],
     "/forget-password": [
       "static/chunks/main-7565dc86c7329b6e7955.js",

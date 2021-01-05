@@ -141,12 +141,6 @@ const Chat = (props) => {
         .collection("chats")
         .doc(chat_id)
         .set(chatNode, { merge: true });
-
-      //opt for notification
-      db.collection("notifications")
-        .doc(sellerID)
-        .collection("user_activity")
-        .add(chatNode);
     }
   };
 
@@ -259,12 +253,6 @@ const Chat = (props) => {
         .collection("chats")
         .doc(currentListing.chatId)
         .update({ unreadCount: increment });
-
-      //opt for notification
-      db.collection("notifications")
-        .doc(otherID)
-        .collection("user_activity")
-        .add(data);
     }
   };
 

@@ -3,17 +3,19 @@ import * as functions from "firebase-functions";
 import { sendEmail } from "../../helper/sendEmail";
 
 export const userActivityNotification = functions.firestore
-  .document("notifications/{userId}/user_activity/{notificationId}")
+  .document("notifications/user_activity/{userId}/{notificationId}")
   .onCreate((snap, context) => {
     console.log("userActivityNotification IN");
-    const newValue = snap.data();
 
+    const newValue = snap.data();
     console.log("event params ->", newValue);
 
     return sendEmail({
-      to: "bnshah.dev@gmail.com",
+      to: newValue.email,
       from: "noreply@sellia.com",
-      subject: "Sellia Email ",
-      message: `Click this link to verify your email: ${newValue}`,
+      subject: newValue.subject,
+      message:
+        newValue.body +
+        '<br><br><br><p><a href="https://sellia-42377.web.app/">Visit Sellia</a><p>',
     });
   });
