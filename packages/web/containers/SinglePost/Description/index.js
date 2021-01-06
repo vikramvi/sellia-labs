@@ -220,19 +220,31 @@ const Description = ({ postData, isLoggedIn, userId }) => {
         }
       /> */}
 
-      <Button
-        iconPosition="left"
-        title="Chat"
-        bg="#30C56D"
-        style={{ marginBottom: 38, width: "100%" }}
-        icon={<Icon name="ios-chatboxes" fontSize={19} color="#fff" mr={10} />}
-        onClick={() =>
-          Router.push({
-            pathname: CHAT_PAGE,
-            query: { post: JSON.stringify(postData) },
-          })
-        }
-      />
+      {isLoggedIn && postData.authorId && userId === postData.authorId ? (
+        <Button
+          title="Edit Listing"
+          iconPosition="left"
+          style={{ marginBottom: 38, width: "100%" }}
+          onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
+        />
+      ) : (
+        <Button
+          iconPosition="left"
+          title="Chat"
+          bg="#30C56D"
+          style={{ marginBottom: 38, width: "100%" }}
+          icon={
+            <Icon name="ios-chatboxes" fontSize={19} color="#fff" mr={10} />
+          }
+          onClick={() =>
+            Router.push({
+              pathname: CHAT_PAGE,
+              query: { post: JSON.stringify(postData) },
+            })
+          }
+        />
+      )}
+
       <InfoBoxWrapper>
         <InfoBox
           imgWidth="45px"
@@ -349,18 +361,6 @@ const Description = ({ postData, isLoggedIn, userId }) => {
           ? postData.categories.map(adsCategory)
           : null}
       </AlignCenterWrapper>
-
-      {isLoggedIn && postData.authorId && userId === postData.authorId ? (
-        <Button
-          title="Edit"
-          variant="textButton"
-          style={{
-            minHeight: "auto",
-            minWidth: "auto",
-          }}
-          onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
-        />
-      ) : null}
     </Fragment>
   );
 };
