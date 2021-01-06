@@ -33,12 +33,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/nearest-posts": [
+    "/signin": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/css/styles.chunk.css",
-      "static/chunks/styles.js",
-      "static/chunks/pages/nearest-posts.js"
+      "static/chunks/pages/signin.js"
     ]
   },
   "ampFirstPages": []

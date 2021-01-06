@@ -10,6 +10,7 @@ import SvgIcon from "../UiElements/SvgIcon/SvgIcon";
 import { styled } from "baseui";
 
 import { BsBell } from "react-icons/bs";
+import { IoMdHome, IoMdMail } from "react-icons/io";
 
 import {
   HOME_PAGE,
@@ -97,15 +98,13 @@ const Menu = ({
     <MenuWrapper className={className}>
       <MenuItemWrapper>
         <Link href={HOME_PAGE}>
-          <a> Home </a>
+          <IoMdHome size={30} />
         </Link>
       </MenuItemWrapper>
 
       <MenuItemWrapper>
         <Link href={CHAT_PAGE}>
-          <span>
-            <a>Inbox</a>
-          </span>
+          <IoMdMail size={30} />
         </Link>
       </MenuItemWrapper>
 
