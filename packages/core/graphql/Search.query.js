@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const GET_SEARCH_CATEGORY = gql`
   query getSearchCategory($LIMIT: Int, $page: Int) {

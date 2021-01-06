@@ -53,7 +53,7 @@ const FeedPage = withLayout(({ location, ...props }) => {
             textAlign="center"
             style={{ paddingLeft: "2rem", paddingRight: "2rem" }}
           />
-          <TextSearch />
+          {/* <TextSearch /> */}
           <CategoryPost />
         </Grid>
       </Card>

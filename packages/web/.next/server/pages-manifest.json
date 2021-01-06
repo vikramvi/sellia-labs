@@ -2,6 +2,6 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/signin": "pages/signin.js",
-  "/add-post/[id]": "pages/add-post/[id].js"
+  "/": "pages/index.js",
+  "/nearest-posts": "pages/nearest-posts.js"
 }

@@ -1,11 +1,11 @@
-import React from 'react';
-import Button from 'reusecore/src/elements/Button';
-import Logo from '../Logo';
-import Search from '../Search';
-import Menu from '../Menu';
-import { NavbarWrapper } from './style';
-import logoImg from 'core/static/images/headless-logo.svg';
-import { SEARCH_PAGE } from 'core/navigation/constant';
+import React from "react";
+import Button from "reusecore/src/elements/Button";
+import Logo from "../Logo";
+import Search from "../Search";
+import Menu from "../Menu";
+import { NavbarWrapper } from "./style";
+import logoImg from "core/static/images/headless-logo.svg";
+import { SEARCH_PAGE } from "core/navigation/constant";
 
 const Navbar = ({
   onToggle,
@@ -21,7 +21,8 @@ const Navbar = ({
   return (
     <NavbarWrapper>
       <Logo logoSrc={logoImg} title="Headless Logo" />
-      {pathname !== '/' && pathname !== SEARCH_PAGE ? (
+      {/* {pathname !== '/' && pathname !== SEARCH_PAGE ? ( */}
+      {pathname !== "/" ? (
         <>
           <Search
             className="topSearch lg-show"
