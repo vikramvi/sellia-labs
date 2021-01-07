@@ -331,7 +331,9 @@ const CategoryAndDetailInfo = (props) => {
           iconPosition="right"
           isLoading={publishBtnLoading}
           loaderColor="#ffffff"
-          disabled={adPost.categories.length === 0 || btnLoading}
+          disabled={
+            (adPost.categories && adPost.categories.length === 0) || btnLoading
+          }
           onClick={handlePostSubmit}
           style={{
             backgroundColor:

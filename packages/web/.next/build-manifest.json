@@ -26,12 +26,12 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/add-post/[id]": [
+    "/chat": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/css/styles.chunk.css",
       "static/chunks/styles.js",
-      "static/chunks/pages/add-post/[id].js"
+      "static/chunks/pages/chat.js"
     ],
     "/post/[slug]": [
       "static/chunks/main.js",
@@ -39,11 +39,6 @@
       "static/css/styles.chunk.css",
       "static/chunks/styles.js",
       "static/chunks/pages/post/[slug].js"
-    ],
-    "/signin": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/chunks/pages/signin.js"
     ]
   },
   "ampFirstPages": []

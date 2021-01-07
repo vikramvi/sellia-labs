@@ -1,39 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { withFormik } from 'formik';
-import Input from '../../../components/Input';
-import Heading from 'reusecore/src/elements/Heading';
-import Button from 'reusecore/src/elements/Button';
-import ChangeProfilePicture from './UploadImage';
-import { openModal } from '@redq/reuse-modal';
-import SuccessModal from '../../../containers/ModalContainer/SuccessModal';
-import Alert from 'reusecore/src/elements/Alert';
+import React, { useState, useEffect } from "react";
+import { withFormik } from "formik";
+import Input from "../../../components/Input";
+import Heading from "reusecore/src/elements/Heading";
+import Button from "reusecore/src/elements/Button";
+import ChangeProfilePicture from "./UploadImage";
+import { openModal } from "@redq/reuse-modal";
+import SuccessModal from "../../../containers/ModalContainer/SuccessModal";
+import Alert from "reusecore/src/elements/Alert";
 
-import { uploadMultipleImages } from '../../../helpers/uploadMultipleImage';
-import { useMutation } from '@apollo/react-hooks';
-import AuthHelper from '../../../helpers/authHelper';
+import { uploadMultipleImages } from "../../../helpers/uploadMultipleImage";
+import { useMutation } from "@apollo/react-hooks";
+import AuthHelper from "../../../helpers/authHelper";
 
-import { UPDATE_AUTHOR } from 'core/graphql/Mutations';
-import { GET_AUTHOR } from 'core/graphql/Author';
+import { UPDATE_AUTHOR } from "core/graphql/Mutations";
+import { GET_AUTHOR } from "core/graphql/Author";
 let imagesUrl = [];
 const EditProfileEnhancher = withFormik({
-  enableReinitialize: 'true',
-  mapPropsToValues: props => {
+  enableReinitialize: "true",
+  mapPropsToValues: (props) => {
     const { author, loading } = props;
-    const name = !loading && author && author.name ? author.name : '';
-    const website = !loading && author && author.website ? author.website : '';
-    const address = !loading && author && author.address ? author.address : '';
+    const name = !loading && author && author.name ? author.name : "";
+    const website = !loading && author && author.website ? author.website : "";
+    const address = !loading && author && author.address ? author.address : "";
     return {
       name,
       address,
       website,
     };
   },
-  displayName: 'EditProfileForm', // helps with React DevTools
+  displayName: "EditProfileForm", // helps with React DevTools
 });
 
-const EditProfile = props => {
+const EditProfile = (props) => {
   const [localImage, setImage] = useState(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [btnLoading, setBtnLoading] = useState(false);
   const [uploadRejected, setUploadRejected] = useState(false);
   const {
@@ -67,9 +67,9 @@ const EditProfile = props => {
       }
     })();
   }, [values.image]);
-  const onPreviewDrop = images => {
+  const onPreviewDrop = (images) => {
     setUploadRejected(false);
-    images.map(image => {
+    images.map((image) => {
       image.preview = URL.createObjectURL(image);
     });
     if (images.length) {
@@ -91,7 +91,7 @@ const EditProfile = props => {
     await AuthHelper.refreshToken();
     if (localImage) {
       imagesUrl = await uploadMultipleImages([localImage]);
-      setFieldValue('image', imagesUrl[0][0]);
+      setFieldValue("image", imagesUrl[0][0]);
     } else {
       try {
         await addAuthor({
@@ -103,11 +103,11 @@ const EditProfile = props => {
           },
         });
         setBtnLoading(false);
-        if (error != '')
+        if (error != "")
           openModal({
             config: {
               disableDragging: false,
-              minHeight: 'auto',
+              minHeight: "auto",
               size: {
                 width: 350,
                 height: 260,
@@ -123,7 +123,7 @@ const EditProfile = props => {
                 topRight: true,
               },
             },
-            modalClass: 'customModal',
+            modalClass: "customModal",
             closeOnClickOutside: true,
             component: SuccessModal,
           });
@@ -146,7 +146,7 @@ const EditProfile = props => {
       />
       {uploadRejected && (
         <Alert colors="error" mb={30}>
-          <div style={{ textAlign: 'center' }}>Maximum upload size 1MB</div>
+          <div style={{ textAlign: "center" }}>Maximum upload size 1MB</div>
         </Alert>
       )}
       <ChangeProfilePicture
@@ -158,11 +158,11 @@ const EditProfile = props => {
       <Input
         elementType="input"
         elementConfig={{
-          type: 'text',
-          required: 'required',
+          type: "text",
+          required: "required",
         }}
         label="Name"
-        changed={handleChange('name')}
+        changed={handleChange("name")}
         value={values.name}
         error={errors.name}
         touched={touched}
@@ -170,11 +170,11 @@ const EditProfile = props => {
       <Input
         elementType="input"
         elementConfig={{
-          type: 'text',
-          required: 'required',
+          type: "text",
+          required: "required",
         }}
         label="Address"
-        changed={handleChange('address')}
+        changed={handleChange("address")}
         value={values.address}
         error={errors.address}
         touched={touched}
@@ -182,11 +182,11 @@ const EditProfile = props => {
       <Input
         elementType="input"
         elementConfig={{
-          type: 'text',
-          required: 'required',
+          type: "text",
+          required: "required",
         }}
         label="Web"
-        changed={handleChange('website')}
+        changed={handleChange("website")}
         value={values.website}
         error={errors.website}
         touched={touched}
