@@ -117,7 +117,10 @@ const Chat = (props) => {
       seller: {
         id: currentPost.author && currentPost.authorId,
         name: currentPost.author && currentPost.author.name,
-        profilePic: currentPost.author && currentPost.author.image.url,
+        profilePic:
+          currentPost.author &&
+          currentPost.author.image &&
+          currentPost.author.image.url,
       },
       buyer: {
         id: loginUser.uid,
@@ -144,6 +147,22 @@ const Chat = (props) => {
     }
   };
 
+  const handleNewListing = (obj) => {
+    setData([...data, obj]);
+  };
+
+  const handleUpdateListing = (obj) => {
+    let newArray = Array.from(data);
+
+    const index = newArray.findIndex((e) => e.chatId === obj.chatId);
+    if (index === -1) {
+    } else {
+      newArray[index] = obj;
+    }
+
+    setData(newArray);
+  };
+
   useEffect(() => {
     console.log("useEffect in");
 
@@ -161,21 +180,41 @@ const Chat = (props) => {
         .orderBy("updatedAt", "desc");
 
       const observer = doc.onSnapshot(
+        { includeMetadataChanges: false },
         (docSnapshot) => {
-          let chats = [];
+          let newChats = [];
           docSnapshot.docChanges().forEach((change) => {
             console.log(
               `Received doc snapshot: ${docSnapshot} - ${change.type}`
             );
 
-            if (change.type === "added") {
-              console.log("my chat ->", change.doc.data());
-              chats.push(change.doc.data());
-              setData(chats);
+            if (change.type == "added") {
+              setData([...data, change.doc.data()]);
+            } else if (change.type == "modified") {
+              setData([...data, change.doc.data()]);
+            }
+
+            console.log("my chat ->", change.doc.data());
+            newChats.push(change.doc.data());
+          });
+
+          //update state
+          let updatedState = [...data];
+          console.log("updatedState count BEFORE ->", updatedState.length);
+
+          newChats.forEach((obj) => {
+            const index = updatedState.findIndex(
+              (e) => e.chatId === obj.chatId
+            );
+            if (index === -1) {
+              updatedState.push(obj);
+            } else {
+              updatedState[index] = obj;
             }
           });
 
-          // ...
+          // setData(updatedState);
+          console.log("updatedState count AFTER ->", updatedState.length);
         },
         (err) => {
           console.log(`Encountered error: ${err}`);
