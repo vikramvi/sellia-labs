@@ -32,10 +32,13 @@ import {
 import { json } from "body-parser";
 
 const timeFormatAMPM = (date) => {
+  // return date.toLocaleTimeString("en-US", { timeStyle: "short" });
   return date.toLocaleString("en-US", {
     hour: "numeric",
     minute: "numeric",
     hour12: true,
+    month: "short",
+    day: "numeric",
   });
 };
 const Description = ({ postData, isLoggedIn, userId }) => {

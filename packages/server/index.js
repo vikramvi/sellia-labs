@@ -4,7 +4,7 @@ require("dotenv").config();
 // import app from './functions/app';
 import generateThumbnail from "./functions/generateThumb";
 import { createAccount } from "./functions/users/createAccount";
-import { sendEmailVerification } from "./functions/users/sendVerificationEmail";
+import { newUserSignUp, userDeleted } from "./functions/users/usersAuthHelper";
 import { userActivityNotification } from "./functions/notifications/userActivityNotification";
 import { userActivityNotificationListner } from "./functions/notifications/userActivityNotificationListner";
 
@@ -29,7 +29,8 @@ var handle = app.getRequestHandler();
 
 exports.api = functions.https.onRequest(api);
 exports.generateThumbnail = generateThumbnail;
-exports.sendEmailVerification = sendEmailVerification;
+exports.newUserSignUp = newUserSignUp;
+exports.userDeleted = userDeleted;
 exports.createAccount = createAccount;
 exports.userActivityNotification = userActivityNotification;
 exports.userActivityNotificationListner = userActivityNotificationListner;

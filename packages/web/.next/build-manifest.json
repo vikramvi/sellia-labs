@@ -33,33 +33,12 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/chat": [
+    "/post/[slug]": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
       "static/css/styles.chunk.css",
       "static/chunks/styles.js",
-      "static/chunks/pages/chat.js"
-    ],
-    "/nearest-posts": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/css/styles.chunk.css",
-      "static/chunks/styles.js",
-      "static/chunks/pages/nearest-posts.js"
-    ],
-    "/recent-posts": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/css/styles.chunk.css",
-      "static/chunks/styles.js",
-      "static/chunks/pages/recent-posts.js"
-    ],
-    "/search": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/css/styles.chunk.css",
-      "static/chunks/styles.js",
-      "static/chunks/pages/search.js"
+      "static/chunks/pages/post/[slug].js"
     ]
   },
   "ampFirstPages": []

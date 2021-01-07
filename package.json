@@ -28,6 +28,7 @@
     "functions:build": "babel packages/server --out-dir packages/cloud --ignore packages/server/node_modules",
     "serve": "cd packages/cloud && NODE_ENV=production firebase serve",
     "deploy": "cd packages/cloud && NODE_ENV=production firebase deploy",
+    "function:deploy": "cd packages/cloud && NODE_ENV=production firebase deploy --only functions",
     "debug": "yarn workspace server run debug",
     "format": "prettier --trailing-comma es5 --single-quote --write 'packages/*/*.js' 'packages/*/!(node_modules)/**/*.js'"
   },

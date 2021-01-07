@@ -21,6 +21,7 @@ class AuthHelper {
       myHeaders.append("Content-Type", "application/json");
 
       const newUserInfo = {
+        name,
         email,
         password,
       };
