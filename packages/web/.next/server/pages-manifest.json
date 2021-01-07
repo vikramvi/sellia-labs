@@ -3,5 +3,8 @@
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
   "/chat": "pages/chat.js",
-  "/post/[slug]": "pages/post/[slug].js"
+  "/search": "pages/search.js",
+  "/nearest-posts": "pages/nearest-posts.js",
+  "/": "pages/index.js",
+  "/recent-posts": "pages/recent-posts.js"
 }

@@ -5,8 +5,13 @@ import Icon from "react-icons-kit";
 import { androidSearch } from "react-icons-kit/ionicons/androidSearch";
 import Button from "reusecore/src/elements/Button";
 
+import { getUrlToState } from "../../helpers/urlHandler";
+
 export default function Search() {
-  const [searchValue, setSearchValue] = useState("");
+  console.log("in Search");
+  const urlState = getUrlToState();
+
+  const [searchValue, setSearchValue] = useState(urlState.text);
   const [toggleSearch, setToggleSearch] = useState(false);
 
   let searchRef = useRef();

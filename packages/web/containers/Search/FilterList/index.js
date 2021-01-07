@@ -1,54 +1,54 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Row } from 'react-styled-flexboxgrid';
-import LocationSearchInput from '../../../components/InputGooglePlace/altered';
-import { RangeBoxWrapper, RangeSlider, Holder, Col } from './style';
-import Switch from 'reusecore/src/elements/Switch';
-import { SearchContext, initialState } from '../../../contexts/SearchContext';
+import React, { useState, useContext, useEffect } from "react";
+import { Row } from "react-styled-flexboxgrid";
+import LocationSearchInput from "../../../components/InputGooglePlace/altered";
+import { RangeBoxWrapper, RangeSlider, Holder, Col } from "./style";
+import Switch from "reusecore/src/elements/Switch";
+import { SearchContext, initialState } from "../../../contexts/SearchContext";
 import {
   setStateToUrl,
   getUrlToState,
   clearUrl,
-} from '../../../helpers/urlHandler';
-import Button from 'reusecore/src/elements/Button';
-import Text from 'reusecore/src/elements/Text';
-import Input from '../../../components/Input';
+} from "../../../helpers/urlHandler";
+import Button from "reusecore/src/elements/Button";
+import Text from "reusecore/src/elements/Text";
+import Input from "../../../components/Input";
 
-const FilterElements = props => {
+const FilterElements = (props) => {
   const { state, dispatch } = useContext(SearchContext);
   const urlState = getUrlToState();
   const [filterState, setFilterState] = useState({
     ...urlState,
   });
 
-  const negotiableSwitchToggle = value => {
+  const negotiableSwitchToggle = (value) => {
     setFilterState({
       ...filterState,
       isNegotiable: value,
     });
   };
 
-  const newConditionSwitchToggle = value => {
+  const newConditionSwitchToggle = (value) => {
     setFilterState({
       ...filterState,
       condition: value,
     });
   };
 
-  const onRadiusSlidingComplete = value => {
+  const onRadiusSlidingComplete = (value) => {
     setFilterState({
       ...filterState,
       radius: value,
     });
   };
 
-  const onPriceSlidingComplete = value => {
+  const onPriceSlidingComplete = (value) => {
     setFilterState({
       ...filterState,
       price: value,
     });
   };
 
-  const handleAddress = address => {
+  const handleAddress = (address) => {
     setFilterState({
       ...filterState,
       address,
@@ -66,7 +66,7 @@ const FilterElements = props => {
 
   const handleApply = async () => {
     dispatch({
-      type: 'UPDATE',
+      type: "UPDATE",
       payload: filterState,
     });
     setStateToUrl({ ...filterState });
@@ -80,7 +80,7 @@ const FilterElements = props => {
       radius: 0,
     });
     dispatch({
-      type: 'UPDATE',
+      type: "UPDATE",
       payload: {},
     });
     // setStateToUrl({});
@@ -94,10 +94,10 @@ const FilterElements = props => {
         value={text}
         label="Title"
         elementConfig={{
-          type: 'email',
-          required: 'required',
+          type: "email",
+          required: "required",
         }}
-        changed={e => {
+        changed={(e) => {
           setFilterState({
             ...filterState,
             text: e.target.value,
@@ -126,9 +126,9 @@ const FilterElements = props => {
               max={1000}
               labelText=""
               slideDefaultValue={radius}
-              tipFormatter={value => `${value}km`}
-              handleChangefunc={value => onRadiusSlidingComplete(value)}
-              onAfterChange={value => onRadiusSlidingComplete(value)}
+              tipFormatter={(value) => `${value}km`}
+              handleChangefunc={(value) => onRadiusSlidingComplete(value)}
+              onAfterChange={(value) => onRadiusSlidingComplete(value)}
             />
           </RangeBoxWrapper>
         </Col>
@@ -145,9 +145,9 @@ const FilterElements = props => {
               step={1000}
               rangeDefaultValue={price}
               labelText=""
-              handleChangefunc={value => onPriceSlidingComplete(value)}
-              onAfterChange={value => onPriceSlidingComplete(value)}
-              tipFormatter={value => `$ ${value}`}
+              handleChangefunc={(value) => onPriceSlidingComplete(value)}
+              onAfterChange={(value) => onPriceSlidingComplete(value)}
+              tipFormatter={(value) => `$ ${value}`}
               type="range"
               dotStyle={{ height: 0 }}
             />
@@ -167,7 +167,7 @@ const FilterElements = props => {
               content="Negotiable?"
             />
             <Switch
-              onChange={value => negotiableSwitchToggle(value)}
+              onChange={(value) => negotiableSwitchToggle(value)}
               value={isNegotiable}
               isChecked={isNegotiable}
               switchSize="50px"
@@ -188,7 +188,7 @@ const FilterElements = props => {
               content="New Condition?"
             />
             <Switch
-              onChange={value => newConditionSwitchToggle(value)}
+              onChange={(value) => newConditionSwitchToggle(value)}
               value={condition}
               isChecked={condition}
               switchSize="50px"
@@ -209,7 +209,7 @@ const FilterElements = props => {
                 title="Hide"
                 bg="#e2e2e2"
                 color="#545454"
-                style={{ marginTop: 30, width: '100%' }}
+                style={{ marginTop: 30, width: "100%" }}
               />
             </Col>
             <Col xs>
@@ -218,7 +218,7 @@ const FilterElements = props => {
                 title="Clear"
                 bg="#e2e2e2"
                 color="#545454"
-                style={{ marginTop: 30, width: '100%' }}
+                style={{ marginTop: 30, width: "100%" }}
               />
             </Col>
 
@@ -227,7 +227,7 @@ const FilterElements = props => {
               <Button
                 onClick={handleApply}
                 title="Apply"
-                style={{ marginTop: 30, width: '100%' }}
+                style={{ marginTop: 30, width: "100%" }}
               />
             </Col>
           </Row>
