@@ -71,7 +71,12 @@ const ChatSidebar = ({
 
   const filteredUser = data.filter((item) => {
     console.log("item -->", item);
-    return item.from.toLowerCase().includes(text.toLowerCase());
+
+    if (text) {
+      return item.from.toLowerCase().includes(text.toLowerCase());
+    } else {
+      return true;
+    }
   });
 
   return (
@@ -95,7 +100,7 @@ const ChatSidebar = ({
               onClick={() => handleOnClick(item)}
             >
               <ChatItem
-                avatar={item.image.largeUrl}
+                avatar={item.image.url}
                 alt={item.name}
                 title={item.title}
                 subtitle={
