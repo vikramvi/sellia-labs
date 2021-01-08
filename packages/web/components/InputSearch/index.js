@@ -1,7 +1,7 @@
-import React from 'react';
-import Router from 'next/router';
-import { SearchInputWrapper, SearchInput, SearchButton } from './style';
-import { SEARCH_PAGE } from 'core/navigation/constant';
+import React from "react";
+import Router from "next/router";
+import { SearchInputWrapper, SearchInput, SearchButton } from "./style";
+import { SEARCH_PAGE } from "core/navigation/constant";
 const InputSearch = ({
   type,
   value,
@@ -13,10 +13,12 @@ const InputSearch = ({
   onKeyPress,
   onBlur,
 }) => {
-  const handleSearch = e => {
+  const handleSearch = (e) => {
     e.preventDefault();
     if (value.trim()) {
       Router.push(`${SEARCH_PAGE}?text=${value.trim()}`);
+    } else {
+      Router.push("/");
     }
   };
   return (

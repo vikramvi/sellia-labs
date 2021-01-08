@@ -52,7 +52,6 @@ export default function Search() {
           type="text"
           value={searchValue}
           changed={handleSearchInput}
-          buttonText="Search"
           searchText={searchValue}
           buttonIcon={<Icon icon={androidSearch} size={21} />}
           placeholder="10,000 products available"
