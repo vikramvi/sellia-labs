@@ -1,28 +1,28 @@
-import React, { Fragment, useContext, useState } from 'react';
-import Link from 'next/link';
-import ListView from '../../../components/ListView';
-import { ListLoader } from '../../../components/Placeholder';
-import { useQuery } from '@apollo/react-hooks';
-import { GET_SEARCH_POST } from 'core/graphql/Search.query';
-import { CURRENCY } from '../../../Config';
-import { SINGLE_POST_PAGE } from 'core/navigation/constant';
-import { SearchContext } from '../../../contexts/SearchContext';
-import { getUrlToState, setStateToUrl } from '../../../helpers/urlHandler';
-import PlaceholderImg from 'core/static/images/thumb-grid-placeholder.svg';
-import ListGrid from 'reusecore/src/elements/ListGrid';
-import NoItemFound from '../../../components/NoItemFound';
-import OnError from '../../../components/OnError';
+import React, { Fragment, useContext, useState } from "react";
+import Link from "next/link";
+import ListView from "../../../components/ListView";
+import { ListLoader } from "../../../components/Placeholder";
+import { useQuery } from "@apollo/react-hooks";
+import { GET_SEARCH_POST } from "core/graphql/Search.query";
+import { CURRENCY } from "../../../Config";
+import { SINGLE_POST_PAGE } from "core/navigation/constant";
+import { SearchContext } from "../../../contexts/SearchContext";
+import { getUrlToState, setStateToUrl } from "../../../helpers/urlHandler";
+import PlaceholderImg from "core/static/images/thumb-grid-placeholder.svg";
+import ListGrid from "reusecore/src/elements/ListGrid";
+import NoItemFound from "../../../components/NoItemFound";
+import OnError from "../../../components/OnError";
 
-const timeFormatAMPM = date => {
-  return date.toLocaleString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
-  });
+const timeFormatAMPM = (date) => {
+  return date.toLocaleString("en-US", { timeStyle: "short" });
+};
+
+const dateFormatAMPM = (date) => {
+  return date.toLocaleString("en-US", { dateStyle: "medium" });
 };
 
 const SearchPostItem = () => {
-  let publishTime = '';
+  let publishTime = "";
   const urlState = getUrlToState();
   const { state, dispatch } = useContext(SearchContext);
   const [loadingMore, toggleLoading] = useState(false);
@@ -43,15 +43,27 @@ const SearchPostItem = () => {
     data && data.searchPosts && data.searchPosts.total
       ? data.searchPosts.total
       : 1;
-  const searchPostsData = searchPosts.map(post => {
+  const searchPostsData = searchPosts.map((post) => {
+    console.log("Search result ->", post);
+
+    let createdTime = "";
+
     if (post.createdAt) {
-      if (post && post.createdAt && post.createdAt.seconds) {
-        const createdTime = new Date(post.createdAt.seconds * 1000);
-        publishTime = timeFormatAMPM(createdTime);
-      } else if (post && post.createdAt && post.createdAt._seconds) {
-        const createdTime = new Date(post.createdAt._seconds * 1000);
-        publishTime = timeFormatAMPM(createdTime);
+      if (post.createdAt.seconds) {
+        createdTime = new Date(post.createdAt.seconds * 1000);
+      } else if (post.createdAt._seconds) {
+        createdTime = new Date(post.createdAt._seconds * 1000);
       }
+
+      var today = new Date().setHours(0, 0, 0, 0);
+      var thatDay = new Date(createdTime).setHours(0, 0, 0, 0);
+
+      if (today === thatDay) {
+        publishTime = "Today " + timeFormatAMPM(createdTime);
+      } else {
+        publishTime = `${dateFormatAMPM(createdTime)}`;
+      }
+
       return {
         ...post,
         publishTime,
@@ -75,12 +87,12 @@ const SearchPostItem = () => {
             columnWidth={[1]}
             componentContainerStyle={{
               p: 0,
-              borderBottom: '1px solid #eeeeee',
+              borderBottom: "1px solid #eeeeee",
             }}
             componentWrapperStyle={{
               margin: 0,
             }}
-            component={item => {
+            component={(item) => {
               return (
                 <Link href={`${SINGLE_POST_PAGE}/${item.slug}`}>
                   <a>
@@ -99,19 +111,16 @@ const SearchPostItem = () => {
                         item.formattedLocation &&
                         item.formattedLocation.formattedAddress !== null
                           ? item.formattedLocation.formattedAddress
-                          : 'Location goes here'
+                          : "Location goes here"
                       }
                       distance={
                         item.distance !== null && item.distance !== undefined
                           ? `Approximately ${Math.floor(item.distance)} km away`
-                          : ''
+                          : ""
                       }
                       icon="md-pin"
-                      postedTime={
-                        item.publishTime
-                          ? `Ad posted at ${item.publishTime}`
-                          : ''
-                      }
+                      postedBy={{ ...item.author, authorId: item.authorId }}
+                      postedTime={item.publishTime}
                     />
                   </a>
                 </Link>
@@ -121,7 +130,7 @@ const SearchPostItem = () => {
             loaderColor="#ffffff"
             placeholder={<ListLoader />}
             limit={state.LIMIT}
-            handleLoadMore={loading => {
+            handleLoadMore={(loading) => {
               toggleLoading(true);
               setStateToUrl({ page: state.page + 1 });
               fetchMore({
@@ -137,7 +146,7 @@ const SearchPostItem = () => {
                     if (postCount <= totalPost) {
                       toggleLoading(false);
                       dispatch({
-                        type: 'UPDATE',
+                        type: "UPDATE",
                         payload: { ...state, page: state.page + 1 },
                       });
                       return {
@@ -161,7 +170,7 @@ const SearchPostItem = () => {
   );
 };
 
-const SearchPost = props => {
+const SearchPost = (props) => {
   return (
     <Fragment>
       <SearchPostItem {...props} />

@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import Img from 'react-image';
+import styled from "styled-components";
+import Img from "react-image";
 
 const Image = styled(Img)`
   width: 100%;
@@ -15,13 +15,13 @@ const InfoBox = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  width: ${props => (props.imgWidth ? props.imgWidth : '100%')};
-  height: ${props => (props.imgHeight ? props.imgHeight : '100%')};
+  width: ${(props) => (props.imgWidth ? props.imgWidth : "100%")};
+  height: ${(props) => (props.imgHeight ? props.imgHeight : "100%")};
   display: flex;
   flex-shrink: 0;
   overflow: hidden;
   position: relative;
-  border-radius: ${props => (props.imgRadius ? props.imgRadius : 19)}px;
+  border-radius: ${(props) => (props.imgRadius ? props.imgRadius : 19)}px;
 `;
 
 const Information = styled.div`

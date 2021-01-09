@@ -1,5 +1,5 @@
-import React from 'react';
-import Text from 'reusecore/src/elements/Text';
+import React from "react";
+import Text from "reusecore/src/elements/Text";
 import {
   ListViewWrapper,
   ImageWrapper,
@@ -9,24 +9,25 @@ import {
   TextGroup,
   IconWrapper,
   AddressAndDate,
-} from './listView.style';
-import Icon from '../Icon';
-import Tag, { TagGroup, LabelTag } from '../TagGroup';
-import PlaceholderImage from 'core/static/images/thumb-grid-placeholder.svg';
+} from "./listView.style";
+import Icon from "../Icon";
+import Tag, { TagGroup, LabelTag } from "../TagGroup";
+import PlaceholderImage from "core/static/images/thumb-grid-placeholder.svg";
+import InfoBox from "../UserInfoBox";
 
-const ListView = props => {
+const ListView = (props) => {
   return (
     <ListViewWrapper>
       <ImageWrapper>
         <Tag
-          tagContent={props.condition ? 'New' : 'Used'}
-          bgColor={props.condition ? '#00b6ff' : '#30C56D'}
+          tagContent={props.condition ? "New" : "Used"}
+          bgColor={props.condition ? "#00b6ff" : "#30C56D"}
           style={{
-            position: 'absolute',
-            color: '#fff',
+            position: "absolute",
+            color: "#fff",
             margin: 5,
             fontSize: 14,
-            fontFamily: 'Lato',
+            fontFamily: "Lato",
             fontWeight: 700,
           }}
         />
@@ -91,14 +92,14 @@ const ListView = props => {
             </TextGroup>
           </AddressBox>
 
-          <Text
-            content={props.postedTime || 'No Posted Time Found'}
-            as="span"
-            fontSize={12}
-            fontWeight={400}
-            color="#8C8C8C"
-            mb={0}
-            ml={30}
+          <InfoBox
+            imgWidth="40px"
+            imgHeight="40px"
+            imgRadius={30}
+            source={[props.postedBy.image && props.postedBy.image.url]}
+            title={props.postedBy.name}
+            author={props.postedBy.authorId}
+            postedTime={props.postedTime}
             style={{ flexShrink: 0 }}
           />
         </AddressAndDate>

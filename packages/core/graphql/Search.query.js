@@ -25,7 +25,16 @@ export const GET_SEARCH_POST = gql`
       data {
         title
         slug
+        authorId
         price
+        author {
+          name
+          username
+          image {
+            url
+            largeUrl
+          }
+        }
         formattedLocation {
           lat
           lng

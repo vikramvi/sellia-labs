@@ -32,14 +32,11 @@ import {
 import { json } from "body-parser";
 
 const timeFormatAMPM = (date) => {
-  // return date.toLocaleTimeString("en-US", { timeStyle: "short" });
-  return date.toLocaleString("en-US", {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-    month: "short",
-    day: "numeric",
-  });
+  return date.toLocaleString("en-US", { timeStyle: "short" });
+};
+
+const dateFormatAMPM = (date) => {
+  return date.toLocaleString("en-US", { dateStyle: "medium" });
 };
 const Description = ({ postData, isLoggedIn, userId }) => {
   let userFavList = [];
@@ -128,13 +125,31 @@ const Description = ({ postData, isLoggedIn, userId }) => {
       });
     }
   };
-  if (postData && postData.createdAt && postData.createdAt.seconds) {
-    const timeCalculation = new Date(postData.createdAt.seconds * 1000);
-    publishTime = timeFormatAMPM(timeCalculation);
-  } else if (postData && postData.createdAt && postData.createdAt._seconds) {
-    const timeCalculation = new Date(postData.createdAt._seconds * 1000);
-    publishTime = timeFormatAMPM(timeCalculation);
+  let createdTime = "";
+
+  if (postData.createdAt.seconds) {
+    createdTime = new Date(postData.createdAt.seconds * 1000);
+  } else if (post.createdAt._seconds) {
+    createdTime = new Date(postData.createdAt._seconds * 1000);
   }
+
+  var today = new Date().setHours(0, 0, 0, 0);
+  var thatDay = new Date(createdTime).setHours(0, 0, 0, 0);
+
+  if (today === thatDay) {
+    publishTime = "Today " + timeFormatAMPM(createdTime);
+  } else {
+    publishTime = `${dateFormatAMPM(createdTime)}`;
+  }
+
+  // if (postData && postData.createdAt && postData.createdAt.seconds) {
+  //   const timeCalculation = new Date(postData.createdAt.seconds * 1000);
+  //   publishTime = timeFormatAMPM(timeCalculation);
+  // } else if (postData && postData.createdAt && postData.createdAt._seconds) {
+  //   const timeCalculation = new Date(postData.createdAt._seconds * 1000);
+  //   publishTime = timeFormatAMPM(timeCalculation);
+  // }
+
   const adsCategory = (category, index) => {
     return (
       <Link
