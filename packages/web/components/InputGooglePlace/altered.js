@@ -36,7 +36,11 @@ const LocationSearchInput = (props) => {
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
         <LocationWrapper>
           <div>
-            <Input {...getInputProps()} required="required" label="Location" />
+            <Input
+              {...getInputProps()}
+              required="required"
+              label={props.title ? props.title : "Location"}
+            />
             {/* {addressState.address.length > 0 && (
                 <button onClick={handleCloseClick}>x</button>
               )} */}

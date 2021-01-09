@@ -5,7 +5,10 @@ export const createAuthUser = async (newUserInfo) => {
   const auth = admin.auth();
   const { email, password, name } = newUserInfo;
 
+  console.log("createAuthUser newUserInfo ->", newUserInfo);
+
   try {
+    //create user
     const newUser = await auth.createUser({
       email: email,
       password,

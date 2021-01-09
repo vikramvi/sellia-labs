@@ -1,6 +1,6 @@
-import Post from '../lib/Post';
-import Author from '../lib/Author';
-import Category from '../lib/Category';
+import Post from "../lib/Post";
+import Author from "../lib/Author";
+import Category from "../lib/Category";
 
 const post = new Post();
 const category = new Category();
@@ -38,7 +38,7 @@ export const Mutation = {
     const postSlug = input.slug;
     let index = -1;
     if (postsData && postsData.length) {
-      index = postsData.findIndex(post => post.slug === postSlug);
+      index = postsData.findIndex((post) => post.slug === postSlug);
     }
     let slug;
     if (index !== -1) {
@@ -64,7 +64,7 @@ export const Mutation = {
           title,
           id,
         };
-        favoritedBy.forEach(userId => {
+        favoritedBy.forEach((userId) => {
           author.update({
             data: { favorite: favoritePost },
             id: userId,
@@ -109,31 +109,31 @@ export const Mutation = {
         geohash,
         createdAt,
       };
-      categories.forEach(async categoryItem => {
+      categories.forEach(async (categoryItem) => {
         const categoryId = categoryItem.id;
         let categoryById;
         categoryById = await category.byId({ id: categoryId });
-        if (categoryById.hasOwnProperty('posts')) {
+        if (categoryById.hasOwnProperty("posts")) {
           if (input && input.id) {
             // updated post will be updated into the category
             const postId = input.id;
-            const categoryPosts = categoryById['posts'];
-            const index = categoryPosts.findIndex(post => post.id === postId);
+            const categoryPosts = categoryById["posts"];
+            const index = categoryPosts.findIndex((post) => post.id === postId);
             if (index !== -1) {
               // if the post id avaialable in the category
-              categoryById['posts'][index] = categoryPost;
+              categoryById["posts"][index] = categoryPost;
             } else {
               // if the post id is not available in the category
-              categoryById['posts'].push(categoryPost);
+              categoryById["posts"].push(categoryPost);
             }
           } else {
             // push the new post into the category
-            categoryById['posts'].push(categoryPost);
+            categoryById["posts"].push(categoryPost);
           }
         } else {
           // if category doesn't have any posts in it
-          categoryById['posts'] = {};
-          categoryById['posts'].push(categoryPost);
+          categoryById["posts"] = {};
+          categoryById["posts"].push(categoryPost);
         }
         await category.update({ id: categoryId, data: categoryById });
       });
@@ -168,11 +168,16 @@ export const Mutation = {
       email: input.email,
       username: input.username,
       website: input.website,
-      address: input.address,
       name: input.name,
       image: input.image,
       mobile: input.mobile,
+      title: input.title,
+      homeLocation: input.homeLocation,
+      workLocation: input.workLocation,
     };
+
+    console.log("authorData ->", input);
+
     let data;
     // add or update post if id available
     if (input && input.id) {
@@ -188,8 +193,8 @@ export const Mutation = {
    */
   logout: (_, { input }, { req }) => {
     return {
-      userId: '',
-      email: '',
+      userId: "",
+      email: "",
       error: false,
     };
   },
@@ -221,7 +226,7 @@ export const Mutation = {
       await author.set({
         data: {
           id: userId,
-          email: email ? email : '',
+          email: email ? email : "",
           mobile: input.mobile ? input.mobile : [],
         },
         id: userId,
@@ -277,7 +282,7 @@ export const Mutation = {
     let userPost = [];
     if (userById && userById.favourite && userById.favourite.length) {
       userPost = userById.favourite;
-      const index = userPost.findIndex(post => post.id === postId);
+      const index = userPost.findIndex((post) => post.id === postId);
       if (index !== -1) {
         //remove post from the user, favourite property
         userPost.splice(index, 1);

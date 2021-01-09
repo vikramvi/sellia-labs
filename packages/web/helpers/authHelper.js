@@ -13,10 +13,6 @@ class AuthHelper {
 
   signupWithEmail = async (provider, name, email, password) => {
     try {
-      console.log("email ->", email);
-
-      //call function
-
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
 
@@ -25,6 +21,8 @@ class AuthHelper {
         email,
         password,
       };
+
+      console.log("signupWithEmail ->", newUserInfo);
 
       const resp = await axios.post("/createAccount", { newUserInfo });
 

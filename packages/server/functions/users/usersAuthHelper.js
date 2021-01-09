@@ -5,8 +5,9 @@ import { sendEmail } from "../../helper/sendEmail";
 export const newUserSignUp = functions.auth
   .user()
   .onCreate(async (user, context) => {
-    console.log("sendEmailVerification starts");
-    const email = user.email;
+    console.log("new user created ->", user);
+
+    const { email, uid, displayName } = user;
 
     await admin
       .firestore()
@@ -14,8 +15,8 @@ export const newUserSignUp = functions.auth
       .doc(user.uid)
       .set({
         email: email,
-        id: user.uid,
-        name: user.displayName,
+        id: uid,
+        name: displayName,
       });
 
     const link = await admin.auth().generateEmailVerificationLink(email, {

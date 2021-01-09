@@ -30,6 +30,9 @@ export const typeDefs = `
     mobile: [Mobile]
     image: Image
     address: String
+    title: String
+    homeLocation: Location
+    workLocation: Location
     website: String
     name: String
     posts(limit: Int, page: Int): PostWithCount
@@ -89,17 +92,19 @@ export const typeDefs = `
     email: String
     username: String
     image: imageInput
-    address: String
     website: String
     mobile: [inputMobile]
     name: String
     createdAt: String
     updatedAt: String
+    title: String
+    homeLocation: locationInput
+    workLocation: locationInput
   }
 
   input locationInput {
-    lat: Float!
-    lng: Float!
+    lat: Float
+    lng: Float
     formattedAddress: String
   }
   input imageInput {

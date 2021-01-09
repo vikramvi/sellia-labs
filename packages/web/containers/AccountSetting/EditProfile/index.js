@@ -6,7 +6,10 @@ import Button from "reusecore/src/elements/Button";
 import ChangeProfilePicture from "./UploadImage";
 import { openModal } from "@redq/reuse-modal";
 import SuccessModal from "../../../containers/ModalContainer/SuccessModal";
+import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+
 import Alert from "reusecore/src/elements/Alert";
+import LocationSearchInput from "../../../components/InputGooglePlace/altered";
 
 import { uploadMultipleImages } from "../../../helpers/uploadMultipleImage";
 import { useMutation } from "@apollo/react-hooks";
@@ -20,12 +23,21 @@ const EditProfileEnhancher = withFormik({
   mapPropsToValues: (props) => {
     const { author, loading } = props;
     const name = !loading && author && author.name ? author.name : "";
+    const email = !loading && author && author.email ? author.email : "";
+    const title = !loading && author && author.title ? author.title : "";
     const website = !loading && author && author.website ? author.website : "";
-    const address = !loading && author && author.address ? author.address : "";
+    const homeLocation =
+      !loading && author && author.homeLocation ? author.homeLocation : {};
+    const workLocation =
+      !loading && author && author.workLocation ? author.workLocation : {};
+
     return {
       name,
-      address,
       website,
+      email,
+      title,
+      homeLocation,
+      workLocation,
     };
   },
   displayName: "EditProfileForm", // helps with React DevTools
@@ -89,6 +101,7 @@ const EditProfile = (props) => {
   const handlesSubmit = async () => {
     setBtnLoading(true);
     await AuthHelper.refreshToken();
+
     if (localImage) {
       imagesUrl = await uploadMultipleImages([localImage]);
       setFieldValue("image", imagesUrl[0][0]);
@@ -135,6 +148,52 @@ const EditProfile = (props) => {
   };
   const [addAuthor] = useMutation(UPDATE_AUTHOR);
 
+  const handleAddress = (latlng, selected) => {
+    let locationObject = {
+      lat: false,
+      lng: false,
+      formattedAddress: "",
+    };
+    const location = {
+      ...locationObject,
+      lat: latlng.lat,
+      lng: latlng.lng,
+      formattedAddress: selected,
+    };
+  };
+
+  const handleWorkLocation = (latlng, selected) => {
+    let locationObject = {
+      lat: false,
+      lng: false,
+      formattedAddress: "",
+    };
+    const location = {
+      ...locationObject,
+      lat: latlng.lat,
+      lng: latlng.lng,
+      formattedAddress: selected,
+    };
+
+    setFieldValue("workLocation", location);
+  };
+
+  const handleHomeLocation = (latlng, selected) => {
+    let locationObject = {
+      lat: false,
+      lng: false,
+      formattedAddress: "",
+    };
+    const location = {
+      ...locationObject,
+      lat: latlng.lat,
+      lng: latlng.lng,
+      formattedAddress: selected,
+    };
+
+    setFieldValue("homeLocation", location);
+  };
+
   return (
     <>
       <Heading
@@ -167,30 +226,59 @@ const EditProfile = (props) => {
         error={errors.name}
         touched={touched}
       />
+
       <Input
         elementType="input"
         elementConfig={{
           type: "text",
           required: "required",
         }}
-        label="Address"
-        changed={handleChange("address")}
-        value={values.address}
-        error={errors.address}
+        label="Professional Title"
+        changed={handleChange("title")}
+        value={values.title}
+        error={errors.title}
         touched={touched}
       />
+
       <Input
         elementType="input"
         elementConfig={{
           type: "text",
           required: "required",
+          readOnly: true,
         }}
-        label="Web"
-        changed={handleChange("website")}
-        value={values.website}
-        error={errors.website}
+        label="Email"
+        value={values.email}
+        error={errors.email}
         touched={touched}
       />
+
+      <LocationSearchInput
+        title={"Work location"}
+        address={values.workLocation && values.workLocation.formattedAddress}
+        handleChange={(address) => {
+          setFieldValue("workLocation", {
+            ...values.workLocation,
+            formattedAddress: address,
+          });
+        }}
+        handleAddress={handleAddress}
+        handleLocation={handleWorkLocation}
+      />
+
+      <LocationSearchInput
+        title={"Home location"}
+        address={values.homeLocation && values.homeLocation.formattedAddress}
+        handleChange={(address) => {
+          setFieldValue("homeLocation", {
+            ...values.homeLocation,
+            formattedAddress: address,
+          });
+        }}
+        handleAddress={handleAddress}
+        handleLocation={handleHomeLocation}
+      />
+
       <Button
         onClick={handlesSubmit}
         title="Save Changes"

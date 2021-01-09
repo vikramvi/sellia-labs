@@ -1,11 +1,21 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const UPDATE_AUTHOR = gql`
   mutation($author: authorInput!) {
     addAuthor(input: $author) {
       id
       name
-      address
+      title
+      homeLocation {
+        lat
+        lng
+        formattedAddress
+      }
+      workLocation {
+        lat
+        lng
+        formattedAddress
+      }
       website
       email
       mobile {

@@ -43,8 +43,7 @@ export const createAccount = functions.https.onRequest((req, res) => {
   return cors(req, res, async () => {
     const { newUserInfo } = req.body;
 
-    console.log("req.body ->", req.body);
-    console.log("newUserInfo ->", newUserInfo);
+    console.log("createAccount newUserInfo ->", newUserInfo);
 
     // 1) validate email domain
     const isCompanyRegistered = await validateAccount(newUserInfo);

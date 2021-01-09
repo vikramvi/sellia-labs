@@ -1,11 +1,23 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const GET_AUTHOR = gql`
   query GetAuthor($id: ID!) {
     author(id: $id) {
       id
       name
-      address
+      title
+
+      homeLocation {
+        lat
+        lng
+        formattedAddress
+      }
+      workLocation {
+        lat
+        lng
+        formattedAddress
+      }
+
       website
       email
       mobile {

@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Link from 'next/link';
+import React from "react";
+import PropTypes from "prop-types";
+import Link from "next/link";
 
 import {
   InfoBox,
@@ -15,9 +15,9 @@ import {
   PostedTime,
   EditButton,
   IconBox,
-} from './userInfoBox.style.js';
-import Avatar from 'core/static/images/user-placeholder.svg';
-import { PROFILE_PAGE, ACCOUNT_SETTING_PAGE } from 'core/navigation/constant';
+} from "./userInfoBox.style.js";
+import Avatar from "core/static/images/user-placeholder.svg";
+import { PROFILE_PAGE, ACCOUNT_SETTING_PAGE } from "core/navigation/constant";
 
 const UserInformation = ({
   imgWidth,
@@ -74,19 +74,21 @@ const UserInformation = ({
           </Link>
         )}
         {postedTime && <PostedTime>{postedTime}</PostedTime>}
-        {address !== '' && addressIcon ? (
+
+        {address !== "" && addressIcon ? (
           <AddressInfo>
             {addressIcon && <IconBox>{addressIcon}</IconBox>}
             {address && <Address>{address}</Address>}
           </AddressInfo>
         ) : null}
-        {website !== '' && websiteIcon ? (
+
+        {website !== "" && websiteIcon ? (
           <OtherInfo>
             {websiteIcon && <IconBox>{websiteIcon}</IconBox>}
             {website && <PhoneNo>{website}</PhoneNo>}
           </OtherInfo>
         ) : null}
-        {phoneNumber !== '' && phoneIcon ? (
+        {phoneNumber !== "" && phoneIcon ? (
           <OtherInfo>
             {phoneIcon && <IconBox>{phoneIcon}</IconBox>}
             {phoneNumber && <PhoneNo>{phoneNumber}</PhoneNo>}
