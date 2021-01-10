@@ -97,7 +97,11 @@ const ListView = (props) => {
             imgHeight="40px"
             imgRadius={30}
             source={[props.postedBy.image && props.postedBy.image.url]}
-            title={props.postedBy.name}
+            title={
+              props.userId == props.postedBy.authorId
+                ? "You"
+                : props.postedBy.name
+            }
             author={props.postedBy.authorId}
             postedTime={props.postedTime}
             style={{ flexShrink: 0 }}

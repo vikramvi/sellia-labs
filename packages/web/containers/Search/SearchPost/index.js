@@ -21,7 +21,7 @@ const dateFormatAMPM = (date) => {
   return date.toLocaleString("en-US", { dateStyle: "medium" });
 };
 
-const SearchPostItem = () => {
+const SearchPostItem = (props) => {
   let publishTime = "";
   const urlState = getUrlToState();
   const { state, dispatch } = useContext(SearchContext);
@@ -121,6 +121,7 @@ const SearchPostItem = () => {
                       icon="md-pin"
                       postedBy={{ ...item.author, authorId: item.authorId }}
                       postedTime={item.publishTime}
+                      userId={props.userId}
                     />
                   </a>
                 </Link>

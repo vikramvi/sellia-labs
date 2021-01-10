@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Grid, Row } from 'react-styled-flexboxgrid';
-import TextButton from '../../components/TextButton';
-import { IoMdFunnel } from 'react-icons/io';
-import SearchCategory from './Categories/index';
-import SearchPost from './SearchPost/index';
-import SortList from './SortList';
-import FilterList from './FilterList';
-import { CategoriesWrapper, Holder, Col, SideDrawerInner } from './style';
-import SideDrawer from 'reusecore/src/elements/Drawer';
-import Text from 'reusecore/src/elements/Text';
-import Icon from 'react-icons-kit';
-import { androidClose } from 'react-icons-kit/ionicons/androidClose';
-import { androidArchive } from 'react-icons-kit/ionicons/androidArchive';
+import React, { useState } from "react";
+import { Grid, Row } from "react-styled-flexboxgrid";
+import TextButton from "../../components/TextButton";
+import { IoMdFunnel } from "react-icons/io";
+import SearchCategory from "./Categories/index";
+import SearchPost from "./SearchPost/index";
+import SortList from "./SortList";
+import FilterList from "./FilterList";
+import { CategoriesWrapper, Holder, Col, SideDrawerInner } from "./style";
+import SideDrawer from "reusecore/src/elements/Drawer";
+import Text from "reusecore/src/elements/Text";
+import Icon from "react-icons-kit";
+import { androidClose } from "react-icons-kit/ionicons/androidClose";
+import { androidArchive } from "react-icons-kit/ionicons/androidArchive";
 
-const SearchPage = props => {
+const SearchPage = (props) => {
   const [showFilter, setShowFilter] = useState(false);
   const [catDrawerState, toggleDrawer] = useState(false);
   const [filterDrawerState, toggleFilterDrawer] = useState(false);
@@ -22,7 +22,7 @@ const SearchPage = props => {
 
   return (
     <div style={{ paddingBottom: 50, paddingTop: 75 }}>
-      <Grid style={{ paddingLeft: '1rem', paddingRight: '1rem' }}>
+      <Grid style={{ paddingLeft: "1rem", paddingRight: "1rem" }}>
         <Row>
           <Col xs={0} sm={5} md={4}>
             {process.browser && (
@@ -53,7 +53,7 @@ const SearchPage = props => {
                 icon={<Icon icon={androidArchive} size={18} color="#333333" />}
                 onClick={handleCategoryToggle}
                 className="md-hidden"
-                style={{ marginLeft: 'auto', marginRight: 20 }}
+                style={{ marginLeft: "auto", marginRight: 20 }}
               />
 
               <TextButton
@@ -83,11 +83,11 @@ const SearchPage = props => {
                   <Icon icon={androidClose} size={21} color="#333333" />
                 }
                 closeButtonStyle={{
-                  display: 'inline-flex',
-                  position: 'absolute',
+                  display: "inline-flex",
+                  position: "absolute",
                   top: 20,
                   right: 20,
-                  cursor: 'pointer',
+                  cursor: "pointer",
                 }}
               >
                 <SideDrawerInner>
@@ -107,11 +107,11 @@ const SearchPage = props => {
                   <Icon icon={androidClose} size={21} color="#333333" />
                 }
                 closeButtonStyle={{
-                  display: 'inline-flex',
-                  position: 'absolute',
+                  display: "inline-flex",
+                  position: "absolute",
                   top: 20,
                   right: 20,
-                  cursor: 'pointer',
+                  cursor: "pointer",
                 }}
               >
                 <SideDrawerInner>

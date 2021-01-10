@@ -270,7 +270,9 @@ const Description = ({ postData, isLoggedIn, userId }) => {
           imgRadius={30}
           source={[authorImage, authorFallbackImage]}
           title={
-            postData && postData.author && postData.author.name
+            userId === postData.authorId
+              ? "You"
+              : postData.author && postData.author.name
               ? postData.author.name
               : ""
           }
