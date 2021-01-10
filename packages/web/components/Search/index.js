@@ -8,7 +8,6 @@ import Button from "reusecore/src/elements/Button";
 import { getUrlToState } from "../../helpers/urlHandler";
 
 export default function Search() {
-  console.log("in Search");
   const urlState = getUrlToState();
 
   const [searchValue, setSearchValue] = useState(urlState.text);

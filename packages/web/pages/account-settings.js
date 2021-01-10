@@ -23,8 +23,6 @@ const AccountSettings = withLayout(({ userId }) => {
     variables: { id: userId },
   });
 
-  console.log("account user ->", data);
-
   const {
     query: { view },
   } = useRouter();

@@ -127,28 +127,22 @@ const Description = ({ postData, isLoggedIn, userId }) => {
   };
   let createdTime = "";
 
-  if (postData.createdAt.seconds) {
-    createdTime = new Date(postData.createdAt.seconds * 1000);
-  } else if (post.createdAt._seconds) {
-    createdTime = new Date(postData.createdAt._seconds * 1000);
+  if (postData.createdAt) {
+    if (postData.createdAt.seconds) {
+      createdTime = new Date(postData.createdAt.seconds * 1000);
+    } else if (post.createdAt._seconds) {
+      createdTime = new Date(postData.createdAt._seconds * 1000);
+    }
+
+    var today = new Date().setHours(0, 0, 0, 0);
+    var thatDay = new Date(createdTime).setHours(0, 0, 0, 0);
+
+    if (today === thatDay) {
+      publishTime = "Today " + timeFormatAMPM(createdTime);
+    } else {
+      publishTime = `${dateFormatAMPM(createdTime)}`;
+    }
   }
-
-  var today = new Date().setHours(0, 0, 0, 0);
-  var thatDay = new Date(createdTime).setHours(0, 0, 0, 0);
-
-  if (today === thatDay) {
-    publishTime = "Today " + timeFormatAMPM(createdTime);
-  } else {
-    publishTime = `${dateFormatAMPM(createdTime)}`;
-  }
-
-  // if (postData && postData.createdAt && postData.createdAt.seconds) {
-  //   const timeCalculation = new Date(postData.createdAt.seconds * 1000);
-  //   publishTime = timeFormatAMPM(timeCalculation);
-  // } else if (postData && postData.createdAt && postData.createdAt._seconds) {
-  //   const timeCalculation = new Date(postData.createdAt._seconds * 1000);
-  //   publishTime = timeFormatAMPM(timeCalculation);
-  // }
 
   const adsCategory = (category, index) => {
     return (
