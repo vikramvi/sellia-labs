@@ -183,38 +183,42 @@ const Chat = (props) => {
         { includeMetadataChanges: false },
         (docSnapshot) => {
           let newChats = [];
-          docSnapshot.docChanges().forEach((change) => {
-            console.log(
-              `Received doc snapshot: ${docSnapshot} - ${change.type}`
-            );
+          docSnapshot.forEach((change) => {
+            // console.log(
+            //   `Received doc snapshot: ${docSnapshot} - ${change.type}`
+            // );
 
-            if (change.type == "added") {
-              setData([...data, change.doc.data()]);
-            } else if (change.type == "modified") {
-              setData([...data, change.doc.data()]);
-            }
+            // if (change.type === "added") {
+            //   newChats.push(change.doc.data());
+            // } else if (change.type === "modified") {
+            //   newChats.push(change.doc.data());
+            // } else if (change.type === "removed") {
+            //   newChats.push(change.doc.data());
+            // }
 
-            console.log("my chat ->", change.doc.data());
-            newChats.push(change.doc.data());
+            newChats.push(change.data());
+            // console.log("my chat ->", change.doc.data());
           });
+
+          setData(newChats);
 
           //update state
-          let updatedState = [...data];
-          console.log("updatedState count BEFORE ->", updatedState.length);
+          // let updatedState = [...data];
+          // console.log("updatedState count BEFORE ->", updatedState.length);
 
-          newChats.forEach((obj) => {
-            const index = updatedState.findIndex(
-              (e) => e.chatId === obj.chatId
-            );
-            if (index === -1) {
-              updatedState.push(obj);
-            } else {
-              updatedState[index] = obj;
-            }
-          });
+          // newChats.forEach((obj) => {
+          //   const index = updatedState.findIndex(
+          //     (e) => e.chatId === obj.chatId
+          //   );
+          //   if (index === -1) {
+          //     updatedState.push(obj);
+          //   } else {
+          //     updatedState[index] = obj;
+          //   }
+          // });
 
           // setData(updatedState);
-          console.log("updatedState count AFTER ->", updatedState.length);
+          // console.log("updatedState count AFTER ->", updatedState.length);
         },
         (err) => {
           console.log(`Encountered error: ${err}`);
