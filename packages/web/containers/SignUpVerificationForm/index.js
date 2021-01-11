@@ -49,7 +49,7 @@ const SignUpVerificationForm = ({
     query: { apiKey, mode, oobCode, continueUrl, lang },
   } = useRouter();
 
-  handleSubmit = async () => {
+  const handleFormSubmit = () => {
     setLoading(true);
     redirect({}, "/signin");
   };
@@ -84,7 +84,7 @@ const SignUpVerificationForm = ({
 
   const handleVerifyEmailSuccess = () => {
     setTimeout(() => {
-      redirect({ isVerified: true }, "/signin");
+      // redirect({ isVerified: true }, "/signin");
     }, 300);
   };
 
@@ -150,20 +150,16 @@ const SignUpVerificationForm = ({
       ) : (
         ""
       )}
-
-      {!loading ? (
-        <Box
-          flexBox
+      <Box flexBox mt={20} justifyContent="center" alignItems="center">
+        <Button
+          onClick={handleFormSubmit}
+          title="Sign In"
+          width={1}
+          disabled={!loading}
+          loaderColor="#fff"
           mt={20}
-          mb={15}
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Text>You will be redireted to Sign In page now</Text>
-        </Box>
-      ) : (
-        ""
-      )}
+        />
+      </Box>
     </>
   );
 };
