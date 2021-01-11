@@ -36,4 +36,18 @@ const ErrorNotification = styled('p')`
   /* border: 1px solid #f15251; */
 `;
 
-export { FormGroup, ErrorNotification };
+const SuccessNotification = styled('p')`
+  font-family: 'Poppins';
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+  color: #155724;
+  background-color: #d4edda;
+  padding: 5px;
+  border-radius: 0.25rem;
+  border: 1px solid transparent;
+  border-color: #c3e6cb;
+`;
+
+export { FormGroup, ErrorNotification, SuccessNotification };
