@@ -38,6 +38,7 @@ export const typeDefs = `
     posts(limit: Int, page: Int): PostWithCount
     favourite(limit: Int, page: Int): PostWithCount
     draft(limit: Int, page: Int) : PostWithCount
+    sold(limit: Int, page: Int) : PostWithCount
     createdAt: Date
     updatedAt: Date
   }

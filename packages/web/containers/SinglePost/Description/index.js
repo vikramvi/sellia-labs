@@ -233,12 +233,21 @@ const Description = ({ postData, isLoggedIn, userId }) => {
       /> */}
 
       {isLoggedIn && postData.authorId && userId === postData.authorId ? (
-        <Button
-          title="Edit Listing"
-          iconPosition="left"
-          style={{ marginBottom: 38, width: "100%" }}
-          onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
-        />
+        <Fragment>
+          <Button
+            title="Edit Listing"
+            iconPosition="left"
+            style={{ marginBottom: 10, width: "100%" }}
+            onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
+          />
+
+          <Button
+            title="Mark Sold"
+            iconPosition="left"
+            style={{ marginBottom: 38, width: "100%" }}
+            onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
+          />
+        </Fragment>
       ) : (
         <Button
           iconPosition="left"

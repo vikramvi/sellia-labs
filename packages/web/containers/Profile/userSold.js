@@ -5,7 +5,7 @@ import { PostLoader } from "../../components/Placeholder";
 import { Grid } from "react-styled-flexboxgrid";
 import { SINGLE_POST_PAGE } from "core/navigation/constant";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_DRAFT_POST } from "core/graphql/Profile.query";
+import { GET_SOLD_POST } from "core/graphql/Profile.query";
 import { CURRENCY } from "../../Config";
 import PostCard from "../../components/PostCard";
 import ListGrid from "reusecore/src/elements/ListGrid";
@@ -25,27 +25,27 @@ export default withRouter(function UserListingPost({
     USERNAME: username,
     LIMIT: 12,
   };
-  const { data, loading, error, fetchMore } = useQuery(GET_DRAFT_POST, {
+  const { data, loading, error, fetchMore } = useQuery(GET_SOLD_POST, {
     variables: QUERY_VARIABLES,
   });
 
-  const userDraftPosts =
-    data && data.author && data.author.draft && data.author.draft.data
-      ? data.author.draft.data
+  const userSoldPosts =
+    data && data.author && data.author.sold && data.author.sold.data
+      ? data.author.sold.data
       : [];
 
   const totalPost =
-    data && data.author && data.author.draft ? data.author.draft.total : 0;
-  const postCount = userDraftPosts.length;
+    data && data.author && data.author.sold ? data.author.sold.total : 0;
+  const postCount = userSoldPosts.length;
   if (error) return <OnError />;
 
   return (
     <Grid style={{ paddingLeft: 15, paddingRight: 15 }}>
-      {!loading && userDraftPosts.length === 0 ? (
+      {!loading && userSoldPosts.length === 0 ? (
         <NoItemFound />
       ) : (
         <ListGrid
-          data={userDraftPosts}
+          data={userSoldPosts}
           totalPost={totalPost}
           postCount={postCount}
           columnWidth={["100%", "50%", "33.33%", "25%"]}
@@ -80,13 +80,13 @@ export default withRouter(function UserListingPost({
                   toggleLoading(false);
                   return prev;
                 }
-                const oldPosts = prev.author.draft.data;
-                const newPosts = fetchMoreResult.author.draft.data;
+                const oldPosts = prev.author.sold.data;
+                const newPosts = fetchMoreResult.author.sold.data;
                 if (postCount && totalPost) {
                   if (postCount <= totalPost) {
                     toggleLoading(false);
                     const concatedPosts = oldPosts.concat(newPosts);
-                    fetchMoreResult.author.draft.data = concatedPosts;
+                    fetchMoreResult.author.sold.data = concatedPosts;
                     return fetchMoreResult;
                   }
                 }

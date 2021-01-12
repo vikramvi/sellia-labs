@@ -33,19 +33,10 @@
       "static/chunks/webpack.js",
       "static/chunks/pages/_error.js"
     ],
-    "/add-post/[id]": [
+    "/next/dist/pages/_error": [
       "static/chunks/main.js",
       "static/chunks/webpack.js",
-      "static/css/styles.chunk.css",
-      "static/chunks/styles.js",
-      "static/chunks/pages/add-post/[id].js"
-    ],
-    "/post/[slug]": [
-      "static/chunks/main.js",
-      "static/chunks/webpack.js",
-      "static/css/styles.chunk.css",
-      "static/chunks/styles.js",
-      "static/chunks/pages/post/[slug].js"
+      "static/chunks/pages/next/dist/pages/_error.js"
     ],
     "/profile/[username]": [
       "static/chunks/main.js",

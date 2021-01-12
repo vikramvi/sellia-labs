@@ -1,6 +1,6 @@
-import Post from '../lib/Post';
-import Category from '../lib/Category';
-import Author from '../lib/Author';
+import Post from "../lib/Post";
+import Category from "../lib/Category";
+import Author from "../lib/Author";
 
 const post = new Post();
 const category = new Category();
@@ -33,7 +33,7 @@ const Query = {
     if (args.slug) {
       let postData = await post.where({
         value: args.slug,
-        field: 'slug',
+        field: "slug",
       });
       let distance = false;
       if (
@@ -65,7 +65,7 @@ const Query = {
   authors: (_, args) => author.all({ limit: args.limit, page: args.page }),
   author: (_, args) => {
     if (args.username) {
-      return author.where({ value: args.username, field: 'username' });
+      return author.where({ value: args.username, field: "username" });
     } else if (args.id) {
       return author.byId({ id: args.id });
     }
@@ -74,7 +74,7 @@ const Query = {
   categories: (_, args) => category.all({ limit: args.limit, page: args.page }),
   category: (_, args) => {
     if (args.slug) {
-      return category.where({ value: args.slug, field: 'slug' });
+      return category.where({ value: args.slug, field: "slug" });
     } else if (args.id) {
       return category.byId({ id: args.id });
     }
@@ -88,17 +88,25 @@ const AuthorQuery = {
   draft: (authorData, args) =>
     author.posts({
       id: authorData.id,
-      status: 'draft',
+      status: "draft",
+      limit: args.limit,
+      page: args.page,
+    }),
+
+  sold: (authorData, args) =>
+    author.posts({
+      id: authorData.id,
+      status: "sold",
       limit: args.limit,
       page: args.page,
     }),
 };
 const PostQuery = {
-  author: postData => author.byId({ id: postData.authorId }),
+  author: (postData) => author.byId({ id: postData.authorId }),
   related: (postData, args) =>
     post.relatedPosts({
       value: postData.slug,
-      field: 'slug',
+      field: "slug",
     }),
 };
 const CategoryQuery = {
@@ -107,7 +115,7 @@ const CategoryQuery = {
       value: categoryData.slug,
       limit: args.limit,
       page: args.page,
-      field: 'slug',
+      field: "slug",
     }),
 };
 

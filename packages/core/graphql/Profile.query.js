@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 const AuthorPostsFragment = gql`
   fragment AuthorPostsQuery on Post {
@@ -35,6 +35,9 @@ export const GET_PROFILE_INFO = gql`
         total
       }
       draft(limit: $LIMIT) {
+        total
+      }
+      sold(limit: $LIMIT) {
         total
       }
     }
@@ -89,6 +92,21 @@ export const GET_DRAFT_POST = gql`
     author(id: $USERNAME) {
       id
       draft(limit: $LIMIT, page: $page) {
+        data {
+          ...AuthorPostsQuery
+        }
+        total
+      }
+    }
+  }
+  ${AuthorPostsFragment}
+`;
+
+export const GET_SOLD_POST = gql`
+  query Author($USERNAME: ID!, $LIMIT: Int, $page: Int) {
+    author(id: $USERNAME) {
+      id
+      sold(limit: $LIMIT, page: $page) {
         data {
           ...AuthorPostsQuery
         }

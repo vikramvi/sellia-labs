@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import Error from 'next/error';
-import { Grid, Row } from 'react-styled-flexboxgrid';
+import React, { Fragment, useState } from "react";
+import Error from "next/error";
+import { Grid, Row } from "react-styled-flexboxgrid";
 import {
   IoIosPaper,
   IoIosHeart,
@@ -8,26 +8,27 @@ import {
   IoIosCall,
   IoIosPin,
   IoIosGlobe,
-} from 'react-icons/io';
-import { ProfileAvatarLoader } from '../../components/Placeholder';
-import { useQuery } from '@apollo/react-hooks';
-import { GET_PROFILE_INFO } from 'core/graphql/Profile.query';
+} from "react-icons/io";
+import { ProfileAvatarLoader } from "../../components/Placeholder";
+import { useQuery } from "@apollo/react-hooks";
+import { GET_PROFILE_INFO } from "core/graphql/Profile.query";
 
-import UserInformation from '../../components/UserInfoBox';
-import TabButtons from '../../components/TabView';
-import UserListing from './userListing';
-import FavouriteListing from './userFavourite';
-import UserDraftPost from './userDraft';
+import UserInformation from "../../components/UserInfoBox";
+import TabButtons from "../../components/TabView";
+import UserListing from "./userListing";
+import FavouriteListing from "./userFavourite";
+import UserDraftPost from "./userDraft";
+import UserSoldPost from "./userSold";
 
 function Profile({ username, userId }) {
   if (!username) {
     return <Error statusCode="404" />;
   }
   const [tabStates, setTabState] = useState({
-    tabState: 'postlist',
+    tabState: "postlist",
   });
 
-  const handleTabToggle = tabState => {
+  const handleTabToggle = (tabState) => {
     setTabState({
       tabState: tabState,
     });
@@ -40,13 +41,19 @@ function Profile({ username, userId }) {
   const { data, loading, error, fetchMore } = useQuery(GET_PROFILE_INFO, {
     variables: QUERY_VARIABLES,
   });
+
+  console.log("data sold ->", data && data.author.sold);
+
   if (error) return <p>{error.message}</p>;
   if (loading)
     return (
-      <div style={{ height: '170px', width: '400px' }}>
+      <div style={{ height: "170px", width: "400px" }}>
         <ProfileAvatarLoader />
       </div>
     );
+
+  const soldPostCount =
+    data && data.author && data.author.sold ? data.author.sold.total : 0;
 
   const favouritePostCount =
     data && data.author && data.author.favourite
@@ -59,11 +66,11 @@ function Profile({ username, userId }) {
   const authorNumber =
     data && data.author && data.author.mobile && data.author.mobile[0]
       ? data.author.mobile[0].number
-      : '';
+      : "";
   const imageUrl =
-    data && data.author && data.author.image ? data.author.image.url : '';
+    data && data.author && data.author.image ? data.author.image.url : "";
   const imageLargeUrl =
-    data && data.author && data.author.image ? data.author.image.largeUrl : '';
+    data && data.author && data.author.image ? data.author.image.largeUrl : "";
   const { id, name, posts, address, website } = data.author;
   return (
     <Grid>
@@ -75,20 +82,20 @@ function Profile({ username, userId }) {
           imgRadius={85}
           informationStyle={{
             marginLeft: 30,
-            width: 'auto',
+            width: "auto",
           }}
           author={id}
           userId={userId}
           authorId={id}
           title={name}
           titleStyle={{
-            display: 'block',
-            color: '#333333',
+            display: "block",
+            color: "#333333",
             fontSize: 24,
-            fontWeight: 'bold',
-            marginBottom: '10px',
-            lineHeight: '22px',
-            textTransform: 'capitalize',
+            fontWeight: "bold",
+            marginBottom: "10px",
+            lineHeight: "22px",
+            textTransform: "capitalize",
           }}
           addressIcon={<IoIosPin size={21} />}
           address={address}
@@ -103,8 +110,8 @@ function Profile({ username, userId }) {
       <div style={{ paddingTop: 60, paddingLeft: 15 }}>
         <div
           style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
+            flexDirection: "row",
+            justifyContent: "flex-start",
             paddingTop: 10,
             paddingBottom: 10,
           }}
@@ -114,7 +121,7 @@ function Profile({ username, userId }) {
               <span
                 style={{
                   color:
-                    tabStates.tabState === 'postlist' ? '#333333' : '#8C8C8C',
+                    tabStates.tabState === "postlist" ? "#333333" : "#8C8C8C",
                   marginRight: 7,
                 }}
               >
@@ -124,13 +131,13 @@ function Profile({ username, userId }) {
             iconPosition="left"
             menuText="Published"
             menuTextColor={
-              tabStates.tabState === 'postlist' ? '#333333' : '#8C8C8C'
+              tabStates.tabState === "postlist" ? "#333333" : "#8C8C8C"
             }
             count={posts && posts.total ? posts.total : 0}
-            onClick={handleTabToggle.bind(this, 'postlist')}
+            onClick={handleTabToggle.bind(this, "postlist")}
             style={{
               marginRight: 50,
-              display: 'inline-flex',
+              display: "inline-flex",
               marginBottom: 15,
             }}
           />
@@ -140,7 +147,7 @@ function Profile({ username, userId }) {
               <span
                 style={{
                   color:
-                    tabStates.tabState === 'favorite' ? '#333333' : '#8C8C8C',
+                    tabStates.tabState === "favorite" ? "#333333" : "#8C8C8C",
                   marginRight: 7,
                 }}
               >
@@ -150,43 +157,70 @@ function Profile({ username, userId }) {
             iconPosition="left"
             menuText="Favourite"
             menuTextColor={
-              tabStates.tabState === 'favorite' ? '#333333' : '#8C8C8C'
+              tabStates.tabState === "favorite" ? "#333333" : "#8C8C8C"
             }
             count={favouritePostCount}
-            onClick={handleTabToggle.bind(this, 'favorite')}
+            onClick={handleTabToggle.bind(this, "favorite")}
             style={{
               marginRight: 50,
-              display: 'inline-flex',
+              display: "inline-flex",
               marginBottom: 15,
             }}
           />
 
           {userId && userId === id ? (
-            <TabButtons
-              menuIcon={
-                <span
-                  style={{
-                    color:
-                      tabStates.tabState === 'draft' ? '#333333' : '#8C8C8C',
-                    marginRight: 7,
-                  }}
-                >
-                  <IoMdArchive size={18} />
-                </span>
-              }
-              iconPosition="left"
-              menuText="Drafts"
-              menuTextColor={
-                tabStates.tabState === 'draft' ? '#333333' : '#8C8C8C'
-              }
-              count={draftPostCount}
-              onClick={handleTabToggle.bind(this, 'draft')}
-              style={{
-                marginRight: 50,
-                display: 'inline-flex',
-                marginBottom: 15,
-              }}
-            />
+            <Fragment>
+              <TabButtons
+                menuIcon={
+                  <span
+                    style={{
+                      color:
+                        tabStates.tabState === "draft" ? "#333333" : "#8C8C8C",
+                      marginRight: 7,
+                    }}
+                  >
+                    <IoMdArchive size={18} />
+                  </span>
+                }
+                iconPosition="left"
+                menuText="Drafts"
+                menuTextColor={
+                  tabStates.tabState === "draft" ? "#333333" : "#8C8C8C"
+                }
+                count={draftPostCount}
+                onClick={handleTabToggle.bind(this, "draft")}
+                style={{
+                  marginRight: 50,
+                  display: "inline-flex",
+                  marginBottom: 15,
+                }}
+              />
+              <TabButtons
+                menuIcon={
+                  <span
+                    style={{
+                      color:
+                        tabStates.tabState === "sold" ? "#333333" : "#8C8C8C",
+                      marginRight: 7,
+                    }}
+                  >
+                    <IoMdArchive size={18} />
+                  </span>
+                }
+                iconPosition="left"
+                menuText="Sold"
+                menuTextColor={
+                  tabStates.tabState === "sold" ? "#333333" : "#8C8C8C"
+                }
+                count={soldPostCount}
+                onClick={handleTabToggle.bind(this, "sold")}
+                style={{
+                  marginRight: 50,
+                  display: "inline-flex",
+                  marginBottom: 15,
+                }}
+              />
+            </Fragment>
           ) : null}
         </div>
       </div>
@@ -194,10 +228,14 @@ function Profile({ username, userId }) {
       <div style={{ paddingBottom: 80, paddingTop: 10 }}>
         <Row>
           {/* Tab conetnt */}
-          {tabStates.tabState === 'postlist' ? <UserListing /> : null}
-          {tabStates.tabState === 'favorite' ? <FavouriteListing /> : null}
-          {tabStates.tabState === 'draft' && userId === id ? (
+          {tabStates.tabState === "postlist" ? <UserListing /> : null}
+          {tabStates.tabState === "favorite" ? <FavouriteListing /> : null}
+          {tabStates.tabState === "draft" && userId === id ? (
             <UserDraftPost />
+          ) : null}
+
+          {tabStates.tabState === "sold" && userId === id ? (
+            <UserSoldPost />
           ) : null}
         </Row>
       </div>
