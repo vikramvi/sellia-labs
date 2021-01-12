@@ -1,50 +1,52 @@
-import { useContext, useEffect } from 'react';
-import { Grid, Row, Col } from 'react-styled-flexboxgrid';
-import { useRouter } from 'next/router';
-import { useQuery } from '@apollo/react-hooks';
-import { Modal } from '@redq/reuse-modal';
-import { GET_POST_FOR_EDIT } from 'core/graphql/Post.query';
-import Alert from 'reusecore/src/elements/Alert';
-import SecretPage from '../../hoc/secretPage';
-import withLayout from '../../hoc/withLayout';
+import { useContext, useEffect } from "react";
+import { Grid, Row, Col } from "react-styled-flexboxgrid";
+import { useRouter } from "next/router";
+import { useQuery } from "@apollo/react-hooks";
+import { Modal } from "@redq/reuse-modal";
+import { GET_POST_FOR_EDIT } from "core/graphql/Post.query";
+import Alert from "reusecore/src/elements/Alert";
+import SecretPage from "../../hoc/secretPage";
+import withLayout from "../../hoc/withLayout";
 import {
   adPostSteps,
   STEPS,
   AddPostContext,
   AddPostProvider,
-} from '../../contexts/AddPostContext';
-import PageMeta from '../../components/PageMeta';
-import PickImages from '../../containers/AddPost/PickImages';
-import TitleAndPriceInfo from '../../containers/AddPost/TitleAndPriceInfo';
-import CategoryAndDetailInfo from '../../containers/AddPost/CategoryAndDetailInfo';
-import LocationInfo from '../../containers/AddPost/LocationInfo';
-import ContactNumberInfo from '../../containers/AddPost/ContactNumberInfo';
-import TopToolBar from '../../containers/AddPost/TopToolBar';
-import AdImagesInfo from '../../containers/AddPost/AddImage';
+} from "../../contexts/AddPostContext";
+import PageMeta from "../../components/PageMeta";
+import PickImages from "../../containers/AddPost/PickImages";
+import TitleAndPriceInfo from "../../containers/AddPost/TitleAndPriceInfo";
+import CategoryAndDetailInfo from "../../containers/AddPost/CategoryAndDetailInfo";
+import LocationInfo from "../../containers/AddPost/LocationInfo";
+import ContactNumberInfo from "../../containers/AddPost/ContactNumberInfo";
+import TopToolBar from "../../containers/AddPost/TopToolBar";
+import AdImagesInfo from "../../containers/AddPost/AddImage";
 
-import Progress from '../../components/Progress';
-import { withApollo } from '../../helpers/apollo';
-let counter = 0;
+import Progress from "../../components/Progress";
+import { withApollo } from "../../helpers/apollo";
+
 const AddPost = ({ isLoggedIn, userId, email }) => {
+  let counter = 0;
   const { state, dispatch } = useContext(AddPostContext);
   const { step } = state;
   const {
     query: { id },
   } = useRouter();
-  if (id != 'new') {
+  if (id != "new") {
     const { data, loading, error } = useQuery(GET_POST_FOR_EDIT, {
       variables: { id },
     });
     useEffect(() => {
       if (!loading && Object.keys(data).length) {
+        console.log("edit post fetch useEffect ->", counter);
         if (counter < 1) {
           dispatch({
-            type: 'UPDATE_STEP',
+            type: "UPDATE_STEP",
             payload: { step: 1 },
           });
           if (id) {
             dispatch({
-              type: 'UPDATE_FULL_ADPOST',
+              type: "UPDATE_FULL_ADPOST",
               payload: { id: id },
             });
           }
@@ -59,12 +61,12 @@ const AddPost = ({ isLoggedIn, userId, email }) => {
                 data.post.formattedLocation &&
                 data.post.formattedLocation.formattedAddress
                   ? data.post.formattedLocation.formattedAddress
-                  : '',
+                  : "",
             };
           }
 
           dispatch({
-            type: 'UPDATE_FULL_ADPOST',
+            type: "UPDATE_FULL_ADPOST",
             payload: {
               title: data.post.title,
               condition: data.post.condition,
@@ -100,19 +102,19 @@ const AddPost = ({ isLoggedIn, userId, email }) => {
       ) : (
         <Grid
           style={{
-            paddingTop: '80px',
+            paddingTop: "80px",
           }}
         >
           <Row>
             <Col xs={12} sm={12}>
               <TopToolBar
-                onClose={() => dispatch({ type: 'CANCEL_AD_POSTING' })}
+                onClose={() => dispatch({ type: "CANCEL_AD_POSTING" })}
               />
               <Progress
                 color="#30c56d"
                 progress={(1 / 4) * step}
                 height={4}
-                style={{ marginBottom: '40px' }}
+                style={{ marginBottom: "40px" }}
               />
             </Col>
           </Row>
