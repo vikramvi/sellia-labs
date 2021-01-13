@@ -1,4 +1,4 @@
-import { ADD_POST } from './Post';
+import { ADD_POST, UPDATE_POST_STATUS } from "./Post";
 import {
   UPDATE_AUTHOR,
   GET_VERIFICATION_CODE,
@@ -9,8 +9,8 @@ import {
   RESET_PASS,
   FOREGET_PASS_MAIL,
   HANDLE_FAV,
-} from './Author';
-import { UPLOAD_IMAGE } from './Image';
+} from "./Author";
+import { UPLOAD_IMAGE } from "./Image";
 
 export {
   ADD_POST,
@@ -24,4 +24,5 @@ export {
   RESET_PASS,
   FOREGET_PASS_MAIL,
   HANDLE_FAV,
+  UPDATE_POST_STATUS,
 };

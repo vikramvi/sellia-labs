@@ -1,5 +1,5 @@
-import { db, storage } from './init';
-import { validatePostDataWithLocation, getTimeStamp } from '../helper/utility';
+import { db, storage } from "./init";
+import { validatePostDataWithLocation, getTimeStamp } from "../helper/utility";
 
 /**
  * This is the Base class to fetch and store data to Firestore
@@ -7,8 +7,8 @@ import { validatePostDataWithLocation, getTimeStamp } from '../helper/utility';
 export default class Base {
   constructor() {
     this.db = db;
-    this.collection = '';
-    this.storageRef = 'images';
+    this.collection = "";
+    this.storageRef = "images";
   }
   /**
    * Return the collection name
@@ -28,7 +28,7 @@ export default class Base {
     try {
       const data = await this.getRef(this.collection)
         .get()
-        .then(async snapshot => {
+        .then(async (snapshot) => {
           const docsAt = (page - 1) * limit;
           const startAt = snapshot.docs[docsAt];
           const totalPosts = snapshot.docs.length;
@@ -40,8 +40,8 @@ export default class Base {
         .limit(Number(limit))
         .startAt(startAt)
         .get()
-        .then(docSnapshot => {
-          const data = docSnapshot.docs.map(doc => {
+        .then((docSnapshot) => {
+          const data = docSnapshot.docs.map((doc) => {
             return { ...doc.data(), id: doc.id };
           });
           return data;
@@ -62,7 +62,7 @@ export default class Base {
       const data = await this.getRef(this.collection)
         .doc(id)
         .get()
-        .then(item => {
+        .then((item) => {
           return { ...item.data(), id };
         });
       return data;
@@ -78,7 +78,7 @@ export default class Base {
   async where(query = {}) {
     const limit = query.limit ? query.limit : 1000;
     const field = query.field ? query.field : null;
-    const operator = query.operator ? query.operator : '==';
+    const operator = query.operator ? query.operator : "==";
     const value = query.value ? query.value : null;
     const multiple = query.multiple ? query.multiple : false;
     const data = [];
@@ -87,8 +87,8 @@ export default class Base {
         .limit(Number(limit))
         .where(field, operator, value)
         .get()
-        .then(snapshot => {
-          snapshot.docs.map(doc => {
+        .then((snapshot) => {
+          snapshot.docs.map((doc) => {
             data.push({ ...doc.data(), id: doc.id });
           });
         });
@@ -111,11 +111,11 @@ export default class Base {
     let posts = [];
     try {
       const data = await this.getRef(this.collection)
-        .where(field, '>=', min)
-        .where(field, '<=', max)
+        .where(field, ">=", min)
+        .where(field, "<=", max)
         .get()
-        .then(snapshot => {
-          snapshot.docs.map(doc => {
+        .then((snapshot) => {
+          snapshot.docs.map((doc) => {
             posts.push({ ...doc.data(), id: doc.id });
           });
           return posts;
@@ -140,7 +140,7 @@ export default class Base {
           return { id };
         });
     } catch (error) {
-      console.error('Error removing document: ', error);
+      console.error("Error removing document: ", error);
     }
   }
 
@@ -155,12 +155,12 @@ export default class Base {
     try {
       const post = await this.getRef(this.collection)
         .add(data)
-        .then(doc => {
+        .then((doc) => {
           return this.byId({ id: doc.id });
         });
       return post;
     } catch (error) {
-      console.error('Error adding document: ', error);
+      console.error("Error adding document: ", error);
     }
   }
 
@@ -179,7 +179,7 @@ export default class Base {
         });
       return post;
     } catch (error) {
-      console.error('Error updating document: ', error);
+      console.error("Error updating document: ", error);
     }
   }
 
@@ -201,7 +201,30 @@ export default class Base {
         });
       return post;
     } catch (error) {
-      console.error('Error updating document: ', error);
+      console.error("Error updating document: ", error);
+    }
+  }
+
+  /**
+   * Update a document by ID and new data
+   * @param {Object} query
+   */
+  async updateStatus(query = {}) {
+    const id = query.id ? query.id : null;
+    let data = query.status ? query.status : {};
+    try {
+      const update = {};
+      update[`status`] = data;
+
+      const post = await this.getRef(this.collection)
+        .doc(id)
+        .update(update)
+        .then(() => {
+          return this.byId({ id });
+        });
+      return post;
+    } catch (error) {
+      console.error("Error updating document: ", error);
     }
   }
 }

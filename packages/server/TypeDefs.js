@@ -137,6 +137,12 @@ export const typeDefs = `
     remember: Boolean
     provider: String
   }
+
+  input postUpdateStatusInput {
+    id: ID
+    status: String
+  }
+
   input postInput {
     id: ID
     authorId: ID!
@@ -212,6 +218,8 @@ export const typeDefs = `
   }
 
   type Mutation {
+    
+    updatePostStatus(input: postUpdateStatusInput ): Post
     addPost(input: postInput ): Post
     addCategory( input: categoryInput ): Category
     addAuthor( input: authorInput ): Author

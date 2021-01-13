@@ -39,6 +39,13 @@
       "static/css/styles.chunk.css",
       "static/chunks/styles.js",
       "static/chunks/pages/post/[slug].js"
+    ],
+    "/profile/[username]": [
+      "static/chunks/main.js",
+      "static/chunks/webpack.js",
+      "static/css/styles.chunk.css",
+      "static/chunks/styles.js",
+      "static/chunks/pages/profile/[username].js"
     ]
   },
   "ampFirstPages": []

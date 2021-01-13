@@ -1,6 +1,7 @@
 import Post from "../lib/Post";
 import Author from "../lib/Author";
 import Category from "../lib/Category";
+import { async } from "regenerator-runtime";
 
 const post = new Post();
 const category = new Category();
@@ -10,6 +11,11 @@ const author = new Author();
  * All the mutation throughout the App
  */
 export const Mutation = {
+  updatePostStatus: async (_, { input }) => {
+    let data = await post.updateStatus({ status: input.status, id: input.id });
+    return data;
+  },
+
   /**
    * Mutation for adding a new post to Firestore
    */
@@ -243,6 +249,8 @@ export const Mutation = {
    * Mutation for Handling user favorite posts
    */
   handleFav: async (_, { input }) => {
+    console.log("handleFav input IN");
+
     const userId = input.id;
     const postId = input.postId;
     const postById = await post.byId({ id: postId });

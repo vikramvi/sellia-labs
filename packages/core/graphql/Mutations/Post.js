@@ -32,3 +32,36 @@ export const ADD_POST = gql`
     }
   }
 `;
+
+export const UPDATE_POST_STATUS = gql`
+  mutation UpdatePostStatus($post: postUpdateStatusInput!) {
+    updatePostStatus(input: $post) {
+      id
+      createdAt
+      title
+      content
+      contactNumber
+      status
+      slug
+      price
+      location {
+        lat
+        lng
+        formattedAddress
+      }
+      categories {
+        id
+      }
+      image {
+        url
+        largeUrl
+      }
+      gallery {
+        url
+        largeUrl
+      }
+      isNegotiable
+      condition
+    }
+  }
+`;

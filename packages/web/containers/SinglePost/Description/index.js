@@ -32,6 +32,8 @@ import {
 } from "./description.style";
 import { json } from "body-parser";
 
+import { UPDATE_POST_STATUS } from "core/graphql/Mutations";
+
 const timeFormatAMPM = (date) => {
   return date.toLocaleString("en-US", { timeStyle: "short" });
 };
@@ -72,6 +74,8 @@ const Description = ({ postData, isLoggedIn, userId }) => {
   };
   const isFav = isFavourite(postData.id, userFav);
 
+  const [updatePostMutation] = useMutation(UPDATE_POST_STATUS);
+
   const handleFavMutation = useMutation(HANDLE_FAV, {
     variables: {
       fav: {
@@ -85,9 +89,12 @@ const Description = ({ postData, isLoggedIn, userId }) => {
     if (isLoggedIn) {
       await AuthHelper.refreshToken();
     }
+    console.log("handleFav IN 1");
     if (isLoggedIn) {
       try {
+        console.log("handleFav IN 2");
         const { data } = await handleFavMutation();
+        console.log("handleFav IN 3");
         userNewFavList =
           data &&
           data.handleFav &&
@@ -147,6 +154,14 @@ const Description = ({ postData, isLoggedIn, userId }) => {
     }
   }
 
+  const handleMarkSold = async () => {
+    const data = await updatePostMutation({
+      variables: {
+        post: { id: postData.id, status: "sold" },
+      },
+    });
+  };
+
   const adsCategory = (category, index) => {
     return (
       <Link
@@ -174,7 +189,11 @@ const Description = ({ postData, isLoggedIn, userId }) => {
         color="#333333"
       />
       <TagGroup marginBottom="25px" style={{ marginTop: 25, width: "100%" }}>
-        <LabelTag tagContent={`${CURRENCY} ${postData.price}`} />
+        {postData.status === "sold" ? (
+          <LabelTag tagContent="Sold Out" />
+        ) : (
+          <LabelTag tagContent={`${CURRENCY} ${postData.price}`} />
+        )}
         {postData.isNegotiable && (
           <Text
             content="Negotiable"
@@ -205,7 +224,10 @@ const Description = ({ postData, isLoggedIn, userId }) => {
         // <p>Please Enable your location to get distance</p>
       )}
 
-      {isLoggedIn && postData.authorId && userId === postData.authorId ? (
+      {isLoggedIn &&
+      postData.authorId &&
+      userId === postData.authorId &&
+      postData.status === "publish" ? (
         <Fragment>
           <Button
             title="Edit Listing"
@@ -218,7 +240,7 @@ const Description = ({ postData, isLoggedIn, userId }) => {
             title="Mark Sold"
             iconPosition="left"
             style={{ marginBottom: 38, width: "100%" }}
-            onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
+            onClick={handleMarkSold}
           />
         </Fragment>
       ) : (
