@@ -21,6 +21,7 @@ import LocationInfo from "../../containers/AddPost/LocationInfo";
 import ContactNumberInfo from "../../containers/AddPost/ContactNumberInfo";
 import TopToolBar from "../../containers/AddPost/TopToolBar";
 import AdImagesInfo from "../../containers/AddPost/AddImage";
+import Router from "next/router";
 
 import Progress from "../../components/Progress";
 import { withApollo } from "../../helpers/apollo";
@@ -108,7 +109,13 @@ const AddPost = ({ isLoggedIn, userId, email }) => {
           <Row>
             <Col xs={12} sm={12}>
               <TopToolBar
-                onClose={() => dispatch({ type: "CANCEL_AD_POSTING" })}
+                onClose={() => {
+                  if (id != "new") {
+                    Router.back();
+                  } else {
+                    dispatch({ type: "CANCEL_AD_POSTING" });
+                  }
+                }}
               />
               <Progress
                 color="#30c56d"
