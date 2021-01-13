@@ -16,6 +16,7 @@ import Icon from "../../../components/Icon";
 import Button from "reusecore/src/elements/Button";
 import InfoBox from "../../../components/UserInfoBox";
 import ReadMore from "../../../components/Truncate";
+import Box from "reusecore/src/elements/Box";
 
 import {
   ADD_POST,
@@ -39,6 +40,8 @@ const dateFormatAMPM = (date) => {
   return date.toLocaleString("en-US", { dateStyle: "medium" });
 };
 const Description = ({ postData, isLoggedIn, userId }) => {
+  console.log("postData ->", postData);
+
   let userFavList = [];
   let userNewFavList = [];
   let publishTime = "";
@@ -202,36 +205,6 @@ const Description = ({ postData, isLoggedIn, userId }) => {
         // <p>Please Enable your location to get distance</p>
       )}
 
-      {/* <Button
-        iconPosition="left"
-        title="Show Contact"
-        bg="#30C56D"
-        style={{ marginBottom: 38, width: "100%" }}
-        icon={<Icon name="ios-call" fontSize={19} color="#fff" mr={10} />}
-        onClick={() =>
-          openModal({
-            config: {
-              disableDragging: false,
-              className: "contactModal",
-              width: "auto",
-              height: "auto",
-              enableResizing: false,
-              disableDragging: true,
-              transition: {
-                tension: 150,
-              },
-            },
-            closeOnClickOutside: true,
-            component: ContactInfoModal,
-            componentProps: {
-              data: {
-                contactNumber: contactNumber,
-              },
-            },
-          })
-        }
-      /> */}
-
       {isLoggedIn && postData.authorId && userId === postData.authorId ? (
         <Fragment>
           <Button
@@ -249,21 +222,23 @@ const Description = ({ postData, isLoggedIn, userId }) => {
           />
         </Fragment>
       ) : (
-        <Button
-          iconPosition="left"
-          title="Chat"
-          bg="#30C56D"
-          style={{ marginBottom: 38, width: "100%" }}
-          icon={
-            <Icon name="ios-chatboxes" fontSize={19} color="#fff" mr={10} />
-          }
-          onClick={() =>
-            Router.push({
-              pathname: CHAT_PAGE,
-              query: { post: JSON.stringify(postData) },
-            })
-          }
-        />
+        postData.status === "publish" && (
+          <Button
+            iconPosition="left"
+            title="Chat"
+            bg="#30C56D"
+            style={{ marginBottom: 38, width: "100%" }}
+            icon={
+              <Icon name="ios-chatboxes" fontSize={19} color="#fff" mr={10} />
+            }
+            onClick={() =>
+              Router.push({
+                pathname: CHAT_PAGE,
+                query: { post: JSON.stringify(postData) },
+              })
+            }
+          />
+        )
       )}
 
       <InfoBoxWrapper>

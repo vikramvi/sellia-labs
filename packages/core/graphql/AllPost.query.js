@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const GET_ALL_POST = gql`
   query getAllPost($LIMIT: Int, $page: Int) {
@@ -6,6 +6,7 @@ export const GET_ALL_POST = gql`
       data {
         id
         slug
+        status
         title
         price
         image {

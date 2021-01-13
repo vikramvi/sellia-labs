@@ -1,10 +1,11 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const GET_POST = gql`
   query getPost($slug: String, $lat: Float, $lng: Float) {
     post(slug: $slug, lat: $lat, lng: $lng) {
       id
       title
+      status
       content
       price
       authorId

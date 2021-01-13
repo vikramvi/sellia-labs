@@ -1,22 +1,22 @@
-import Base from './Base';
-import Category from './Category';
+import Base from "./Base";
+import Category from "./Category";
 import {
   getDocsInsideRedius,
   sortByKey,
   pagination,
   fuzzySearch,
-} from '../helper/utility';
-import { distance, getNearestDocs } from '../helper/geohashUtility';
+} from "../helper/utility";
+import { distance, getNearestDocs } from "../helper/geohashUtility";
 import {
   arrayToObject,
   objectToArray,
   objectIntersection,
-} from '../helper/arrayUtility';
+} from "../helper/arrayUtility";
 
 class Post extends Base {
   constructor(args) {
     super(args);
-    this.collection = 'posts';
+    this.collection = "posts";
   }
 
   /**
@@ -24,34 +24,34 @@ class Post extends Base {
    * @return {arrayObject} posts
    */
   async allPost(query = {}) {
-    const status = query.status ? query.status : 'publish';
+    const status = query.status ? query.status : "publish";
     const limit = query.limit ? query.limit : 10;
     const page = query.page ? query.page : 1;
     try {
-      const data = await this.getRef('posts')
-        .where('status', '==', status)
+      const data = await this.getRef("posts")
+        .where("status", "==", status)
         .get()
-        .then(async snapshot => {
+        .then(async (snapshot) => {
           const docsAt = (page - 1) * limit;
           const startAt = snapshot.docs[docsAt];
           const total = snapshot.docs.length;
           return { startAt, total };
         });
       const { startAt, total } = data;
-      const nextData = await this.getRef('posts')
-        .where('status', '==', status)
+      const nextData = await this.getRef("posts")
+        .where("status", "==", status)
         .limit(Number(limit))
         .startAt(startAt)
         .get()
-        .then(docSnapshot => {
-          const data = docSnapshot.docs.map(doc => {
+        .then((docSnapshot) => {
+          const data = docSnapshot.docs.map((doc) => {
             return { ...doc.data(), id: doc.id };
           });
           return data;
         });
       return { data: nextData, total };
     } catch (error) {
-      console.log(error, 'Error');
+      console.log(error, "Error");
     }
   }
 
@@ -65,19 +65,19 @@ class Post extends Base {
       const category = new Category();
       let result = await this.where({ field, value });
       const postData = result
-        ? result.categories.map(category => {
+        ? result.categories.map((category) => {
             return category.slug;
           })
         : [];
 
       const categoryPosts = await category.postBySlugs({ data: postData });
       let posts = categoryPosts[0]
-        ? categoryPosts[0].filter(post => post.slug !== value)
+        ? categoryPosts[0].filter((post) => post.slug !== value)
         : [];
       // posts = categoryPosts[0].filter(post => post.slug !== value);
       return posts.slice(0, 4);
     } catch (error) {
-      console.log(error, 'Error');
+      console.log(error, "Error");
     }
   }
 
@@ -94,7 +94,7 @@ class Post extends Base {
     const nearestPoints = await getNearestDocs(collection, center, radius);
     const data = nearestPoints.length ? nearestPoints[0] : [];
     const nearestInsideRadius = getDocsInsideRedius(data, radius);
-    const nearestData = sortByKey(nearestInsideRadius, 'distance');
+    const nearestData = sortByKey(nearestInsideRadius, "distance");
     const nearest = pagination(nearestData, page, limit);
     return nearest;
   }
@@ -112,7 +112,7 @@ class Post extends Base {
     const nearestPoints = await getNearestDocs(collection, center, radius);
     const data = nearestPoints.length ? nearestPoints[0] : [];
     const nearestInsideRadius = getDocsInsideRedius(data, radius);
-    const nearestData = sortByKey(nearestInsideRadius, 'distance');
+    const nearestData = sortByKey(nearestInsideRadius, "distance");
     const nearest = pagination(nearestData, page, limit);
     return { data: nearest, total: nearestData.length };
   }
@@ -156,7 +156,7 @@ class Post extends Base {
         const allPosts = await this.all({ limit });
         const allPostsData = allPosts.data;
         const postData = fuzzySearch(allPostsData, text);
-        const allPostsDataObject = arrayToObject(postData, 'id');
+        const allPostsDataObject = arrayToObject(postData, "id");
         filteredObject = objectIntersection(
           filteredObject,
           allPostsDataObject,
@@ -171,7 +171,7 @@ class Post extends Base {
         //   categoryPostsLastItem,
         //   'postId'
         // );
-        const categoryPostsObject = arrayToObject(categoryPostsLastItem, 'id');
+        const categoryPostsObject = arrayToObject(categoryPostsLastItem, "id");
         filteredObject = objectIntersection(
           filteredObject,
           categoryPostsObject,
@@ -180,11 +180,11 @@ class Post extends Base {
         searched = true;
       }
       if (price && price.length && price.length > 1) {
-        const field = 'price';
+        const field = "price";
         const min = price[0];
         const max = price[1];
         const pricePosts = await this.range({ field, min, max });
-        const pricePostObject = arrayToObject(pricePosts, 'id');
+        const pricePostObject = arrayToObject(pricePosts, "id");
         filteredObject = objectIntersection(
           filteredObject,
           pricePostObject,
@@ -194,11 +194,11 @@ class Post extends Base {
       }
       if (condition !== null && condition !== undefined) {
         const conditionPosts = await this.where({
-          field: 'condition',
+          field: "condition",
           value: condition,
           multiple: true,
         });
-        const conditionPostsObject = arrayToObject(conditionPosts, 'id');
+        const conditionPostsObject = arrayToObject(conditionPosts, "id");
         filteredObject = objectIntersection(
           filteredObject,
           conditionPostsObject,
@@ -208,11 +208,11 @@ class Post extends Base {
       }
       if (isNegotiable !== null && isNegotiable !== undefined) {
         const isNegotiablePosts = await this.where({
-          field: 'isNegotiable',
+          field: "isNegotiable",
           value: isNegotiable,
           multiple: true,
         });
-        const isNegotiablePostsObject = arrayToObject(isNegotiablePosts, 'id');
+        const isNegotiablePostsObject = arrayToObject(isNegotiablePosts, "id");
         filteredObject = objectIntersection(
           filteredObject,
           isNegotiablePostsObject,
@@ -222,7 +222,7 @@ class Post extends Base {
       }
       if (location && radius) {
         const nearestPosts = await this.nearestPosts({ location, radius });
-        const nearestPostsObject = arrayToObject(nearestPosts, 'id');
+        const nearestPostsObject = arrayToObject(nearestPosts, "id");
         filteredObject = objectIntersection(
           filteredObject,
           nearestPostsObject,
@@ -234,7 +234,7 @@ class Post extends Base {
     if (!searched) {
       const allPosts = await this.all({});
       const allPostsData = allPosts.data;
-      const allPostsDataObject = arrayToObject(allPostsData, 'id');
+      const allPostsDataObject = arrayToObject(allPostsData, "id");
       filteredObject = objectIntersection(
         filteredObject,
         allPostsDataObject,
@@ -243,28 +243,30 @@ class Post extends Base {
     }
 
     const ObjectToArray = objectToArray(filteredObject);
-    let filteredArray = ObjectToArray.filter(post => post.status === 'publish');
+    let filteredArray = ObjectToArray.filter(
+      (post) => post.status === "publish"
+    );
 
     // Sorting Start
     if (
       sorting &&
       Object.keys(sorting).length &&
-      sorting['field'] &&
-      sorting['type']
+      sorting["field"] &&
+      sorting["type"]
     ) {
-      if (sorting['field'] === 'distance') {
+      if (sorting["field"] === "distance") {
         if (location && radius) {
           filteredArray = sortByKey(
             filteredArray,
-            sorting['field'],
-            sorting['type']
+            sorting["field"],
+            sorting["type"]
           );
         }
       } else {
         filteredArray = sortByKey(
           filteredArray,
-          sorting['field'],
-          sorting['type']
+          sorting["field"],
+          sorting["type"]
         );
       }
     }

@@ -24,6 +24,7 @@ export const GET_SEARCH_POST = gql`
     searchPosts(searchParams: $queryVariables) {
       data {
         title
+        status
         slug
         authorId
         price
