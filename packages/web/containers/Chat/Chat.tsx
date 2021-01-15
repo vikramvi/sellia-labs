@@ -197,23 +197,24 @@ const Chat = (props) => {
 
           setData(newChats);
 
-          //update state
-          // let updatedState = [...data];
-          // console.log("updatedState count BEFORE ->", updatedState.length);
+          //deafult selection
 
-          // newChats.forEach((obj) => {
-          //   const index = updatedState.findIndex(
-          //     (e) => e.chatId === obj.chatId
-          //   );
-          //   if (index === -1) {
-          //     updatedState.push(obj);
-          //   } else {
-          //     updatedState[index] = obj;
-          //   }
-          // });
+          if (currentPost) {
+            console.log("deafult selection");
 
-          // setData(updatedState);
-          // console.log("updatedState count AFTER ->", updatedState.length);
+            //post chat id
+            let chat_id = getNodename(
+              userId,
+              currentPost.authorId,
+              currentPost.id
+            );
+
+            const item = newChats[chat_id];
+
+            if (item) {
+              onListingSelect(item);
+            }
+          }
         },
         (err) => {
           console.log(`Encountered error: ${err}`);
@@ -358,7 +359,7 @@ const Chat = (props) => {
 
   return (
     <ChatProvider>
-      {data ? (
+      {Object.keys(data).length > 0 ? (
         <Wrapper>
           <Sidebar $isActive={toggleSidebar}>
             <ChatSidebar

@@ -38,37 +38,6 @@ const ChatSidebar = ({
     resetChat();
   };
 
-  //listen users_chat
-  useEffect(() => {
-    // async function subscribeUserChat() {
-    //   const doc = db
-    //     .collection("user_chats")
-    //     .doc(userId)
-    //     .collection("chats")
-    //     .orderBy("updatedAt", "desc");
-    //   const observer = doc.onSnapshot(
-    //     (docSnapshot) => {
-    //       let chats = [];
-    //       docSnapshot.docChanges().forEach((change) => {
-    //         console.log(
-    //           `Received doc snapshot: ${docSnapshot} - ${change.type}`
-    //         );
-    //         if (change.type === "added") {
-    //           console.log("my chat ->", change.doc.data());
-    //           chats.push(change.doc.data());
-    //           setData(chats);
-    //         }
-    //       });
-    //       // ...
-    //     },
-    //     (err) => {
-    //       console.log(`Encountered error: ${err}`);
-    //     }
-    //   );
-    // }
-    // subscribeUserChat();
-  }, []);
-
   // const filteredUser = data.filter((item) => {
   //   console.log("item -->", item);
 

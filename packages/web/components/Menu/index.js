@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Button from "reusecore/src/elements/Button";
 import DropdownMenu from "../DropdownMenu";
@@ -8,6 +8,7 @@ import profileImg from "core/static/images/user-placeholder.svg";
 import Badge from "../UiElements/Badge/Badge";
 import SvgIcon from "../UiElements/SvgIcon/SvgIcon";
 import { styled } from "baseui";
+import { db } from "../../helpers/init";
 
 import { BsBell } from "react-icons/bs";
 import { IoMdHome, IoMdMail } from "react-icons/io";
@@ -68,6 +69,9 @@ const Menu = ({
   dropdownMenuIcon,
   avatar,
 }) => {
+  //unread notification
+  const [badgeCount, setbadgeCount] = useState(0);
+
   const PROFILE_MENU_ITEMS = [
     <Link href={`${PROFILE_PAGE}/[username]`} as={`${PROFILE_PAGE}/${userId}`}>
       <a>Profile</a>
@@ -94,6 +98,39 @@ const Menu = ({
     />,
   ];
 
+  //listen users_chat
+  useEffect(() => {
+    async function subscribeUserChat() {
+      const doc = db
+        .collection("user_chats")
+        .doc(userId)
+        .collection("chats");
+
+      const observer = doc.onSnapshot(
+        (docSnapshot) => {
+          let unreadNotification = 0;
+          docSnapshot.forEach((change) => {
+            console.log(
+              `Received doc snapshot: ${docSnapshot} - ${change.type}`
+            );
+
+            let changeData = change.data();
+            if (changeData.unreadCount > 0) {
+              unreadNotification++;
+            }
+          });
+
+          //update state
+          setbadgeCount(unreadNotification);
+        },
+        (err) => {
+          console.log(`Encountered error: ${err}`);
+        }
+      );
+    }
+    subscribeUserChat();
+  }, []);
+
   return (
     <MenuWrapper className={className}>
       <MenuItemWrapper>
@@ -104,7 +141,7 @@ const Menu = ({
 
       <MenuItemWrapper>
         <Link href={CHAT_PAGE}>
-          <IoMdMail size={30} />
+          <Badge icon={<IoMdMail size={30} />} count={badgeCount} />
         </Link>
       </MenuItemWrapper>
 

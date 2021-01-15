@@ -25,9 +25,11 @@ const Badge = ({
     <Link href={path ? path : ""}>
       <Wrapper className="badge" style={style} onClick={onClick}>
         {icon}
-        <Count $color={color && color} $bgColor={bgColor && bgColor}>
-          {count}
-        </Count>
+        {count > 0 && (
+          <Count $color={color && color} $bgColor={bgColor && bgColor}>
+            {count}
+          </Count>
+        )}
       </Wrapper>
     </Link>
   );
