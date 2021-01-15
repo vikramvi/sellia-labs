@@ -82,7 +82,7 @@ const Chat = (props) => {
   const [value, setValue] = useState("");
   const [listen, setListen] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
 
   const [opponentUser, setOpponentUser] = useState(null);
 
@@ -147,22 +147,6 @@ const Chat = (props) => {
     }
   };
 
-  const handleNewListing = (obj) => {
-    setData([...data, obj]);
-  };
-
-  const handleUpdateListing = (obj) => {
-    let newArray = Array.from(data);
-
-    const index = newArray.findIndex((e) => e.chatId === obj.chatId);
-    if (index === -1) {
-    } else {
-      newArray[index] = obj;
-    }
-
-    setData(newArray);
-  };
-
   useEffect(() => {
     console.log("useEffect in");
 
@@ -182,7 +166,7 @@ const Chat = (props) => {
       const observer = doc.onSnapshot(
         { includeMetadataChanges: false },
         (docSnapshot) => {
-          let newChats = [];
+          let newChats = {};
           docSnapshot.forEach((change) => {
             // console.log(
             //   `Received doc snapshot: ${docSnapshot} - ${change.type}`
@@ -196,8 +180,19 @@ const Chat = (props) => {
             //   newChats.push(change.doc.data());
             // }
 
-            newChats.push(change.data());
-            // console.log("my chat ->", change.doc.data());
+            let changeData = change.data();
+
+            newChats[changeData.chatId] = changeData;
+
+            //fetch listing status
+            db.collection("posts")
+              .doc(changeData.listingID)
+              .get()
+              .then((listingDoc) => {
+                newChats[
+                  changeData.chatId
+                ].listingStatus = listingDoc.data().status;
+              });
           });
 
           setData(newChats);
@@ -363,7 +358,7 @@ const Chat = (props) => {
 
   return (
     <ChatProvider>
-      {data.length > 0 ? (
+      {data ? (
         <Wrapper>
           <Sidebar $isActive={toggleSidebar}>
             <ChatSidebar
@@ -395,6 +390,9 @@ const Chat = (props) => {
               <Footer>
                 <ChatInput
                   value={value}
+                  disabled={
+                    currentListing.listingStatus === "sold" ? true : false
+                  }
                   onChange={(e) => setValue(e.target.value)}
                   onSubmit={handleChat}
                 />

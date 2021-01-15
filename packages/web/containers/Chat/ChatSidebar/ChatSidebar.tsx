@@ -69,19 +69,19 @@ const ChatSidebar = ({
     // subscribeUserChat();
   }, []);
 
-  const filteredUser = data.filter((item) => {
-    console.log("item -->", item);
+  // const filteredUser = data.filter((item) => {
+  //   console.log("item -->", item);
 
-    if (text) {
-      return item.from.toLowerCase().includes(text.toLowerCase());
-    } else {
-      return true;
-    }
-  });
+  //   if (text) {
+  //     return item.from.toLowerCase().includes(text.toLowerCase());
+  //   } else {
+  //     return true;
+  //   }
+  // });
 
   return (
     <>
-      <SearchInput>
+      {/* <SearchInput>
         <Icon>
           <IoIosSearch />
         </Icon>
@@ -90,19 +90,26 @@ const ChatSidebar = ({
           type="text"
           placeholder="Search"
         />
-      </SearchInput>
+      </SearchInput> */}
       <UserList>
-        {filteredUser.map((item) => {
+        {Object.keys(data).map((key) => {
+          console.log("data -->", key);
+          const item = data[key];
           return (
             <UserListItem
               key={`user-item--${item.listingID}`}
+              $listingStatus={item.listingStatus}
               $isActive={item.listingID === (user && user.listingID)}
               onClick={() => handleOnClick(item)}
             >
               <ChatItem
-                avatar={item.image.url}
+                avatar={item.image && item.image.url}
                 alt={item.name}
-                title={item.title}
+                title={
+                  item.listingStatus === "sold"
+                    ? "Sold Out - " + item.title
+                    : item.title
+                }
                 subtitle={
                   userId == item.buyer.id ? item.seller.name : item.buyer.name
                 }
