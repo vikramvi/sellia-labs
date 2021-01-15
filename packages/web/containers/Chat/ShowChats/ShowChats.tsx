@@ -17,7 +17,6 @@ const ShowChats = ({ chats, userId, opponentUser }) => {
         ? chats.map((chat, index) => (
             <>
               <MessageBox
-                title={chat.uid === userId ? "You" : opponentUser.name}
                 position={chat.uid === userId ? "right" : "left"}
                 text={chat.text}
                 date={chat.date && chat.date.toDate()}
