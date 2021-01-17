@@ -1,4 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
+import moment from "moment";
+
 import { BsArrowLeft } from "react-icons/bs";
 import ChatProvider from "./ChatContext";
 import ChatSidebar from "./ChatSidebar/ChatSidebar";
@@ -68,6 +70,31 @@ const NoListingSelected = () => (
     </div>
   </Box>
 );
+
+function groupedDays(messages) {
+  return messages.reduce((acc, el, i) => {
+    const messageDay = moment(el.date).format("YYYY-MM-DD");
+    if (acc[messageDay]) {
+      return { ...acc, [messageDay]: acc[messageDay].concat([el]) };
+    }
+    return { ...acc, [messageDay]: [el] };
+  }, {});
+}
+
+function generateItems(messages) {
+  const days = groupedDays(messages);
+  const sortedDays = Object.keys(days).sort(
+    (x, y) => moment(x, "YYYY-MM-DD").unix() - moment(y, "YYYY-MM-DD").unix()
+  );
+
+  console.log("sortedDays ->", sortedDays);
+
+  const items = sortedDays.reduce((acc, date) => {
+    const sortedMessages = days[date].sort((x, y) => x.date - y.date);
+    return acc.concat([{ type: "day", date, id: date }, ...sortedMessages]);
+  }, []);
+  return items;
+}
 
 const Chat = (props) => {
   const { user } = useContext(ChatContext);
@@ -246,7 +273,7 @@ const Chat = (props) => {
     if (currentListing) {
       const data = {
         text: value,
-        date: new Date(),
+        date: Date.now(),
         // date: firebaseFieldValue.serverTimestamp(),
         uid: userId,
         listingID: currentListing.listingID
@@ -383,7 +410,7 @@ const Chat = (props) => {
                 <div>
                   <ShowChats
                     userId={userId}
-                    chats={chats}
+                    chats={generateItems(chats)}
                     opponentUser={opponentUser}
                   />
                 </div>
