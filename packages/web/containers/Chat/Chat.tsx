@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import moment from "moment";
+import "./css/main.css";
 
 import { BsArrowLeft } from "react-icons/bs";
 import ChatProvider from "./ChatContext";

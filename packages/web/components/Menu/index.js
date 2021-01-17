@@ -66,9 +66,12 @@ const Menu = ({
   isLoggedIn,
   logout,
   buttonIcon,
+  pathname,
   dropdownMenuIcon,
   avatar,
 }) => {
+  console.log("pathname -->", pathname);
+
   //unread notification
   const [badgeCount, setbadgeCount] = useState(0);
 
@@ -141,7 +144,10 @@ const Menu = ({
 
       <MenuItemWrapper>
         <Link href={CHAT_PAGE}>
-          <Badge icon={<IoMdMail size={30} />} count={badgeCount} />
+          <Badge
+            icon={<IoMdMail size={30} />}
+            count={pathname !== CHAT_PAGE ? badgeCount : 0}
+          />
         </Link>
       </MenuItemWrapper>
 

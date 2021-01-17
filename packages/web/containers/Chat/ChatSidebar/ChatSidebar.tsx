@@ -1,6 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-// RCE CSS
-import "react-chat-elements/dist/main.css";
 import { IoIosSearch } from "react-icons/io";
 import { ChatContext } from "../ChatContext";
 import {

@@ -2127,6 +2127,18 @@
     overflow: auto;
 }
 
+.rce-smsg {
+  background-color: aqua !important;
+}
+
+.rce-mbox.rce-mbox {
+  background-color: whitesmoke !important;
+}
+
+.rce-mbox.rce-mbox-right {
+  background-color: palegreen !important;
+}
+
 .drawer {
   position: fixed;
   top: 0;

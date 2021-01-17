@@ -18,6 +18,7 @@ const Navbar = ({
   pathname,
   avatar,
 }) => {
+  console.log("pathname menu -> ", pathname);
   return (
     <NavbarWrapper>
       <Logo logoSrc={logoImg} title="Headless Logo" />
@@ -45,6 +46,7 @@ const Navbar = ({
         logout={logout}
         buttonIcon={menuButtonIcon}
         dropdownMenuIcon={dropdownMenuIcon}
+        pathname={pathname}
         avatar={avatar}
       />
     </NavbarWrapper>

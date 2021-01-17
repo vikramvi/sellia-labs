@@ -5,6 +5,7 @@ import { ThemeProvider } from "styled-components";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "@redq/reuse-modal/lib/index.css";
 import "rc-slider/assets/index.css";
+import "react-chat-elements/dist/main.css";
 
 import { Provider as StyletronProvider } from "styletron-react";
 import { styletron, debug } from "../../../styletron";

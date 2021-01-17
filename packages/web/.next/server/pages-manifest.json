@@ -2,6 +2,6 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/post/[slug]": "pages/post/[slug].js",
-  "/chat": "pages/chat.js"
+  "/chat": "pages/chat.js",
+  "/profile/[username]": "pages/profile/[username].js"
 }

@@ -10,6 +10,8 @@ import Router from "next/router";
 export default (ComposedComponent) =>
   class withLayout extends Component {
     static async getInitialProps(context) {
+      console.log("getInitialProps - context.pathname", context.pathname);
+
       const token = await getFirebaseCookie("id_token", context);
       const location = await getFirebaseCookie("currentLocation", context);
       const user = await getFirebaseCookie("user", context);
