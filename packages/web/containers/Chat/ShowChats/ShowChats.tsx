@@ -35,6 +35,10 @@ const ShowChats = ({ chats, userId, opponentUser }) => {
               );
             }
 
+            if (chat.type && chat.type === "unread") {
+              return <SystemMessage text="new messages" />;
+            }
+
             return (
               <MessageBox
                 position={chat.uid === userId ? "right" : "left"}

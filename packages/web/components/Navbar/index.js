@@ -18,7 +18,6 @@ const Navbar = ({
   pathname,
   avatar,
 }) => {
-  console.log("pathname menu -> ", pathname);
   return (
     <NavbarWrapper>
       <Logo logoSrc={logoImg} title="Headless Logo" />

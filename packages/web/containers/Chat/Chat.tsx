@@ -72,31 +72,6 @@ const NoListingSelected = () => (
   </Box>
 );
 
-function groupedDays(messages) {
-  return messages.reduce((acc, el, i) => {
-    const messageDay = moment(el.date).format("YYYY-MM-DD");
-    if (acc[messageDay]) {
-      return { ...acc, [messageDay]: acc[messageDay].concat([el]) };
-    }
-    return { ...acc, [messageDay]: [el] };
-  }, {});
-}
-
-function generateItems(messages) {
-  const days = groupedDays(messages);
-  const sortedDays = Object.keys(days).sort(
-    (x, y) => moment(x, "YYYY-MM-DD").unix() - moment(y, "YYYY-MM-DD").unix()
-  );
-
-  console.log("sortedDays ->", sortedDays);
-
-  const items = sortedDays.reduce((acc, date) => {
-    const sortedMessages = days[date].sort((x, y) => x.date - y.date);
-    return acc.concat([{ type: "day", date, id: date }, ...sortedMessages]);
-  }, []);
-  return items;
-}
-
 const Chat = (props) => {
   const { user } = useContext(ChatContext);
 
@@ -113,6 +88,32 @@ const Chat = (props) => {
   const [data, setData] = useState({});
 
   const [opponentUser, setOpponentUser] = useState(null);
+
+  function groupedDays(messages) {
+    return messages.reduce((acc, el, i) => {
+      const messageDay = moment(el.date).format("YYYY-MM-DD");
+      if (acc[messageDay]) {
+        return { ...acc, [messageDay]: acc[messageDay].concat([el]) };
+      }
+      return { ...acc, [messageDay]: [el] };
+    }, {});
+  }
+
+  function generateItems(messages) {
+    const days = groupedDays(messages);
+    const sortedDays = Object.keys(days).sort(
+      (x, y) => moment(x, "YYYY-MM-DD").unix() - moment(y, "YYYY-MM-DD").unix()
+    );
+
+    console.log("sortedDays ->", sortedDays);
+
+    const items = sortedDays.reduce((acc, date) => {
+      let sortedMessages = days[date].sort((x, y) => x.date - y.date);
+
+      return acc.concat([{ type: "day", date, id: date }, ...sortedMessages]);
+    }, []);
+    return items;
+  }
 
   const getNodename = (buyerID, sellerID, listingID) => {
     const chatNode = buyerID + sellerID + listingID;
@@ -178,6 +179,7 @@ const Chat = (props) => {
   useEffect(() => {
     console.log("useEffect in");
 
+    let unsbscribe;
     console.log("currentPost ->", currentPost);
     if (currentPost) {
       setupCloudChat(currentPost);
@@ -191,25 +193,12 @@ const Chat = (props) => {
         .collection("chats")
         .orderBy("updatedAt", "desc");
 
-      const observer = doc.onSnapshot(
+      unsbscribe = doc.onSnapshot(
         { includeMetadataChanges: false },
         (docSnapshot) => {
           let newChats = {};
           docSnapshot.forEach((change) => {
-            // console.log(
-            //   `Received doc snapshot: ${docSnapshot} - ${change.type}`
-            // );
-
-            // if (change.type === "added") {
-            //   newChats.push(change.doc.data());
-            // } else if (change.type === "modified") {
-            //   newChats.push(change.doc.data());
-            // } else if (change.type === "removed") {
-            //   newChats.push(change.doc.data());
-            // }
-
             let changeData = change.data();
-
             newChats[changeData.chatId] = changeData;
 
             //fetch listing status
@@ -237,7 +226,7 @@ const Chat = (props) => {
               currentPost.id
             );
 
-            const item = newChats[chat_id];
+            const item = data[chat_id];
 
             if (item) {
               onListingSelect(item);
@@ -250,13 +239,13 @@ const Chat = (props) => {
       );
     }
 
-    subscribeUserChat();
-
     // scroll to bottom
     const chatBody = document.getElementById("chatBody");
     if (chatBody) {
       chatBody.scrollTop = chatBody.scrollHeight;
     }
+    subscribeUserChat();
+    return unsbscribe;
   }, []);
 
   const handleChat = async (e) => {
@@ -349,29 +338,27 @@ const Chat = (props) => {
         (doc) => {
           console.log("my chat ->", doc.data());
           const dataSource = doc.data();
-
           arrChat.push(dataSource);
-
-          // arrChat.push({
-          //   ...dataSource,
-          //   date: dataSource.date.toDate(),
-          //   position: dataSource.uid === userId ? "right" : "left",
-          //   title: dataSource.uid === userId ? "You" : opponentUser.name,
-          // });
-
-          console.log("snapshot ->", arrChat);
-          setChats([...arrChat]);
-
-          // scroll to bottom
-          const chatBody = document.getElementById("chatBody");
-          if (chatBody) {
-            chatBody.scrollTop = chatBody.scrollHeight;
-          }
         },
         (err) => {
           console.log(`Encountered error: ${err}`);
         }
       );
+      console.log("snapshot ->", arrChat);
+
+      //unread setup
+      if (item.unreadCount > 0) {
+        const index = arrChat.length - item.unreadCount;
+        arrChat.splice(index, 0, { type: "unread" });
+      }
+
+      setChats([...arrChat]);
+
+      // scroll to bottom
+      const chatBody = document.getElementById("chatBody");
+      if (chatBody) {
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
     });
 
     //clear unread count

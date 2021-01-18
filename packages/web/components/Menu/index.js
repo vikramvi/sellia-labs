@@ -70,8 +70,6 @@ const Menu = ({
   dropdownMenuIcon,
   avatar,
 }) => {
-  console.log("pathname -->", pathname);
-
   //unread notification
   const [badgeCount, setbadgeCount] = useState(0);
 
@@ -103,20 +101,17 @@ const Menu = ({
 
   //listen users_chat
   useEffect(() => {
+    let observer;
     async function subscribeUserChat() {
       const doc = db
         .collection("user_chats")
         .doc(userId)
         .collection("chats");
 
-      const observer = doc.onSnapshot(
+      observer = doc.onSnapshot(
         (docSnapshot) => {
           let unreadNotification = 0;
           docSnapshot.forEach((change) => {
-            console.log(
-              `Received doc snapshot: ${docSnapshot} - ${change.type}`
-            );
-
             let changeData = change.data();
             if (changeData.unreadCount > 0) {
               unreadNotification++;
@@ -132,6 +127,7 @@ const Menu = ({
       );
     }
     subscribeUserChat();
+    return observer;
   }, []);
 
   return (
