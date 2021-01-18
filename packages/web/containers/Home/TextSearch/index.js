@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { Row, Col } from 'react-styled-flexboxgrid';
-import { IoIosSearch } from 'react-icons/io';
+import React, { useState } from "react";
+import { Row, Col } from "react-styled-flexboxgrid";
+import { IoIosSearch } from "react-icons/io";
 
-import InputSearch from '../../../components/InputSearch';
+import InputSearch from "../../../components/InputSearch";
 
 export default function TextSearch() {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
 
-  const onChange = e => {
+  const onChange = (e) => {
     setSearchValue(e.target.value);
   };
 
   return (
     <Row
       style={{
-        paddingLeft: '1rem',
-        paddingRight: '1rem',
+        paddingLeft: "1rem",
+        paddingRight: "1rem",
         marginLeft: 0,
         marginRight: 0,
       }}
@@ -24,11 +24,11 @@ export default function TextSearch() {
         <InputSearch
           changed={onChange}
           value={searchValue}
-          placeholder="10,000 products available"
+          placeholder="Search Sellia"
           buttonIcon={<IoIosSearch size={20} />}
           buttonText="Search"
           style={{
-            boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+            boxShadow: "0 0 10px rgba(0,0,0,0.1)",
             marginTop: 50,
             marginBottom: 50,
           }}

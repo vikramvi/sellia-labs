@@ -53,7 +53,7 @@ export default function Search() {
           changed={handleSearchInput}
           searchText={searchValue}
           buttonIcon={<Icon icon={androidSearch} size={21} />}
-          placeholder="10,000 products available"
+          placeholder="Search Sellia"
         />
       </SearchBox>
     </SearchWrapper>

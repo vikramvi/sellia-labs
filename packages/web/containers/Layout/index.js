@@ -248,6 +248,7 @@ export default ({
         </SideDrawer>
       )}
       <Main>{children}</Main>
+
       <Footer />
     </>
   );
