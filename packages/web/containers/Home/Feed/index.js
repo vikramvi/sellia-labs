@@ -44,6 +44,11 @@ export default function Feed() {
       >
         <a>
           <PostCard
+            style={{
+              flexDirection: "row",
+              display: "flex",
+              justifyContent: "space-around",
+            }}
             currency={CURRENCY}
             title={title}
             price={price}

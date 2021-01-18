@@ -4,6 +4,8 @@ import Card from "reusecore/src/elements/Card";
 import Heading from "reusecore/src/elements/Heading";
 import Text from "reusecore/src/elements/Text";
 import PlaceholderImage from "core/static/images/thumb-grid-placeholder.svg";
+import Box from "reusecore/src/elements/Box";
+
 import Img from "react-image";
 const PostCard = ({
   imageSrc,
@@ -17,10 +19,6 @@ const PostCard = ({
 }) => {
   return (
     <Card {...props}>
-      {title && <Heading content={title} {...titleStyle} mb="1" mt={15} />}
-      {price && currency && (
-        <Text content={`${currency} ${price}`} {...priceStyle} mb="0" />
-      )}
       {imageSrc && (
         <Img
           src={imageSrc}
@@ -30,6 +28,12 @@ const PostCard = ({
           unloader={<img src={PlaceholderImage} />}
         />
       )}
+      <Box>
+        {title && <Heading content={title} {...titleStyle} mb="1" mt={15} />}
+        {price && currency && (
+          <Text content={`${currency} ${price}`} {...priceStyle} mb="0" />
+        )}
+      </Box>
     </Card>
   );
 };
