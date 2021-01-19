@@ -10,9 +10,9 @@ export const NavSidebarWrapper = styled("div")`
   height: 100%;
   float: left;
   overflow-y: scroll;
-  overflow-x: hidden;
   top: 200;
   left: 0;
+  bottom: 20;
   z-index: 10;
   background-color: #ffffff;
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.06);

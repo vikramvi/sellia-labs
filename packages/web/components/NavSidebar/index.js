@@ -121,30 +121,6 @@ const NavSidebar = ({
                 </span>
               </a>
             </li>
-            <li class="nav-menu-item-li">
-              <a class="nav-menu-item-link" href="/digest?s=settings">
-                <svg
-                  class="nav-menu-item-icon css-ec7kfw"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  color="#000000"
-                  role="img"
-                >
-                  <path
-                    d="M5.573 19h8.855c1.785 0 2.707-.939 2.707-2.741V3.733c0-1.794-.922-2.733-2.707-2.733H5.573c-1.778 0-2.708.939-2.708 2.733v12.526c0 1.802.93 2.741 2.708 2.741zm.141-1.661c-.797 0-1.196-.416-1.196-1.188V3.84c0-.756.399-1.188 1.204-1.188h8.556c.806 0 1.204.424 1.204 1.188v12.31c0 .772-.398 1.188-1.196 1.188H5.714zM6.977 6.067h6.055c.307 0 .532-.241.532-.54a.511.511 0 00-.532-.515H6.977c-.308 0-.54.224-.54.515 0 .299.232.54.54.54zm0 2.832h6.055c.307 0 .532-.24.532-.54a.511.511 0 00-.532-.515H6.977c-.308 0-.54.225-.54.515 0 .3.232.54.54.54zm0 2.833h2.94c.3 0 .523-.233.523-.523a.518.518 0 00-.523-.532h-2.94a.527.527 0 100 1.055z"
-                    fill="currentColor"
-                  ></path>
-                </svg>
-                <span
-                  class="nav-menu-item-label-refresh css-1y777s2"
-                  data-testid="Digest"
-                >
-                  Digest
-                </span>
-              </a>
-            </li>
           </ul>
           <hr class="nav-bar-hr"></hr>
           <div
@@ -155,65 +131,6 @@ const NavSidebar = ({
             Neighborhood
           </div>
           <ul class="nav-bar-list">
-            <li class="nav-menu-item-li">
-              <a class="nav-menu-item-link" href="/help_map/?is=nav_bar">
-                <svg
-                  class="nav-menu-item-icon css-ec7kfw"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  color="#000000"
-                  role="img"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M10 16.82l4.129-4.105a5.762 5.762 0 000-8.184 5.866 5.866 0 00-8.258 0 5.762 5.762 0 000 8.184L10 16.82zm-.458 1.66l-4.729-4.7a7.262 7.262 0 010-10.313c2.865-2.848 7.51-2.848 10.374 0a7.262 7.262 0 010 10.312l-4.729 4.701a.65.65 0 01-.916 0z"
-                    fill="currentColor"
-                  ></path>
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M10 9.166a.5.5 0 100-1 .5.5 0 000 1zm0 1.5a2 2 0 100-4 2 2 0 000 4z"
-                    fill="currentColor"
-                  ></path>
-                </svg>
-                <span
-                  class="nav-menu-item-label-refresh css-1y777s2"
-                  data-testid="Help Map"
-                >
-                  Help Map
-                </span>
-                <div class="nd-badge nd-badge-blue">New</div>
-              </a>
-            </li>
-            <li class="nav-menu-item-li nav-item-recommendations">
-              <a class="nav-menu-item-link" href="/recommendations?is=nav_bar">
-                <svg
-                  class="nav-menu-item-icon css-ec7kfw"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  color="#000000"
-                  role="img"
-                >
-                  <g clip-path="url(#icon-businesses_svg__clip0)"></g>
-                  <defs>
-                    <clipPath id="icon-businesses_svg__clip0">
-                      <path fill="#fff" d="M0 0h20v20H0z"></path>
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span
-                  class="nav-menu-item-label-refresh css-1y777s2"
-                  data-testid="Businesses"
-                >
-                  Businesses
-                </span>
-              </a>
-            </li>
             <li class="nav-menu-item-li">
               <a
                 class="nav-menu-item-link"
@@ -278,7 +195,7 @@ const NavSidebar = ({
             </li>
           </ul>
           <div class="nav-bar-section-title" tabindex="0" aria-label="Groups">
-            Groups
+            Categories
           </div>
           <ul class="nav-bar-list">
             <li class="nav-menu-item-li">
@@ -296,7 +213,27 @@ const NavSidebar = ({
                   class="nav-menu-item-label-refresh css-1y777s2"
                   data-testid="All Groups"
                 >
-                  All Groups
+                  Motor Cycle
+                </span>
+              </a>
+            </li>
+
+            <li class="nav-menu-item-li">
+              <a href="/category/car" class="nav-menu-item-link ">
+                <svg
+                  class="nav-menu-item-icon css-ec7kfw"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  color="#006344"
+                  role="img"
+                ></svg>
+                <span
+                  class="nav-menu-item-label-refresh css-1y777s2"
+                  data-testid="All Groups"
+                >
+                  Car
                 </span>
               </a>
             </li>
@@ -387,57 +324,20 @@ const NavSidebar = ({
                   Help
                 </a>
               </li>
-              <li>
-                <a
-                  class="nav-bar-inline-list-link"
-                  href="/neighborhood_guidelines/#guidelines"
-                >
-                  Guidelines
-                </a>
-              </li>
+
               <li>
                 <a class="nav-bar-inline-list-link" href="/privacy_policy/">
                   Privacy
                 </a>
               </li>
-            </ul>
-            <ul class="nav-bar-inline-list">
               <li>
                 <a class="nav-bar-inline-list-link" href="/about_us/">
                   About
                 </a>
               </li>
-              <li>
-                <a class="nav-bar-inline-list-link" href="/jobs/">
-                  Jobs
-                </a>
-              </li>
-              <li>
-                <a class="nav-bar-inline-list-link" href="/press/">
-                  Press
-                </a>
-              </li>
-              <li>
-                <a
-                  class="nav-bar-inline-list-link"
-                  href="https://blog.nextdoor.com"
-                >
-                  Blog
-                </a>
-              </li>
             </ul>
-            <ul class="nav-bar-inline-list">
-              <li>
-                <a
-                  href="/do_not_sell/"
-                  target="_blank"
-                  class="_5Ebo_Fl7 nav-bar-inline-list-link"
-                >
-                  Do not sell my personal information
-                </a>
-              </li>
-            </ul>
-            <div class="nav-bar-copyright">© 2021 Nextdoor</div>
+
+            <div class="nav-bar-copyright">© 2021 Sellia</div>
           </footer>
         </section>
       </div>

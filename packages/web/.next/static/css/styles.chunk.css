@@ -2153,8 +2153,8 @@
   display: none;
 }
 hr {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   border: 0;
   border-top: 1px solid #eeeeee;
 }
@@ -2555,6 +2555,20 @@ body.brand_refresh_2020 .nav-menu-item-link .nd-badge {
 .brand_refresh_2020 .nd-icon-badge {
   left: 16px;
   top: 6px;
+}
+
+.real-estate-promo-card-image {
+  height: 100%;
+  position: relative;
+}
+
+.real-estate-promo-card-background-image {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 2px 2px 0 0;
 }
 
 .drawer {

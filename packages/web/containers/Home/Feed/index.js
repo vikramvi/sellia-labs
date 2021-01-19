@@ -47,7 +47,10 @@ export default function Feed() {
             style={{
               flexDirection: "row",
               display: "flex",
-              justifyContent: "space-around",
+              justifyContent: "center",
+            }}
+            imageStyle={{
+              marginRight: 20,
             }}
             currency={CURRENCY}
             title={title}

@@ -20,13 +20,15 @@ const PostCard = ({
   return (
     <Card {...props}>
       {imageSrc && (
-        <Img
-          src={imageSrc}
-          alt={title}
-          style={imageStyle}
-          loader={<img src={PlaceholderImage} />}
-          unloader={<img src={PlaceholderImage} />}
-        />
+        <div class="real-estate-promo-card-image">
+          <Img
+            src={imageSrc}
+            alt={title}
+            style={imageStyle}
+            loader={<img src={PlaceholderImage} />}
+            unloader={<img src={PlaceholderImage} />}
+          />
+        </div>
       )}
       <Box>
         {title && <Heading content={title} {...titleStyle} mb="1" mt={15} />}
@@ -50,7 +52,6 @@ PostCard.propTypes = {
 PostCard.defaultProps = {
   boxShadow: "1px",
   borderRadius: "3px",
-  border: 0.5,
   width: "100%",
   mb: "40px",
   color: "#595959",
