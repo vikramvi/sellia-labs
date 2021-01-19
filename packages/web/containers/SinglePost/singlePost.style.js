@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { palette } from 'styled-theme';
-import { Carousel as RRCarousel } from 'react-responsive-carousel';
-import Text from 'reusecore/src/elements/Text';
+import styled from "styled-components";
+import { palette } from "styled-theme";
+import { Carousel as RRCarousel } from "react-responsive-carousel";
+import Text from "reusecore/src/elements/Text";
 
 const Carousel = styled(RRCarousel)`
   .carousel.carousel-slider .slider-wrapper ul.slider {
@@ -109,18 +109,18 @@ const Carousel = styled(RRCarousel)`
   }
 `;
 
-const DescriptionWrapper = styled('div')`
+const DescriptionWrapper = styled("div")`
   padding: 20px 35px;
 `;
 
-const InfoBoxWrapper = styled('div')`
+const InfoBoxWrapper = styled("div")`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   margin-bottom: 20px;
-  ${'' /* padding: 20px 35px; */};
+  ${"" /* padding: 20px 35px; */};
 `;
-const PricingSection = styled('div')`
+const PricingSection = styled("div")`
   background-color: #f8f8f8;
   padding: 10px 35px;
   display: flex;
@@ -131,14 +131,14 @@ const PricingSection = styled('div')`
   margin-bottom: 5px;
 `;
 
-const AlignCenterWrapper = styled('div')`
+const AlignCenterWrapper = styled("div")`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
 `;
 
-const PriceTag = styled('div')`
+const PriceTag = styled("div")`
   padding: 10px;
   background-color: #ffedd6;
   display: flex;
@@ -151,10 +151,10 @@ const PriceTag = styled('div')`
 const TagName = styled(Text)`
   font-size: 14px;
   font-weight: 400;
-  color: ${palette('text', 0)};
+  color: ${palette("text", 0)};
 `;
 
-const TagBullet = styled('div')`
+const TagBullet = styled("div")`
   width: 10px;
   height: 10px;
   display: flex;
@@ -164,7 +164,7 @@ const TagBullet = styled('div')`
   margin-right: 10px;
 `;
 
-const GridPostsHolder = styled('div')`
+const GridPostsHolder = styled("div")`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -172,8 +172,9 @@ const GridPostsHolder = styled('div')`
   padding: 0 35px;
 `;
 
-const SectionWrapper = styled('div')`
+const SectionWrapper = styled("div")`
   padding: 50px 0;
+  display: flex;
 `;
 
 export {

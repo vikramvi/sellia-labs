@@ -40,7 +40,6 @@ import {
 
 const Main = styled("div")`
   margin-left: 295px;
-  margin-right: 295px;
 `;
 
 const DrawerWrapper = styled("div")`

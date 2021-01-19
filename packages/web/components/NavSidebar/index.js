@@ -123,6 +123,51 @@ const NavSidebar = ({
             </li>
           </ul>
           <hr class="nav-bar-hr"></hr>
+          <div class="nav-bar-section-title" tabindex="0" aria-label="Groups">
+            Categories
+          </div>
+          <ul class="nav-bar-list">
+            <li class="nav-menu-item-li">
+              <a href="/groups/?is=nav_menu" class="nav-menu-item-link ">
+                <svg
+                  class="nav-menu-item-icon css-ec7kfw"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  color="#006344"
+                  role="img"
+                ></svg>
+                <span
+                  class="nav-menu-item-label-refresh css-1y777s2"
+                  data-testid="All Groups"
+                >
+                  Motor Cycle
+                </span>
+              </a>
+            </li>
+
+            <li class="nav-menu-item-li">
+              <a href="/category/car" class="nav-menu-item-link ">
+                <svg
+                  class="nav-menu-item-icon css-ec7kfw"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  color="#006344"
+                  role="img"
+                ></svg>
+                <span
+                  class="nav-menu-item-label-refresh css-1y777s2"
+                  data-testid="All Groups"
+                >
+                  Car
+                </span>
+              </a>
+            </li>
+          </ul>
+
           <div
             class="nav-bar-section-title"
             tabindex="0"
@@ -190,50 +235,6 @@ const NavSidebar = ({
                   data-testid="Real Estate"
                 >
                   Real Estate
-                </span>
-              </a>
-            </li>
-          </ul>
-          <div class="nav-bar-section-title" tabindex="0" aria-label="Groups">
-            Categories
-          </div>
-          <ul class="nav-bar-list">
-            <li class="nav-menu-item-li">
-              <a href="/groups/?is=nav_menu" class="nav-menu-item-link ">
-                <svg
-                  class="nav-menu-item-icon css-ec7kfw"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  color="#006344"
-                  role="img"
-                ></svg>
-                <span
-                  class="nav-menu-item-label-refresh css-1y777s2"
-                  data-testid="All Groups"
-                >
-                  Motor Cycle
-                </span>
-              </a>
-            </li>
-
-            <li class="nav-menu-item-li">
-              <a href="/category/car" class="nav-menu-item-link ">
-                <svg
-                  class="nav-menu-item-icon css-ec7kfw"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  color="#006344"
-                  role="img"
-                ></svg>
-                <span
-                  class="nav-menu-item-label-refresh css-1y777s2"
-                  data-testid="All Groups"
-                >
-                  Car
                 </span>
               </a>
             </li>
