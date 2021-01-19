@@ -48,12 +48,14 @@ PostCard.propTypes = {
 };
 
 PostCard.defaultProps = {
-  boxShadow: "none",
+  boxShadow: "1px",
   borderRadius: "3px",
+  border: 0.5,
+  width: "100%",
   mb: "40px",
   color: "#595959",
   imageStyle: {
-    width: "50%",
+    width: "210px",
     height: "210px",
     color: "#fff",
     borderRadius: "3px",

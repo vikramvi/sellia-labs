@@ -45,7 +45,7 @@ const FeedPage = withLayout(({ location, ...props }) => {
         description="Place where you can buy &amp; sell products"
       />
 
-      <Box as="section" pt={60} pb={0}>
+      <Box flexBox as="main" pt={40} pb={0} pl={0} pr={0}>
         <Grid>
           <Feed />
         </Grid>

@@ -2127,6 +2127,436 @@
     overflow: auto;
 }
 
+.nav-bar-bottom-nav {
+  margin: 15px 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "HelveticaNeue",
+    "Helvetica Neue", Helvetica, "Roboto", "Segoe UI", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.nav-bar {
+  color: black;
+  width: 230px;
+  margin: 0 0 0 18px;
+}
+
+.nav-bar-list,
+.nav-bar-inline-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.nav-bar-hr {
+  display: none;
+}
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #eeeeee;
+}
+
+.nav-bar-section-title {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+    "HelveticaNeue-Medium", "Helvetica Neue Medium", Helvetica-Bold,
+    "Roboto-Medium", "Segoe UI Semibold", Arial-Bold, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  color: #6f7681;
+  margin: 23px 0 8px 1px;
+}
+
+.nav-menu-item-li {
+  list-style-type: none;
+  position: relative;
+}
+
+@media only screen and (max-width: 479px) {
+}
+@media (max-width: 767px) {
+}
+.nav-menu-item {
+  color: inherit;
+  vertical-align: text-top;
+}
+.nav-menu-item-li {
+  list-style-type: none;
+  position: relative;
+}
+body.brand_refresh_2020 .nav-menu-item-li {
+  margin-bottom: 4px;
+}
+body.brand_refresh_2020 .nav-menu-item-li.nav-item-sign-out {
+  color: #ff575d;
+}
+body.brand_refresh_2020
+  .nav-menu-item-li.nav-item-sign-out.nav-item-sign-out
+  .nav-menu-item-icon-dropdown {
+  color: #ff575d;
+}
+.nav-menu-item-active {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+    "HelveticaNeue-Medium", "Helvetica Neue Medium", Helvetica-Bold,
+    "Roboto-Medium", "Segoe UI Semibold", Arial-Bold, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  line-height: 20px;
+  color: #333333;
+}
+.nav-menu-item-icon {
+  height: 20px;
+  width: 20px;
+  margin-right: 14px;
+  vertical-align: bottom;
+}
+body.brand_refresh_2020 .nav-menu-item-icon {
+  height: 20px;
+  width: 20px;
+  margin-right: 8px;
+  vertical-align: top;
+}
+.nav-menu-item-icon-dropdown {
+  height: 20px;
+  width: 20px;
+  margin-right: 12px;
+}
+body.brand_refresh_2020 .nav-menu-item-icon-dropdown {
+  width: 24px;
+  height: 24px;
+}
+.nav-menu-item-link {
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: inherit;
+  display: block;
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 20px;
+  padding: 7.5px 0;
+}
+@media (min-width: 992px) {
+  .nav-menu-item-link {
+    margin: 0 0 -1px -8px;
+    padding: 7.5px 8px;
+    transition: background-color 200ms ease, color 100ms ease,
+      border-radius 100ms ease;
+    -webkit-transition: background-color 200ms ease, color 100ms ease,
+      border-radius 100ms ease;
+  }
+}
+body.brand_refresh_2020 .nav-menu-item-link {
+  display: flex;
+  align-items: center;
+  padding-right: 16px;
+}
+body.brand_refresh_2020 .nav-menu-item-link .nav-menu-item-label-refresh {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.nav-menu-item-link:hover,
+.nav-menu-item-link:focus {
+  color: inherit;
+  text-decoration: none;
+}
+.nav-menu-item-link.nd-badge {
+  margin-left: 6px;
+  vertical-align: text-bottom;
+}
+.nav-menu-caret-button {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  cursor: pointer;
+}
+body.brand_refresh_2020 .nav-menu-caret-button {
+  top: 11px;
+  right: 16px;
+}
+@media only screen and (max-width: 479px) {
+  .nav-menu-caret-button {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+}
+@media (max-width: 767px) {
+}
+.nav-bar {
+  color: black;
+  width: 230px;
+  margin: 0 0 0 18px;
+}
+@media (max-width: 767px) {
+  .nav-bar {
+    color: black;
+    padding: 0;
+  }
+}
+@media (max-width: 767px) {
+  .nav-bar a {
+    font-size: 16px;
+    color: #000000;
+    line-height: 22px;
+  }
+}
+.nav-bar-hr {
+  display: none;
+}
+@media (max-width: 767px) {
+  .nav-bar-hr {
+    border: none;
+    display: block;
+    width: 100%;
+    height: 4px;
+    color: #eff1f3;
+    background-color: #eff1f3;
+    margin: 4px 0;
+  }
+}
+.nav-bar-section-title {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+    "HelveticaNeue-Medium", "Helvetica Neue Medium", Helvetica-Bold,
+    "Roboto-Medium", "Segoe UI Semibold", Arial-Bold, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  color: #6f7681;
+  margin: 23px 0 8px 1px;
+}
+@media (max-width: 767px) {
+  .nav-bar-section-title {
+    display: none;
+  }
+}
+.nav-bar-list,
+.nav-bar-inline-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.nav-bar-list li:first-child,
+.nav-bar-inline-list li:first-child {
+  margin-top: 0;
+}
+.nav-bar-list li:last-child,
+.nav-bar-inline-list li:last-child {
+  margin-bottom: 0;
+}
+@media (max-width: 767px) {
+  .nav-bar-list,
+  .nav-bar-inline-list {
+    padding-left: 13px;
+    padding-right: 13px;
+  }
+}
+@media (max-width: 767px) {
+  .nav-bar-list-single-item {
+    margin: 16px 0;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+.nav-bar-list li {
+  margin: 0;
+}
+.nav-bar-list-item-active {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+    "HelveticaNeue-Medium", "Helvetica Neue Medium", Helvetica-Bold,
+    "Roboto-Medium", "Segoe UI Semibold", Arial-Bold, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+  color: #333333 !important;
+  line-height: 20px;
+}
+@media (min-width: 992px) {
+  .nav-bar-list-item-active {
+    background-color: #b8ec51;
+    border-radius: 3px;
+    border: 1px inset transparent;
+    color: #006344 !important;
+    border-radius: 16px;
+  }
+}
+.nav-menu-item-link.group-list-item.nav-bar-list-item-active {
+  background-color: #f0fbda;
+}
+.nav-bar-list-item-hover {
+  color: #333333 !important;
+}
+@media (min-width: 992px) {
+  .nav-bar-list-item-hover {
+    background-color: #f2f2f2;
+    border-radius: 16px;
+    border: 1px inset transparent;
+    color: #000000 !important;
+    transition: background-color 200ms ease, color 100ms ease;
+    -webkit-transition: background-color 200ms ease, color 100ms ease;
+  }
+}
+.nav-bar-inline-list li {
+  display: inline;
+}
+.nav-bar-inline-list li:after {
+  content: " \B7    ";
+}
+.nav-bar-inline-list li:last-child:after {
+  content: none;
+}
+a.nav-bar-inline-list-link {
+  color: black;
+  display: inline;
+}
+a.nav-bar-inline-list-link:hover,
+a.nav-bar-inline-list-link:focus {
+  color: #007b99;
+}
+.nav-bar-bottom-nav {
+  margin: 15px 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "HelveticaNeue",
+    "Helvetica Neue", Helvetica, "Roboto", "Segoe UI", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+@media (max-width: 767px) {
+  .nav-bar-bottom-nav {
+    display: none;
+  }
+}
+@media (min-width: 767px) {
+  .nav-bar-list_global_footer {
+    display: none;
+  }
+}
+.nav-bar-copyright {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "HelveticaNeue",
+    "Helvetica Neue", Helvetica, "Roboto", "Segoe UI", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #6f7681;
+  margin-top: 12px;
+}
+.nav-bar-tooltip {
+  margin-left: 10px;
+  width: 231px;
+}
+#nav-bar-tooltip-link {
+  text-decoration: none;
+  color: white;
+}
+.nav-bar-tooltip-content-title {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+    "HelveticaNeue-Medium", "Helvetica Neue Medium", Helvetica-Bold,
+    "Roboto-Medium", "Segoe UI Semibold", Arial-Bold, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+}
+.nav-bar-tooltip-content-description {
+  margin-top: 8px;
+}
+.nav-bar-list_global_footer {
+  background-color: #eff1f3;
+  text-align: center;
+  padding: 8px 0 20px;
+}
+.nav-bar-list_global_footer .nav-bar-inline-list {
+  padding: 0;
+  font-size: 12px;
+}
+.nav-bar-list_global_footer .nav-bar-inline-list:after {
+  content: " \B7    ";
+}
+.nav-bar-list_global_footer .nav-bar-inline-list:last-child:after {
+  content: none;
+}
+
+@media only screen and (max-width: 479px) {
+}
+@media (max-width: 767px) {
+}
+.nd-badge {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont,
+    "HelveticaNeue-Medium", "Helvetica Neue Medium", Helvetica-Bold,
+    "Roboto-Medium", "Segoe UI Semibold", Arial-Bold, sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 12px;
+  line-height: 11px;
+  border: 1px #f9f9fa solid;
+  border-radius: 4px;
+  margin-left: 8px;
+  vertical-align: text-top;
+  padding: 2px 4px;
+  display: inline-block;
+}
+body.brand_refresh_2020 .nav-menu-item-link .nd-badge {
+  border-radius: 100px;
+  margin-left: auto;
+}
+.nd-badge-light {
+  background-color: rgba(0, 168, 70, 0.06);
+  color: #00a846;
+}
+.nd-badge-red {
+  background-color: #e50013;
+  color: white;
+}
+.brand_refresh_2020 .nd-badge-red {
+  background-color: #e01a21;
+}
+.nd-badge-green {
+  background-color: #00a846;
+  color: white;
+}
+.nd-badge-blue {
+  background-color: #008fb2;
+  color: white;
+}
+.nd-badge-orange {
+  background-color: #f3870c;
+  color: white;
+}
+.nd-badge-accent-orange {
+  background-color: #c45008;
+  color: white;
+}
+.nd-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+  display: inline-block;
+}
+.nd-badge-with-icon {
+  display: flex;
+  align-items: center;
+}
+.nd-badge-with-icon.nd-badge-with-icon {
+  padding: 2px 8px 2px 4px;
+}
+.nd-icon-badge {
+  position: absolute;
+  left: 21px;
+  top: 5px;
+  width: 6px;
+  height: 6px;
+}
+.brand_refresh_2020 .nd-icon-badge {
+  left: 16px;
+  top: 6px;
+}
+
 .drawer {
   position: fixed;
   top: 0;
