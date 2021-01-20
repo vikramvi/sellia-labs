@@ -18,6 +18,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import SideDrawer from "reusecore/src/elements/Drawer";
 import { setFirebaseCookie } from "../../helpers/session";
+
 import {
   HOME_PAGE,
   SEARCH_PAGE,
@@ -70,6 +71,7 @@ export default ({
 }) => {
   const [drawerState, toggleDrawer] = useState(false);
   const [loggingOut, setloggingOut] = useState(false);
+
   let userAvatar = "";
   let userFallbackAvatar = "";
   const { data, error, loading } = useQuery(GET_AUTHOR_INFO, {

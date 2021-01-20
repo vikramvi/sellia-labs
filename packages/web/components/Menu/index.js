@@ -26,6 +26,7 @@ import {
   CHAT_PAGE,
 } from "core/navigation/constant";
 const imageStyle = { width: 40, height: 40, borderRadius: "50%" };
+import { useRouter } from "next/router";
 
 export const BellButton = styled("button", ({ $theme }) => ({
   border: 0,
@@ -70,6 +71,8 @@ const Menu = ({
   dropdownMenuIcon,
   avatar,
 }) => {
+  const router = useRouter();
+
   //unread notification
   const [badgeCount, setbadgeCount] = useState(0);
 
@@ -142,7 +145,7 @@ const Menu = ({
         <Link href={CHAT_PAGE}>
           <Badge
             icon={<IoMdMail size={30} />}
-            count={pathname !== CHAT_PAGE ? badgeCount : 0}
+            count={router.pathname !== CHAT_PAGE ? badgeCount : 0}
           />
         </Link>
       </MenuItemWrapper>
