@@ -7,7 +7,6 @@ export const NavSidebarWrapper = styled("div")`
   justify-content: space-between;
   position: fixed;
   width: 295px;
-  height: 100%;
   float: left;
   overflow-y: scroll;
   top: 200;

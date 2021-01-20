@@ -5,6 +5,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { GET_ALL_POST } from "core/graphql/AllPost.query";
 import { RECENT_POST_PAGE, SINGLE_POST_PAGE } from "core/navigation/constant";
 import { PostLoader } from "../../../components/Placeholder";
+import NavSidebar from "../../../components/NavSidebar";
 
 import PostCard from "../../../components/PostCard";
 import ListGrid from "reusecore/src/elements/ListGrid";
@@ -64,7 +65,8 @@ export default function Feed() {
 
   return (
     <>
-      <Box mt={20}>
+      <NavSidebar></NavSidebar>
+      <Box mt={20} ml={255} mr={255}>
         {!recentPosts ? (
           <NoItemFound />
         ) : (

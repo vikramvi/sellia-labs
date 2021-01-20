@@ -15,7 +15,6 @@ import { androidClose } from "react-icons-kit/ionicons/androidClose";
 import Icon from "react-icons-kit";
 import Button from "reusecore/src/elements/Button";
 import Navbar from "../../components/Navbar";
-import NavSidebar from "../../components/NavSidebar";
 import Footer from "../../components/Footer";
 import SideDrawer from "reusecore/src/elements/Drawer";
 import { setFirebaseCookie } from "../../helpers/session";
@@ -38,8 +37,9 @@ import {
   CHAT_PAGE,
 } from "core/navigation/constant";
 
-const Main = styled("div")`
-  margin-left: 295px;
+const Main = styled.main`
+  min-height: 100vh;
+  min-height: calc(100vh - 153px);
 `;
 
 const DrawerWrapper = styled("div")`
@@ -142,6 +142,8 @@ export default ({
       name: "Category Page",
     },
   ];
+
+  const hasSidebar = !pathname || pathname === "/" ? true : false;
 
   return (
     <>
@@ -247,8 +249,6 @@ export default ({
           </DrawerWrapper>
         </SideDrawer>
       )}
-
-      <NavSidebar></NavSidebar>
 
       <Main>{children}</Main>
 

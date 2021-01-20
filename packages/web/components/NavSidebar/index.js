@@ -63,32 +63,7 @@ const NavSidebar = ({
               role="presentation"
               data-testid="menu-box_container"
             ></div>
-            <li class="nav-menu-item-li">
-              <a class="nav-menu-item-link" href="/neighborhood_feed/">
-                <svg
-                  class="nav-menu-item-icon css-ec7kfw"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  color="#000000"
-                  role="img"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M5.291 9.364c2.068 0 3.774-1.675 3.774-3.704 0-2.012-1.706-3.688-3.774-3.688C3.197 1.972 1.5 3.648 1.5 5.66c0 2.029 1.697 3.704 3.791 3.704zm-.008-1.566c-1.233 0-2.198-.934-2.198-2.13 0-1.195.965-2.163 2.198-2.163 1.232 0 2.197.968 2.197 2.163 0 1.196-.965 2.13-2.197 2.13zM14.726 9.364c2.068 0 3.774-1.675 3.774-3.704 0-2.012-1.706-3.688-3.774-3.688-2.094 0-3.791 1.676-3.791 3.688 0 2.029 1.697 3.704 3.791 3.704zm-.009-1.566c-1.232 0-2.197-.934-2.197-2.13 0-1.195.965-2.163 2.197-2.163 1.233 0 2.198.968 2.198 2.163 0 1.196-.965 2.13-2.198 2.13zM5.291 18.028c2.068 0 3.774-1.667 3.774-3.696 0-2.013-1.706-3.688-3.774-3.688-2.094 0-3.791 1.675-3.791 3.688 0 2.029 1.697 3.696 3.791 3.696zm-.008-1.558c-1.233 0-2.198-.934-2.198-2.138 0-1.187.965-2.156 2.198-2.156 1.232 0 2.197.969 2.197 2.156 0 1.204-.965 2.138-2.197 2.138zM14.726 18.028c2.068 0 3.774-1.667 3.774-3.696 0-2.013-1.706-3.688-3.774-3.688-2.094 0-3.791 1.675-3.791 3.688 0 2.029 1.697 3.696 3.791 3.696zm-.009-1.558c-1.232 0-2.197-.934-2.197-2.138 0-1.187.965-2.156 2.197-2.156 1.233 0 2.198.969 2.198 2.156 0 1.204-.965 2.138-2.198 2.138z"
-                    fill="currentColor"
-                  ></path>
-                </svg>
-                <span
-                  class="nav-menu-item-label-refresh css-1y777s2"
-                  data-testid="Escuela Parkway"
-                >
-                  Escuela Parkway
-                </span>
-              </a>
-            </li>
+
             <li class="nav-menu-item-li">
               <a href="/map/" class="nav-menu-item-link">
                 <svg
@@ -196,26 +171,6 @@ const NavSidebar = ({
                 >
                   For Sale &amp; Free
                 </span>
-              </a>
-            </li>
-            <li class="nav-menu-item-li">
-              <a href="/offers?is=nav_bar" class="nav-menu-item-link">
-                <svg
-                  class="nav-menu-item-icon css-ec7kfw"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  color="#000000"
-                  role="img"
-                ></svg>
-                <span
-                  class="nav-menu-item-label-refresh css-1y777s2"
-                  data-testid="Local Deals"
-                >
-                  Local Deals
-                </span>
-                <div class="nd-badge nd-badge-blue">New</div>
               </a>
             </li>
 

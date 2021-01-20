@@ -202,36 +202,38 @@ const Chat = (props) => {
             newChats[changeData.chatId] = changeData;
 
             //fetch listing status
-            db.collection("posts")
-              .doc(changeData.listingID)
-              .get()
-              .then((listingDoc) => {
-                newChats[
-                  changeData.chatId
-                ].listingStatus = listingDoc.data().status;
-              });
+            if (changeData.listingID) {
+              db.collection("posts")
+                .doc(changeData.listingID)
+                .get()
+                .then((listingDoc) => {
+                  newChats[
+                    changeData.chatId
+                  ].listingStatus = listingDoc.data().status;
+                });
+            }
           });
 
           setData(newChats);
 
           //deafult selection
 
-          if (currentPost) {
-            console.log("deafult selection");
+          // if (currentPost) {
+          //   console.log("deafult selection");
 
-            //post chat id
-            let chat_id = getNodename(
-              userId,
-              currentPost.authorId,
-              currentPost.id
-            );
+          //   //post chat id
+          //   let chat_id = getNodename(
+          //     userId,
+          //     currentPost.authorId,
+          //     currentPost.id
+          //   );
 
-            const item = data[chat_id];
+          //   const item = data[chat_id];
 
-            if (item) {
-              onListingSelect(item);
-            }
-          }
+          //   if (item) {
+          //     onListingSelect(item);
+          //   }
+          // }
         },
         (err) => {
           console.log(`Encountered error: ${err}`);
