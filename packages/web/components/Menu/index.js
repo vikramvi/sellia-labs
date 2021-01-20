@@ -11,7 +11,7 @@ import { styled } from "baseui";
 import { db } from "../../helpers/init";
 
 import { BsBell } from "react-icons/bs";
-import { IoMdHome, IoMdMail } from "react-icons/io";
+import { IoMdAdd, IoMdHome, IoMdMail } from "react-icons/io";
 
 import {
   HOME_PAGE,
@@ -133,6 +133,10 @@ const Menu = ({
     return observer;
   }, []);
 
+  const handleAddPost = () => {
+    alert("New add post flow");
+  };
+
   return (
     <MenuWrapper className={className}>
       <MenuItemWrapper>
@@ -148,6 +152,15 @@ const Menu = ({
             count={router.pathname !== CHAT_PAGE ? badgeCount : 0}
           />
         </Link>
+      </MenuItemWrapper>
+
+      <MenuItemWrapper>
+        <Button
+          onClick={handleAddPost}
+          icon={<IoMdAdd size={30} />}
+          bg="transparent"
+          color="#30C56D"
+        />
       </MenuItemWrapper>
 
       <MenuItemWrapper>
