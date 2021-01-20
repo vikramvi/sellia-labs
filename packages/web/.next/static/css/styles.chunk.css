@@ -2127,18 +2127,6 @@
     overflow: auto;
 }
 
-.rce-smsg {
-  background-color: aqua !important;
-}
-
-.rce-mbox.rce-mbox {
-  background-color: whitesmoke !important;
-}
-
-.rce-mbox.rce-mbox-right {
-  background-color: palegreen !important;
-}
-
 .nav-bar-bottom-nav {
   margin: 15px 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "HelveticaNeue",
@@ -2581,6 +2569,18 @@ body.brand_refresh_2020 .nav-menu-item-link .nd-badge {
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 2px 2px 0 0;
+}
+
+.rce-smsg {
+  background-color: aqua !important;
+}
+
+.rce-mbox.rce-mbox {
+  background-color: whitesmoke !important;
+}
+
+.rce-mbox.rce-mbox-right {
+  background-color: palegreen !important;
 }
 
 .drawer {

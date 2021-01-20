@@ -79,17 +79,17 @@ export default function Feed() {
             placeholder={<PostLoader />}
           />
         )}
+        <Link href={RECENT_POST_PAGE}>
+          <a>
+            <Button
+              title="See all"
+              color="#8c8c8c"
+              fontWeight={500}
+              variant="textButton"
+            />
+          </a>
+        </Link>
       </Box>
-      <Link href={RECENT_POST_PAGE}>
-        <a>
-          <Button
-            title="See all"
-            color="#8c8c8c"
-            fontWeight={500}
-            variant="textButton"
-          />
-        </a>
-      </Link>
     </>
   );
 }

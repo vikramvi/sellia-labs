@@ -194,33 +194,7 @@ const NavSidebar = ({
               </a>
             </li>
           </ul>
-          <div>
-            <div class="nav-bar-section-title" tabindex="0" aria-label="Topics">
-              Topics
-            </div>
-            <ul class="nav-bar-list">
-              <li class="nav-menu-item-li nav-item-all-interests">
-                <a href="/channels/?is=nav_menu" class="nav-menu-item-link">
-                  <svg
-                    class="nav-menu-item-icon css-ec7kfw"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    color="#000000"
-                    role="img"
-                  ></svg>
-                  <span
-                    class="nav-menu-item-label-refresh css-1y777s2"
-                    data-testid="All Topics"
-                  >
-                    All Topics
-                  </span>
-                  <div class="nd-badge nd-badge-blue">New</div>
-                </a>
-              </li>
-            </ul>
-          </div>
+
           <div
             class="nav-bar-section-title"
             tabindex="0"
