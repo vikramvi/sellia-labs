@@ -1,0 +1,170 @@
+{
+  "segments": [
+    {
+      "title": "to sell",
+      "sections": [
+        {
+          "title": "Choose category",
+          "type": "radioList",
+          "list": [
+            {
+              "id": "0",
+              "text": "furniture"
+            },
+            {
+              "id": "1",
+              "text": "appliance"
+            }
+          ]
+        },
+        {
+          "title": "Title",
+          "type": "textDescription"
+        },
+        {
+          "title": "",
+          "type": "rowContainer",
+          "views": [
+            {
+              "title": "Price",
+              "type": "currency"
+            },
+            {
+              "title": "Free",
+              "type": "checkBox"
+            },
+            {
+              "title": "Original Price",
+              "type": "currency"
+            }
+          ]
+        },
+        {
+          "title": "",
+          "type": "rowContainer",
+          "views": [
+            {
+              "title": "Condition",
+              "type": "selection",
+              "list": [
+                {
+                  "id": "0",
+                  "title": "new"
+                },
+                {
+                  "id": "0",
+                  "title": "Used"
+                },
+                {
+                  "id": "0",
+                  "title": "Refurbished"
+                }
+              ]
+            },
+            {
+              "title": "Belongs to",
+              "type": "selection",
+              "list": [
+                {
+                  "id": "0",
+                  "title": "me"
+                },
+                {
+                  "id": "0",
+                  "title": "My Family"
+                },
+                {
+                  "id": "0",
+                  "title": "My Friend"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "to sell a car",
+      "sections": [
+        {
+          "title": "Choose brand",
+          "type": "radioList",
+          "list": [
+            {
+              "id": "0",
+              "text": "Toyota"
+            },
+            {
+              "id": "1",
+              "text": "Tesla"
+            }
+          ]
+        },
+        {
+          "title": "Title / Make Model Year",
+          "type": "textDescription"
+        },
+        {
+          "title": "",
+          "type": "rowContainer",
+          "views": [
+            {
+              "title": "Price",
+              "type": "currency"
+            },
+            {
+              "title": "Original Price",
+              "type": "currency"
+            }
+          ]
+        },
+        {
+          "title": "",
+          "type": "rowContainer",
+          "views": [
+            {
+              "title": "Condition",
+              "type": "selection",
+              "list": [
+                {
+                  "id": "0",
+                  "title": "new"
+                },
+                {
+                  "id": "0",
+                  "title": "Used"
+                },
+                {
+                  "id": "0",
+                  "title": "Refurbished"
+                }
+              ]
+            },
+            {
+              "title": "Belongs to",
+              "type": "selection",
+              "list": [
+                {
+                  "id": "0",
+                  "title": "me"
+                },
+                {
+                  "id": "0",
+                  "title": "My Family"
+                },
+                {
+                  "id": "0",
+                  "title": "My Friend"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "to buy a car",
+      "sections": [null, {}, {}]
+    }
+  ]
+}

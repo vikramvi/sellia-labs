@@ -9,6 +9,8 @@ import Badge from "../UiElements/Badge/Badge";
 import SvgIcon from "../UiElements/SvgIcon/SvgIcon";
 import { styled } from "baseui";
 import { db } from "../../helpers/init";
+import AddPostModal from "../../containers/ModalContainer/AddPostModal";
+import { Modal } from "@redq/reuse-modal";
 
 import { BsBell } from "react-icons/bs";
 import { IoMdAdd, IoMdHome, IoMdMail } from "react-icons/io";
@@ -27,6 +29,8 @@ import {
 } from "core/navigation/constant";
 const imageStyle = { width: 40, height: 40, borderRadius: "50%" };
 import { useRouter } from "next/router";
+import { openModal } from "@redq/reuse-modal";
+import { withTheme } from "styled-components";
 
 export const BellButton = styled("button", ({ $theme }) => ({
   border: 0,
@@ -134,93 +138,108 @@ const Menu = ({
   }, []);
 
   const handleAddPost = () => {
-    alert("New add post flow");
+    openModal({
+      className: "customModal",
+      overlayClassName: "customeOverlayClass",
+      closeOnClickOutside: false,
+      config: {
+        height: "auto",
+        width: 600,
+        transition: {
+          tension: 150,
+        },
+      },
+      component: AddPostModal,
+    });
   };
 
   return (
-    <MenuWrapper className={className}>
-      <MenuItemWrapper>
-        <Link href={HOME_PAGE}>
-          <IoMdHome size={30} />
-        </Link>
-      </MenuItemWrapper>
+    <>
+      <MenuWrapper className={className}>
+        <MenuItemWrapper>
+          <Link href={HOME_PAGE}>
+            <IoMdHome size={30} />
+          </Link>
+        </MenuItemWrapper>
 
-      <MenuItemWrapper>
-        <Link href={CHAT_PAGE}>
-          <Badge
-            icon={<IoMdMail size={30} />}
-            count={router.pathname !== CHAT_PAGE ? badgeCount : 0}
-          />
-        </Link>
-      </MenuItemWrapper>
-
-      <MenuItemWrapper>
-        <Button
-          onClick={handleAddPost}
-          icon={<IoMdAdd size={30} />}
-          bg="transparent"
-          color="#30C56D"
-        />
-      </MenuItemWrapper>
-
-      <MenuItemWrapper>
-        <DropdownMenu
-          content={dropdownMenuIcon}
-          dropdownDirection="right"
-          dropdownItems={DROPDOWN_MENU_ITEMS}
-        />
-      </MenuItemWrapper>
-      <MenuItemWrapper>
-        <Link href={`${ADD_POST}/[id]`} as={`${ADD_POST}/new`}>
-          <a>
-            <Button
-              title="Add Post"
-              icon={buttonIcon}
-              iconPosition="left"
-              bg="transparent"
-              color="#30C56D"
-              border="1px solid #30C56D"
+        <MenuItemWrapper>
+          <Link href={CHAT_PAGE}>
+            <Badge
+              icon={<IoMdMail size={30} />}
+              count={router.pathname !== CHAT_PAGE ? badgeCount : 0}
             />
-          </a>
-        </Link>
-      </MenuItemWrapper>
-      {!isLoggedIn ? (
-        <MenuItemWrapper paddingX="0">
-          <Link href={SIGNIN_PAGE}>
+          </Link>
+        </MenuItemWrapper>
+
+        <MenuItemWrapper>
+          <Button
+            onClick={handleAddPost}
+            icon={<IoMdAdd size={30} />}
+            bg="transparent"
+            color="#30C56D"
+          />
+        </MenuItemWrapper>
+
+        <MenuItemWrapper>
+          <DropdownMenu
+            content={dropdownMenuIcon}
+            dropdownDirection="right"
+            dropdownItems={DROPDOWN_MENU_ITEMS}
+          />
+        </MenuItemWrapper>
+        <MenuItemWrapper>
+          <Link href={`${ADD_POST}/[id]`} as={`${ADD_POST}/new`}>
             <a>
-              <Button title="Join Us" />
+              <Button
+                title="Add Post"
+                icon={buttonIcon}
+                iconPosition="left"
+                bg="transparent"
+                color="#30C56D"
+                border="1px solid #30C56D"
+              />
             </a>
           </Link>
         </MenuItemWrapper>
-      ) : (
-        <MenuItemWrapper>
-          <DropdownMenu
-            dropdownDirection="right"
-            content={
-              <Image
-                src={avatar}
-                loader={
-                  <img
-                    style={imageStyle}
-                    src={profileImg}
-                    alt="profile picture"
-                  />
-                }
-                unloader={
-                  <img
-                    style={imageStyle}
-                    src={profileImg}
-                    alt="profile picture"
-                  />
-                }
-                style={imageStyle}
-              />
-            }
-            dropdownItems={PROFILE_MENU_ITEMS}
-          />
-        </MenuItemWrapper>
-      )}
-    </MenuWrapper>
+        {!isLoggedIn ? (
+          <MenuItemWrapper paddingX="0">
+            <Link href={SIGNIN_PAGE}>
+              <a>
+                <Button title="Join Us" />
+              </a>
+            </Link>
+          </MenuItemWrapper>
+        ) : (
+          <MenuItemWrapper>
+            <DropdownMenu
+              dropdownDirection="right"
+              content={
+                <Image
+                  src={avatar}
+                  loader={
+                    <img
+                      style={imageStyle}
+                      src={profileImg}
+                      alt="profile picture"
+                    />
+                  }
+                  unloader={
+                    <img
+                      style={imageStyle}
+                      src={profileImg}
+                      alt="profile picture"
+                    />
+                  }
+                  style={imageStyle}
+                />
+              }
+              dropdownItems={PROFILE_MENU_ITEMS}
+            />
+          </MenuItemWrapper>
+        )}
+      </MenuWrapper>
+      <Modal />
+    </>
   );
 };
 

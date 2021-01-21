@@ -65,7 +65,7 @@ export default function Feed() {
 
   return (
     <>
-      <NavSidebar></NavSidebar>
+      {/* <NavSidebar></NavSidebar> */}
       <Box mt={20} ml={255} mr={255}>
         {!recentPosts ? (
           <NoItemFound />

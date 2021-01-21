@@ -1,13 +1,13 @@
-import React from 'react';
-import Icon from 'react-icons-kit';
-import { androidDelete } from 'react-icons-kit/ionicons/androidDelete';
-import { openModal, closeModal } from '@redq/reuse-modal';
-import ConfirmReportModal from '../../../ModalContainer/ConfirmReportModal';
-import Box from 'reusecore/src/elements/Box';
-import Button from 'reusecore/src/elements/Button';
+import React from "react";
+import Icon from "react-icons-kit";
+import { androidDelete } from "react-icons-kit/ionicons/androidDelete";
+import { openModal, closeModal } from "@redq/reuse-modal";
+import ConfirmReportModal from "../../../ModalContainer/ConfirmReportModal";
+import Box from "reusecore/src/elements/Box";
+import Button from "reusecore/src/elements/Button";
 
 export default ({ items, handleRemoveMobile }) => {
-  const handleRemove = item => {
+  const handleRemove = (item) => {
     handleRemoveMobile(item);
   };
 
@@ -20,8 +20,8 @@ export default ({ items, handleRemoveMobile }) => {
           justifyContent="space-between"
           alignItems="center"
           style={{
-            padding: '10px 15px',
-            backgroundColor: '#f1f1f1',
+            padding: "10px 15px",
+            backgroundColor: "#f1f1f1",
             marginBottom: 40,
           }}
         >
@@ -39,14 +39,14 @@ export default ({ items, handleRemoveMobile }) => {
             onClick={() =>
               openModal({
                 config: {
-                  width: 'auto',
-                  height: 'auto',
+                  width: "auto",
+                  height: "auto",
                   transition: {
                     tension: 150,
                   },
                 },
                 springStyle: {
-                  backgroundColor: '#ffffff',
+                  backgroundColor: "#ffffff",
                   padding: 0,
                 },
                 closeOnClickOutside: true,
