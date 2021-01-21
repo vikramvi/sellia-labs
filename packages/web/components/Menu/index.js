@@ -11,6 +11,7 @@ import { styled } from "baseui";
 import { db } from "../../helpers/init";
 import AddPostModal from "../../containers/ModalContainer/AddPostModal";
 import { Modal } from "@redq/reuse-modal";
+import { openModal, closeModal } from "@redq/reuse-modal";
 
 import { BsBell } from "react-icons/bs";
 import { IoMdAdd, IoMdHome, IoMdMail } from "react-icons/io";
@@ -29,7 +30,6 @@ import {
 } from "core/navigation/constant";
 const imageStyle = { width: 40, height: 40, borderRadius: "50%" };
 import { useRouter } from "next/router";
-import { openModal } from "@redq/reuse-modal";
 import { withTheme } from "styled-components";
 
 export const BellButton = styled("button", ({ $theme }) => ({
@@ -142,9 +142,14 @@ const Menu = ({
       className: "customModal",
       overlayClassName: "customeOverlayClass",
       closeOnClickOutside: false,
+      componentProps: {
+        data: {
+          closeModal,
+        },
+      },
       config: {
         height: "auto",
-        width: 600,
+        width: "auto",
         transition: {
           tension: 150,
         },

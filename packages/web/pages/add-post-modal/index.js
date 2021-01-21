@@ -26,7 +26,7 @@ import Router from "next/router";
 import Progress from "../../components/Progress";
 import { withApollo } from "../../helpers/apollo";
 
-const AddPost = ({ isLoggedIn, userId, email }) => {
+const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
   let counter = 0;
   const { state, dispatch } = useContext(AddPostContext);
   const { step } = state;
@@ -99,58 +99,50 @@ const AddPost = ({ isLoggedIn, userId, email }) => {
 
   return (
     <>
-      {adPostSteps[step] && adPostSteps[step] === STEPS.STEP_CHOOSE_IMAGES ? (
-        <PickImages userId={userId} />
-      ) : (
-        <Grid
-          style={{
-            paddingTop: "80px",
-          }}
-        >
-          <Row>
-            <Col xs={12} sm={12}>
-              <TopToolBar
-                onClose={() => {
-                  if (id != "new") {
-                    Router.back();
-                  } else {
-                    dispatch({ type: "CANCEL_AD_POSTING" });
-                  }
-                }}
-              />
-              <Progress
-                color="#30c56d"
-                progress={(1 / 4) * step}
-                height={4}
-                style={{ marginBottom: "40px" }}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} sm={7} md={7}>
-              <AdImagesInfo />
-            </Col>
-            <Col xs={12} sm={5} md={5} style={{ marginBottom: 50 }}>
-              {adPostSteps[step] &&
-                adPostSteps[step] === STEPS.STEP_SET_TITLE_AND_PRICE && (
-                  <TitleAndPriceInfo />
-                )}
-              {adPostSteps[step] &&
-                adPostSteps[step] === STEPS.STEP_SET_LOCATION && (
-                  <LocationInfo />
-                )}
-              {adPostSteps[step] &&
-                adPostSteps[step] === STEPS.STEP_SET_CATEGORY_AND_TAGS && (
-                  <CategoryAndDetailInfo />
-                )}
-              {adPostSteps[step] &&
-                adPostSteps[step] === STEPS.STEP_SET_CONTACT_NUMBER && (
-                  <ContactNumberInfo userId={userId} />
-                )}
-            </Col>
-          </Row>
-        </Grid>
-      )}
+      <Grid
+        flexBox
+        style={{
+          paddingTop: "10px",
+        }}
+      >
+        <Row>
+          <Col xs={12} sm={12}>
+            <TopToolBar
+              onClose={() => {
+                closeModal();
+              }}
+            />
+            <Progress
+              color="#30c56d"
+              progress={(1 / 4) * step}
+              height={4}
+              style={{ marginBottom: "40px" }}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} sm={7} md={7}>
+            <AdImagesInfo />
+          </Col>
+          <Col xs={12} sm={5} md={5} style={{ marginBottom: 50 }}>
+            <TitleAndPriceInfo />
+            {adPostSteps[step] &&
+              adPostSteps[step] === STEPS.STEP_SET_TITLE_AND_PRICE && (
+                <TitleAndPriceInfo />
+              )}
+            {adPostSteps[step] &&
+              adPostSteps[step] === STEPS.STEP_SET_LOCATION && <LocationInfo />}
+            {adPostSteps[step] &&
+              adPostSteps[step] === STEPS.STEP_SET_CATEGORY_AND_TAGS && (
+                <CategoryAndDetailInfo />
+              )}
+            {adPostSteps[step] &&
+              adPostSteps[step] === STEPS.STEP_SET_CONTACT_NUMBER && (
+                <ContactNumberInfo userId={userId} />
+              )}
+          </Col>
+        </Row>
+      </Grid>
     </>
   );
 };
@@ -158,7 +150,6 @@ const AddPost = ({ isLoggedIn, userId, email }) => {
 function AdPostPage(props) {
   return (
     <>
-      <PageMeta title="Add post" description="Add post" />
       <AddPostProvider>
         <AddPost {...props} />
         <Modal />
