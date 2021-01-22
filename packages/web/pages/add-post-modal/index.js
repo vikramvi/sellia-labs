@@ -22,18 +22,81 @@ import ContactNumberInfo from '../../containers/AddPost/ContactNumberInfo';
 import TopToolBar from '../../containers/AddPost/TopToolBar';
 import AdImagesInfo from '../../containers/AddPost/AddImage';
 import Router from 'next/router';
-
+import AsyncSelect from 'react-select/async';
+import { GET_CATEGORIES_FOR_DROPDOWN } from 'core/graphql/Category.query';
+import Heading from 'reusecore/src/elements/Heading';
 import Progress from '../../components/Progress';
 import { withApollo } from '../../helpers/apollo';
+import Box from 'reusecore/src/elements/Box';
 import { db } from '../../helpers/init';
-
-const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
+import Radio from 'reusecore/src/elements/Radio';
+const colourStyles = {
+  control: () => ({
+    display: 'flex',
+    backgroundColor: 'transparent',
+    color: '#8c8c8c',
+    border: '0',
+    borderBottom: '1px solid #e2e2e2',
+    width: '170px',
+  }),
+  valueContainer: base => ({
+    ...base,
+    padding: '0',
+  }),
+  placeholder: () => ({
+    color: '#8c8c8c',
+  }),
+  indicatorSeparator: () => ({
+    display: 'none',
+  }),
+  input: () => ({
+    color: '#8c8c8c',
+  }),
+  dropdownIndicator: () => ({
+    padding: '8px 0',
+  }),
+};
+const cateOptions = {
+  car: {
+    brand: [
+      'Toyota',
+      'Tesla',
+      'Kia',
+      'Honda',
+      'Hyundai',
+      'Porche',
+      'Jeep',
+      'Ford',
+      'buick',
+    ],
+  },
+  clothing: {
+    brand: [
+      'Raymond',
+      'Puma',
+      'GUCCI',
+      'Nike',
+      'Hermes',
+      'Cartier',
+      'Levis',
+      'Adidas',
+      'Burberry',
+    ],
+  },
+  'motor-cycle': {
+    brand: [],
+  },
+  property: {
+    brand: [],
+  },
+};
+const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
+  console.log('close modal', props);
   let counter = 0;
-  const { state, dispatch } = useContext(AddPostContext);
-  const { step } = state;
-
+  const { state, dispatch, selectedCategories } = useContext(AddPostContext);
+  console.log('selectedCategories', useContext(AddPostContext));
+  const { step, adPost } = state;
   const [postSegments, setPostSegments] = useState([]);
-
   // const {
   //   query: { id },
   // } = useRouter();
@@ -58,7 +121,21 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
       setPostSegments(arrCategories);
     });
   };
-
+  console.log('inside effect', state.adPost.categories);
+  // useEffect(()=>{
+  //   switch (state.adPost.categories.slug) {
+  //     case "clothing": {
+  //       setBrand(['Raymond','Puma','GUCCI','Nike','Hermes','Cartier','Levis','Adidas','Burberry'])
+  //       break;
+  //     }
+  //     case "car": {
+  //       setBrand(['Toyota','Tesla','Kia','Honda','Hyundai','Porche','Jeep','Ford','buick'])
+  //       break;
+  //     }
+  //     default:
+  //       return state;
+  //   }
+  // },[state.adPost.categories]);
   if (id != 'new') {
     const { data, loading, error } = useQuery(GET_POST_FOR_EDIT, {
       variables: { id },
@@ -126,7 +203,25 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
       fetchPostSegments();
     }, []);
   }
-
+  const { data, error, loading, fetchMore } = useQuery(
+    GET_CATEGORIES_FOR_DROPDOWN,
+    {
+      variables: {
+        limit: 1000,
+      },
+    }
+  );
+  let options = [];
+  if (!loading && data.categories.data.length) {
+    data.categories.data.map((item, index) => {
+      let categoryOptions = { ...item, value: item.id, label: item.name };
+      options.push(categoryOptions);
+    });
+  }
+  const loadOptions = async (fetchMore, inputValue, callback, loading) => {
+    const filteredData = options.filter(item => item.slug.includes(inputValue));
+    callback(filteredData);
+  };
   return (
     <>
       <Grid
@@ -154,6 +249,81 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
 
         {console.log('\n\n\n')}
 
+        <Row>
+          {/* <Box> */}
+          <Col xs={8} sm={8}>
+            <Heading
+              as="h1"
+              content="Post Ads"
+              textAlign="left"
+              mb={10}
+              style={{ fontSize: 24, fontWeight: 600, color: '#333333' }}
+            />
+          </Col>
+          <Col xs={4} sm={4}>
+            <TopToolBar
+              onClose={() => {
+                props.data.closeModal();
+              }}
+            />
+            {/* <Progress
+              color="#30c56d"
+              progress={(1 / 4) * step}
+              height={4}
+              style={{ marginBottom: "40px" }}
+            /> */}
+          </Col>
+
+          {/* </Box> */}
+        </Row>
+        <Row>
+          <Box>
+            <Heading
+              as="h1"
+              content="I am looking ..."
+              textAlign="left"
+              mb={10}
+              style={{ fontSize: 18, fontWeight: 600, color: '#333333' }}
+            />
+            <AsyncSelect
+              isMulti={false}
+              defaultValue={adPost.categories ? adPost.categories : []}
+              defaultOptions={options}
+              styles={colourStyles}
+              loadOptions={(inputValue, callback) =>
+                loadOptions(fetchMore, inputValue, callback, loading)
+              }
+              onChange={selectedCategories => {
+                dispatch({
+                  type: 'UPDATE_ADPOST',
+                  payload: {
+                    key: 'categories',
+                    value: selectedCategories,
+                  },
+                });
+              }}
+            />
+          </Box>
+        </Row>
+        <Row>
+          {Object.keys(state.adPost.categories).length > 0
+            ? cateOptions[state.adPost.categories.slug].brand.map(
+                (brand, key) => {
+                  // console.log("brand",brand)
+                  return (
+                    <div>
+                      <Radio
+                        id={key}
+                        value={brand}
+                        name="brand"
+                        labelText={brand}
+                      />
+                    </div>
+                  );
+                }
+              )
+            : ''}
+        </Row>
         {/* <Row>
           <Col xs={12} sm={12}>
             <TopToolBar
@@ -197,6 +367,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
 };
 
 function AdPostPage(props) {
+  console.log('props', props);
   return (
     <>
       <AddPostProvider>
