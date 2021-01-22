@@ -1,1 +1,0 @@
-{"ast":null,"code":"import Router from 'next/router';\n/**\n * Redirect to any given url\n */\n\nexport default ((context = {}, target) => {\n  if (context.res) {\n    context.res.writeHead(303, {\n      Location: target\n    });\n    context.res.end();\n  } else {\n    Router.replace(target);\n  }\n});","map":null,"metadata":{},"sourceType":"module"}

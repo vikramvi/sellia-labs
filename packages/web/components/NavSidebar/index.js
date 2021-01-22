@@ -1,12 +1,12 @@
-import React from "react";
-import Button from "reusecore/src/elements/Button";
-import Logo from "../Logo";
-import Search from "../Search";
-import Menu from "../Menu";
-import { NavSidebarWrapper } from "./style";
-import logoImg from "core/static/images/headless-logo.svg";
-import { SEARCH_PAGE } from "core/navigation/constant";
-import "./style.css";
+import React from 'react';
+import Button from 'reusecore/src/elements/Button';
+import Logo from '../Logo';
+import Search from '../Search';
+import Menu from '../Menu';
+import { NavSidebarWrapper } from './style';
+import logoImg from 'core/static/images/headless-logo.svg';
+import { SEARCH_PAGE } from 'core/navigation/constant';
+import './style.css';
 
 const NavSidebar = ({
   onToggle,
@@ -23,19 +23,19 @@ const NavSidebar = ({
     <NavSidebarWrapper>
       <div>
         <section
-          class="nav-bar"
+          className="nav-bar"
           id="navigation"
           tabindex="0"
           aria-label="Navigation menu"
         >
-          <ul class="nav-bar-list">
-            <li class="nav-menu-item-li">
+          <ul className="nav-bar-list">
+            <li className="nav-menu-item-li">
               <a
-                class="nav-menu-item-link nav-bar-list-item-active"
+                className="nav-menu-item-link nav-bar-list-item-active"
                 href="/news_feed/"
               >
                 <svg
-                  class="nav-menu-item-icon css-ec7kfw"
+                  className="nav-menu-item-icon css-ec7kfw"
                   width="20"
                   height="20"
                   viewBox="0 0 20 20"
@@ -51,7 +51,7 @@ const NavSidebar = ({
                   ></path>
                 </svg>
                 <span
-                  class="nav-menu-item-label-refresh css-1y777s2"
+                  className="nav-menu-item-label-refresh css-1y777s2"
                   data-testid="Home"
                 >
                   Home
@@ -59,15 +59,15 @@ const NavSidebar = ({
               </a>
             </li>
             <div
-              class="yVnmFve2"
+              className="yVnmFve2"
               role="presentation"
               data-testid="menu-box_container"
             ></div>
 
-            <li class="nav-menu-item-li">
-              <a href="/map/" class="nav-menu-item-link">
+            <li className="nav-menu-item-li">
+              <a href="/map/" className="nav-menu-item-link">
                 <svg
-                  class="nav-menu-item-icon css-ec7kfw"
+                  className="nav-menu-item-icon css-ec7kfw"
                   width="20"
                   height="20"
                   viewBox="0 0 20 20"
@@ -89,7 +89,7 @@ const NavSidebar = ({
                   ></path>
                 </svg>
                 <span
-                  class="nav-menu-item-label-refresh css-1y777s2"
+                  className="nav-menu-item-label-refresh css-1y777s2"
                   data-testid="Map"
                 >
                   Map
@@ -97,15 +97,19 @@ const NavSidebar = ({
               </a>
             </li>
           </ul>
-          <hr class="nav-bar-hr"></hr>
-          <div class="nav-bar-section-title" tabindex="0" aria-label="Groups">
+          <hr className="nav-bar-hr"></hr>
+          <div
+            className="nav-bar-section-title"
+            tabindex="0"
+            aria-label="Groups"
+          >
             Categories
           </div>
-          <ul class="nav-bar-list">
-            <li class="nav-menu-item-li">
-              <a href="/groups/?is=nav_menu" class="nav-menu-item-link ">
+          <ul className="nav-bar-list">
+            <li className="nav-menu-item-li">
+              <a href="/groups/?is=nav_menu" className="nav-menu-item-link ">
                 <svg
-                  class="nav-menu-item-icon css-ec7kfw"
+                  className="nav-menu-item-icon css-ec7kfw"
                   width="20"
                   height="20"
                   viewBox="0 0 20 20"
@@ -114,7 +118,7 @@ const NavSidebar = ({
                   role="img"
                 ></svg>
                 <span
-                  class="nav-menu-item-label-refresh css-1y777s2"
+                  className="nav-menu-item-label-refresh css-1y777s2"
                   data-testid="All Groups"
                 >
                   Motor Cycle
@@ -122,10 +126,10 @@ const NavSidebar = ({
               </a>
             </li>
 
-            <li class="nav-menu-item-li">
-              <a href="/category/car" class="nav-menu-item-link ">
+            <li className="nav-menu-item-li">
+              <a href="/category/car" className="nav-menu-item-link ">
                 <svg
-                  class="nav-menu-item-icon css-ec7kfw"
+                  className="nav-menu-item-icon css-ec7kfw"
                   width="20"
                   height="20"
                   viewBox="0 0 20 20"
@@ -134,7 +138,7 @@ const NavSidebar = ({
                   role="img"
                 ></svg>
                 <span
-                  class="nav-menu-item-label-refresh css-1y777s2"
+                  className="nav-menu-item-label-refresh css-1y777s2"
                   data-testid="All Groups"
                 >
                   Car
@@ -144,20 +148,20 @@ const NavSidebar = ({
           </ul>
 
           <div
-            class="nav-bar-section-title"
+            className="nav-bar-section-title"
             tabindex="0"
             aria-label="Neighborhood"
           >
             Neighborhood
           </div>
-          <ul class="nav-bar-list">
-            <li class="nav-menu-item-li">
+          <ul className="nav-bar-list">
+            <li className="nav-menu-item-li">
               <a
-                class="nav-menu-item-link"
+                className="nav-menu-item-link"
                 href="/for_sale_and_free/?init_source=more_menu"
               >
                 <svg
-                  class="nav-menu-item-icon css-ec7kfw"
+                  className="nav-menu-item-icon css-ec7kfw"
                   width="20"
                   height="20"
                   viewBox="0 0 20 20"
@@ -166,7 +170,7 @@ const NavSidebar = ({
                   role="img"
                 ></svg>
                 <span
-                  class="nav-menu-item-label-refresh css-1y777s2"
+                  className="nav-menu-item-label-refresh css-1y777s2"
                   data-testid="For Sale &amp; Free"
                 >
                   For Sale &amp; Free
@@ -174,10 +178,10 @@ const NavSidebar = ({
               </a>
             </li>
 
-            <li class="nav-menu-item-li">
-              <a class="nav-menu-item-link" href="/real-estate?is=sidebar">
+            <li className="nav-menu-item-li">
+              <a className="nav-menu-item-link" href="/real-estate?is=sidebar">
                 <svg
-                  class="nav-menu-item-icon css-ec7kfw"
+                  className="nav-menu-item-icon css-ec7kfw"
                   width="20"
                   height="20"
                   viewBox="0 0 20 20"
@@ -186,7 +190,7 @@ const NavSidebar = ({
                   role="img"
                 ></svg>
                 <span
-                  class="nav-menu-item-label-refresh css-1y777s2"
+                  className="nav-menu-item-label-refresh css-1y777s2"
                   data-testid="Real Estate"
                 >
                   Real Estate
@@ -196,17 +200,17 @@ const NavSidebar = ({
           </ul>
 
           <div
-            class="nav-bar-section-title"
+            className="nav-bar-section-title"
             tabindex="0"
             aria-label="Directories"
           >
             Directories
           </div>
-          <ul class="nav-bar-list">
-            <li class="nav-menu-item-li">
-              <a class="nav-menu-item-link" href="/directory/">
+          <ul className="nav-bar-list">
+            <li className="nav-menu-item-li">
+              <a className="nav-menu-item-link" href="/directory/">
                 <svg
-                  class="nav-menu-item-icon css-ec7kfw"
+                  className="nav-menu-item-icon css-ec7kfw"
                   width="20"
                   height="20"
                   viewBox="0 0 20 20"
@@ -220,7 +224,7 @@ const NavSidebar = ({
                   ></path>
                 </svg>
                 <span
-                  class="nav-menu-item-label-refresh css-1y777s2"
+                  className="nav-menu-item-label-refresh css-1y777s2"
                   data-testid="Neighbors"
                 >
                   Neighbors
@@ -228,26 +232,30 @@ const NavSidebar = ({
               </a>
             </li>
           </ul>
-          <div class="nav-bar-list_global_footer">
-            <a class="nav-bar-inline-list" href="/privacy_policy/">
+          <div className="nav-bar-list_global_footer">
+            <a className="nav-bar-inline-list" href="/privacy_policy/">
               Privacy
             </a>
-            <a class="nav-bar-inline-list" href="/member_agreement/">
+            <a className="nav-bar-inline-list" href="/member_agreement/">
               Terms
             </a>
             <a
               href="/do_not_sell/"
               target="_blank"
-              class="_5Ebo_Fl7 nav-bar-inline-list"
+              className="_5Ebo_Fl7 nav-bar-inline-list"
             >
               Do not sell my personal information
             </a>
           </div>
-          <footer class="nav-bar-bottom-nav" tabindex="0" aria-label="Footer">
-            <ul class="nav-bar-inline-list">
+          <footer
+            className="nav-bar-bottom-nav"
+            tabindex="0"
+            aria-label="Footer"
+          >
+            <ul className="nav-bar-inline-list">
               <li>
                 <a
-                  class="nav-bar-inline-list-link"
+                  className="nav-bar-inline-list-link"
                   href="/help/"
                   target="_blank"
                 >
@@ -256,18 +264,18 @@ const NavSidebar = ({
               </li>
 
               <li>
-                <a class="nav-bar-inline-list-link" href="/privacy_policy/">
+                <a className="nav-bar-inline-list-link" href="/privacy_policy/">
                   Privacy
                 </a>
               </li>
               <li>
-                <a class="nav-bar-inline-list-link" href="/about_us/">
+                <a className="nav-bar-inline-list-link" href="/about_us/">
                   About
                 </a>
               </li>
             </ul>
 
-            <div class="nav-bar-copyright">© 2021 Sellia</div>
+            <div className="nav-bar-copyright">© 2021 Sellia</div>
           </footer>
         </section>
       </div>

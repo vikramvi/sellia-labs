@@ -1,31 +1,31 @@
-import { useContext, useEffect, useState } from "react";
-import { Grid, Row, Col } from "react-styled-flexboxgrid";
-import { useRouter } from "next/router";
-import { useQuery } from "@apollo/react-hooks";
-import { Modal } from "@redq/reuse-modal";
-import { GET_POST_FOR_EDIT } from "core/graphql/Post.query";
-import Alert from "reusecore/src/elements/Alert";
-import SecretPage from "../../hoc/secretPage";
-import withLayout from "../../hoc/withLayout";
+import { useContext, useEffect, useState } from 'react';
+import { Grid, Row, Col } from 'react-styled-flexboxgrid';
+import { useRouter } from 'next/router';
+import { useQuery } from '@apollo/react-hooks';
+import { Modal } from '@redq/reuse-modal';
+import { GET_POST_FOR_EDIT } from 'core/graphql/Post.query';
+import Alert from 'reusecore/src/elements/Alert';
+import SecretPage from '../../hoc/secretPage';
+import withLayout from '../../hoc/withLayout';
 import {
   adPostSteps,
   STEPS,
   AddPostContext,
   AddPostProvider,
-} from "../../contexts/AddPostContext";
-import PageMeta from "../../components/PageMeta";
-import PickImages from "../../containers/AddPost/PickImages";
-import TitleAndPriceInfo from "../../containers/AddPost/TitleAndPriceInfo";
-import CategoryAndDetailInfo from "../../containers/AddPost/CategoryAndDetailInfo";
-import LocationInfo from "../../containers/AddPost/LocationInfo";
-import ContactNumberInfo from "../../containers/AddPost/ContactNumberInfo";
-import TopToolBar from "../../containers/AddPost/TopToolBar";
-import AdImagesInfo from "../../containers/AddPost/AddImage";
-import Router from "next/router";
+} from '../../contexts/AddPostContext';
+import PageMeta from '../../components/PageMeta';
+import PickImages from '../../containers/AddPost/PickImages';
+import TitleAndPriceInfo from '../../containers/AddPost/TitleAndPriceInfo';
+import CategoryAndDetailInfo from '../../containers/AddPost/CategoryAndDetailInfo';
+import LocationInfo from '../../containers/AddPost/LocationInfo';
+import ContactNumberInfo from '../../containers/AddPost/ContactNumberInfo';
+import TopToolBar from '../../containers/AddPost/TopToolBar';
+import AdImagesInfo from '../../containers/AddPost/AddImage';
+import Router from 'next/router';
 
-import Progress from "../../components/Progress";
-import { withApollo } from "../../helpers/apollo";
-import { db } from "../../helpers/init";
+import Progress from '../../components/Progress';
+import { withApollo } from '../../helpers/apollo';
+import { db } from '../../helpers/init';
 
 const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
   let counter = 0;
@@ -37,20 +37,20 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
   // const {
   //   query: { id },
   // } = useRouter();
-  const id = "new";
+  const id = 'new';
 
   const fetchPostSegments = async () => {
     //read from firestore
-    const doc = await db.collection("post_segments");
+    const doc = await db.collection('post_segments');
 
-    const observer = doc.onSnapshot((docSnapshot) => {
+    const observer = doc.onSnapshot(docSnapshot => {
       let arrCategories = [];
       docSnapshot.forEach(
-        (doc) => {
+        doc => {
           const dataSource = doc.data();
           arrCategories.push(dataSource);
         },
-        (err) => {
+        err => {
           console.log(`Encountered error: ${err}`);
         }
       );
@@ -59,22 +59,22 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
     });
   };
 
-  if (id != "new") {
+  if (id != 'new') {
     const { data, loading, error } = useQuery(GET_POST_FOR_EDIT, {
       variables: { id },
     });
 
     useEffect(() => {
       if (!loading && Object.keys(data).length) {
-        console.log("edit post fetch useEffect ->", counter);
+        console.log('edit post fetch useEffect ->', counter);
         if (counter < 1) {
           dispatch({
-            type: "UPDATE_STEP",
+            type: 'UPDATE_STEP',
             payload: { step: 1 },
           });
           if (id) {
             dispatch({
-              type: "UPDATE_FULL_ADPOST",
+              type: 'UPDATE_FULL_ADPOST',
               payload: { id: id },
             });
           }
@@ -89,12 +89,12 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
                 data.post.formattedLocation &&
                 data.post.formattedLocation.formattedAddress
                   ? data.post.formattedLocation.formattedAddress
-                  : "",
+                  : '',
             };
           }
 
           dispatch({
-            type: "UPDATE_FULL_ADPOST",
+            type: 'UPDATE_FULL_ADPOST',
             payload: {
               title: data.post.title,
               condition: data.post.condition,
@@ -132,29 +132,29 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
       <Grid
         flexBox
         style={{
-          paddingTop: "10px",
+          paddingTop: '10px',
         }}
       >
         {postSegments &&
-          console.log(JSON.stringify(postSegments, null, 2), "\n")}
+          console.log(JSON.stringify(postSegments, null, 2), '\n')}
 
-        {postSegments.forEach((post) => {
-          console.log(post.title, "\n");
+        {postSegments.forEach(post => {
+          console.log(post.title, '\n');
         })}
 
-        {console.log("\n\n\n")}
+        {console.log('\n\n\n')}
 
-        {postSegments.forEach((post) => {
+        {postSegments.forEach(post => {
           if (post.sections && post.sections.length > 0) {
-            post.sections.forEach((section) => {
+            post.sections.forEach(section => {
               console.log(section.title);
             });
           }
         })}
 
-        {console.log("\n\n\n")}
+        {console.log('\n\n\n')}
 
-        <Row>
+        {/* <Row>
           <Col xs={12} sm={12}>
             <TopToolBar
               onClose={() => {
@@ -168,8 +168,8 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
               style={{ marginBottom: "40px" }}
             />
           </Col>
-        </Row>
-        <Row>
+        </Row> */}
+        {/* <Row>
           <Col xs={12} sm={7} md={7}>
             <AdImagesInfo />
           </Col>
@@ -190,7 +190,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
                 <ContactNumberInfo userId={userId} />
               )}
           </Col>
-        </Row>
+        </Row> */}
       </Grid>
     </>
   );
