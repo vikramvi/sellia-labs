@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Grid, Row, Col } from "react-styled-flexboxgrid";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/react-hooks";
@@ -25,19 +25,45 @@ import Router from "next/router";
 
 import Progress from "../../components/Progress";
 import { withApollo } from "../../helpers/apollo";
+import { db } from "../../helpers/init";
 
 const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
   let counter = 0;
   const { state, dispatch } = useContext(AddPostContext);
   const { step } = state;
+
+  const [postSegments, setPostSegments] = useState([]);
+
   // const {
   //   query: { id },
   // } = useRouter();
   const id = "new";
+
+  const fetchPostSegments = async () => {
+    //read from firestore
+    const doc = await db.collection("post_segments");
+
+    const observer = doc.onSnapshot((docSnapshot) => {
+      let arrCategories = [];
+      docSnapshot.forEach(
+        (doc) => {
+          const dataSource = doc.data();
+          arrCategories.push(dataSource);
+        },
+        (err) => {
+          console.log(`Encountered error: ${err}`);
+        }
+      );
+
+      setPostSegments(arrCategories);
+    });
+  };
+
   if (id != "new") {
     const { data, loading, error } = useQuery(GET_POST_FOR_EDIT, {
       variables: { id },
     });
+
     useEffect(() => {
       if (!loading && Object.keys(data).length) {
         console.log("edit post fetch useEffect ->", counter);
@@ -95,6 +121,10 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
 
     // Error Rendering.
     if (error) return <Alert>{`Error! ${error.message}`}</Alert>;
+  } else {
+    useEffect(() => {
+      fetchPostSegments();
+    }, []);
   }
 
   return (
@@ -105,6 +135,22 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
           paddingTop: "10px",
         }}
       >
+        {postSegments.forEach((post) => {
+          console.log(post.title, "\n");
+        })}
+
+        {console.log("\n\n\n")}
+
+        {postSegments.forEach((post) => {
+          if (post.sections && post.sections.length > 0) {
+            post.sections.forEach((section) => {
+              console.log(section.title);
+            });
+          }
+        })}
+
+        {console.log("\n\n\n")}
+
         <Row>
           <Col xs={12} sm={12}>
             <TopToolBar
