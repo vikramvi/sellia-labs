@@ -135,6 +135,9 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal }) => {
           paddingTop: "10px",
         }}
       >
+        {postSegments &&
+          console.log(JSON.stringify(postSegments, null, 2), "\n")}
+
         {postSegments.forEach((post) => {
           console.log(post.title, "\n");
         })}
