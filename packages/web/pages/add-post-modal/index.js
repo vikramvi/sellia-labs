@@ -1,119 +1,119 @@
-import { useContext, useEffect, useState } from 'react';
-import { Grid, Row, Col } from 'react-styled-flexboxgrid';
-import { useRouter } from 'next/router';
-import { useQuery } from '@apollo/react-hooks';
-import { Modal } from '@redq/reuse-modal';
-import { GET_POST_FOR_EDIT } from 'core/graphql/Post.query';
-import Alert from 'reusecore/src/elements/Alert';
-import SecretPage from '../../hoc/secretPage';
-import withLayout from '../../hoc/withLayout';
+import { useContext, useEffect, useState } from "react";
+import { Grid, Row, Col } from "react-styled-flexboxgrid";
+import { useRouter } from "next/router";
+import { useQuery } from "@apollo/react-hooks";
+import { Modal } from "@redq/reuse-modal";
+import { GET_POST_FOR_EDIT } from "core/graphql/Post.query";
+import Alert from "reusecore/src/elements/Alert";
+import SecretPage from "../../hoc/secretPage";
+import withLayout from "../../hoc/withLayout";
 import {
   adPostSteps,
   STEPS,
   AddPostContext,
   AddPostProvider,
-} from '../../contexts/AddPostContext';
-import PageMeta from '../../components/PageMeta';
-import PickImages from '../../containers/AddPost/PickImages';
-import TitleAndPriceInfo from '../../containers/AddPost/TitleAndPriceInfo';
-import CategoryAndDetailInfo from '../../containers/AddPost/CategoryAndDetailInfo';
-import LocationInfo from '../../containers/AddPost/LocationInfo';
-import ContactNumberInfo from '../../containers/AddPost/ContactNumberInfo';
-import TopToolBar from '../../containers/AddPost/TopToolBar';
-import AdImagesInfo from '../../containers/AddPost/AddImage';
-import Router from 'next/router';
-import AsyncSelect from 'react-select/async';
-import { GET_CATEGORIES_FOR_DROPDOWN } from 'core/graphql/Category.query';
-import Heading from 'reusecore/src/elements/Heading';
-import Progress from '../../components/Progress';
-import { withApollo } from '../../helpers/apollo';
-import Box from 'reusecore/src/elements/Box';
-import { db } from '../../helpers/init';
-import Radio from 'reusecore/src/elements/Radio';
+} from "../../contexts/AddPostContext";
+import PageMeta from "../../components/PageMeta";
+import PickImages from "../../containers/AddPost/PickImages";
+import TitleAndPriceInfo from "../../containers/AddPost/TitleAndPriceInfo";
+import CategoryAndDetailInfo from "../../containers/AddPost/CategoryAndDetailInfo";
+import LocationInfo from "../../containers/AddPost/LocationInfo";
+import ContactNumberInfo from "../../containers/AddPost/ContactNumberInfo";
+import TopToolBar from "../../containers/AddPost/TopToolBar";
+import RadioListSection from "../../containers/AddPost/RadioListSection";
+import Router from "next/router";
+import AsyncSelect from "react-select/async";
+import { GET_CATEGORIES_FOR_DROPDOWN } from "core/graphql/Category.query";
+import Heading from "reusecore/src/elements/Heading";
+import Progress from "../../components/Progress";
+import { withApollo } from "../../helpers/apollo";
+import Box from "reusecore/src/elements/Box";
+import { db } from "../../helpers/init";
 const colourStyles = {
   control: () => ({
-    display: 'flex',
-    backgroundColor: 'transparent',
-    color: '#8c8c8c',
-    border: '0',
-    borderBottom: '1px solid #e2e2e2',
-    width: '170px',
+    display: "flex",
+    backgroundColor: "transparent",
+    color: "#8c8c8c",
+    border: "0",
+    borderBottom: "1px solid #e2e2e2",
+    width: "170px",
   }),
-  valueContainer: base => ({
+  valueContainer: (base) => ({
     ...base,
-    padding: '0',
+    padding: "0",
   }),
   placeholder: () => ({
-    color: '#8c8c8c',
+    color: "#8c8c8c",
   }),
   indicatorSeparator: () => ({
-    display: 'none',
+    display: "none",
   }),
   input: () => ({
-    color: '#8c8c8c',
+    color: "#8c8c8c",
   }),
   dropdownIndicator: () => ({
-    padding: '8px 0',
+    padding: "8px 0",
   }),
 };
 const cateOptions = {
   car: {
     brand: [
-      'Toyota',
-      'Tesla',
-      'Kia',
-      'Honda',
-      'Hyundai',
-      'Porche',
-      'Jeep',
-      'Ford',
-      'buick',
+      "Toyota",
+      "Tesla",
+      "Kia",
+      "Honda",
+      "Hyundai",
+      "Porche",
+      "Jeep",
+      "Ford",
+      "buick",
     ],
   },
   clothing: {
     brand: [
-      'Raymond',
-      'Puma',
-      'GUCCI',
-      'Nike',
-      'Hermes',
-      'Cartier',
-      'Levis',
-      'Adidas',
-      'Burberry',
+      "Raymond",
+      "Puma",
+      "GUCCI",
+      "Nike",
+      "Hermes",
+      "Cartier",
+      "Levis",
+      "Adidas",
+      "Burberry",
     ],
   },
-  'motor-cycle': {
+  "motor-cycle": {
     brand: [],
   },
   property: {
     brand: [],
   },
 };
+
 const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
-  console.log('close modal', props);
+  console.log("close modal", props);
   let counter = 0;
   const { state, dispatch, selectedCategories } = useContext(AddPostContext);
-  console.log('selectedCategories', useContext(AddPostContext));
+  console.log("selectedCategories", useContext(AddPostContext));
   const { step, adPost } = state;
   const [postSegments, setPostSegments] = useState([]);
   // const {
   //   query: { id },
   // } = useRouter();
-  const id = 'new';
+  const id = "new";
 
   const fetchPostSegments = async () => {
     //read from firestore
-    const doc = await db.collection('post_segments');
+    const doc = await db.collection("post_segments");
 
-    const observer = doc.onSnapshot(docSnapshot => {
+    const observer = doc.onSnapshot((docSnapshot) => {
       let arrCategories = [];
       docSnapshot.forEach(
-        doc => {
+        (doc) => {
           const dataSource = doc.data();
           arrCategories.push(dataSource);
         },
-        err => {
+        (err) => {
           console.log(`Encountered error: ${err}`);
         }
       );
@@ -121,7 +121,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
       setPostSegments(arrCategories);
     });
   };
-  console.log('inside effect', state.adPost.categories);
+  console.log("inside effect", state.adPost.categories);
   // useEffect(()=>{
   //   switch (state.adPost.categories.slug) {
   //     case "clothing": {
@@ -136,22 +136,22 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   //       return state;
   //   }
   // },[state.adPost.categories]);
-  if (id != 'new') {
+  if (id != "new") {
     const { data, loading, error } = useQuery(GET_POST_FOR_EDIT, {
       variables: { id },
     });
 
     useEffect(() => {
       if (!loading && Object.keys(data).length) {
-        console.log('edit post fetch useEffect ->', counter);
+        console.log("edit post fetch useEffect ->", counter);
         if (counter < 1) {
           dispatch({
-            type: 'UPDATE_STEP',
+            type: "UPDATE_STEP",
             payload: { step: 1 },
           });
           if (id) {
             dispatch({
-              type: 'UPDATE_FULL_ADPOST',
+              type: "UPDATE_FULL_ADPOST",
               payload: { id: id },
             });
           }
@@ -166,12 +166,12 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
                 data.post.formattedLocation &&
                 data.post.formattedLocation.formattedAddress
                   ? data.post.formattedLocation.formattedAddress
-                  : '',
+                  : "",
             };
           }
 
           dispatch({
-            type: 'UPDATE_FULL_ADPOST',
+            type: "UPDATE_FULL_ADPOST",
             payload: {
               title: data.post.title,
               condition: data.post.condition,
@@ -213,41 +213,45 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   );
   let options = [];
   if (!loading && data.categories.data.length) {
-    data.categories.data.map((item, index) => {
-      let categoryOptions = { ...item, value: item.id, label: item.name };
+    postSegments.forEach((item) => {
+      let categoryOptions = { ...item, value: item.title, label: item.title };
       options.push(categoryOptions);
     });
   }
+
   const loadOptions = async (fetchMore, inputValue, callback, loading) => {
-    const filteredData = options.filter(item => item.slug.includes(inputValue));
+    const filteredData = options.filter((item) =>
+      item.slug.includes(inputValue)
+    );
     callback(filteredData);
   };
+
   return (
     <>
       <Grid
         flexBox
         style={{
-          paddingTop: '10px',
+          paddingTop: "10px",
         }}
       >
         {postSegments &&
-          console.log(JSON.stringify(postSegments, null, 2), '\n')}
+          console.log(JSON.stringify(postSegments, null, 2), "\n")}
 
-        {postSegments.forEach(post => {
-          console.log(post.title, '\n');
+        {postSegments.forEach((post) => {
+          console.log(post.title, "\n");
         })}
 
-        {console.log('\n\n\n')}
+        {console.log("\n\n\n")}
 
-        {postSegments.forEach(post => {
+        {postSegments.forEach((post) => {
           if (post.sections && post.sections.length > 0) {
-            post.sections.forEach(section => {
+            post.sections.forEach((section) => {
               console.log(section.title);
             });
           }
         })}
 
-        {console.log('\n\n\n')}
+        {console.log("\n\n\n")}
 
         <Row>
           {/* <Box> */}
@@ -257,7 +261,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
               content="Post Ads"
               textAlign="left"
               mb={10}
-              style={{ fontSize: 24, fontWeight: 600, color: '#333333' }}
+              style={{ fontSize: 24, fontWeight: 600, color: "#333333" }}
             />
           </Col>
           <Col xs={4} sm={4}>
@@ -283,7 +287,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
               content="I am looking ..."
               textAlign="left"
               mb={10}
-              style={{ fontSize: 18, fontWeight: 600, color: '#333333' }}
+              style={{ fontSize: 18, fontWeight: 600, color: "#333333" }}
             />
             <AsyncSelect
               isMulti={false}
@@ -293,11 +297,11 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
               loadOptions={(inputValue, callback) =>
                 loadOptions(fetchMore, inputValue, callback, loading)
               }
-              onChange={selectedCategories => {
+              onChange={(selectedCategories) => {
                 dispatch({
-                  type: 'UPDATE_ADPOST',
+                  type: "UPDATE_ADPOST",
                   payload: {
-                    key: 'categories',
+                    key: "categories",
                     value: selectedCategories,
                   },
                 });
@@ -306,39 +310,19 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           </Box>
         </Row>
         <Row>
-          {Object.keys(state.adPost.categories).length > 0
-            ? cateOptions[state.adPost.categories.slug].brand.map(
-                (brand, key) => {
-                  // console.log("brand",brand)
-                  return (
-                    <div>
-                      <Radio
-                        id={key}
-                        value={brand}
-                        name="brand"
-                        labelText={brand}
-                      />
-                    </div>
-                  );
-                }
-              )
-            : ''}
+          {console.log("on selection ->", state.adPost.categories)}
+
+          {state.adPost.categories.sections &&
+            state.adPost.categories.sections.length > 0 &&
+            state.adPost.categories.sections.map((section, index) => {
+              console.log("section ->", section);
+              switch (section.type) {
+                case "radioSelectionList":
+                  return <RadioListSection section={section} />;
+              }
+            })}
         </Row>
-        {/* <Row>
-          <Col xs={12} sm={12}>
-            <TopToolBar
-              onClose={() => {
-                closeModal();
-              }}
-            />
-            <Progress
-              color="#30c56d"
-              progress={(1 / 4) * step}
-              height={4}
-              style={{ marginBottom: "40px" }}
-            />
-          </Col>
-        </Row> */}
+
         {/* <Row>
           <Col xs={12} sm={7} md={7}>
             <AdImagesInfo />
@@ -367,7 +351,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
 };
 
 function AdPostPage(props) {
-  console.log('props', props);
+  console.log("props", props);
   return (
     <>
       <AddPostProvider>
