@@ -15,6 +15,7 @@ const initState = {
   step: 0,
   adPost: {
     image: {},
+    brand: '',
     preImage: {},
     authorId: false,
     preGallery: [],
@@ -24,6 +25,8 @@ const initState = {
     title: '',
     slug: '',
     price: 0,
+    belongsTo: '',
+    originalPrice: 0,
     isNegotiable: true,
     condition: false,
     location: null,
