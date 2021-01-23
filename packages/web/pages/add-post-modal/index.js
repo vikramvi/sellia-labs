@@ -16,11 +16,16 @@ import {
 import PageMeta from "../../components/PageMeta";
 import PickImages from "../../containers/AddPost/PickImages";
 import TitleAndPriceInfo from "../../containers/AddPost/TitleAndPriceInfo";
+import RowContainer from "../../containers/AddPost/RowContainer";
+
 import CategoryAndDetailInfo from "../../containers/AddPost/CategoryAndDetailInfo";
 import LocationInfo from "../../containers/AddPost/LocationInfo";
 import ContactNumberInfo from "../../containers/AddPost/ContactNumberInfo";
 import TopToolBar from "../../containers/AddPost/TopToolBar";
+
+import TextDescription from "../../containers/AddPost/TextDescription";
 import RadioListSection from "../../containers/AddPost/RadioListSection";
+
 import Router from "next/router";
 import AsyncSelect from "react-select/async";
 import { GET_CATEGORIES_FOR_DROPDOWN } from "core/graphql/Category.query";
@@ -258,7 +263,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           <Col xs={8} sm={8}>
             <Heading
               as="h1"
-              content="Post Ads"
+              content="Post a listing"
               textAlign="left"
               mb={10}
               style={{ fontSize: 24, fontWeight: 600, color: "#333333" }}
@@ -309,42 +314,41 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
             />
           </Box>
         </Row>
+        <Row></Row>
+
         <Row>
-          {console.log("on selection ->", state.adPost.categories)}
-
-          {state.adPost.categories.sections &&
-            state.adPost.categories.sections.length > 0 &&
-            state.adPost.categories.sections.map((section, index) => {
-              console.log("section ->", section);
-              switch (section.type) {
-                case "radioSelectionList":
-                  return <RadioListSection section={section} />;
-              }
-            })}
-        </Row>
-
-        {/* <Row>
-          <Col xs={12} sm={7} md={7}>
-            <AdImagesInfo />
-          </Col>
           <Col xs={12} sm={5} md={5} style={{ marginBottom: 50 }}>
-            <TitleAndPriceInfo />
+            {console.log("on selection ->", state.adPost.categories)}
+
+            {state.adPost.categories.sections &&
+              state.adPost.categories.sections.length > 0 &&
+              state.adPost.categories.sections.map((section, index) => {
+                console.log("section ->", section);
+                switch (section.type) {
+                  case "radioSelectionList":
+                    return <RadioListSection section={section} />;
+
+                  case "textDescription":
+                    return <TextDescription section={section} />;
+
+                  case "rowContainer":
+                    return <RowContainer list={section.list} />;
+                }
+              })}
+            {/* <TitleAndPriceInfo />
             {adPostSteps[step] &&
               adPostSteps[step] === STEPS.STEP_SET_TITLE_AND_PRICE && (
                 <TitleAndPriceInfo />
               )}
             {adPostSteps[step] &&
               adPostSteps[step] === STEPS.STEP_SET_LOCATION && <LocationInfo />}
-            {adPostSteps[step] &&
-              adPostSteps[step] === STEPS.STEP_SET_CATEGORY_AND_TAGS && (
-                <CategoryAndDetailInfo />
-              )}
+
             {adPostSteps[step] &&
               adPostSteps[step] === STEPS.STEP_SET_CONTACT_NUMBER && (
                 <ContactNumberInfo userId={userId} />
-              )}
+              )} */}
           </Col>
-        </Row> */}
+        </Row>
       </Grid>
     </>
   );

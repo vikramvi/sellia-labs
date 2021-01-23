@@ -84,7 +84,7 @@ const publishModal = (newPost) => {
 };
 
 let imagesUrl = [];
-const RadioListSection = (props) => {
+const SelctionListSection = (props) => {
   const { state, dispatch } = useContext(AddPostContext);
   const [btnLoading, setBtnLoading] = useState(false);
   const [publishBtnLoading, setPublishBtnLoading] = useState(false);
@@ -373,4 +373,4 @@ const RadioListSection = (props) => {
   );*/
 };
 
-export default RadioListSection;
+export default SelctionListSection;

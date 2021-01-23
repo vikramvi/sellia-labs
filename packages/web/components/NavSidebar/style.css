@@ -458,9 +458,7 @@ body.brand_refresh_2020 .nav-menu-item-link .nd-badge {
 .customModal {
   background: white;
   outline: none;
-  width: 50rem;
-  max-width: calc(100vw - 2rem);
-  max-height: calc(100vh - 2rem);
+  min-height: "650px";
   box-shadow: 0 0 34px 0 rgba(0, 0, 0, 0.24);
   overflow-y: scroll;
   position: relative;

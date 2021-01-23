@@ -17,6 +17,8 @@ import { GET_CATEGORIES_FOR_DROPDOWN } from "core/graphql/Category.query";
 import PublishModal from "../../ModalContainer/PostPublishModal";
 import { openModal, closeModal } from "@redq/reuse-modal";
 import Radio from "reusecore/src/elements/Radio";
+import PriceInfo from "../PriceInfo";
+import SelctionListSection from "../SelctionListSection";
 
 const colourStyles = {
   control: () => ({
@@ -84,7 +86,7 @@ const publishModal = (newPost) => {
 };
 
 let imagesUrl = [];
-const RadioListSection = (props) => {
+const RowContainer = (props) => {
   const { state, dispatch } = useContext(AddPostContext);
   const [btnLoading, setBtnLoading] = useState(false);
   const [publishBtnLoading, setPublishBtnLoading] = useState(false);
@@ -258,25 +260,15 @@ const RadioListSection = (props) => {
 
   return (
     <>
-      <Box flexBox flexDirection="column" mb={40}>
-        <Text
-          content={props.section.title}
-          pb={10}
-          pt={10}
-          style={{ fontSize: 16, fontWeight: 400, color: "#595959" }}
-        />
-        {props.section.list.map((brand, key) => {
-          console.log("brand", brand);
-          return (
-            <div>
-              <Radio
-                id={key}
-                value={brand.text}
-                name="brand"
-                labelText={brand.text}
-              />
-            </div>
-          );
+      <Box flexBox justifyContent="space-between" flexDirection="row">
+        {props.list.map((section, key) => {
+          switch (section.type) {
+            case "currency":
+              return <PriceInfo section={section} />;
+
+            case "selectionList":
+              return <SelctionListSection section={section} />;
+          }
         })}
       </Box>
     </>
@@ -373,4 +365,4 @@ const RadioListSection = (props) => {
   );*/
 };
 
-export default RadioListSection;
+export default RowContainer;
