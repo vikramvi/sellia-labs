@@ -275,12 +275,6 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
                 props.data.closeModal();
               }}
             />
-            {/* <Progress
-              color="#30c56d"
-              progress={(1 / 4) * step}
-              height={4}
-              style={{ marginBottom: "40px" }}
-            /> */}
           </Col>
 
           {/* </Box> */}
@@ -335,18 +329,6 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
                     return <RowContainer list={section.list} />;
                 }
               })}
-            {/* <TitleAndPriceInfo />
-            {adPostSteps[step] &&
-              adPostSteps[step] === STEPS.STEP_SET_TITLE_AND_PRICE && (
-                <TitleAndPriceInfo />
-              )}
-            {adPostSteps[step] &&
-              adPostSteps[step] === STEPS.STEP_SET_LOCATION && <LocationInfo />}
-
-            {adPostSteps[step] &&
-              adPostSteps[step] === STEPS.STEP_SET_CONTACT_NUMBER && (
-                <ContactNumberInfo userId={userId} />
-              )} */}
           </Col>
         </Row>
       </Grid>
