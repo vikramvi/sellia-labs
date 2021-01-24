@@ -152,11 +152,14 @@ export const typeDefs = `
     status: String
     image: imageInput
     price: Float
-    location: locationInput
+    originalPrice: Float
+    brand: String!
+    belongsTo: String!
+    location: locationInput!
     categories: [categoryInput!]!
     gallery: [imageInput!]!
     isNegotiable: Boolean
-    condition: Boolean
+    condition: String
     createdAt: String
     updatedAt: String
     contactNumber: String

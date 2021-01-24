@@ -128,6 +128,8 @@ const CategoryAndDetailInfo = (props) => {
       }
     } else {
       try {
+        console.log("Expected ->", JSON.stringify(finalData, null, 2));
+
         const data = await postMutation({
           variables: {
             post: { ...finalData, status: "publish" },
