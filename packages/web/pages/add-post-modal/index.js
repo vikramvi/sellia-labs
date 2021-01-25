@@ -318,37 +318,21 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
         })}
 
         {console.log("\n\n\n")}
+        <TopToolBar
+          onClose={() => {
+            props.data.closeModal();
+          }}
+        />
 
-        <Row>
-          {/* <Box> */}
-          <Col sm={10}>
-            <Heading
-              as="h1"
-              content="Post a listing"
-              textAlign="left"
-              mb={10}
-              style={{ fontSize: 24, fontWeight: 600, color: "#333333" }}
-            />
-          </Col>
-          <Col sm={2}>
-            <TopToolBar
-              onClose={() => {
-                props.data.closeModal();
-              }}
-            />
-          </Col>
-
-          {/* </Box> */}
-        </Row>
         <Row>
           <Box>
             <Heading
               as="h1"
               content="I am looking ..."
               textAlign="left"
-              mb={10}
               style={{ fontSize: 18, fontWeight: 600, color: "#333333" }}
             />
+
             <AsyncSelect
               isMulti={false}
               defaultValue={adPost.categories ? adPost.categories : []}
