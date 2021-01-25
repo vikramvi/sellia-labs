@@ -17,7 +17,7 @@ export const typeDefs = `
     gallery: [Image]
     isNegotiable: Boolean
     favouritedBy: [String]
-    condition: Boolean
+    condition: String
     related(limit: Int): [Post]
     contactNumber: String
     createdAt: Date
@@ -197,7 +197,7 @@ export const typeDefs = `
   input searchParams {
     categories: [String]
     isNegotiable: Boolean
-    condition: Boolean
+    condition: String
     address: String
     location: locationInput
     price: [Int]
