@@ -337,14 +337,12 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           width: "100%",
         }}
       >
+        {console.log("postSegments ->", JSON.stringify(postSegments, null, 2))}
         {postSegments && console.log("options data", options)}
-
         {postSegments.forEach((post) => {
           console.log(post.title, "\n");
         })}
-
         {console.log("\n\n\n")}
-
         {postSegments.forEach((post) => {
           if (post.sections && post.sections.length > 0) {
             post.sections.forEach((section) => {
@@ -352,14 +350,12 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
             });
           }
         })}
-
         {console.log("\n\n\n")}
         <TopToolBar
           onClose={() => {
             props.data.closeModal();
           }}
         />
-
         <Row>
           <Box>
             {state.adPost.categories.sections ? (
@@ -415,7 +411,6 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
             /> */}
           </Box>
         </Row>
-
         {!isSegmentListOpen && (
           <Row>
             {/* <Col xs={12}> */}
@@ -427,6 +422,14 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
                   switch (section.type) {
                     case "radioSelectionList":
                       return <RadioListSection section={section} />;
+
+                    //TODO change component
+                    case "textField":
+                      return <TextDescription section={section} />;
+
+                    //TODO change component
+                    case "textBox":
+                      return <TextDescription section={section} />;
 
                     case "textDescription":
                       return <TextDescription section={section} />;

@@ -41,4 +41,43 @@ function updatePostSegements(collectionName) {
     });
 }
 
-updatePostSegements(collectionName);
+// updatePostSegements(collectionName);
+
+function updateCategoryList_toSell() {
+  var usersUpdate = {};
+  usersUpdate[`sections`] = [
+    {
+      key: "choose_category",
+      list: [
+        {
+          id: "0",
+          text: "Furniture",
+        },
+        {
+          id: 1,
+          text: "Appliances",
+        },
+        {
+          id: 2,
+          text: "Automotive",
+        },
+        {
+          id: 3,
+          text: "Baby & Kids",
+        },
+        {
+          id: 4,
+          text: "Bicycles",
+        },
+      ],
+      title: "Choose category",
+      type: "radioSelectionList",
+    },
+  ];
+
+  db.collection("post_segments")
+    .doc("to_sell")
+    .update(usersUpdate);
+}
+
+updateCategoryList_toSell();
