@@ -7,7 +7,7 @@ import PlaceholderImage from "core/static/images/thumb-grid-placeholder.svg";
 import Box from "reusecore/src/elements/Box";
 
 import Img from "react-image";
-const PostCard = ({
+const SegmentCard = ({
   imageSrc,
   title,
   price,
@@ -19,28 +19,14 @@ const PostCard = ({
 }) => {
   return (
     <Card {...props}>
-      {imageSrc && (
-        <div className="real-estate-promo-card-image">
-          <Img
-            src={imageSrc}
-            alt={title}
-            style={imageStyle}
-            loader={<img src={PlaceholderImage} />}
-            unloader={<img src={PlaceholderImage} />}
-          />
-        </div>
-      )}
       <Box>
-        {title && <Heading content={title} {...titleStyle} mb="1" mt={15} />}
-        {price && currency && (
-          <Text content={`${currency} ${price}`} {...priceStyle} mb="0" />
-        )}
+        {title && <Heading content={title} {...titleStyle} mb="1" mt={10} />}
       </Box>
     </Card>
   );
 };
 
-PostCard.propTypes = {
+SegmentCard.propTypes = {
   title: PropTypes.string.isRequired,
   imageSrc: PropTypes.array,
   postNumber: PropTypes.string,
@@ -49,11 +35,11 @@ PostCard.propTypes = {
   postNumberStyle: PropTypes.object,
 };
 
-PostCard.defaultProps = {
+SegmentCard.defaultProps = {
   boxShadow: "1px",
   borderRadius: "3px",
   width: "100%",
-  mb: "40px",
+  mb: "10px",
   color: "#595959",
   imageStyle: {
     width: "210px",
@@ -68,4 +54,4 @@ PostCard.defaultProps = {
   },
 };
 
-export default PostCard;
+export default SegmentCard;

@@ -13,6 +13,9 @@ import {
   AddPostProvider,
 } from "../../contexts/AddPostContext";
 import PageMeta from "../../components/PageMeta";
+import SegmentCard from "../../components/SegmentCard";
+import { PostLoader } from "../../components/Placeholder";
+
 import PickImages from "../../containers/AddPost/PickImages";
 import TitleAndPriceInfo from "../../containers/AddPost/TitleAndPriceInfo";
 import RowContainer from "../../containers/AddPost/RowContainer";
@@ -38,6 +41,8 @@ import { db } from "../../helpers/init";
 import AuthHelper from "../../helpers/authHelper";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { ADD_POST } from "core/graphql/Mutations";
+import ListGrid from "reusecore/src/elements/ListGrid";
+import Text from "reusecore/src/elements/Text";
 
 const colourStyles = {
   control: () => ({
@@ -71,7 +76,11 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   let counter = 0;
   const { state, dispatch } = useContext(AddPostContext);
   const { step, adPost } = state;
+
   const [postSegments, setPostSegments] = useState([]);
+
+  const [isSegmentListOpen, setSegmentListOpen] = useState(true);
+
   const [isValidated, setIsValidated] = useState(false);
   const [publishBtnLoading, setPublishBtnLoading] = useState(false);
 
@@ -82,6 +91,33 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   //   query: { id },
   // } = useRouter();
   const id = "new";
+
+  const handleClick = (selectedCategories) => () => {
+    dispatch({
+      type: "UPDATE_ADPOST",
+      payload: {
+        key: "categories",
+        value: selectedCategories,
+      },
+    });
+
+    setSegmentListOpen(false);
+  };
+
+  const renderRecentPost = (selectedCategories) => {
+    const { value, label } = selectedCategories;
+    return (
+      <SegmentCard
+        onClick={handleClick(selectedCategories)}
+        style={{
+          flexDirection: "row",
+          display: "flex",
+          justifyContent: "flex-start",
+        }}
+        title={label}
+      />
+    );
+  };
 
   const validateForm = () => {
     if (
@@ -326,14 +362,38 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
 
         <Row>
           <Box>
-            <Heading
-              as="h1"
-              content="I am looking ..."
-              textAlign="left"
-              style={{ fontSize: 18, fontWeight: 600, color: "#333333" }}
-            />
+            {state.adPost.categories.sections ? (
+              <Box flexBox flexDirection="row">
+                <Text
+                  content="I am looking"
+                  pr={10}
+                  style={{ fontSize: 16, fontWeight: 400, color: "#595959" }}
+                />
+                <Text
+                  onClick={() => setSegmentListOpen(true)}
+                  content={state.adPost.categories.title}
+                  style={{ fontSize: 18, fontWeight: 600, color: "#333333" }}
+                ></Text>
+              </Box>
+            ) : (
+              <Text
+                content="I am looking ..."
+                pr={10}
+                style={{ fontSize: 16, fontWeight: 400, color: "#595959" }}
+              />
+            )}
 
-            <AsyncSelect
+            {isSegmentListOpen && (
+              <ListGrid
+                data={options}
+                columnWidth={[1]}
+                limit={10}
+                component={renderRecentPost}
+                loading={loading}
+                placeholder={<PostLoader />}
+              />
+            )}
+            {/* <AsyncSelect
               isMulti={false}
               defaultValue={adPost.categories ? adPost.categories : []}
               defaultOptions={options}
@@ -342,6 +402,8 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
                 loadOptions(fetchMore, inputValue, callback, loading)
               }
               onChange={(selectedCategories) => {
+                console.log("dopdown ->", selectedCategories);
+
                 dispatch({
                   type: "UPDATE_ADPOST",
                   payload: {
@@ -350,55 +412,53 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
                   },
                 });
               }}
-            />
+            /> */}
           </Box>
         </Row>
 
+        {!isSegmentListOpen && (
+          <Row>
+            <Col xs={12} sm={8} md={8}>
+              {state.adPost.categories.sections &&
+                state.adPost.categories.sections.length > 0 &&
+                state.adPost.categories.sections.map((section, index) => {
+                  console.log("section ->", section);
+                  switch (section.type) {
+                    case "radioSelectionList":
+                      return <RadioListSection section={section} />;
+
+                    case "textDescription":
+                      return <TextDescription section={section} />;
+
+                    case "rowContainer":
+                      return <RowContainer list={section.list} />;
+                  }
+                })}
+            </Col>
+          </Row>
+        )}
         <Row>
-          <Col xs={12} sm={8} md={8}>
-            {console.log(
-              "on selection ->",
-              state.adPost.categories,
-              state.adPost
-            )}
-
-            {state.adPost.categories.sections &&
-              state.adPost.categories.sections.length > 0 &&
-              state.adPost.categories.sections.map((section, index) => {
-                console.log("section ->", section);
-                switch (section.type) {
-                  case "radioSelectionList":
-                    return <RadioListSection section={section} />;
-
-                  case "textDescription":
-                    return <TextDescription section={section} />;
-
-                  case "rowContainer":
-                    return <RowContainer list={section.list} />;
+          {!isSegmentListOpen && (
+            <Box flexBox justifyContent="space-between" mt={20}>
+              <Button
+                title="Submit"
+                // iconPosition="right"
+                // disabled={adPost.location == null || btnLoading}
+                onClick={() =>
+                  dispatch({
+                    type: "UPDATE_STEP",
+                    payload: { step: step + 1 },
+                  })
                 }
-              })}
-          </Col>
-        </Row>
-        <Row>
-          <Box flexBox justifyContent="space-between" mt={20}>
-            <Button
-              title="Submit"
-              // iconPosition="right"
-              // disabled={adPost.location == null || btnLoading}
-              onClick={() =>
-                dispatch({
-                  type: "UPDATE_STEP",
-                  payload: { step: step + 1 },
-                })
-              }
-              // icon={<Icon icon={chevronRight} size={21} color="#ffffff" />}
-              onClick={submitPost}
-              isLoading={publishBtnLoading}
-              style={{
-                backgroundColor: !validateForm() ? "#e2e2e2" : "#30C56D",
-              }}
-            />
-          </Box>
+                // icon={<Icon icon={chevronRight} size={21} color="#ffffff" />}
+                onClick={submitPost}
+                isLoading={publishBtnLoading}
+                style={{
+                  backgroundColor: !validateForm() ? "#e2e2e2" : "#30C56D",
+                }}
+              />
+            </Box>
+          )}
         </Row>
       </Grid>
     </>
