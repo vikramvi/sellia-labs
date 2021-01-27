@@ -110,6 +110,8 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
     const { value, label } = selectedCategories;
     return (
       <SegmentCard
+        className="nav-menu-item-link"
+        titleStyle={{ fontSize: "18px", mt: "5px" }}
         onClick={handleClick(selectedCategories)}
         style={{
           flexDirection: "row",
@@ -136,7 +138,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   };
   const fetchPostSegments = async () => {
     //read from firestore
-    const doc = await db.collection("post_segments");
+    const doc = await db.collection("post_segments").orderBy("rank", "asc");
 
     const observer = doc.onSnapshot((docSnapshot) => {
       let arrCategories = [];
@@ -361,7 +363,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
         <Row>
           <Box>
             {state.adPost.categories.sections ? (
-              <Box flexBox flexDirection="row">
+              <Box flexBox flexDirection="row" alignItems="center">
                 <Text
                   content="I am looking"
                   pr={10}
@@ -370,7 +372,14 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
                 <Text
                   onClick={() => setSegmentListOpen(true)}
                   content={state.adPost.categories.title}
-                  style={{ fontSize: 18, fontWeight: 600, color: "#333333" }}
+                  textAlign="center"
+                  className="nav-menu-item-link"
+                  style={{
+                    fontSize: 18,
+                    fontWeight: 600,
+                    color: "#333333",
+                    lineHeight: "100px",
+                  }}
                 ></Text>
               </Box>
             ) : (
@@ -454,12 +463,14 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           )}
         <Row>
           {!isSegmentListOpen && (
-            <Box flexBox justifyContent="space-between" mt={20}>
+            <Box
+              flexBox
+              alignItems="flex-end"
+              justifyContent="flex-end"
+              mt={20}
+            >
               <Button
-                title="Submit"
-                // iconPosition="right"
-                // disabled={adPost.location == null || btnLoading}
-                // icon={<Icon icon={chevronRight} size={21} color="#ffffff" />}
+                title="Post Listing"
                 onClick={submitPost}
                 isLoading={publishBtnLoading}
                 style={{

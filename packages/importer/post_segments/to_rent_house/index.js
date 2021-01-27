@@ -17,39 +17,52 @@ const categoryName = "to_rent_house";
 
 const configData = [
   {
-    key: "choose_category",
+    title: "Title",
+    type: "textField",
+  },
+  {
     list: [
       {
-        id: "0",
-        text: "Furniture",
+        title: "Beds",
+        type: "textBox",
       },
       {
-        id: 1,
-        text: "Appliances",
+        title: "Baths",
+        type: "textBox",
       },
       {
-        id: 2,
-        text: "Automotive",
+        title: "Lot Size",
+        type: "textBox",
       },
       {
-        id: 3,
-        text: "Baby & Kids",
-      },
-      {
-        id: 4,
-        text: "Bicycles",
-      },
-      {
-        id: 5,
-        text: "Garden",
+        title: "Sq. Ft.",
+        type: "textBox",
       },
     ],
-    title: "Choose category",
-    type: "radioSelectionList",
+    title: "",
+    type: "rowContainer",
+  },
+  {
+    list: [
+      {
+        title: "Price",
+        type: "currency",
+      },
+    ],
+    title: "Price",
+    type: "rowContainer",
+  },
+  {
+    type: "textBox",
+    title: "Zip Code",
+  },
+  {
+    type: "textDescription",
+    title: "Description",
   },
 ];
 
-function updateCategorySection() {
+function updateCategoryList_toSell() {
   var usersUpdate = {};
   usersUpdate[`sections`] = configData;
 
@@ -58,20 +71,4 @@ function updateCategorySection() {
     .update(usersUpdate);
 }
 
-// updateCategorySection();
-
-// feature flags
-const flagConfig = {
-  add_photo: false,
-};
-
-function updateCategoryFlags() {
-  var usersUpdate = {};
-  usersUpdate[`feature`] = flagConfig;
-
-  db.collection("post_segments")
-    .doc(categoryName)
-    .update(usersUpdate);
-}
-
-updateCategoryFlags();
+updateCategoryList_toSell();
