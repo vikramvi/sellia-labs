@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import Button from 'reusecore/src/elements/Button';
-import DropdownMenu from '../DropdownMenu';
-import Image from 'react-image';
-import { MenuWrapper, MenuItemWrapper } from './style';
-import profileImg from 'core/static/images/user-placeholder.svg';
-import Badge from '../UiElements/Badge/Badge';
-import SvgIcon from '../UiElements/SvgIcon/SvgIcon';
-import { styled } from 'baseui';
-import { db } from '../../helpers/init';
-import AddPostModal from '../../containers/ModalContainer/AddPostModal';
-import { Modal } from '@redq/reuse-modal';
-import { openModal, closeModal } from '@redq/reuse-modal';
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import Button from "reusecore/src/elements/Button";
+import DropdownMenu from "../DropdownMenu";
+import Image from "react-image";
+import { MenuWrapper, MenuItemWrapper } from "./style";
+import profileImg from "core/static/images/user-placeholder.svg";
+import Badge from "../UiElements/Badge/Badge";
+import SvgIcon from "../UiElements/SvgIcon/SvgIcon";
+import { styled } from "baseui";
+import { db } from "../../helpers/init";
+import AddPostModal from "../../containers/ModalContainer/AddPostModal";
+import { Modal } from "@redq/reuse-modal";
+import { openModal, closeModal } from "@redq/reuse-modal";
 
-import { BsBell } from 'react-icons/bs';
-import { IoMdAdd, IoMdHome, IoMdMail } from 'react-icons/io';
+import { BsBell } from "react-icons/bs";
+import { IoMdAdd, IoMdHome, IoMdMail } from "react-icons/io";
+import "./style.css";
 
 import {
   HOME_PAGE,
@@ -27,25 +28,25 @@ import {
   ADD_POST,
   ACCOUNT_SETTING_PAGE,
   CHAT_PAGE,
-} from 'core/navigation/constant';
-const imageStyle = { width: 40, height: 40, borderRadius: '50%' };
-import { useRouter } from 'next/router';
-import { withTheme } from 'styled-components';
+} from "core/navigation/constant";
+const imageStyle = { width: 40, height: 40, borderRadius: "50%" };
+import { useRouter } from "next/router";
+import { withTheme } from "styled-components";
 
-export const BellButton = styled('button', ({ $theme }) => ({
+export const BellButton = styled("button", ({ $theme }) => ({
   border: 0,
   padding: 0,
-  backgroundColor: 'transparent',
-  cursor: 'pointer',
-  fontSize: '20px',
-  display: 'flex',
-  alignItems: 'center',
+  backgroundColor: "transparent",
+  cursor: "pointer",
+  fontSize: "20px",
+  display: "flex",
+  alignItems: "center",
   color: $theme.colors.primaryA,
-  transition: 'color 0.2s ease',
-  ':focus': {
+  transition: "color 0.2s ease",
+  ":focus": {
     outline: 0,
   },
-  ':hover': {
+  ":hover": {
     color: $theme.colors.accent,
   },
 }));
@@ -97,11 +98,11 @@ const Menu = ({
       width={1}
       color="#EF5A5A"
       style={{
-        minHeight: 'auto',
-        minWidth: 'auto',
-        textDecoration: 'none',
-        justifyContent: 'flex-start',
-        marginLeft: '-4px',
+        minHeight: "auto",
+        minWidth: "auto",
+        textDecoration: "none",
+        justifyContent: "flex-start",
+        marginLeft: "-4px",
       }}
     />,
   ];
@@ -111,14 +112,14 @@ const Menu = ({
     let observer;
     async function subscribeUserChat() {
       const doc = db
-        .collection('user_chats')
+        .collection("user_chats")
         .doc(userId)
-        .collection('chats');
+        .collection("chats");
 
       observer = doc.onSnapshot(
-        docSnapshot => {
+        (docSnapshot) => {
           let unreadNotification = 0;
-          docSnapshot.forEach(change => {
+          docSnapshot.forEach((change) => {
             let changeData = change.data();
             if (changeData.unreadCount > 0) {
               unreadNotification++;
@@ -128,7 +129,7 @@ const Menu = ({
           //update state
           setbadgeCount(unreadNotification);
         },
-        err => {
+        (err) => {
           console.log(`Encountered error: ${err}`);
         }
       );
@@ -138,8 +139,7 @@ const Menu = ({
   }, []);
   const handleAddPost = () => {
     openModal({
-      className: 'customModal',
-      overlayClassName: 'customeOverlayClass',
+      overlayClassName: "customeOverlayClass",
       closeOnClickOutside: false,
       componentProps: {
         data: {
@@ -147,9 +147,9 @@ const Menu = ({
         },
       },
       config: {
-        className: 'addPostModal',
-        height: 'auto',
-        width: '40%',
+        className: "addPostNewModal",
+        height: "auto",
+        width: "40%",
         transition: {
           tension: 150,
         },
