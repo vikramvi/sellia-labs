@@ -1,0 +1,183 @@
+[
+  {
+    "rank": 6,
+    "title": "for recommendations"
+  },
+  {
+    "rank": 2,
+    "title": "for a roommate"
+  },
+  {
+    "rank": 3,
+    "title": "to rent a house"
+  },
+  {
+    "rank": 1,
+    "sections": [
+      {
+        "key": "choose_category",
+        "list": [
+          {
+            "id": "0",
+            "text": "Furniture"
+          },
+          {
+            "id": 1,
+            "text": "Appliances"
+          },
+          {
+            "id": 2,
+            "text": "Automotive"
+          }
+        ],
+        "title": "Choose category",
+        "type": "radioSelectionList"
+      }
+    ],
+    "title": "to sell"
+  },
+  {
+    "rank": 5,
+    "sections": [
+      {
+        "list": [
+          {
+            "id": "0",
+            "text": "Toyota"
+          },
+          {
+            "id": "1",
+            "text": "Tesla"
+          },
+          {
+            "id": 2,
+            "text": "Honda"
+          },
+          {
+            "id": 3,
+            "text": "Hyundai"
+          },
+          {
+            "id": 4,
+            "text": "Kia"
+          },
+          {
+            "id": 5,
+            "text": "Jeep"
+          },
+          {
+            "id": 6,
+            "text": "Ford"
+          },
+          {
+            "id": 7,
+            "text": "Porche"
+          },
+          {
+            "id": 8,
+            "text": "Chevrolet"
+          },
+          {
+            "id": 9,
+            "text": "Genesis"
+          },
+          {
+            "id": 10,
+            "text": "Chrysler"
+          },
+          {
+            "id": 11,
+            "text": "Dodge"
+          },
+          {
+            "id": 0,
+            "text": "Other"
+          }
+        ],
+        "title": "Choose Brand",
+        "type": "radioSelectionList"
+      },
+      {
+        "title": "Title / Make Model Year",
+        "type": "textField"
+      },
+      {
+        "list": [
+          {
+            "title": "Price",
+            "type": "currency"
+          },
+          {
+            "title": "Original Price",
+            "type": "currency"
+          }
+        ],
+        "title": "Price",
+        "type": "rowContainer"
+      },
+      {
+        "list": [
+          {
+            "list": [
+              {
+                "id": "",
+                "text": "New"
+              },
+              {
+                "id": 1,
+                "text": "Used"
+              }
+            ],
+            "title": "Condition",
+            "type": "selectionList"
+          },
+          {
+            "list": [
+              {
+                "id": 1,
+                "text": "Me"
+              },
+              {
+                "id": 2,
+                "text": "My Family"
+              },
+              {
+                "id": 3,
+                "text": "My Friend"
+              }
+            ],
+            "title": "Belongs to",
+            "type": "selectionList"
+          }
+        ],
+        "title": "",
+        "type": "rowContainer"
+      },
+      {
+        "id": "",
+        "title": "Description",
+        "type": "textDescription"
+      },
+      {
+        "list": [
+          {
+            "id": "",
+            "title": "Mileage",
+            "type": "textBox"
+          },
+          {
+            "id": "",
+            "title": "Miles run",
+            "type": "textBox"
+          }
+        ],
+        "type": "rowContainer"
+      }
+    ],
+    "title": "to sell car"
+  },
+  {
+    "rank": 4,
+    "title": "to sell a house"
+  }
+]

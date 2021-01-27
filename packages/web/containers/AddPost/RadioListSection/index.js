@@ -256,35 +256,40 @@ const RadioListSection = props => {
   };
 
   return (
-    <>
-      <Box flexBox flexDirection="column" mb={40}>
-        <Text
-          content={props.section.title}
-          pb={10}
-          pt={10}
-          style={{ fontSize: 16, fontWeight: 400, color: '#595959' }}
-        />
+    <Box flexBox flexDirection="column" mb={40}>
+      <Text
+        content={props.section.title}
+        pb={10}
+        pt={10}
+        style={{ fontSize: 16, fontWeight: 400, color: '#595959' }}
+      />
+      <Box
+        flexDirection="row"
+        flexBox
+        justifyContent="flex-start"
+        flexWrap="wrap"
+        alignItems="space-between"
+      >
         {props.section.list.map((brand, key) => {
           return (
-            <div>
-              <Radio
-                id={key}
-                value={adPost.brand}
-                name="brand"
-                labelText={brand.text}
-                onChange={() => {
-                  dispatch({
-                    type: 'UPDATE_ADPOST',
-                    payload: { key: 'brand', value: brand.text },
-                  });
-                }}
-                checked={adPost.brand === brand.text}
-              />
-            </div>
+            <Radio
+              style={{ width: '30%', margin: '2px' }}
+              id={key}
+              value={adPost.brand}
+              name="brand"
+              labelText={brand.text}
+              onChange={() => {
+                dispatch({
+                  type: 'UPDATE_ADPOST',
+                  payload: { key: 'brand', value: brand.text },
+                });
+              }}
+              checked={adPost.brand === brand.text}
+            />
           );
-        })}
+        })}{' '}
       </Box>
-    </>
+    </Box>
   );
   /*return (
     <>
