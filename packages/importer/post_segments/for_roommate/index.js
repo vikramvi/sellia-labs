@@ -1,7 +1,7 @@
-const admin = require('firebase-admin');
-const fs = require('fs');
-const serviceAccount = require('../../headless-graphql-firebase-config.json');
-const dotenv = require('dotenv');
+const admin = require("firebase-admin");
+const fs = require("fs");
+const serviceAccount = require("../../headless-graphql-firebase-config.json");
+const dotenv = require("dotenv");
 dotenv.config();
 
 // You should replace databaseURL with your own
@@ -15,57 +15,73 @@ db.settings({ timestampsInSnapshots: true });
 
 const configData = [
   {
-    title: 'Title',
-    type: 'textField',
+    title: "Title",
+    type: "textField",
   },
   {
-    title: 'Area (Location)',
-    type: 'textBox',
-  },
-  {
-    list: [
-      {
-        title: 'Beds',
-        type: 'textBox',
-      },
-      {
-        title: 'Baths',
-        type: 'textBox',
-      },
-      {
-        title: 'No. of Roommates',
-        type: 'textBox',
-      },
-    ],
-    title: '',
-    type: 'rowContainer',
+    title: "Area (Location)",
+    type: "textBox",
   },
   {
     list: [
       {
-        title: 'Budget',
-        type: 'currency',
+        title: "Beds",
+        type: "textBox",
+      },
+      {
+        title: "Baths",
+        type: "textBox",
+      },
+      {
+        title: "No. of Roommates",
+        type: "textBox",
       },
     ],
-    title: 'Price',
-    type: 'rowContainer',
+    title: "",
+    type: "rowContainer",
   },
   {
-    type: 'textBox',
-    title: 'Zip Code',
+    list: [
+      {
+        title: "Budget",
+        type: "currency",
+      },
+    ],
+    title: "Price",
+    type: "rowContainer",
   },
   {
-    type: 'textDescription',
-    title: 'Description',
+    type: "textBox",
+    title: "Zip Code",
+  },
+  {
+    type: "textDescription",
+    title: "Description",
   },
 ];
 function updateCategoryList_toSell() {
   var usersUpdate = {};
   usersUpdate[`sections`] = configData;
 
-  db.collection('post_segments')
-    .doc('for_roommate')
+  db.collection("post_segments")
+    .doc("for_roommate")
     .update(usersUpdate);
 }
 
-updateCategoryList_toSell();
+// updateCategoryList_toSell();
+
+// feature flags
+const flagConfig = {
+  add_photo: true,
+};
+
+function updateCategoryFlags() {
+  var usersUpdate = {};
+  usersUpdate[`feature`] = flagConfig;
+
+  db.collection("post_segments")
+    .doc("for_roommate")
+    .update(usersUpdate);
+}
+
+updateCategoryFlags();

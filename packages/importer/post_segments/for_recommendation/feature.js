@@ -13,27 +13,7 @@ admin.initializeApp({
 let db = admin.firestore();
 db.settings({ timestampsInSnapshots: true });
 
-const configData = [
-  {
-    title: "Title",
-    type: "textField",
-  },
-  {
-    type: "textDescription",
-    title: "Description",
-  },
-];
-
-function updateCategorySection() {
-  var usersUpdate = {};
-  usersUpdate[`sections`] = configData;
-
-  db.collection("post_segments")
-    .doc("for_recommendation")
-    .update(usersUpdate);
-}
-
-// updateCategorySection();
+const categoryName = "for_recommendation";
 
 // feature flags
 const flagConfig = {
@@ -45,7 +25,7 @@ function updateCategoryFlags() {
   usersUpdate[`feature`] = flagConfig;
 
   db.collection("post_segments")
-    .doc("for_recommendation")
+    .doc(categoryName)
     .update(usersUpdate);
 }
 

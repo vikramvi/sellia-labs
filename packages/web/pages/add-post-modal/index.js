@@ -443,13 +443,15 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
             </Col>
           </Row>
         )}
-        {!isSegmentListOpen && (
-          <Row>
-            <Col xs={12} sm={7} md={7}>
-              <AdImagesInfo />
-            </Col>
-          </Row>
-        )}
+        {!isSegmentListOpen &&
+          state.adPost.categories &&
+          state.adPost.categories.feature.add_photo && (
+            <Row>
+              <Col xs={12} sm={7} md={7}>
+                <AdImagesInfo />
+              </Col>
+            </Row>
+          )}
         <Row>
           {!isSegmentListOpen && (
             <Box flexBox justifyContent="space-between" mt={20}>
