@@ -15,7 +15,7 @@ import { useMutation } from "@apollo/react-hooks";
 import { AddPostContext } from "../../../contexts/AddPostContext";
 
 let imagesUrl = [];
-export default () => {
+export default ({ section }) => {
   const { state, dispatch } = useContext(AddPostContext);
   const { step, adPost } = state;
 
@@ -99,11 +99,6 @@ export default () => {
 
   return (
     <>
-      <Text
-        content="Enter the below details"
-        pb={20}
-        style={{ fontSize: 16, fontWeight: 400, color: "#595959" }}
-      />
       <Input
         elementType="input"
         value={adPost.title}
@@ -111,7 +106,7 @@ export default () => {
           type: "text",
           required: "required",
         }}
-        label="Title"
+        label={section.title ?? "Title"}
         changed={(title) => {
           dispatch({
             type: "UPDATE_ADPOST",
@@ -125,84 +120,6 @@ export default () => {
           // }
         }}
       />
-      <Input
-        elementType="input"
-        elementConfig={{
-          type: "number",
-          required: "required",
-        }}
-        label="Price"
-        value={adPost.price}
-        changed={(price) =>
-          dispatch({
-            type: "UPDATE_ADPOST",
-            payload: { key: "price", value: parseFloat(price.target.value) },
-          })
-        }
-        style={{ marginBottom: 40 }}
-      />
-      <Box flexBox justifyContent="space-between" mb={30}>
-        <Text content="Negotiable?" color="#595959" />
-        <Switch
-          switchSize="50px"
-          switchColor="#30C56D"
-          barColor="#30C56D"
-          onChange={(val) =>
-            dispatch({
-              type: "UPDATE_ADPOST",
-              payload: { key: "isNegotiable", value: !adPost.isNegotiable },
-            })
-          }
-          isChecked={adPost.isNegotiable}
-        />
-      </Box>
-      <Box flexBox justifyContent="space-between" mb={30}>
-        <Text content="New Condition?" color="#595959" />
-        <Switch
-          switchSize="50px"
-          switchColor="#30C56D"
-          barColor="#30C56D"
-          onChange={(val) => {
-            dispatch({
-              type: "UPDATE_ADPOST",
-              payload: { key: "condition", value: !adPost.condition },
-            });
-          }}
-          isChecked={adPost.condition}
-        />
-      </Box>
-      <Box flexBox justifyContent="space-between">
-        <Button
-          title="Save"
-          iconPosition="left"
-          icon={<Icon icon={archive} size={18} color="#8C8C8C" />}
-          onClick={handleDraftingPost}
-          variant="textButton"
-          isLoading={btnLoading}
-        />
-        <Button
-          title="Next"
-          iconPosition="right"
-          disabled={
-            adPost.title.length === 0 || adPost.price.length === 0 || btnLoading
-          }
-          onClick={() =>
-            dispatch({
-              type: "UPDATE_STEP",
-              payload: { step: step + 1 },
-            })
-          }
-          icon={<Icon icon={chevronRight} size={21} color="#ffffff" />}
-          style={{
-            backgroundColor:
-              adPost.title.length === 0 ||
-              adPost.price.length === 0 ||
-              btnLoading
-                ? "#e2e2e2"
-                : "#30C56D",
-          }}
-        />
-      </Box>
     </>
   );
 };

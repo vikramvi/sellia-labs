@@ -18,7 +18,7 @@ import { PostLoader } from "../../components/Placeholder";
 import "./style.css";
 
 import PickImages from "../../containers/AddPost/PickImages";
-import TitleAndPriceInfo from "../../containers/AddPost/TitleAndPriceInfo";
+import TitleInfo from "../../containers/AddPostModal/TitleInfo";
 import RowContainer from "../../containers/AddPost/RowContainer";
 
 import CategoryAndDetailInfo from "../../containers/AddPost/CategoryAndDetailInfo";
@@ -26,7 +26,7 @@ import LocationInfo from "../../containers/AddPost/LocationInfo";
 import ContactNumberInfo from "../../containers/AddPost/ContactNumberInfo";
 import TopToolBar from "../../containers/AddPostModal/TopToolBar";
 
-import TextDescription from "../../containers/AddPost/TextDescription";
+import TextDescription from "../../containers/AddPostModal/TextDescription";
 import RadioListSection from "../../containers/AddPost/RadioListSection";
 
 import Router from "next/router";
@@ -478,11 +478,11 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
 
                     //TODO change component
                     case "textField":
-                      return <TextDescription section={section} />;
+                      return <TitleInfo section={section} />;
 
                     //TODO change component
                     case "textBox":
-                      return <TextDescription section={section} />;
+                      return <TitleInfo section={section} />;
 
                     case "textDescription":
                       return <TextDescription section={section} />;
