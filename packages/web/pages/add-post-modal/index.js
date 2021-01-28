@@ -254,9 +254,42 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
     (async function() {
       if (imagesUrl.length) {
         try {
+          console.log("on submit ->", finalData);
+
+          const reqData = {
+            image: adPost.image,
+            brand: adPost.brand,
+            authorId: "1YFGEa6esERO1DpMDKd40598e6m2",
+            gallery: adPost.gallery,
+            title: adPost.title ?? "",
+            slug: "test",
+            price: adPost.price,
+            belongsTo: adPost.belongsTo,
+            originalPrice: adPost.originalPrice,
+            isNegotiable: true,
+            condition: adPost.condition,
+            categories: [
+              {
+                id: "fKJqetAGRZElL8ct0gJT",
+                slug: "car",
+                name: "Car",
+                value: "fKJqetAGRZElL8ct0gJT",
+                label: "Car",
+              },
+            ],
+            content: adPost.content,
+            contactNumber: "",
+            status: "publish",
+            location: {
+              lat: 38.9586307,
+              lng: -77.35700279999999,
+              formattedAddress: "Reston, VA, USA",
+            },
+          };
+
           const data = await postMutation({
             variables: {
-              post: { ...finalData, status: "publish" },
+              post: { ...reqData, status: "publish" },
             },
           });
           setPublishBtnLoading(false);
