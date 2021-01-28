@@ -1,0 +1,12 @@
+.segment-menu-item-link {
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: inherit;
+  display: block;
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 15px;
+  padding: 5.5px 0;
+}

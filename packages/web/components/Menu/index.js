@@ -149,7 +149,7 @@ const Menu = ({
       config: {
         className: "addPostNewModal",
         height: "auto",
-        width: "40%",
+        width: "50%",
         transition: {
           tension: 150,
         },

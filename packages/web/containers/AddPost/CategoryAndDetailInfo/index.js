@@ -227,29 +227,6 @@ const CategoryAndDetailInfo = (props) => {
     })();
   }, [prossedAdPostData.gallery]);
 
-  // useEffect(() => {
-  //   (async function() {
-  //     if (imagesUrl.length) {
-  //       try {
-  //         const data = await postMutation({
-  //           variables: {
-  //             post: finalData,
-  //           },
-  //         });
-  //         setBtnLoading(false);
-  //         if (!adPost.id) {
-  //           dispatch({
-  //             type: "UPDATE_ADPOST",
-  //             payload: { key: "id", value: data.data.addPost.id },
-  //           });
-  //         }
-  //       } catch (error) {
-  //         setBtnLoading(false);
-  //       }
-  //     }
-  //   })();
-  // }, [prossedAdPostData.gallery]);
-
   const loadOptions = async (fetchMore, inputValue, callback, loading) => {
     const filteredData = options.filter((item) =>
       item.slug.includes(inputValue)

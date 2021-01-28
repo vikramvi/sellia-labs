@@ -1,7 +1,7 @@
-const admin = require('firebase-admin');
-const fs = require('fs');
-const serviceAccount = require('../../headless-graphql-firebase-config.json');
-const dotenv = require('dotenv');
+const admin = require("firebase-admin");
+const fs = require("fs");
+const serviceAccount = require("../../headless-graphql-firebase-config.json");
+const dotenv = require("dotenv");
 dotenv.config();
 
 // You should replace databaseURL with your own
@@ -15,35 +15,57 @@ db.settings({ timestampsInSnapshots: true });
 
 const configData = [
   {
-    key: 'choose_category',
+    title: "Title",
+    type: "textField",
+  },
+  {
+    title: "City",
+    type: "textBox",
+  },
+  {
     list: [
       {
-        id: '0',
-        text: 'Furniture',
+        title: "Price",
+        type: "currency",
+      },
+    ],
+    title: "Price",
+    type: "rowContainer",
+  },
+  {
+    key: "choose_category",
+    list: [
+      {
+        id: "0",
+        text: "Furniture",
       },
       {
         id: 1,
-        text: 'Appliances',
+        text: "Appliances",
       },
       {
         id: 2,
-        text: 'Automotive',
+        text: "Automotive",
       },
       {
         id: 3,
-        text: 'Baby & Kids',
+        text: "Baby & Kids",
       },
       {
         id: 4,
-        text: 'Bicycles',
+        text: "Bicycles",
       },
       {
         id: 5,
-        text: 'Garden',
+        text: "Garden",
       },
     ],
-    title: 'Choose category',
-    type: 'radioSelectionList',
+    title: "Choose category",
+    type: "radioSelectionList",
+  },
+  {
+    type: "textDescription",
+    title: "Description",
   },
 ];
 
@@ -51,8 +73,8 @@ function updateCategoryList_toSell() {
   var usersUpdate = {};
   usersUpdate[`sections`] = configData;
 
-  db.collection('post_segments')
-    .doc('to_sell')
+  db.collection("post_segments")
+    .doc("to_sell")
     .update(usersUpdate);
 }
 

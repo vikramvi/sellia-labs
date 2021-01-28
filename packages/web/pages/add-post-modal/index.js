@@ -15,6 +15,7 @@ import {
 import PageMeta from "../../components/PageMeta";
 import SegmentCard from "../../components/SegmentCard";
 import { PostLoader } from "../../components/Placeholder";
+import "./style.css";
 
 import PickImages from "../../containers/AddPost/PickImages";
 import TitleAndPriceInfo from "../../containers/AddPost/TitleAndPriceInfo";
@@ -23,14 +24,13 @@ import RowContainer from "../../containers/AddPost/RowContainer";
 import CategoryAndDetailInfo from "../../containers/AddPost/CategoryAndDetailInfo";
 import LocationInfo from "../../containers/AddPost/LocationInfo";
 import ContactNumberInfo from "../../containers/AddPost/ContactNumberInfo";
-import TopToolBar from "../../containers/AddPost/TopToolBar";
+import TopToolBar from "../../containers/AddPostModal/TopToolBar";
 
 import TextDescription from "../../containers/AddPost/TextDescription";
 import RadioListSection from "../../containers/AddPost/RadioListSection";
 
 import Router from "next/router";
 import AsyncSelect from "react-select/async";
-import { GET_CATEGORIES_FOR_DROPDOWN } from "core/graphql/Category.query";
 import Heading from "reusecore/src/elements/Heading";
 import Progress from "../../components/Progress";
 import { withApollo } from "../../helpers/apollo";
@@ -43,7 +43,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import { ADD_POST } from "core/graphql/Mutations";
 import ListGrid from "reusecore/src/elements/ListGrid";
 import Text from "reusecore/src/elements/Text";
-import AdImagesInfo from "../../containers/AddPost/AddImage";
+import AdImagesInfo from "../../containers/AddPostModal/AddImage";
 import { uploadMultipleImages } from "../../helpers/uploadMultipleImage";
 
 const colourStyles = {
@@ -152,6 +152,11 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
         }
       );
 
+      // arrCategories.forEach((item) => {
+      //   let categoryOptions = { ...item, value: item.title, label: item.title };
+      //   options.push(categoryOptions);
+      // });
+
       setPostSegments(arrCategories);
     });
   };
@@ -223,21 +228,51 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
       fetchPostSegments();
     }, []);
   }
-  const { data, error, loading, fetchMore } = useQuery(
-    GET_CATEGORIES_FOR_DROPDOWN,
-    {
-      variables: {
-        limit: 1000,
-      },
-    }
-  );
+
   let options = [];
-  if (!loading && data.categories.data.length) {
+  if (postSegments.length) {
     postSegments.forEach((item) => {
       let categoryOptions = { ...item, value: item.title, label: item.title };
       options.push(categoryOptions);
     });
   }
+
+  //listen to image upload success
+  const {
+    preImage,
+    preGallery,
+    localImage,
+    localGallery,
+    location,
+    ...prossedAdPostData
+  } = adPost;
+  let finalData = prossedAdPostData;
+
+  console.log("prossedAdPostData ->", prossedAdPostData);
+
+  useEffect(() => {
+    (async function() {
+      if (imagesUrl.length) {
+        try {
+          const data = await postMutation({
+            variables: {
+              post: { ...finalData, status: "publish" },
+            },
+          });
+          setPublishBtnLoading(false);
+          if (!adPost.id) {
+            dispatch({
+              type: "UPDATE_ADPOST",
+              payload: { key: "id", value: data.data.addPost.id },
+            });
+          }
+          props.data.closeModal();
+        } catch (error) {
+          setPublishBtnLoading(false);
+        }
+      }
+    })();
+  }, [prossedAdPostData.gallery]);
 
   const loadOptions = async (fetchMore, inputValue, callback, loading) => {
     console.log("input value", inputValue);
@@ -248,46 +283,6 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   };
   const submitPost = async () => {
     if (validateForm()) {
-      // const reqData = {
-      //   category: adPost.categories,
-      //   condition: adPost.condition,
-      //   belongsTo: adPost.belongsTo,
-      //   content: adPost.content,
-      // };
-
-      const reqData = {
-        image: {},
-        brand: adPost.brand,
-        authorId: "1YFGEa6esERO1DpMDKd40598e6m2",
-        gallery: [],
-        title: "test",
-        slug: "test",
-        price: adPost.price,
-        belongsTo: adPost.belongsTo,
-        originalPrice: adPost.originalPrice,
-        isNegotiable: true,
-        condition: adPost.condition,
-        categories: [
-          {
-            id: "fKJqetAGRZElL8ct0gJT",
-            slug: "car",
-            name: "Car",
-            value: "fKJqetAGRZElL8ct0gJT",
-            label: "Car",
-          },
-        ],
-        content: adPost.content,
-        contactNumber: "",
-        status: "draft",
-        location: {
-          lat: 38.9586307,
-          lng: -77.35700279999999,
-          formattedAddress: "Reston, VA, USA",
-        },
-      };
-
-      console.log("reqData ->", JSON.stringify(reqData, null, 2));
-
       //add post to firestore
       await AuthHelper.refreshToken();
       setPublishBtnLoading(true);
@@ -310,6 +305,41 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
         }
       } else {
         try {
+          //reqdata
+
+          const reqData = {
+            image: {},
+            brand: adPost.brand,
+            authorId: "1YFGEa6esERO1DpMDKd40598e6m2",
+            gallery: [],
+            title: "test",
+            slug: "test",
+            price: adPost.price,
+            belongsTo: adPost.belongsTo,
+            originalPrice: adPost.originalPrice,
+            isNegotiable: true,
+            condition: adPost.condition,
+            categories: [
+              {
+                id: "fKJqetAGRZElL8ct0gJT",
+                slug: "car",
+                name: "Car",
+                value: "fKJqetAGRZElL8ct0gJT",
+                label: "Car",
+              },
+            ],
+            content: adPost.content,
+            contactNumber: "",
+            status: "draft",
+            location: {
+              lat: 38.9586307,
+              lng: -77.35700279999999,
+              formattedAddress: "Reston, VA, USA",
+            },
+          };
+
+          console.log("reqData ->", JSON.stringify(reqData, null, 2));
+
           const data = await postMutation({
             variables: {
               post: { ...reqData, status: "publish" },
@@ -342,7 +372,9 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
         }}
       >
         {console.log("postSegments ->", JSON.stringify(postSegments, null, 2))}
-        {postSegments && console.log("options data", options)}
+
+        {console.log("options -> \n", options)}
+
         {postSegments.forEach((post) => {
           console.log(post.title, "\n");
         })}
@@ -362,32 +394,30 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
         />
         <Row>
           <Box>
-            {state.adPost.categories.sections ? (
+            {state.adPost.categories.sections && (
               <Box flexBox flexDirection="row" alignItems="center">
-                <Text
+                {/* <Text
                   content="I am looking"
                   pr={10}
-                  style={{ fontSize: 16, fontWeight: 400, color: "#595959" }}
-                />
+                  style={{
+                    fontSize: 16,
+                    fontWeight: 400,
+                    color: "#595959",
+                  }}
+                /> */}
                 <Text
                   onClick={() => setSegmentListOpen(true)}
                   content={state.adPost.categories.title}
                   textAlign="center"
-                  className="nav-menu-item-link"
+                  className="segment-menu-item-link"
                   style={{
                     fontSize: 18,
                     fontWeight: 600,
                     color: "#333333",
-                    lineHeight: "100px",
+                    lineHeight: "20px",
                   }}
                 ></Text>
               </Box>
-            ) : (
-              <Text
-                content="I am looking ..."
-                pr={10}
-                style={{ fontSize: 16, fontWeight: 400, color: "#595959" }}
-              />
             )}
 
             {isSegmentListOpen && (
@@ -396,30 +426,9 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
                 columnWidth={[1]}
                 limit={10}
                 component={renderRecentPost}
-                loading={loading}
                 placeholder={<PostLoader />}
               />
             )}
-            {/* <AsyncSelect
-              isMulti={false}
-              defaultValue={adPost.categories ? adPost.categories : []}
-              defaultOptions={options}
-              styles={colourStyles}
-              loadOptions={(inputValue, callback) =>
-                loadOptions(fetchMore, inputValue, callback, loading)
-              }
-              onChange={(selectedCategories) => {
-                console.log("dopdown ->", selectedCategories);
-
-                dispatch({
-                  type: "UPDATE_ADPOST",
-                  payload: {
-                    key: "categories",
-                    value: selectedCategories,
-                  },
-                });
-              }}
-            /> */}
           </Box>
         </Row>
         {!isSegmentListOpen && (
@@ -452,34 +461,28 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
             </Col>
           </Row>
         )}
-        {!isSegmentListOpen &&
-          state.adPost.categories &&
-          state.adPost.categories.feature.add_photo && (
-            <Row>
-              <Col xs={12} sm={7} md={7}>
-                <AdImagesInfo />
-              </Col>
-            </Row>
-          )}
-        <Row>
+
+        <Box
+          flexBox
+          alignItems="center"
+          justifyContent="space-between"
+          mt={20}
+          flexDirection="row"
+        >
+          {!isSegmentListOpen &&
+            state.adPost.categories &&
+            state.adPost.categories.feature.add_photo && <AdImagesInfo />}
           {!isSegmentListOpen && (
-            <Box
-              flexBox
-              alignItems="flex-end"
-              justifyContent="flex-end"
-              mt={20}
-            >
-              <Button
-                title="Post Listing"
-                onClick={submitPost}
-                isLoading={publishBtnLoading}
-                style={{
-                  backgroundColor: !validateForm() ? "#e2e2e2" : "#30C56D",
-                }}
-              />
-            </Box>
+            <Button
+              title="Post"
+              onClick={submitPost}
+              isLoading={publishBtnLoading}
+              style={{
+                backgroundColor: !validateForm() ? "#e2e2e2" : "#30C56D",
+              }}
+            />
           )}
-        </Row>
+        </Box>
       </Grid>
     </>
   );
