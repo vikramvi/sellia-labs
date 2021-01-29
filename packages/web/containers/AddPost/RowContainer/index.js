@@ -92,64 +92,8 @@ const RowContainer = (props) => {
   const [publishBtnLoading, setPublishBtnLoading] = useState(false);
 
   const [postMutation] = useMutation(ADD_POST);
-  const { data, error, loading, fetchMore } = useQuery(
-    GET_CATEGORIES_FOR_DROPDOWN,
-    {
-      variables: {
-        limit: 1000,
-      },
-    }
-  );
-  const { step, adPost } = state;
-  let options = [];
-  if (!loading && data.categories.data.length) {
-    data.categories.data.map((item, index) => {
-      let categoryOptions = { ...item, value: item.id, label: item.name };
-      options.push(categoryOptions);
-    });
-  }
 
-  const handlePostSubmit = async () => {
-    await AuthHelper.refreshToken();
-    setPublishBtnLoading(true);
-    dispatch({
-      type: "UPDATE_ADPOST",
-      payload: { key: "status", value: "publish" },
-    });
-    if (adPost.localGallery.length) {
-      imagesUrl = await uploadMultipleImages(adPost.localGallery);
-      if (imagesUrl && imagesUrl.length > 0) {
-        dispatch({
-          type: "UPDATE_FULL_ADPOST",
-          payload: {
-            gallery: adPost.gallery.concat(imagesUrl[0]),
-            image: !adPost.image.url ? imagesUrl[0][0] : adPost.image,
-            localImage: {},
-            localGallery: [],
-          },
-        });
-      }
-    } else {
-      try {
-        const data = await postMutation({
-          variables: {
-            post: { ...finalData, status: "publish" },
-          },
-        });
-        setPublishBtnLoading(false);
-        if (!adPost.id) {
-          dispatch({
-            type: "UPDATE_ADPOST",
-            payload: { key: "id", value: data.data.addPost.id },
-          });
-        }
-        publishModal(data);
-      } catch (error) {
-        console.log(error, "error");
-        setPublishBtnLoading(false);
-      }
-    }
-  };
+  const { step, adPost } = state;
 
   const handleDraftingPost = async () => {
     await AuthHelper.refreshToken();
@@ -201,62 +145,6 @@ const RowContainer = (props) => {
       location,
     };
   }
-
-  useEffect(() => {
-    (async function() {
-      if (imagesUrl.length) {
-        try {
-          const data = await postMutation({
-            variables: {
-              post: { ...finalData, status: "publish" },
-            },
-          });
-          setPublishBtnLoading(false);
-          setBtnLoading(false);
-          if (!adPost.id) {
-            dispatch({
-              type: "UPDATE_ADPOST",
-              payload: { key: "id", value: data.data.addPost.id },
-            });
-          }
-          publishModal(data);
-        } catch (error) {
-          setPublishBtnLoading(false);
-          setBtnLoading(false);
-        }
-      }
-    })();
-  }, [prossedAdPostData.gallery]);
-
-  // useEffect(() => {
-  //   (async function() {
-  //     if (imagesUrl.length) {
-  //       try {
-  //         const data = await postMutation({
-  //           variables: {
-  //             post: finalData,
-  //           },
-  //         });
-  //         setBtnLoading(false);
-  //         if (!adPost.id) {
-  //           dispatch({
-  //             type: "UPDATE_ADPOST",
-  //             payload: { key: "id", value: data.data.addPost.id },
-  //           });
-  //         }
-  //       } catch (error) {
-  //         setBtnLoading(false);
-  //       }
-  //     }
-  //   })();
-  // }, [prossedAdPostData.gallery]);
-
-  const loadOptions = async (fetchMore, inputValue, callback, loading) => {
-    const filteredData = options.filter((item) =>
-      item.slug.includes(inputValue)
-    );
-    callback(filteredData);
-  };
 
   return (
     <>
