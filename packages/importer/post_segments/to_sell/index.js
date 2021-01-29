@@ -28,6 +28,10 @@ const configData = [
         title: "Price",
         type: "currency",
       },
+      {
+        title: "Original Price",
+        type: "currency",
+      },
     ],
     title: "Price",
     type: "rowContainer",
@@ -59,9 +63,31 @@ const configData = [
         id: 5,
         text: "Garden",
       },
+      {
+        id: 6,
+        text: "Electronics",
+      },
     ],
     title: "Choose category",
     type: "radioSelectionList",
+  },
+  {
+    list: [
+      {
+        id: 0,
+        text: "New",
+      },
+      {
+        id: 1,
+        text: "Used",
+      },
+      {
+        id: 2,
+        text: "Refurbished",
+      },
+    ],
+    title: "Condition",
+    type: "selectionList",
   },
   {
     type: "textDescription",

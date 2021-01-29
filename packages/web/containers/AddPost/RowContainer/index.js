@@ -20,6 +20,8 @@ import Radio from "reusecore/src/elements/Radio";
 import PriceInfo from "../PriceInfo";
 import SelctionListSection from "../SelctionListSection";
 
+import TitleInfo from "../../AddPostModal/TitleInfo";
+
 const colourStyles = {
   control: () => ({
     display: "flex",
@@ -153,6 +155,9 @@ const RowContainer = (props) => {
           switch (section.type) {
             case "currency":
               return <PriceInfo section={section} />;
+
+            case "textBox":
+              return <TitleInfo section={section} />;
 
             case "selectionList":
               return <SelctionListSection section={section} />;

@@ -18,9 +18,20 @@ const configData = [
     title: "Title",
     type: "textField",
   },
+
   {
-    title: "Area (Location)",
-    type: "textBox",
+    list: [
+      {
+        title: "Address",
+        type: "textBox",
+      },
+      {
+        title: "Zip Code",
+        type: "textBox",
+      },
+    ],
+    title: "",
+    type: "rowContainer",
   },
   {
     list: [
@@ -41,18 +52,59 @@ const configData = [
     type: "rowContainer",
   },
   {
-    list: [
-      {
-        title: "Budget",
-        type: "currency",
-      },
-    ],
-    title: "Price",
-    type: "rowContainer",
+    title: "Budget",
+    type: "currency",
   },
   {
-    type: "textBox",
-    title: "Zip Code",
+    list: [
+      {
+        title: "Type of House",
+        list: [
+          {
+            id: 0,
+            text: "Entire Flat",
+          },
+          {
+            id: 1,
+            text: "Room",
+          },
+          {
+            id: 2,
+            text: "Shared Apartment",
+          },
+          {
+            id: 3,
+            text: "Dormitory",
+          },
+        ],
+        type: "selectionList",
+        isMulti: false,
+      },
+      {
+        title: "Amenities",
+        type: "selectionList",
+        isMulti: true,
+        list: [
+          {
+            id: 0,
+            text: "Laundry",
+          },
+          {
+            id: 1,
+            text: "Internet",
+          },
+          {
+            id: 2,
+            text: "Car Parking",
+          },
+          {
+            id: 3,
+            text: "HVAC",
+          },
+        ],
+      },
+    ],
+    type: "rowContainer",
   },
   {
     type: "textDescription",
@@ -68,7 +120,7 @@ function updateCategoryList_toSell() {
     .update(usersUpdate);
 }
 
-// updateCategoryList_toSell();
+updateCategoryList_toSell();
 
 // feature flags
 const flagConfig = {
@@ -84,4 +136,4 @@ function updateCategoryFlags() {
     .update(usersUpdate);
 }
 
-updateCategoryFlags();
+// updateCategoryFlags();

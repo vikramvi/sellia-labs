@@ -28,7 +28,7 @@ const GET_AUTHOR_MOBILE_NUMBER = gql`
 `;
 
 let imagesUrl = [];
-const TextDescription = (props) => {
+const TextDescription = ({ section }) => {
   const { state, dispatch } = useContext(AddPostContext);
   const [btnLoading, setBtnLoading] = useState(false);
   const [publishBtnLoading, setPublishBtnLoading] = useState(false);
@@ -87,7 +87,7 @@ const TextDescription = (props) => {
             type: "text",
             required: "required",
           }}
-          label="Details"
+          label={section.title ?? "Details"}
           changed={(details) =>
             dispatch({
               type: "UPDATE_ADPOST",

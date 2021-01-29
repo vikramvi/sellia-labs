@@ -20,6 +20,7 @@ import "./style.css";
 import PickImages from "../../containers/AddPost/PickImages";
 import TitleInfo from "../../containers/AddPostModal/TitleInfo";
 import RowContainer from "../../containers/AddPost/RowContainer";
+import SelctionListSection from "../../containers/AddPost/SelctionListSection";
 
 import CategoryAndDetailInfo from "../../containers/AddPost/CategoryAndDetailInfo";
 import LocationInfo from "../../containers/AddPost/LocationInfo";
@@ -489,6 +490,9 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
 
                     case "rowContainer":
                       return <RowContainer list={section.list} />;
+
+                    case "selectionList":
+                      return <SelctionListSection section={section} />;
                   }
                 })}
             </Col>
