@@ -17,27 +17,30 @@ const configData = [
   {
     title: "Title",
     type: "textField",
+    key: "title",
   },
   {
     title: "City",
     type: "textBox",
+    key: "city",
   },
   {
     list: [
       {
         title: "Price",
         type: "currency",
+        key: "price",
       },
       {
         title: "Original Price",
         type: "currency",
+        key: "originalPrice",
       },
     ],
     title: "Price",
     type: "rowContainer",
   },
   {
-    key: "choose_category",
     list: [
       {
         id: "0",
@@ -69,6 +72,7 @@ const configData = [
       },
     ],
     title: "Choose category",
+    key: "category",
     type: "radioSelectionList",
   },
   {
@@ -88,10 +92,12 @@ const configData = [
     ],
     title: "Condition",
     type: "selectionList",
+    key: "condition",
   },
   {
     type: "textDescription",
     title: "Description",
+    key: "content",
   },
 ];
 

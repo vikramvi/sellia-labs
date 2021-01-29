@@ -91,7 +91,7 @@ const TextDescription = ({ section }) => {
           changed={(details) =>
             dispatch({
               type: "UPDATE_ADPOST",
-              payload: { key: "content", value: details.target.value },
+              payload: { key: section.key, value: details.target.value },
             })
           }
           value={adPost.content}

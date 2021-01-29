@@ -73,35 +73,11 @@ export default ({ section }) => {
     };
   }
 
-  useEffect(() => {
-    (async function() {
-      if (imagesUrl.length) {
-        try {
-          const data = await postMutation({
-            variables: {
-              post: finalData,
-            },
-          });
-          console.log(data, "data");
-          setBtnLoading(false);
-          if (!adPost.id) {
-            dispatch({
-              type: "UPDATE_ADPOST",
-              payload: { key: "id", value: data.data.addPost.id },
-            });
-          }
-        } catch (error) {
-          setBtnLoading(false);
-        }
-      }
-    })();
-  }, [prossedAdPostData.gallery]);
-
   return (
     <>
       <Input
         elementType="input"
-        value={adPost.title}
+        value={adPost[section.key]}
         elementConfig={{
           type: "text",
           required: "required",
@@ -110,13 +86,13 @@ export default ({ section }) => {
         changed={(title) => {
           dispatch({
             type: "UPDATE_ADPOST",
-            payload: { key: "title", value: title.target.value },
+            payload: { key: section.key, value: title.target.value },
           });
           // if (adPost.slug === '') {
-          dispatch({
-            type: "UPDATE_ADPOST",
-            payload: { key: "slug", value: getSlug(title.target.value) },
-          });
+          // dispatch({
+          //   type: "UPDATE_ADPOST",
+          //   payload: { key: "slug", value: getSlug(title.target.value) },
+          // });
           // }
         }}
       />

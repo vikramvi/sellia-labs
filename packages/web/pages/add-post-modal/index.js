@@ -125,6 +125,9 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   };
 
   const validateForm = () => {
+    //TODO: category specific validation
+    return true;
+
     if (
       adPost.brand &&
       Object.keys(adPost.categories).length &&
@@ -152,11 +155,6 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           console.log(`Encountered error: ${err}`);
         }
       );
-
-      // arrCategories.forEach((item) => {
-      //   let categoryOptions = { ...item, value: item.title, label: item.title };
-      //   options.push(categoryOptions);
-      // });
 
       setPostSegments(arrCategories);
     });

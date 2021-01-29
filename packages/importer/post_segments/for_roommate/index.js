@@ -18,7 +18,6 @@ const configData = [
     title: "Title",
     type: "textField",
   },
-
   {
     list: [
       {

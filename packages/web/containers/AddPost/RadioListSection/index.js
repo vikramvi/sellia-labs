@@ -201,61 +201,14 @@ const RadioListSection = (props) => {
     };
   }
 
-  useEffect(() => {
-    (async function() {
-      if (imagesUrl.length) {
-        try {
-          const data = await postMutation({
-            variables: {
-              post: { ...finalData, status: "publish" },
-            },
-          });
-          setPublishBtnLoading(false);
-          setBtnLoading(false);
-          if (!adPost.id) {
-            dispatch({
-              type: "UPDATE_ADPOST",
-              payload: { key: "id", value: data.data.addPost.id },
-            });
-          }
-          publishModal(data);
-        } catch (error) {
-          setPublishBtnLoading(false);
-          setBtnLoading(false);
-        }
-      }
-    })();
-  }, [prossedAdPostData.gallery]);
-
-  // useEffect(() => {
-  //   (async function() {
-  //     if (imagesUrl.length) {
-  //       try {
-  //         const data = await postMutation({
-  //           variables: {
-  //             post: finalData,
-  //           },
-  //         });
-  //         setBtnLoading(false);
-  //         if (!adPost.id) {
-  //           dispatch({
-  //             type: "UPDATE_ADPOST",
-  //             payload: { key: "id", value: data.data.addPost.id },
-  //           });
-  //         }
-  //       } catch (error) {
-  //         setBtnLoading(false);
-  //       }
-  //     }
-  //   })();
-  // }, [prossedAdPostData.gallery]);
-
   const loadOptions = async (fetchMore, inputValue, callback, loading) => {
     const filteredData = options.filter((item) =>
       item.slug.includes(inputValue)
     );
     callback(filteredData);
   };
+
+  const name = props.section.key;
 
   return (
     <Box flexBox flexDirection="column" mb={10}>
@@ -272,21 +225,21 @@ const RadioListSection = (props) => {
         flexWrap="wrap"
         alignItems="space-between"
       >
-        {props.section.list.map((brand, key) => {
+        {props.section.list.map((section, key) => {
           return (
             <Radio
               style={{ width: "30%", margin: "2px" }}
               id={key}
-              value={adPost.brand}
-              name="brand"
-              labelText={brand.text}
+              value={adPost[name]}
+              name={name}
+              labelText={section.text}
               onChange={() => {
                 dispatch({
                   type: "UPDATE_ADPOST",
-                  payload: { key: "brand", value: brand.text },
+                  payload: { key: props.section.key, value: section.text },
                 });
               }}
-              checked={adPost.brand === brand.text}
+              checked={adPost[name] === section.text}
             />
           );
         })}{" "}

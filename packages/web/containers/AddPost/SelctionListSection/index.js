@@ -1,56 +1,56 @@
-import React, { useState, useContext, useEffect } from 'react';
-import Icon from 'react-icons-kit';
-import { archive } from 'react-icons-kit/ionicons/archive';
-import { chevronRight } from 'react-icons-kit/ionicons/chevronRight';
-import { uploadMultipleImages } from '../../../helpers/uploadMultipleImage';
-import Box from 'reusecore/src/elements/Box';
-import Button from 'reusecore/src/elements/Button';
-import { chevronLeft } from 'react-icons-kit/ionicons/chevronLeft';
-import Text from 'reusecore/src/elements/Text';
-import Input from '../../../components/Input';
-import { ADD_POST } from 'core/graphql/Mutations';
-import AsyncSelect from 'react-select/async';
-import { AddPostContext } from '../../../contexts/AddPostContext';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import AuthHelper from '../../../helpers/authHelper';
-import { GET_CATEGORIES_FOR_DROPDOWN } from 'core/graphql/Category.query';
-import PublishModal from '../../ModalContainer/PostPublishModal';
-import { openModal, closeModal } from '@redq/reuse-modal';
-import Radio from 'reusecore/src/elements/Radio';
-import { toCamelCase } from '../../../helpers/utility';
+import React, { useState, useContext, useEffect } from "react";
+import Icon from "react-icons-kit";
+import { archive } from "react-icons-kit/ionicons/archive";
+import { chevronRight } from "react-icons-kit/ionicons/chevronRight";
+import { uploadMultipleImages } from "../../../helpers/uploadMultipleImage";
+import Box from "reusecore/src/elements/Box";
+import Button from "reusecore/src/elements/Button";
+import { chevronLeft } from "react-icons-kit/ionicons/chevronLeft";
+import Text from "reusecore/src/elements/Text";
+import Input from "../../../components/Input";
+import { ADD_POST } from "core/graphql/Mutations";
+import AsyncSelect from "react-select/async";
+import { AddPostContext } from "../../../contexts/AddPostContext";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import AuthHelper from "../../../helpers/authHelper";
+import { GET_CATEGORIES_FOR_DROPDOWN } from "core/graphql/Category.query";
+import PublishModal from "../../ModalContainer/PostPublishModal";
+import { openModal, closeModal } from "@redq/reuse-modal";
+import Radio from "reusecore/src/elements/Radio";
+import { toCamelCase } from "../../../helpers/utility";
 
 const colourStyles = {
   control: () => ({
-    display: 'flex',
-    backgroundColor: 'transparent',
-    color: '#8c8c8c',
-    border: '0',
-    borderBottom: '1px solid #e2e2e2',
+    display: "flex",
+    backgroundColor: "transparent",
+    color: "#8c8c8c",
+    border: "0",
+    borderBottom: "1px solid #e2e2e2",
   }),
-  valueContainer: base => ({
+  valueContainer: (base) => ({
     ...base,
-    padding: '0',
+    padding: "0",
   }),
   placeholder: () => ({
-    color: '#8c8c8c',
+    color: "#8c8c8c",
   }),
   indicatorSeparator: () => ({
-    display: 'none',
+    display: "none",
   }),
   input: () => ({
-    color: '#8c8c8c',
+    color: "#8c8c8c",
   }),
   dropdownIndicator: () => ({
-    padding: '8px 0',
+    padding: "8px 0",
   }),
 };
 
-const publishModal = newPost => {
+const publishModal = (newPost) => {
   if (
     newPost &&
     newPost.data &&
     newPost.data.addPost &&
-    newPost.data.addPost.status === 'publish'
+    newPost.data.addPost.status === "publish"
   ) {
     openModal({
       config: {
@@ -75,8 +75,8 @@ const publishModal = newPost => {
       componentProps: {
         data: {
           closeModal,
-          title: 'Congrats!!!',
-          message: 'Your account information saved successfully',
+          title: "Congrats!!!",
+          message: "Your account information saved successfully",
           slug: newPost.data.addPost.slug,
         },
       },
@@ -85,7 +85,7 @@ const publishModal = newPost => {
 };
 
 let imagesUrl = [];
-const SelctionListSection = props => {
+const SelctionListSection = (props) => {
   const { state, dispatch } = useContext(AddPostContext);
   const [btnLoading, setBtnLoading] = useState(false);
   const [publishBtnLoading, setPublishBtnLoading] = useState(false);
@@ -112,14 +112,14 @@ const SelctionListSection = props => {
     await AuthHelper.refreshToken();
     setPublishBtnLoading(true);
     dispatch({
-      type: 'UPDATE_ADPOST',
-      payload: { key: 'status', value: 'publish' },
+      type: "UPDATE_ADPOST",
+      payload: { key: "status", value: "publish" },
     });
     if (adPost.localGallery.length) {
       imagesUrl = await uploadMultipleImages(adPost.localGallery);
       if (imagesUrl && imagesUrl.length > 0) {
         dispatch({
-          type: 'UPDATE_FULL_ADPOST',
+          type: "UPDATE_FULL_ADPOST",
           payload: {
             gallery: adPost.gallery.concat(imagesUrl[0]),
             image: !adPost.image.url ? imagesUrl[0][0] : adPost.image,
@@ -132,19 +132,19 @@ const SelctionListSection = props => {
       try {
         const data = await postMutation({
           variables: {
-            post: { ...finalData, status: 'publish' },
+            post: { ...finalData, status: "publish" },
           },
         });
         setPublishBtnLoading(false);
         if (!adPost.id) {
           dispatch({
-            type: 'UPDATE_ADPOST',
-            payload: { key: 'id', value: data.data.addPost.id },
+            type: "UPDATE_ADPOST",
+            payload: { key: "id", value: data.data.addPost.id },
           });
         }
         publishModal(data);
       } catch (error) {
-        console.log(error, 'error');
+        console.log(error, "error");
         setPublishBtnLoading(false);
       }
     }
@@ -157,7 +157,7 @@ const SelctionListSection = props => {
       imagesUrl = await uploadMultipleImages(adPost.localGallery);
       if (imagesUrl && imagesUrl.length > 0) {
         dispatch({
-          type: 'UPDATE_FULL_ADPOST',
+          type: "UPDATE_FULL_ADPOST",
           payload: {
             gallery: adPost.gallery.concat(imagesUrl[0]),
             image: !adPost.image.url ? imagesUrl[0][0] : adPost.image,
@@ -176,8 +176,8 @@ const SelctionListSection = props => {
         setBtnLoading(false);
         if (!adPost.id) {
           dispatch({
-            type: 'UPDATE_ADPOST',
-            payload: { key: 'id', value: data.data.addPost.id },
+            type: "UPDATE_ADPOST",
+            payload: { key: "id", value: data.data.addPost.id },
           });
         }
       } catch (error) {
@@ -207,15 +207,15 @@ const SelctionListSection = props => {
         try {
           const data = await postMutation({
             variables: {
-              post: { ...finalData, status: 'publish' },
+              post: { ...finalData, status: "publish" },
             },
           });
           setPublishBtnLoading(false);
           setBtnLoading(false);
           if (!adPost.id) {
             dispatch({
-              type: 'UPDATE_ADPOST',
-              payload: { key: 'id', value: data.data.addPost.id },
+              type: "UPDATE_ADPOST",
+              payload: { key: "id", value: data.data.addPost.id },
             });
           }
           publishModal(data);
@@ -251,10 +251,14 @@ const SelctionListSection = props => {
   // }, [prossedAdPostData.gallery]);
 
   const loadOptions = async (fetchMore, inputValue, callback, loading) => {
-    const filteredData = options.filter(item => item.slug.includes(inputValue));
+    const filteredData = options.filter((item) =>
+      item.slug.includes(inputValue)
+    );
     callback(filteredData);
   };
-  const name = toCamelCase(props.section.title);
+
+  const name = toCamelCase(props.section.key);
+
   return (
     <>
       <Box flexBox flexDirection="column" mb={40}>
@@ -262,7 +266,7 @@ const SelctionListSection = props => {
           content={props.section.title}
           pb={10}
           pt={10}
-          style={{ fontSize: 16, fontWeight: 400, color: '#595959' }}
+          style={{ fontSize: 16, fontWeight: 400, color: "#595959" }}
         />
         {props.section.list.map((section, key) => {
           return (
@@ -274,8 +278,8 @@ const SelctionListSection = props => {
                 labelText={section.text}
                 onChange={() => {
                   dispatch({
-                    type: 'UPDATE_ADPOST',
-                    payload: { key: name, value: section.text },
+                    type: "UPDATE_ADPOST",
+                    payload: { key: props.section.key, value: section.text },
                   });
                 }}
                 checked={adPost[name] === section.text}

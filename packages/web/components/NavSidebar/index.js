@@ -1,12 +1,12 @@
-import React from 'react';
-import Button from 'reusecore/src/elements/Button';
-import Logo from '../Logo';
-import Search from '../Search';
-import Menu from '../Menu';
-import { NavSidebarWrapper } from './style';
-import logoImg from 'core/static/images/headless-logo.svg';
-import { SEARCH_PAGE } from 'core/navigation/constant';
-import './style.css';
+import React from "react";
+import Button from "reusecore/src/elements/Button";
+import Logo from "../Logo";
+import Search from "../Search";
+import Menu from "../Menu";
+import { NavSidebarWrapper } from "./style";
+import logoImg from "core/static/images/headless-logo.svg";
+import { SEARCH_PAGE } from "core/navigation/constant";
+import "./style.css";
 
 const NavSidebar = ({
   onToggle,
@@ -25,7 +25,7 @@ const NavSidebar = ({
         <section
           className="nav-bar"
           id="navigation"
-          tabindex="0"
+          tabIndex="0"
           aria-label="Navigation menu"
         >
           <ul className="nav-bar-list">
@@ -100,7 +100,7 @@ const NavSidebar = ({
           <hr className="nav-bar-hr"></hr>
           <div
             className="nav-bar-section-title"
-            tabindex="0"
+            tabIndex="0"
             aria-label="Groups"
           >
             Categories
@@ -149,7 +149,7 @@ const NavSidebar = ({
 
           <div
             className="nav-bar-section-title"
-            tabindex="0"
+            tabIndex="0"
             aria-label="Neighborhood"
           >
             Neighborhood
@@ -201,7 +201,7 @@ const NavSidebar = ({
 
           <div
             className="nav-bar-section-title"
-            tabindex="0"
+            tabIndex="0"
             aria-label="Directories"
           >
             Directories
@@ -249,7 +249,7 @@ const NavSidebar = ({
           </div>
           <footer
             className="nav-bar-bottom-nav"
-            tabindex="0"
+            tabIndex="0"
             aria-label="Footer"
           >
             <ul className="nav-bar-inline-list">
