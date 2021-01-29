@@ -204,7 +204,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
               image: data.post.image,
               gallery: data.post.gallery,
               isNegotiable: data.post.isNegotiable,
-              authorId: userId,
+              authorId: props.data.userId,
               content: data.post.content,
               status: data.post.status,
               slug: data.post.slug,
@@ -259,7 +259,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           const reqData = {
             image: adPost.image,
             brand: adPost.brand,
-            authorId: "1YFGEa6esERO1DpMDKd40598e6m2",
+            authorId: props.data.userId,
             gallery: adPost.gallery,
             title: adPost.title ?? "",
             slug: "test",
@@ -343,7 +343,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           const reqData = {
             image: {},
             brand: adPost.brand,
-            authorId: "1YFGEa6esERO1DpMDKd40598e6m2",
+            authorId: props.data.userId,
             gallery: [],
             title: "test",
             slug: "test",

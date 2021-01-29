@@ -144,6 +144,7 @@ const Menu = ({
       componentProps: {
         data: {
           closeModal,
+          userId,
         },
       },
       config: {
