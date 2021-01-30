@@ -1,7 +1,7 @@
-const admin = require("firebase-admin");
-const fs = require("fs");
-const serviceAccount = require("../../headless-graphql-firebase-config.json");
-const dotenv = require("dotenv");
+const admin = require('firebase-admin');
+const fs = require('fs');
+const serviceAccount = require('../../headless-graphql-firebase-config.json');
+const dotenv = require('dotenv');
 dotenv.config();
 
 // You should replace databaseURL with your own
@@ -15,12 +15,14 @@ db.settings({ timestampsInSnapshots: true });
 
 const configData = [
   {
-    title: "Title",
-    type: "textField",
+    title: 'Title',
+    type: 'textField',
+    key: 'title',
   },
   {
-    type: "textDescription",
-    title: "Description",
+    type: 'textDescription',
+    title: 'Description',
+    key: 'content',
   },
 ];
 
@@ -28,12 +30,12 @@ function updateCategorySection() {
   var usersUpdate = {};
   usersUpdate[`sections`] = configData;
 
-  db.collection("post_segments")
-    .doc("for_recommendation")
+  db.collection('post_segments')
+    .doc('for_recommendation')
     .update(usersUpdate);
 }
 
-// updateCategorySection();
+updateCategorySection();
 
 // feature flags
 const flagConfig = {
@@ -44,9 +46,9 @@ function updateCategoryFlags() {
   var usersUpdate = {};
   usersUpdate[`feature`] = flagConfig;
 
-  db.collection("post_segments")
-    .doc("for_recommendation")
+  db.collection('post_segments')
+    .doc('for_recommendation')
     .update(usersUpdate);
 }
 
-updateCategoryFlags();
+// updateCategoryFlags();

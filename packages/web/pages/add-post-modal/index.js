@@ -215,20 +215,25 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
               payload: { id: id },
             });
           }
-          let location = null;
-          if (data.post.formattedLocation && data.post.formattedLocation.lat) {
-            location = {
-              lat:
-                data.post.formattedLocation && data.post.formattedLocation.lat,
-              lng:
-                data.post.formattedLocation && data.post.formattedLocation.lng,
-              formattedAddress:
-                data.post.formattedLocation &&
-                data.post.formattedLocation.formattedAddress
-                  ? data.post.formattedLocation.formattedAddress
-                  : '',
-            };
-          }
+          let location = {
+            lat: 38.9586307,
+            lng: -77.35700279999999,
+            formattedAddress: 'Reston, VA, USA',
+          };
+
+          // if (data.post.formattedLocation && data.post.formattedLocation.lat) {
+          //   location = {
+          //     lat:
+          //       data.post.formattedLocation && data.post.formattedLocation.lat,
+          //     lng:
+          //       data.post.formattedLocation && data.post.formattedLocation.lng,
+          //     formattedAddress:
+          //       data.post.formattedLocation &&
+          //       data.post.formattedLocation.formattedAddress
+          //         ? data.post.formattedLocation.formattedAddress
+          //         : "",
+          //   };
+          // }
 
           dispatch({
             type: 'UPDATE_FULL_ADPOST',
@@ -395,7 +400,6 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
             belongsTo: adPost.belongsTo,
             originalPrice: adPost.originalPrice,
             isNegotiable: true,
-            condition: adPost.condition,
             categories: [
               {
                 slug: 'car',
