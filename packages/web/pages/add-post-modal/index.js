@@ -75,12 +75,13 @@ const colourStyles = {
 };
 let imagesUrl = [];
 const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
-  console.log("close modal", props);
+  console.log("userId in modal", userId);
   let counter = 0;
   const { state, dispatch } = useContext(AddPostContext);
   const { step, adPost } = state;
 
   const [postSegments, setPostSegments] = useState([]);
+  const [selectedSegment, setSelectedSegment] = useState();
 
   const [isSegmentListOpen, setSegmentListOpen] = useState(true);
 
@@ -100,10 +101,19 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
       type: "UPDATE_ADPOST",
       payload: {
         key: "categories",
-        value: selectedCategories,
+        value: [
+          {
+            id: selectedCategories.id,
+            label: selectedCategories.label,
+            name: selectedCategories.label,
+            slug: selectedCategories.label,
+            value: selectedCategories.value,
+          },
+        ],
       },
     });
 
+    setSelectedSegment(selectedCategories);
     setSegmentListOpen(false);
   };
 
@@ -158,6 +168,31 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
 
       setPostSegments(arrCategories);
     });
+  };
+
+  const submitPostServer = async () => {
+    //read from firestore
+
+    const finalData = {
+      ...prossedAdPostData,
+      status: "publish",
+      authorId: props.data.userId,
+      slug: adPost.title + "-" + Date.now(),
+    };
+
+    console.log("submitting ->", finalData);
+
+    try {
+      const post = await db
+        .collection("posts")
+        .add(finalData)
+        .then((doc) => {
+          // return this.byId({ id: doc.id });
+        });
+      return post;
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
   };
 
   if (id != "new") {
@@ -250,7 +285,14 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
     location,
     ...prossedAdPostData
   } = adPost;
+
   let finalData = prossedAdPostData;
+  if (location && location.lat) {
+    finalData = {
+      ...prossedAdPostData,
+      location,
+    };
+  }
 
   console.log("prossedAdPostData ->", prossedAdPostData);
 
@@ -259,57 +301,63 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
       if (imagesUrl.length) {
         try {
           console.log("on submit ->", finalData);
-
-          const reqData = {
-            image: adPost.image,
-            brand: adPost.brand,
-            authorId: props.data.userId,
-            gallery: adPost.gallery,
-            title: adPost.title ?? "",
-            slug: "test",
-            price: adPost.price,
-            belongsTo: adPost.belongsTo,
-            originalPrice: adPost.originalPrice,
-            isNegotiable: true,
-            condition: adPost.condition,
-            categories: [
-              {
-                id: "fKJqetAGRZElL8ct0gJT",
-                slug: "car",
-                name: "Car",
-                value: "fKJqetAGRZElL8ct0gJT",
-                label: "Car",
-              },
-            ],
-            content: adPost.content,
-            contactNumber: "",
-            status: "publish",
-            location: {
-              lat: 38.9586307,
-              lng: -77.35700279999999,
-              formattedAddress: "Reston, VA, USA",
-            },
-          };
-
-          const data = await postMutation({
-            variables: {
-              post: { ...reqData, status: "publish" },
-            },
-          });
-          setPublishBtnLoading(false);
-          if (!adPost.id) {
-            dispatch({
-              type: "UPDATE_ADPOST",
-              payload: { key: "id", value: data.data.addPost.id },
-            });
-          }
-          props.data.closeModal();
+          uploadPost();
         } catch (error) {
           setPublishBtnLoading(false);
         }
       }
     })();
   }, [prossedAdPostData.gallery]);
+
+  const uploadPost = async () => {
+    submitPostServer();
+
+    /*
+    const reqData = {
+      image: adPost.image,
+      brand: adPost.brand,
+      authorId: props.data.userId,
+      gallery: adPost.gallery,
+      title: adPost.title ?? "",
+      slug: "test",
+      price: adPost.price,
+      belongsTo: adPost.belongsTo,
+      originalPrice: adPost.originalPrice,
+      isNegotiable: true,
+      condition: adPost.condition,
+      categories: [
+        {
+          id: "fKJqetAGRZElL8ct0gJT",
+          slug: "car",
+          name: "Car",
+          value: "fKJqetAGRZElL8ct0gJT",
+          label: "Car",
+        },
+      ],
+      content: adPost.content,
+      contactNumber: "",
+      status: "publish",
+      location: {
+        lat: 38.9586307,
+        lng: -77.35700279999999,
+        formattedAddress: "Reston, VA, USA",
+      },
+    };
+
+    const data = await postMutation({
+      variables: {
+        post: { ...finalData, status: "publish" },
+      },
+    });
+    setPublishBtnLoading(false);
+    if (!adPost.id) {
+      dispatch({
+        type: "UPDATE_ADPOST",
+        payload: { key: "id", value: data.data.addPost.id },
+      });
+    }*/
+    props.data.closeModal();
+  };
 
   const loadOptions = async (fetchMore, inputValue, callback, loading) => {
     console.log("input value", inputValue);
@@ -344,52 +392,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
         try {
           //reqdata
 
-          const reqData = {
-            image: {},
-            brand: adPost.brand,
-            authorId: props.data.userId,
-            gallery: [],
-            title: adPost.title,
-            slug: "test",
-            price: adPost.price,
-            belongsTo: adPost.belongsTo,
-            originalPrice: adPost.originalPrice,
-            isNegotiable: true,
-            categories: [
-              {
-                id: "fKJqetAGRZElL8ct0gJT",
-                slug: "car",
-                name: "Car",
-                value: "fKJqetAGRZElL8ct0gJT",
-                label: "Car",
-              },
-            ],
-            content: adPost.content,
-            contactNumber: "",
-            status: "draft",
-            location: {
-              lat: 38.9586307,
-              lng: -77.35700279999999,
-              formattedAddress: "Reston, VA, USA",
-            },
-          };
-
-          console.log("reqData ->", JSON.stringify(reqData, null, 2));
-
-          const data = await postMutation({
-            variables: {
-              post: { ...reqData, status: "publish" },
-            },
-          });
-          setPublishBtnLoading(false);
-          if (!adPost.id) {
-            dispatch({
-              type: "UPDATE_ADPOST",
-              payload: { key: "id", value: data.data.addPost.id },
-            });
-          }
-
-          props.data.closeModal();
+          uploadPost();
         } catch (error) {
           console.log(error, "error");
           setPublishBtnLoading(false);
@@ -407,22 +410,8 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           width: "100%",
         }}
       >
-        {console.log("postSegments ->", JSON.stringify(postSegments, null, 2))}
+        {/* {console.log("postSegments ->", JSON.stringify(postSegments, null, 2))} */}
 
-        {console.log("options -> \n", options)}
-
-        {postSegments.forEach((post) => {
-          console.log(post.title, "\n");
-        })}
-        {console.log("\n\n\n")}
-        {postSegments.forEach((post) => {
-          if (post.sections && post.sections.length > 0) {
-            post.sections.forEach((section) => {
-              console.log(section.title);
-            });
-          }
-        })}
-        {console.log("\n\n\n")}
         <TopToolBar
           onClose={() => {
             props.data.closeModal();
@@ -430,7 +419,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
         />
         <Row>
           <Box>
-            {state.adPost.categories.sections && (
+            {selectedSegment && selectedSegment.sections && (
               <Box flexBox flexDirection="row" alignItems="center">
                 {/* <Text
                   content="I am looking"
@@ -443,7 +432,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
                 /> */}
                 <Text
                   onClick={() => setSegmentListOpen(true)}
-                  content={state.adPost.categories.title}
+                  content={selectedSegment.title}
                   textAlign="center"
                   className="segment-menu-item-link"
                   style={{
@@ -471,10 +460,9 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           <Row>
             {/* <Col xs={12}> */}
             <Col xs={12} sm={12} md={12}>
-              {state.adPost.categories.sections &&
-                state.adPost.categories.sections.length > 0 &&
-                state.adPost.categories.sections.map((section, index) => {
-                  console.log("section ->", section);
+              {selectedSegment.sections &&
+                selectedSegment.sections.length > 0 &&
+                selectedSegment.sections.map((section, index) => {
                   switch (section.type) {
                     case "radioSelectionList":
                       return <RadioListSection section={section} />;
@@ -509,8 +497,8 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           flexDirection="row"
         >
           {!isSegmentListOpen &&
-            state.adPost.categories &&
-            state.adPost.categories.feature.add_photo && <AdImagesInfo />}
+            selectedSegment &&
+            selectedSegment.feature.add_photo && <AdImagesInfo />}
           {!isSegmentListOpen && (
             <Button
               title="Post"
