@@ -17,10 +17,12 @@ const configData = [
   {
     title: "Title",
     type: "textField",
+    key: "title",
   },
   {
     type: "textDescription",
     title: "Description",
+    key: "content",
   },
 ];
 
@@ -33,7 +35,7 @@ function updateCategorySection() {
     .update(usersUpdate);
 }
 
-// updateCategorySection();
+updateCategorySection();
 
 // feature flags
 const flagConfig = {
@@ -49,4 +51,4 @@ function updateCategoryFlags() {
     .update(usersUpdate);
 }
 
-updateCategoryFlags();
+// updateCategoryFlags();

@@ -17,16 +17,19 @@ const configData = [
   {
     title: "Title",
     type: "textField",
+    key: "title",
   },
   {
     list: [
       {
         title: "Address",
         type: "textBox",
+        key: "address",
       },
       {
         title: "Zip Code",
         type: "textBox",
+        key: "zip",
       },
     ],
     title: "",
@@ -37,14 +40,17 @@ const configData = [
       {
         title: "Beds",
         type: "textBox",
+        key: "beds",
       },
       {
         title: "Baths",
         type: "textBox",
+        key: "baths",
       },
       {
         title: "No. of Roommates",
         type: "textBox",
+        key: "roomies",
       },
     ],
     title: "",
@@ -53,6 +59,7 @@ const configData = [
   {
     title: "Budget",
     type: "currency",
+    key: "budget",
   },
   {
     list: [
@@ -78,10 +85,12 @@ const configData = [
         ],
         type: "selectionList",
         isMulti: false,
+        key: "type",
       },
       {
         title: "Amenities",
         type: "selectionList",
+        key: "amenities",
         isMulti: true,
         list: [
           {
@@ -108,6 +117,7 @@ const configData = [
   {
     type: "textDescription",
     title: "Description",
+    key: "content",
   },
 ];
 function updateCategoryList_toSell() {

@@ -257,7 +257,7 @@ const SelctionListSection = (props) => {
     callback(filteredData);
   };
 
-  const name = toCamelCase(props.section.key);
+  const name = props.section.key;
 
   return (
     <>
