@@ -153,11 +153,11 @@ export const typeDefs = `
     image: imageInput
     price: Float
     originalPrice: Float
-    brand: String!
-    belongsTo: String!
-    location: locationInput!
+    brand: String
+    belongsTo: String
+    location: locationInput
     categories: [categoryInput!]!
-    gallery: [imageInput!]!
+    gallery: [imageInput!]
     isNegotiable: Boolean
     condition: String
     createdAt: String
