@@ -19,24 +19,29 @@ const configData = [
   {
     title: "Title",
     type: "textField",
+    key: "title",
   },
   {
     list: [
       {
         title: "Beds",
         type: "textBox",
+        key: "beds",
       },
       {
         title: "Baths",
         type: "textBox",
+        key: "baths",
       },
       {
         title: "Lot Size",
         type: "textBox",
+        key: "lotSize",
       },
       {
         title: "Sq. Ft.",
         type: "textBox",
+        key: "sqft",
       },
     ],
     title: "",
@@ -47,6 +52,7 @@ const configData = [
       {
         title: "Price",
         type: "currency",
+        key: "currency",
       },
     ],
     title: "Price",
@@ -55,10 +61,12 @@ const configData = [
   {
     type: "textBox",
     title: "Zip Code",
+    key: "zip",
   },
   {
     type: "textDescription",
     title: "Description",
+    key: "content",
   },
 ];
 
