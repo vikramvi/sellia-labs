@@ -75,7 +75,6 @@ const colourStyles = {
 };
 let imagesUrl = [];
 const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
-  console.log("userId in modal", userId);
   let counter = 0;
   const { state, dispatch } = useContext(AddPostContext);
   const { step, adPost } = state;
@@ -87,15 +86,52 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
 
   const [isValidated, setIsValidated] = useState(false);
   const [publishBtnLoading, setPublishBtnLoading] = useState(false);
+  const [postData, setPostData] = useState({ ...props.data.postData });
 
   const [postMutation] = useMutation(ADD_POST);
 
   console.log("adpost values", adPost);
+  console.log("Props postdata", props.data.postData);
   // const {
   //   query: { id },
   // } = useRouter();
   const id = "new";
+  if (Object.keys(postData).length) {
+    useEffect(() => {
+      if (postData.categories[0].sections) {
+        // handleClick(postData.categories[0].sections)
 
+        dispatch({
+          type: "UPDATE_FULL_ADPOST",
+          payload: {
+            // localImage: {},
+            // localGallery: [],
+            categories: postData.categories[0] || [],
+            brand: postData.brand || "",
+            image: postData.image,
+            authorId: postData.authorId,
+            id: postData.id,
+            gallery: postData.gallery,
+            title: postData.title || "",
+            price: postData.price,
+            belongsTo: postData.belongsTo,
+            originalPrice: postData.originalPrice || 0,
+            isNegotiable: postData.isNegotiable,
+            condition: postData.condition,
+            content: postData.content || "",
+            contactNumber: postData.contactNumber || "",
+            status: postData.status || "",
+            location: postData.formattedLocation || {},
+            mileage: postData.mileage || 0,
+            miles: postData.miles || 0,
+            slug: postData.slug,
+          },
+        });
+
+        setSegmentListOpen(false);
+      }
+    }, [postData.categories[0]]);
+  }
   const handleClick = (selectedCategories) => () => {
     dispatch({
       type: "UPDATE_ADPOST",
@@ -273,9 +309,18 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
     postSegments.forEach((item) => {
       let categoryOptions = { ...item, value: item.title, label: item.title };
       options.push(categoryOptions);
+      if (
+        Object.keys(postData).length &&
+        Number(postData.categories[0].id) === item.id &&
+        !postData.categories[0].sections
+      ) {
+        setPostData({
+          ...postData,
+          categories: [{ ...categoryOptions, ...postData.categories[0] }],
+        });
+      }
     });
   }
-
   //listen to image upload success
   const {
     preImage,
@@ -392,7 +437,55 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
         try {
           //reqdata
 
-          uploadPost();
+          const reqData = {
+            image: adPost.image,
+            brand: adPost.brand,
+            authorId: props.data.userId,
+            gallery: adPost.gallery,
+            title: adPost.title,
+            slug: adPost.slug,
+            price: adPost.price,
+            belongsTo: adPost.belongsTo,
+            originalPrice: adPost.originalPrice,
+            isNegotiable: true,
+            categories: [
+              {
+                slug: "car",
+                name: "Car",
+                value: "fKJqetAGRZElL8ct0gJT",
+                id: adPost.categories.id,
+                label: adPost.categories.title,
+              },
+            ],
+            content: adPost.content,
+            contactNumber: "",
+            status: "draft",
+            location: {
+              lat: 38.9586307,
+              lng: -77.35700279999999,
+              formattedAddress: "Reston, VA, USA",
+            },
+          };
+          if (Object.keys(postData).length) {
+            reqData.id = adPost.id;
+          }
+
+          console.log("reqData ->", JSON.stringify(reqData, null, 2));
+
+          const data = await postMutation({
+            variables: {
+              post: { ...reqData, status: "publish" },
+            },
+          });
+          setPublishBtnLoading(false);
+          if (!adPost.id) {
+            dispatch({
+              type: "UPDATE_ADPOST",
+              payload: { key: "id", value: data.data.addPost.id },
+            });
+          }
+
+          props.data.closeModal();
         } catch (error) {
           console.log(error, "error");
           setPublishBtnLoading(false);
@@ -516,7 +609,6 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
 };
 
 function AdPostPage(props) {
-  console.log("props", props);
   return (
     <>
       <AddPostProvider>
