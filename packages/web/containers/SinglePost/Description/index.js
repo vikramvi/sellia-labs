@@ -1,57 +1,58 @@
-import React, { Fragment, useState } from "react";
-import Link from "next/link";
-import Router from "next/router";
-import Tag, { TagGroup, LabelTag } from "../../../components/TagGroup";
-import { openModal } from "@redq/reuse-modal";
-import ShareModal from "../../ModalContainer/ShareModal";
-import LoginModal from "../../ModalContainer/LoginModal";
-import ContactInfoModal from "../../ModalContainer/ContactInfoModal";
-import { CURRENCY } from "../../../Config";
-import { useMutation } from "@apollo/react-hooks";
-import { HANDLE_FAV } from "core/graphql/Mutations";
-import AuthHelper from "../../../helpers/authHelper";
-import AddressBox from "../../../components/AddressBox";
-import Text from "reusecore/src/elements/Text";
-import Icon from "../../../components/Icon";
-import Button from "reusecore/src/elements/Button";
-import InfoBox from "../../../components/UserInfoBox";
-import ReadMore from "../../../components/Truncate";
-import Box from "reusecore/src/elements/Box";
+import React, { Fragment, useState } from 'react';
+import Link from 'next/link';
+import Router from 'next/router';
+import Tag, { TagGroup, LabelTag } from '../../../components/TagGroup';
+import { openModal, closeModal } from '@redq/reuse-modal';
+import ShareModal from '../../ModalContainer/ShareModal';
+import LoginModal from '../../ModalContainer/LoginModal';
+import ContactInfoModal from '../../ModalContainer/ContactInfoModal';
+import { CURRENCY } from '../../../Config';
+import { useMutation } from '@apollo/react-hooks';
+import { HANDLE_FAV } from 'core/graphql/Mutations';
+import AuthHelper from '../../../helpers/authHelper';
+import AddressBox from '../../../components/AddressBox';
+import Text from 'reusecore/src/elements/Text';
+import Icon from '../../../components/Icon';
+import Button from 'reusecore/src/elements/Button';
+import InfoBox from '../../../components/UserInfoBox';
+import ReadMore from '../../../components/Truncate';
+import Box from 'reusecore/src/elements/Box';
+import AddPostModal from '../../../containers/ModalContainer/AddPostModal';
 
 import {
   ADD_POST,
   SINGLE_CATEGORY_PAGE,
   CHAT_PAGE,
-} from "core/navigation/constant";
+} from 'core/navigation/constant';
 
 import {
   DescriptionBlock,
   AlignCenterWrapper,
   InfoBoxWrapper,
   ButtonWrapper,
-} from "./description.style";
-import { json } from "body-parser";
+} from './description.style';
+import { json } from 'body-parser';
 
-import { UPDATE_POST_STATUS } from "core/graphql/Mutations";
+import { UPDATE_POST_STATUS } from 'core/graphql/Mutations';
 
-const timeFormatAMPM = (date) => {
-  return date.toLocaleString("en-US", { timeStyle: "short" });
+const timeFormatAMPM = date => {
+  return date.toLocaleString('en-US', { timeStyle: 'short' });
 };
 
-const dateFormatAMPM = (date) => {
-  return date.toLocaleString("en-US", { dateStyle: "medium" });
+const dateFormatAMPM = date => {
+  return date.toLocaleString('en-US', { dateStyle: 'medium' });
 };
 const Description = ({ postData, isLoggedIn, userId }) => {
-  console.log("postData ->", postData);
+  console.log('postData ->', postData);
 
   let userFavList = [];
   let userNewFavList = [];
-  let publishTime = "";
+  let publishTime = '';
   const [btnLoading, setBtnLoading] = useState(false);
   const favouritedBy =
     postData && postData.favouritedBy ? postData.favouritedBy : [];
   const contactNumber =
-    postData && postData.contactNumber ? postData.contactNumber : "";
+    postData && postData.contactNumber ? postData.contactNumber : '';
   const authorImage =
     postData.author && postData.author.image && postData.author.image.url
       ? postData.author.image.url
@@ -66,7 +67,7 @@ const Description = ({ postData, isLoggedIn, userId }) => {
   }
   const [userFav, setUserfav] = useState(userFavList);
   const isFavourite = (id, favList) => {
-    const favItem = favList.filter((item) => item.id === id);
+    const favItem = favList.filter(item => item.id === id);
     if (favItem.length) {
       return true;
     }
@@ -89,12 +90,12 @@ const Description = ({ postData, isLoggedIn, userId }) => {
     if (isLoggedIn) {
       await AuthHelper.refreshToken();
     }
-    console.log("handleFav IN 1");
+    console.log('handleFav IN 1');
     if (isLoggedIn) {
       try {
-        console.log("handleFav IN 2");
+        console.log('handleFav IN 2');
         const { data } = await handleFavMutation();
-        console.log("handleFav IN 3");
+        console.log('handleFav IN 3');
         userNewFavList =
           data &&
           data.handleFav &&
@@ -115,9 +116,9 @@ const Description = ({ postData, isLoggedIn, userId }) => {
       openModal({
         config: {
           disableDragging: false,
-          minHeight: "auto",
-          width: "auto",
-          height: "auto",
+          minHeight: 'auto',
+          width: 'auto',
+          height: 'auto',
           enableResizing: false,
           disableDragging: true,
           transition: {
@@ -125,17 +126,17 @@ const Description = ({ postData, isLoggedIn, userId }) => {
           },
         },
         springStyle: {
-          backgroundColor: "#ffffff",
-          overflowY: "auto",
+          backgroundColor: '#ffffff',
+          overflowY: 'auto',
         },
-        modalClass: "customModal",
+        modalClass: 'customModal',
         closeOnClickOutside: true,
         component: LoginModal,
         componentProps: {},
       });
     }
   };
-  let createdTime = "";
+  let createdTime = '';
 
   if (postData.createdAt) {
     if (postData.createdAt.seconds) {
@@ -148,7 +149,7 @@ const Description = ({ postData, isLoggedIn, userId }) => {
     var thatDay = new Date(createdTime).setHours(0, 0, 0, 0);
 
     if (today === thatDay) {
-      publishTime = "Today " + timeFormatAMPM(createdTime);
+      publishTime = 'Today ' + timeFormatAMPM(createdTime);
     } else {
       publishTime = `${dateFormatAMPM(createdTime)}`;
     }
@@ -157,7 +158,7 @@ const Description = ({ postData, isLoggedIn, userId }) => {
   const handleMarkSold = async () => {
     const data = await updatePostMutation({
       variables: {
-        post: { id: postData.id, status: "sold" },
+        post: { id: postData.id, status: 'sold' },
       },
     });
   };
@@ -179,6 +180,28 @@ const Description = ({ postData, isLoggedIn, userId }) => {
       </Link>
     );
   };
+  const handleEditPost = () => {
+    openModal({
+      overlayClassName: 'customeOverlayClass',
+      closeOnClickOutside: false,
+      componentProps: {
+        data: {
+          closeModal,
+          userId,
+          postData,
+        },
+      },
+      config: {
+        className: 'addPostNewModal',
+        height: 'auto',
+        width: '50%',
+        transition: {
+          tension: 150,
+        },
+      },
+      component: AddPostModal,
+    });
+  };
   return (
     <Fragment>
       <Text
@@ -188,8 +211,8 @@ const Description = ({ postData, isLoggedIn, userId }) => {
         fontWeight={600}
         color="#333333"
       />
-      <TagGroup marginBottom="25px" style={{ marginTop: 25, width: "100%" }}>
-        {postData.status === "sold" ? (
+      <TagGroup marginBottom="25px" style={{ marginTop: 25, width: '100%' }}>
+        {postData.status === 'sold' ? (
           <LabelTag tagContent="Sold Out" />
         ) : (
           <LabelTag tagContent={`${CURRENCY} ${postData.price}`} />
@@ -210,14 +233,14 @@ const Description = ({ postData, isLoggedIn, userId }) => {
           distance={
             postData.distance
               ? `Approximately ${Math.floor(postData.distance)} km away`
-              : ""
+              : ''
           }
           location={
             postData.formattedLocation
               ? postData.formattedLocation.formattedAddress
-              : ""
+              : ''
           }
-          style={{ marginBottom: "20px" }}
+          style={{ marginBottom: '20px' }}
         />
       ) : (
         <p />
@@ -227,29 +250,30 @@ const Description = ({ postData, isLoggedIn, userId }) => {
       {isLoggedIn &&
       postData.authorId &&
       userId === postData.authorId &&
-      postData.status === "publish" ? (
+      postData.status === 'publish' ? (
         <Fragment>
           <Button
             title="Edit Listing"
             iconPosition="left"
-            style={{ marginBottom: 10, width: "100%" }}
-            onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
+            style={{ marginBottom: 10, width: '100%' }}
+            // onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
+            onClick={() => handleEditPost(postData.id)}
           />
 
           <Button
             title="Mark Sold"
             iconPosition="left"
-            style={{ marginBottom: 38, width: "100%" }}
+            style={{ marginBottom: 38, width: '100%' }}
             onClick={handleMarkSold}
           />
         </Fragment>
       ) : (
-        postData.status === "publish" && (
+        postData.status === 'publish' && (
           <Button
             iconPosition="left"
             title="Chat"
             bg="#30C56D"
-            style={{ marginBottom: 38, width: "100%" }}
+            style={{ marginBottom: 38, width: '100%' }}
             icon={
               <Icon name="ios-chatboxes" fontSize={19} color="#fff" mr={10} />
             }
@@ -271,13 +295,13 @@ const Description = ({ postData, isLoggedIn, userId }) => {
           source={[authorImage, authorFallbackImage]}
           title={
             userId === postData.authorId
-              ? "You"
+              ? 'You'
               : postData.author && postData.author.name
               ? postData.author.name
-              : ""
+              : ''
           }
           author={postData.authorId}
-          postedTime={publishTime !== "" ? `Ad posted at ${publishTime}` : ""}
+          postedTime={publishTime !== '' ? `Ad posted at ${publishTime}` : ''}
           style={{
             flexGrow: 1,
           }}
@@ -292,19 +316,19 @@ const Description = ({ postData, isLoggedIn, userId }) => {
             className="outlineButton"
             style={{
               marginRight: 10,
-              borderWidth: "1px",
-              borderStyle: "solid",
-              borderColor: "#e2e2e2",
-              minHeight: "auto",
-              minWidth: "auto",
+              borderWidth: '1px',
+              borderStyle: 'solid',
+              borderColor: '#e2e2e2',
+              minHeight: 'auto',
+              minWidth: 'auto',
             }}
             onClick={() =>
               openModal({
                 config: {
                   disableDragging: false,
-                  className: "shareModal",
-                  width: "auto",
-                  height: "auto",
+                  className: 'shareModal',
+                  width: 'auto',
+                  height: 'auto',
                   enableResizing: false,
                   disableDragging: true,
                   transition: {
@@ -333,17 +357,17 @@ const Description = ({ postData, isLoggedIn, userId }) => {
               <Icon
                 name="ios-heart"
                 fontSize={18}
-                color={isFav ? "#30C56D" : "#8C8C8C"}
+                color={isFav ? '#30C56D' : '#8C8C8C'}
               />
             }
             height={40}
             width={40}
             style={{
-              borderWidth: "1px",
-              borderStyle: "solid",
-              borderColor: isFav ? "#30C56D" : "#e2e2e2",
-              minHeight: "auto",
-              minWidth: "auto",
+              borderWidth: '1px',
+              borderStyle: 'solid',
+              borderColor: isFav ? '#30C56D' : '#e2e2e2',
+              minHeight: 'auto',
+              minWidth: 'auto',
               padding: 0,
             }}
             onClick={handleFavourite}
@@ -357,12 +381,12 @@ const Description = ({ postData, isLoggedIn, userId }) => {
         fontWeight={600}
         color="#333333"
         mb={15}
-        style={{ display: "inline-block" }}
+        style={{ display: 'inline-block' }}
       />
       {postData && (
         <Tag
-          bgColor={postData.condition ? "#00b6ff" : "#30C56D"}
-          tagContent={postData.condition ? "New" : "Used"}
+          bgColor={postData.condition ? '#00b6ff' : '#30C56D'}
+          tagContent={postData.condition ? 'New' : 'Used'}
           size="14px"
           tagColor="#ffffff"
           style={{

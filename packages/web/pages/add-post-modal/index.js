@@ -1,81 +1,80 @@
-import { useContext, useEffect, useState } from "react";
-import { Grid, Row, Col } from "react-styled-flexboxgrid";
-import { useRouter } from "next/router";
-import { Modal } from "@redq/reuse-modal";
-import { GET_POST_FOR_EDIT } from "core/graphql/Post.query";
-import Alert from "reusecore/src/elements/Alert";
-import SecretPage from "../../hoc/secretPage";
-import withLayout from "../../hoc/withLayout";
+import { useContext, useEffect, useState } from 'react';
+import { Grid, Row, Col } from 'react-styled-flexboxgrid';
+import { useRouter } from 'next/router';
+import { Modal } from '@redq/reuse-modal';
+import { GET_POST_FOR_EDIT } from 'core/graphql/Post.query';
+import Alert from 'reusecore/src/elements/Alert';
+import SecretPage from '../../hoc/secretPage';
+import withLayout from '../../hoc/withLayout';
 import {
   adPostSteps,
   STEPS,
   AddPostContext,
   AddPostProvider,
-} from "../../contexts/AddPostContext";
-import PageMeta from "../../components/PageMeta";
-import SegmentCard from "../../components/SegmentCard";
-import { PostLoader } from "../../components/Placeholder";
-import "./style.css";
+} from '../../contexts/AddPostContext';
+import PageMeta from '../../components/PageMeta';
+import SegmentCard from '../../components/SegmentCard';
+import { PostLoader } from '../../components/Placeholder';
+import './style.css';
 
-import PickImages from "../../containers/AddPost/PickImages";
-import TitleInfo from "../../containers/AddPostModal/TitleInfo";
-import RowContainer from "../../containers/AddPost/RowContainer";
-import SelctionListSection from "../../containers/AddPost/SelctionListSection";
+import PickImages from '../../containers/AddPost/PickImages';
+import TitleInfo from '../../containers/AddPostModal/TitleInfo';
+import RowContainer from '../../containers/AddPost/RowContainer';
+import SelctionListSection from '../../containers/AddPost/SelctionListSection';
 
-import CategoryAndDetailInfo from "../../containers/AddPost/CategoryAndDetailInfo";
-import LocationInfo from "../../containers/AddPost/LocationInfo";
-import ContactNumberInfo from "../../containers/AddPost/ContactNumberInfo";
-import TopToolBar from "../../containers/AddPostModal/TopToolBar";
+import CategoryAndDetailInfo from '../../containers/AddPost/CategoryAndDetailInfo';
+import LocationInfo from '../../containers/AddPost/LocationInfo';
+import ContactNumberInfo from '../../containers/AddPost/ContactNumberInfo';
+import TopToolBar from '../../containers/AddPostModal/TopToolBar';
 
-import TextDescription from "../../containers/AddPostModal/TextDescription";
-import RadioListSection from "../../containers/AddPost/RadioListSection";
+import TextDescription from '../../containers/AddPostModal/TextDescription';
+import RadioListSection from '../../containers/AddPost/RadioListSection';
 
-import Router from "next/router";
-import AsyncSelect from "react-select/async";
-import Heading from "reusecore/src/elements/Heading";
-import Progress from "../../components/Progress";
-import { withApollo } from "../../helpers/apollo";
-import Box from "reusecore/src/elements/Box";
-import Button from "reusecore/src/elements/Button";
-import Icon from "react-icons-kit";
-import { db } from "../../helpers/init";
-import AuthHelper from "../../helpers/authHelper";
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import { ADD_POST } from "core/graphql/Mutations";
-import ListGrid from "reusecore/src/elements/ListGrid";
-import Text from "reusecore/src/elements/Text";
-import AdImagesInfo from "../../containers/AddPostModal/AddImage";
-import { uploadMultipleImages } from "../../helpers/uploadMultipleImage";
+import Router from 'next/router';
+import AsyncSelect from 'react-select/async';
+import Heading from 'reusecore/src/elements/Heading';
+import Progress from '../../components/Progress';
+import { withApollo } from '../../helpers/apollo';
+import Box from 'reusecore/src/elements/Box';
+import Button from 'reusecore/src/elements/Button';
+import Icon from 'react-icons-kit';
+import { db } from '../../helpers/init';
+import AuthHelper from '../../helpers/authHelper';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { ADD_POST } from 'core/graphql/Mutations';
+import ListGrid from 'reusecore/src/elements/ListGrid';
+import Text from 'reusecore/src/elements/Text';
+import AdImagesInfo from '../../containers/AddPostModal/AddImage';
+import { uploadMultipleImages } from '../../helpers/uploadMultipleImage';
 
 const colourStyles = {
   control: () => ({
-    display: "flex",
-    backgroundColor: "transparent",
-    color: "#8c8c8c",
-    border: "0",
-    borderBottom: "1px solid #e2e2e2",
-    width: "170px",
+    display: 'flex',
+    backgroundColor: 'transparent',
+    color: '#8c8c8c',
+    border: '0',
+    borderBottom: '1px solid #e2e2e2',
+    width: '170px',
   }),
-  valueContainer: (base) => ({
+  valueContainer: base => ({
     ...base,
-    padding: "0",
+    padding: '0',
   }),
   placeholder: () => ({
-    color: "#8c8c8c",
+    color: '#8c8c8c',
   }),
   indicatorSeparator: () => ({
-    display: "none",
+    display: 'none',
   }),
   input: () => ({
-    color: "#8c8c8c",
+    color: '#8c8c8c',
   }),
   dropdownIndicator: () => ({
-    padding: "8px 0",
+    padding: '8px 0',
   }),
 };
 let imagesUrl = [];
 const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
-  console.log("close modal", props);
   let counter = 0;
   const { state, dispatch } = useContext(AddPostContext);
   const { step, adPost } = state;
@@ -86,20 +85,57 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
 
   const [isValidated, setIsValidated] = useState(false);
   const [publishBtnLoading, setPublishBtnLoading] = useState(false);
+  const [postData, setPostData] = useState({ ...props.data.postData });
 
   const [postMutation] = useMutation(ADD_POST);
 
-  console.log("adpost values", adPost);
+  console.log('adpost values', adPost);
+  console.log('Props postdata', props.data.postData);
   // const {
   //   query: { id },
   // } = useRouter();
-  const id = "new";
+  const id = 'new';
+  if (Object.keys(postData).length) {
+    useEffect(() => {
+      if (postData.categories[0].sections) {
+        // handleClick(postData.categories[0].sections)
 
-  const handleClick = (selectedCategories) => () => {
+        dispatch({
+          type: 'UPDATE_FULL_ADPOST',
+          payload: {
+            // localImage: {},
+            // localGallery: [],
+            categories: postData.categories[0] || [],
+            brand: postData.brand || '',
+            image: postData.image,
+            authorId: postData.authorId,
+            id: postData.id,
+            gallery: postData.gallery,
+            title: postData.title || '',
+            price: postData.price,
+            belongsTo: postData.belongsTo,
+            originalPrice: postData.originalPrice || 0,
+            isNegotiable: postData.isNegotiable,
+            condition: postData.condition,
+            content: postData.content || '',
+            contactNumber: postData.contactNumber || '',
+            status: postData.status || '',
+            location: postData.formattedLocation || {},
+            mileage: postData.mileage || 0,
+            miles: postData.miles || 0,
+            slug: postData.slug,
+          },
+        });
+
+        setSegmentListOpen(false);
+      }
+    }, [postData.categories[0]]);
+  }
+  const handleClick = selectedCategories => () => {
     dispatch({
-      type: "UPDATE_ADPOST",
+      type: 'UPDATE_ADPOST',
       payload: {
-        key: "categories",
+        key: 'categories',
         value: selectedCategories,
       },
     });
@@ -107,17 +143,17 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
     setSegmentListOpen(false);
   };
 
-  const renderRecentPost = (selectedCategories) => {
+  const renderRecentPost = selectedCategories => {
     const { value, label } = selectedCategories;
     return (
       <SegmentCard
         className="nav-menu-item-link"
-        titleStyle={{ fontSize: "18px", mt: "5px" }}
+        titleStyle={{ fontSize: '18px', mt: '5px' }}
         onClick={handleClick(selectedCategories)}
         style={{
-          flexDirection: "row",
-          display: "flex",
-          justifyContent: "flex-start",
+          flexDirection: 'row',
+          display: 'flex',
+          justifyContent: 'flex-start',
         }}
         title={label}
       />
@@ -134,7 +170,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
       adPost.price &&
       adPost.originalPrice &&
       adPost.condition &&
-      adPost.belongsTo != ""
+      adPost.belongsTo != ''
     ) {
       return true;
     }
@@ -142,16 +178,16 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   };
   const fetchPostSegments = async () => {
     //read from firestore
-    const doc = await db.collection("post_segments").orderBy("rank", "asc");
+    const doc = await db.collection('post_segments').orderBy('rank', 'asc');
 
-    const observer = doc.onSnapshot((docSnapshot) => {
+    const observer = doc.onSnapshot(docSnapshot => {
       let arrCategories = [];
       docSnapshot.forEach(
-        (doc) => {
+        doc => {
           const dataSource = doc.data();
           arrCategories.push(dataSource);
         },
-        (err) => {
+        err => {
           console.log(`Encountered error: ${err}`);
         }
       );
@@ -160,22 +196,22 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
     });
   };
 
-  if (id != "new") {
+  if (id != 'new') {
     const { data, loading, error } = useQuery(GET_POST_FOR_EDIT, {
       variables: { id },
     });
 
     useEffect(() => {
       if (!loading && Object.keys(data).length) {
-        console.log("edit post fetch useEffect ->", counter);
+        console.log('edit post fetch useEffect ->', counter);
         if (counter < 1) {
           dispatch({
-            type: "UPDATE_STEP",
+            type: 'UPDATE_STEP',
             payload: { step: 1 },
           });
           if (id) {
             dispatch({
-              type: "UPDATE_FULL_ADPOST",
+              type: 'UPDATE_FULL_ADPOST',
               payload: { id: id },
             });
           }
@@ -190,12 +226,12 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
                 data.post.formattedLocation &&
                 data.post.formattedLocation.formattedAddress
                   ? data.post.formattedLocation.formattedAddress
-                  : "",
+                  : '',
             };
           }
 
           dispatch({
-            type: "UPDATE_FULL_ADPOST",
+            type: 'UPDATE_FULL_ADPOST',
             payload: {
               title: data.post.title,
               condition: data.post.condition,
@@ -230,12 +266,21 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
 
   let options = [];
   if (postSegments.length) {
-    postSegments.forEach((item) => {
+    postSegments.forEach(item => {
       let categoryOptions = { ...item, value: item.title, label: item.title };
       options.push(categoryOptions);
+      if (
+        Object.keys(postData).length &&
+        Number(postData.categories[0].id) === item.id &&
+        !postData.categories[0].sections
+      ) {
+        setPostData({
+          ...postData,
+          categories: [{ ...categoryOptions, ...postData.categories[0] }],
+        });
+      }
     });
   }
-
   //listen to image upload success
   const {
     preImage,
@@ -247,21 +292,21 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   } = adPost;
   let finalData = prossedAdPostData;
 
-  console.log("prossedAdPostData ->", prossedAdPostData);
+  console.log('prossedAdPostData ->', prossedAdPostData);
 
   useEffect(() => {
     (async function() {
       if (imagesUrl.length) {
         try {
-          console.log("on submit ->", finalData);
+          console.log('on submit ->', finalData);
 
           const reqData = {
             image: adPost.image,
             brand: adPost.brand,
             authorId: props.data.userId,
             gallery: adPost.gallery,
-            title: adPost.title ?? "",
-            slug: "test",
+            title: adPost.title ?? '',
+            slug: 'test',
             price: adPost.price,
             belongsTo: adPost.belongsTo,
             originalPrice: adPost.originalPrice,
@@ -269,33 +314,35 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
             condition: adPost.condition,
             categories: [
               {
-                id: "fKJqetAGRZElL8ct0gJT",
-                slug: "car",
-                name: "Car",
-                value: "fKJqetAGRZElL8ct0gJT",
-                label: "Car",
+                slug: 'car',
+                name: 'Car',
+                value: 'fKJqetAGRZElL8ct0gJT',
+                id: adPost.categories.id,
+                label: adPost.categories.title,
               },
             ],
             content: adPost.content,
-            contactNumber: "",
-            status: "publish",
+            contactNumber: '',
+            status: 'publish',
             location: {
               lat: 38.9586307,
               lng: -77.35700279999999,
-              formattedAddress: "Reston, VA, USA",
+              formattedAddress: 'Reston, VA, USA',
             },
           };
-
+          if (Object.keys(postData).length) {
+            reqData.id = adPost.id;
+          }
           const data = await postMutation({
             variables: {
-              post: { ...reqData, status: "publish" },
+              post: { ...reqData, status: 'publish' },
             },
           });
           setPublishBtnLoading(false);
           if (!adPost.id) {
             dispatch({
-              type: "UPDATE_ADPOST",
-              payload: { key: "id", value: data.data.addPost.id },
+              type: 'UPDATE_ADPOST',
+              payload: { key: 'id', value: data.data.addPost.id },
             });
           }
           props.data.closeModal();
@@ -307,10 +354,8 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   }, [prossedAdPostData.gallery]);
 
   const loadOptions = async (fetchMore, inputValue, callback, loading) => {
-    console.log("input value", inputValue);
-    const filteredData = options.filter((item) =>
-      item.slug.includes(inputValue)
-    );
+    console.log('input value', inputValue);
+    const filteredData = options.filter(item => item.slug.includes(inputValue));
     callback(filteredData);
   };
   const submitPost = async () => {
@@ -319,14 +364,14 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
       await AuthHelper.refreshToken();
       setPublishBtnLoading(true);
       dispatch({
-        type: "UPDATE_ADPOST",
-        payload: { key: "status", value: "publish" },
+        type: 'UPDATE_ADPOST',
+        payload: { key: 'status', value: 'publish' },
       });
       if (adPost.localGallery.length) {
         imagesUrl = await uploadMultipleImages(adPost.localGallery);
         if (imagesUrl && imagesUrl.length > 0) {
           dispatch({
-            type: "UPDATE_FULL_ADPOST",
+            type: 'UPDATE_FULL_ADPOST',
             payload: {
               gallery: adPost.gallery.concat(imagesUrl[0]),
               image: !adPost.image.url ? imagesUrl[0][0] : adPost.image,
@@ -340,12 +385,12 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           //reqdata
 
           const reqData = {
-            image: {},
+            image: adPost.image,
             brand: adPost.brand,
             authorId: props.data.userId,
-            gallery: [],
-            title: "test",
-            slug: "test",
+            gallery: adPost.gallery,
+            title: adPost.title,
+            slug: adPost.slug,
             price: adPost.price,
             belongsTo: adPost.belongsTo,
             originalPrice: adPost.originalPrice,
@@ -353,41 +398,44 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
             condition: adPost.condition,
             categories: [
               {
-                id: "fKJqetAGRZElL8ct0gJT",
-                slug: "car",
-                name: "Car",
-                value: "fKJqetAGRZElL8ct0gJT",
-                label: "Car",
+                slug: 'car',
+                name: 'Car',
+                value: 'fKJqetAGRZElL8ct0gJT',
+                id: adPost.categories.id,
+                label: adPost.categories.title,
               },
             ],
             content: adPost.content,
-            contactNumber: "",
-            status: "draft",
+            contactNumber: '',
+            status: 'draft',
             location: {
               lat: 38.9586307,
               lng: -77.35700279999999,
-              formattedAddress: "Reston, VA, USA",
+              formattedAddress: 'Reston, VA, USA',
             },
           };
+          if (Object.keys(postData).length) {
+            reqData.id = adPost.id;
+          }
 
-          console.log("reqData ->", JSON.stringify(reqData, null, 2));
+          console.log('reqData ->', JSON.stringify(reqData, null, 2));
 
           const data = await postMutation({
             variables: {
-              post: { ...reqData, status: "publish" },
+              post: { ...reqData, status: 'publish' },
             },
           });
           setPublishBtnLoading(false);
           if (!adPost.id) {
             dispatch({
-              type: "UPDATE_ADPOST",
-              payload: { key: "id", value: data.data.addPost.id },
+              type: 'UPDATE_ADPOST',
+              payload: { key: 'id', value: data.data.addPost.id },
             });
           }
 
           props.data.closeModal();
         } catch (error) {
-          console.log(error, "error");
+          console.log(error, 'error');
           setPublishBtnLoading(false);
         }
       }
@@ -399,26 +447,26 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
       <Grid
         flexBox
         style={{
-          paddingTop: "10px",
-          width: "100%",
+          paddingTop: '10px',
+          width: '100%',
         }}
       >
-        {console.log("postSegments ->", JSON.stringify(postSegments, null, 2))}
+        {console.log('postSegments ->', JSON.stringify(postSegments, null, 2))}
 
-        {console.log("options -> \n", options)}
+        {console.log('options -> \n', options)}
 
-        {postSegments.forEach((post) => {
-          console.log(post.title, "\n");
+        {postSegments.forEach(post => {
+          console.log(post.title, '\n');
         })}
-        {console.log("\n\n\n")}
-        {postSegments.forEach((post) => {
+        {console.log('\n\n\n')}
+        {postSegments.forEach(post => {
           if (post.sections && post.sections.length > 0) {
-            post.sections.forEach((section) => {
+            post.sections.forEach(section => {
               console.log(section.title);
             });
           }
         })}
-        {console.log("\n\n\n")}
+        {console.log('\n\n\n')}
         <TopToolBar
           onClose={() => {
             props.data.closeModal();
@@ -445,8 +493,8 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
                   style={{
                     fontSize: 18,
                     fontWeight: 600,
-                    color: "#333333",
-                    lineHeight: "20px",
+                    color: '#333333',
+                    lineHeight: '20px',
                   }}
                 ></Text>
               </Box>
@@ -470,26 +518,26 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
               {state.adPost.categories.sections &&
                 state.adPost.categories.sections.length > 0 &&
                 state.adPost.categories.sections.map((section, index) => {
-                  console.log("section ->", section);
+                  console.log('section ->', section);
                   switch (section.type) {
-                    case "radioSelectionList":
+                    case 'radioSelectionList':
                       return <RadioListSection section={section} />;
 
                     //TODO change component
-                    case "textField":
+                    case 'textField':
                       return <TitleInfo section={section} />;
 
                     //TODO change component
-                    case "textBox":
+                    case 'textBox':
                       return <TitleInfo section={section} />;
 
-                    case "textDescription":
+                    case 'textDescription':
                       return <TextDescription section={section} />;
 
-                    case "rowContainer":
+                    case 'rowContainer':
                       return <RowContainer list={section.list} />;
 
-                    case "selectionList":
+                    case 'selectionList':
                       return <SelctionListSection section={section} />;
                   }
                 })}
@@ -513,7 +561,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
               onClick={submitPost}
               isLoading={publishBtnLoading}
               style={{
-                backgroundColor: !validateForm() ? "#e2e2e2" : "#30C56D",
+                backgroundColor: !validateForm() ? '#e2e2e2' : '#30C56D',
               }}
             />
           )}
@@ -524,7 +572,6 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
 };
 
 function AdPostPage(props) {
-  console.log("props", props);
   return (
     <>
       <AddPostProvider>
