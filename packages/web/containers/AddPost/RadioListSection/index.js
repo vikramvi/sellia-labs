@@ -226,6 +226,7 @@ const RadioListSection = (props) => {
         alignItems="space-between"
       >
         {props.section.list.map((section, key) => {
+          console.log("adPost[name] ---", adPost[name]);
           return (
             <Radio
               style={{ width: "30%", margin: "2px" }}

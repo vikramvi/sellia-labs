@@ -15,6 +15,11 @@ export const GET_POST = gql`
       isNegotiable
       createdAt
       distance
+      belongsTo
+      brand
+      mileage
+      miles
+      originalPrice
       author {
         name
         username

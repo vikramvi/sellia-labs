@@ -5,11 +5,16 @@ export const typeDefs = `
     title: String
     slug: String
     content: String
+    belongsTo: String
+    brand: String
     status: String
     author: Author
     authorId: ID
     image: Image
     price: Float
+    originalPrice: Float
+    mileage: Int
+    miles: Int
     location: Location
     formattedLocation: Location
     distance: Float
