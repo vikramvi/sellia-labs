@@ -98,8 +98,8 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   const id = "new";
   if (Object.keys(postData).length) {
     useEffect(() => {
-      if (postData.categories[0].sections) {
-        // handleClick(postData.categories[0].sections)
+      if (postData.categories[0]) {
+        // handleClick(postData.categories[0].sections);
 
         dispatch({
           type: "UPDATE_FULL_ADPOST",
@@ -130,7 +130,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
 
         setSegmentListOpen(false);
       }
-    }, [postData.categories[0]]);
+    }, [postData]);
   }
   const handleClick = (selectedCategories) => () => {
     dispatch({
@@ -311,9 +311,12 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
       options.push(categoryOptions);
       if (
         Object.keys(postData).length &&
-        Number(postData.categories[0].id) === item.id &&
+        postData.categories[0].id === item.id &&
         !postData.categories[0].sections
       ) {
+        console.log("postSegments -->", item.id);
+
+        setSelectedSegment(item);
         setPostData({
           ...postData,
           categories: [{ ...categoryOptions, ...postData.categories[0] }],
@@ -553,8 +556,8 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           <Row>
             {/* <Col xs={12}> */}
             <Col xs={12} sm={12} md={12}>
-              {selectedSegment.sections &&
-                selectedSegment.sections.length > 0 &&
+              {selectedSegment &&
+                selectedSegment.sections &&
                 selectedSegment.sections.map((section, index) => {
                   switch (section.type) {
                     case "radioSelectionList":

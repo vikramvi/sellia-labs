@@ -1,15 +1,15 @@
-import React, { Fragment } from 'react';
-import { Grid, Row, Col } from 'react-styled-flexboxgrid';
-import Box from 'reusecore/src/elements/Box';
-import Text from 'reusecore/src/elements/Text';
-import Description from './Description';
-import RelatedPost from './RelatedPost';
+import React, { Fragment } from "react";
+import { Grid, Row, Col } from "react-styled-flexboxgrid";
+import Box from "reusecore/src/elements/Box";
+import Text from "reusecore/src/elements/Text";
+import Description from "./Description";
+import RelatedPost from "./RelatedPost";
 
 import {
   SinglePageDescriptionLoader,
   SliderLoader,
-} from '../../components/Loader';
-import { Carousel, SectionWrapper } from './singlePost.style';
+} from "../../components/Loader";
+import { Carousel, SectionWrapper } from "./singlePost.style";
 
 const SinglePost = ({
   data,
@@ -34,9 +34,9 @@ const SinglePost = ({
   );
 
   const postImage =
-    !loading && post && (post.image && post.image.largeUrl !== null)
+    !loading && post && post.image && post.image.largeUrl !== null
       ? post.image.largeUrl
-      : '';
+      : "";
   let postGallery = !loading && post && post.gallery ? post.gallery : [];
 
   return (
@@ -60,20 +60,20 @@ const SinglePost = ({
                 <img
                   src={postImage}
                   style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                    borderRadius: '3px',
+                    maxWidth: "100%",
+                    height: "auto",
+                    borderRadius: "3px",
                   }}
                 />
               ) : (
                 <Carousel showIndicators={false}>
                   {postGallery.map((image, index) => (
-                    <div key={index} style={{ height: 'auto' }}>
+                    <div key={index} style={{ height: "auto" }}>
                       <img
                         src={image.largeUrl}
                         style={{
-                          maxWidth: '100%',
-                          height: '100%',
+                          maxWidth: "100%",
+                          height: "100%",
                         }}
                       />
                     </div>
@@ -100,9 +100,9 @@ const SinglePost = ({
         <Row style={{ margin: 0 }}>
           <Box
             mt={50}
-            flexBox={true}
+            flexBox
             justifyContent="space-between"
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
           >
             {post.related && post.related.length ? (
               <Text

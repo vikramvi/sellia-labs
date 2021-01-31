@@ -81,7 +81,7 @@ export const Mutation = {
     } else {
       data = await post.add({ data: { ...postData, slug: slug } });
     }
-    const geopointLocation = data.location ? data.location : null;
+    const geopointLocation = data && data.location ? data.location : null;
     // const geopointHash = data.location ? data.location : null;
     // formated location for the client
     data = { ...data, location: postData.location ? postData.location : null };
@@ -115,34 +115,37 @@ export const Mutation = {
         geohash,
         createdAt,
       };
-      categories.forEach(async (categoryItem) => {
-        const categoryId = categoryItem.id;
-        let categoryById;
-        categoryById = await category.byId({ id: categoryId });
-        if (categoryById.hasOwnProperty("posts")) {
-          if (input && input.id) {
-            // updated post will be updated into the category
-            const postId = input.id;
-            const categoryPosts = categoryById["posts"];
-            const index = categoryPosts.findIndex((post) => post.id === postId);
-            if (index !== -1) {
-              // if the post id avaialable in the category
-              categoryById["posts"][index] = categoryPost;
+      categories &&
+        categories.forEach(async (categoryItem) => {
+          const categoryId = categoryItem.id;
+          let categoryById;
+          categoryById = await category.byId({ id: categoryId });
+          if (categoryById.hasOwnProperty("posts")) {
+            if (input && input.id) {
+              // updated post will be updated into the category
+              const postId = input.id;
+              const categoryPosts = categoryById["posts"];
+              const index = categoryPosts.findIndex(
+                (post) => post.id === postId
+              );
+              if (index !== -1) {
+                // if the post id avaialable in the category
+                categoryById["posts"][index] = categoryPost;
+              } else {
+                // if the post id is not available in the category
+                categoryById["posts"].push(categoryPost);
+              }
             } else {
-              // if the post id is not available in the category
+              // push the new post into the category
               categoryById["posts"].push(categoryPost);
             }
           } else {
-            // push the new post into the category
+            // if category doesn't have any posts in it
+            categoryById["posts"] = {};
             categoryById["posts"].push(categoryPost);
           }
-        } else {
-          // if category doesn't have any posts in it
-          categoryById["posts"] = {};
-          categoryById["posts"].push(categoryPost);
-        }
-        await category.update({ id: categoryId, data: categoryById });
-      });
+          await category.update({ id: categoryId, data: categoryById });
+        });
     }
     return data;
   },
