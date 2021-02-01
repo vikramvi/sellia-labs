@@ -37,6 +37,10 @@ export const Mutation = {
       contactNumber: input.contactNumber,
     };
 
+    if (input.brand) postData.brand = input.brand;
+    if (input.miles) postData.miles = input.miles;
+    if (input.mileage) postData.mileage = input.mileage;
+
     // post slug duplication check start
     const allPost = await post.all();
     const postsData =

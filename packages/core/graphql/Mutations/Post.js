@@ -6,9 +6,11 @@ export const ADD_POST = gql`
       id
       createdAt
       title
+      brand
       content
       contactNumber
       status
+      belongsTo
       slug
       price
       location {

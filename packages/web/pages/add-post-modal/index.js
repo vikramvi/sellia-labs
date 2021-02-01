@@ -342,7 +342,9 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
       const data = await postMutation({
         variables: {
           post: {
-            ...reqData,
+            ...finalData,
+            authorId: props.data.userId,
+            slug: adPost.slug ? adPost.slug : getSlug(adPost.title),
             status: "publish",
           },
         },
