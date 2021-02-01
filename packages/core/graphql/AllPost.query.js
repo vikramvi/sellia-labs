@@ -8,7 +8,17 @@ export const GET_ALL_POST = gql`
         slug
         status
         title
+        content
+        createdAt
         price
+        author {
+          name
+          username
+          image {
+            url
+            largeUrl
+          }
+        }
         image {
           url
           largeUrl
