@@ -46,6 +46,7 @@ import ListGrid from "reusecore/src/elements/ListGrid";
 import Text from "reusecore/src/elements/Text";
 import AdImagesInfo from "../../containers/AddPostModal/AddImage";
 import { uploadMultipleImages } from "../../helpers/uploadMultipleImage";
+import getSlug from "speakingurl";
 
 const colourStyles = {
   control: () => ({
@@ -142,7 +143,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
             id: selectedCategories.id,
             label: selectedCategories.label,
             name: selectedCategories.label,
-            slug: selectedCategories.label,
+            slug: selectedCategories.slug,
             value: selectedCategories.value,
           },
         ],
@@ -213,7 +214,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
       ...prossedAdPostData,
       status: "publish",
       authorId: props.data.userId,
-      slug: adPost.title + "-" + Date.now(),
+      slug: getSlug(adPost.title) + "-" + Date.now(),
     };
 
     console.log("submitting ->", finalData);
@@ -453,9 +454,9 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
             isNegotiable: true,
             categories: [
               {
-                slug: "car",
-                name: "Car",
-                value: "fKJqetAGRZElL8ct0gJT",
+                slug: adPost.categories.slug,
+                name: adPost.categories.title,
+                value: adPost.categories.id,
                 id: adPost.categories.id,
                 label: adPost.categories.title,
               },
