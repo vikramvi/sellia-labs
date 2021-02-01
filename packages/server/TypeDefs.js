@@ -162,6 +162,8 @@ export const typeDefs = `
     originalPrice: Float
     brand: String
     belongsTo: String
+    category: String
+    city: String
     location: locationInput
     categories: [categoryInput]
     gallery: [imageInput!]
