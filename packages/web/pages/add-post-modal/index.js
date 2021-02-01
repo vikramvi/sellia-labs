@@ -137,12 +137,21 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   if (Object.keys(postData).length) {
     useEffect(() => {
       if (postData.categories[0]) {
-        console.log("postData -> useEffect", postData);
+        console.log(
+          "postData.categories[0] -> useEffect",
+          postData.categories[0]
+        );
 
         dispatch({
           type: "UPDATE_FULL_ADPOST",
           payload: {
-            categories: postData.categories[0] || [],
+            categories: postData.categories.map((selectedCategories) => ({
+              id: selectedCategories.id,
+              label: selectedCategories.label,
+              name: selectedCategories.label,
+              slug: selectedCategories.slug,
+              value: selectedCategories.value,
+            })),
             brand: postData.brand || "",
             image: postData.image,
             authorId: postData.authorId,
@@ -374,6 +383,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
       } else {
         try {
           //reqdata
+          console.log("adPost ->", JSON.stringify(adPost));
 
           const reqData = {
             isNegotiable: false,
@@ -390,15 +400,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
             belongsTo: adPost.belongsTo,
             originalPrice: adPost.originalPrice,
             isNegotiable: true,
-            categories: [
-              {
-                slug: adPost.categories.slug,
-                name: adPost.categories.title,
-                value: adPost.categories.id,
-                id: adPost.categories.id,
-                label: adPost.categories.title,
-              },
-            ],
+            categories: adPost.categories,
             content: adPost.content,
             contactNumber: "",
             location: {

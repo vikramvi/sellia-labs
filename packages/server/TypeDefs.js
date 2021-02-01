@@ -161,7 +161,7 @@ export const typeDefs = `
     brand: String
     belongsTo: String
     location: locationInput
-    categories: [categoryInput!]!
+    categories: [categoryInput]
     gallery: [imageInput!]
     isNegotiable: Boolean
     condition: String

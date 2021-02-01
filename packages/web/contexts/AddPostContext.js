@@ -1,12 +1,12 @@
-import React, { useReducer, createContext } from 'react';
+import React, { useReducer, createContext } from "react";
 
 export const STEPS = {
-  STEP_CHOOSE_IMAGES: 'STEP_CHOOSE_IMAGES',
-  STEP_SET_TITLE_AND_PRICE: 'STEP_SET_TITLE_AND_PRICE',
-  STEP_SET_LOCATION: 'STEP_SET_LOCATION',
-  STEP_SET_CATEGORY_AND_TAGS: 'STEP_SET_CATEGORY_AND_TAGS',
-  STEP_SET_CONTACT_NUMBER: 'STEP_SET_CONTACT_NUMBER',
-  STEP_VERIFY_MOBILE_NUMBER: 'STEP_VERIFY_MOBILE_NUMBER',
+  STEP_CHOOSE_IMAGES: "STEP_CHOOSE_IMAGES",
+  STEP_SET_TITLE_AND_PRICE: "STEP_SET_TITLE_AND_PRICE",
+  STEP_SET_LOCATION: "STEP_SET_LOCATION",
+  STEP_SET_CATEGORY_AND_TAGS: "STEP_SET_CATEGORY_AND_TAGS",
+  STEP_SET_CONTACT_NUMBER: "STEP_SET_CONTACT_NUMBER",
+  STEP_VERIFY_MOBILE_NUMBER: "STEP_VERIFY_MOBILE_NUMBER",
 };
 
 export const adPostSteps = Object.keys(STEPS);
@@ -15,31 +15,31 @@ const initState = {
   step: 0,
   adPost: {
     image: {},
-    brand: '',
+    brand: "",
     preImage: {},
     authorId: false,
     preGallery: [],
     localGallery: [],
     localImage: {},
     gallery: [],
-    title: '',
-    slug: '',
+    title: "",
+    slug: "",
     price: 0,
-    belongsTo: '',
+    belongsTo: "",
     originalPrice: 0,
     isNegotiable: true,
-    condition: false,
+    condition: "",
     location: null,
     categories: [],
-    content: '',
-    contactNumber: '',
-    status: 'draft',
+    content: "",
+    contactNumber: "",
+    status: "draft",
   },
 };
 
 export default function addPostReducer(state, action) {
   switch (action.type) {
-    case 'UPDATE_ADPOST': {
+    case "UPDATE_ADPOST": {
       let key = action.payload.key;
       return {
         ...state,
@@ -49,7 +49,7 @@ export default function addPostReducer(state, action) {
         },
       };
     }
-    case 'UPDATE_FULL_ADPOST': {
+    case "UPDATE_FULL_ADPOST": {
       return {
         ...state,
         adPost: {
@@ -58,14 +58,14 @@ export default function addPostReducer(state, action) {
         },
       };
     }
-    case 'CANCEL_AD_POSTING': {
+    case "CANCEL_AD_POSTING": {
       return {
         ...state,
         adPost: initState.adPost,
         step: 0,
       };
     }
-    case 'UPDATE_STEP': {
+    case "UPDATE_STEP": {
       return {
         ...state,
         step: action.payload.step,

@@ -1,5 +1,5 @@
-import Base from './Base';
-import { updatedResult } from '../helper/arrayUtility';
+import Base from "./Base";
+import { updatedResult } from "../helper/arrayUtility";
 
 /**
  * Category class to work with category collection
@@ -7,7 +7,7 @@ import { updatedResult } from '../helper/arrayUtility';
 class Category extends Base {
   constructor(args) {
     super(args);
-    this.collection = 'category';
+    this.collection = "category";
   }
 
   /**
@@ -36,13 +36,15 @@ class Category extends Base {
   async postBySlugs(query = {}) {
     const { data } = query;
     let categoryPosts = [];
-    const field = 'slug';
+    const field = "slug";
     return Promise.all(
-      data.map(slug => {
+      data.map((slug) => {
         return new Promise(async (resolve, reject) => {
+          console.log("field----", field);
+          console.log("slug----", slug);
           let result = await this.where({ field, value: slug });
           const { posts } = result;
-          categoryPosts = updatedResult(categoryPosts, posts, 'id');
+          categoryPosts = updatedResult(categoryPosts, posts, "id");
           resolve(categoryPosts);
         });
       })
