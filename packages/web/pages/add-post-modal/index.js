@@ -302,53 +302,58 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   }
 
   const uploadPost = async () => {
-    submitPostServer();
+    // submitPostServer();
 
-    /*
-    const reqData = {
-      image: adPost.image,
-      brand: adPost.brand,
-      authorId: props.data.userId,
-      gallery: adPost.gallery,
-      title: adPost.title ?? "",
-      slug: "test",
-      price: adPost.price,
-      belongsTo: adPost.belongsTo,
-      originalPrice: adPost.originalPrice,
-      isNegotiable: true,
-      condition: adPost.condition,
-      categories: [
-        {
-          id: "fKJqetAGRZElL8ct0gJT",
-          slug: "car",
-          name: "Car",
-          value: "fKJqetAGRZElL8ct0gJT",
-          label: "Car",
+    try {
+      //reqdata
+      console.log("adPost ->", JSON.stringify(adPost));
+
+      const reqData = {
+        isNegotiable: false,
+        condition: adPost.condition,
+        contactNumber: "",
+
+        image: adPost.image,
+        brand: adPost.brand,
+        authorId: props.data.userId,
+        gallery: adPost.gallery,
+        title: adPost.title,
+        slug: adPost.slug ? adPost.slug : getSlug(adPost.title),
+        price: adPost.price,
+        belongsTo: adPost.belongsTo,
+        originalPrice: adPost.originalPrice,
+        isNegotiable: true,
+        categories: adPost.categories,
+        content: adPost.content,
+        contactNumber: "",
+        location: {
+          lat: 38.9586307,
+          lng: -77.35700279999999,
+          formattedAddress: "Reston, VA, USA",
         },
-      ],
-      content: adPost.content,
-      contactNumber: "",
-      status: "publish",
-      location: {
-        lat: 38.9586307,
-        lng: -77.35700279999999,
-        formattedAddress: "Reston, VA, USA",
-      },
-    };
+      };
 
-    const data = await postMutation({
-      variables: {
-        post: { ...finalData, status: "publish" },
-      },
-    });
-    setPublishBtnLoading(false);
-    if (!adPost.id) {
-      dispatch({
-        type: "UPDATE_ADPOST",
-        payload: { key: "id", value: data.data.addPost.id },
+      if (adPost.id) {
+        reqData.id = adPost.id;
+      }
+
+      console.log("reqData ->", JSON.stringify(reqData));
+
+      const data = await postMutation({
+        variables: {
+          post: {
+            ...reqData,
+            status: "publish",
+          },
+        },
       });
-    }*/
-    props.data.closeModal();
+      setPublishBtnLoading(false);
+
+      props.data.closeModal();
+    } catch (error) {
+      console.log(error, "error");
+      setPublishBtnLoading(false);
+    }
   };
 
   const loadOptions = async (fetchMore, inputValue, callback, loading) => {
@@ -381,56 +386,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           });
         }
       } else {
-        try {
-          //reqdata
-          console.log("adPost ->", JSON.stringify(adPost));
-
-          const reqData = {
-            isNegotiable: false,
-            condition: adPost.condition,
-            contactNumber: "",
-
-            image: adPost.image,
-            brand: adPost.brand,
-            authorId: props.data.userId,
-            gallery: adPost.gallery,
-            title: adPost.title,
-            slug: adPost.slug,
-            price: adPost.price,
-            belongsTo: adPost.belongsTo,
-            originalPrice: adPost.originalPrice,
-            isNegotiable: true,
-            categories: adPost.categories,
-            content: adPost.content,
-            contactNumber: "",
-            location: {
-              lat: 38.9586307,
-              lng: -77.35700279999999,
-              formattedAddress: "Reston, VA, USA",
-            },
-          };
-
-          if (adPost.id) {
-            reqData.id = adPost.id;
-          }
-
-          console.log("reqData ->", JSON.stringify(reqData));
-
-          const data = await postMutation({
-            variables: {
-              post: {
-                ...reqData,
-                status: "publish",
-              },
-            },
-          });
-          setPublishBtnLoading(false);
-
-          props.data.closeModal();
-        } catch (error) {
-          console.log(error, "error");
-          setPublishBtnLoading(false);
-        }
+        uploadPost();
       }
     }
   };
