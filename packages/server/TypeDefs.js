@@ -7,6 +7,7 @@ export const typeDefs = `
     content: String
     belongsTo: String
     brand: String
+    category: String
     status: String
     author: Author
     authorId: ID

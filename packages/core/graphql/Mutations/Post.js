@@ -7,6 +7,7 @@ export const ADD_POST = gql`
       createdAt
       title
       brand
+      category
       content
       contactNumber
       status

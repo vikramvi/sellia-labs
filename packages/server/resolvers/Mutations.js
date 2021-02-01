@@ -38,6 +38,7 @@ export const Mutation = {
     };
 
     if (input.brand) postData.brand = input.brand;
+    if (input.category) postData.category = input.category;
     if (input.miles) postData.miles = input.miles;
     if (input.mileage) postData.mileage = input.mileage;
 

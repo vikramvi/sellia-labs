@@ -17,6 +17,7 @@ export const GET_POST = gql`
       distance
       belongsTo
       brand
+      category
       mileage
       miles
       originalPrice
