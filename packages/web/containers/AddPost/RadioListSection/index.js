@@ -99,7 +99,7 @@ const RadioListSection = (props) => {
     }
   );
   const { step, adPost } = state;
-  console.log("ADpost in radio list", adPost);
+
   let options = [];
   if (!loading && data.categories.data.length) {
     data.categories.data.map((item, index) => {
@@ -226,7 +226,6 @@ const RadioListSection = (props) => {
         alignItems="space-between"
       >
         {props.section.list.map((section, key) => {
-          console.log("adPost[name] ---", adPost[name]);
           return (
             <Radio
               style={{ width: "30%", margin: "2px" }}

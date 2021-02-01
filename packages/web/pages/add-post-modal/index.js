@@ -93,20 +93,55 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
 
   console.log("adpost values", adPost);
   console.log("Props postdata", props.data.postData);
-  // const {
-  //   query: { id },
-  // } = useRouter();
+
   const id = "new";
+  //listen to image upload success
+  const {
+    preImage,
+    preGallery,
+    localImage,
+    localGallery,
+    location,
+    ...prossedAdPostData
+  } = adPost;
+
+  let finalData = prossedAdPostData;
+  if (location && location.lat) {
+    finalData = {
+      ...prossedAdPostData,
+      location,
+    };
+  }
+
+  console.log("prossedAdPostData ->", prossedAdPostData);
+
+  //effects
+  useEffect(() => {
+    fetchPostSegments();
+  }, []);
+
+  useEffect(() => {
+    (async function() {
+      if (imagesUrl.length) {
+        try {
+          console.log("on submit ->", finalData);
+          uploadPost();
+        } catch (error) {
+          setPublishBtnLoading(false);
+        }
+      }
+    })();
+  }, [prossedAdPostData.gallery]);
+
+  //check for edit mode
   if (Object.keys(postData).length) {
     useEffect(() => {
       if (postData.categories[0]) {
-        // handleClick(postData.categories[0].sections);
+        console.log("postData -> useEffect", postData);
 
         dispatch({
           type: "UPDATE_FULL_ADPOST",
           payload: {
-            // localImage: {},
-            // localGallery: [],
             categories: postData.categories[0] || [],
             brand: postData.brand || "",
             image: postData.image,
@@ -133,27 +168,8 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
       }
     }, [postData]);
   }
-  const handleClick = (selectedCategories) => () => {
-    dispatch({
-      type: "UPDATE_ADPOST",
-      payload: {
-        key: "categories",
-        value: [
-          {
-            id: selectedCategories.id,
-            label: selectedCategories.label,
-            name: selectedCategories.label,
-            slug: selectedCategories.slug,
-            value: selectedCategories.value,
-          },
-        ],
-      },
-    });
 
-    setSelectedSegment(selectedCategories);
-    setSegmentListOpen(false);
-  };
-
+  //rendering
   const renderRecentPost = (selectedCategories) => {
     const { value, label } = selectedCategories;
     return (
@@ -171,22 +187,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
     );
   };
 
-  const validateForm = () => {
-    //TODO: category specific validation
-    return true;
-
-    if (
-      adPost.brand &&
-      Object.keys(adPost.categories).length &&
-      adPost.price &&
-      adPost.originalPrice &&
-      adPost.condition &&
-      adPost.belongsTo != ""
-    ) {
-      return true;
-    }
-    return false;
-  };
+  //cloud layer
   const fetchPostSegments = async () => {
     //read from firestore
     const doc = await db.collection("post_segments").orderBy("rank", "asc");
@@ -232,78 +233,45 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
     }
   };
 
-  if (id != "new") {
-    const { data, loading, error } = useQuery(GET_POST_FOR_EDIT, {
-      variables: { id },
+  //user interactions
+  const handleClick = (selectedCategories) => () => {
+    dispatch({
+      type: "UPDATE_ADPOST",
+      payload: {
+        key: "categories",
+        value: [
+          {
+            id: selectedCategories.id,
+            label: selectedCategories.label,
+            name: selectedCategories.label,
+            slug: selectedCategories.slug,
+            value: selectedCategories.value,
+          },
+        ],
+      },
     });
 
-    useEffect(() => {
-      if (!loading && Object.keys(data).length) {
-        console.log("edit post fetch useEffect ->", counter);
-        if (counter < 1) {
-          dispatch({
-            type: "UPDATE_STEP",
-            payload: { step: 1 },
-          });
-          if (id) {
-            dispatch({
-              type: "UPDATE_FULL_ADPOST",
-              payload: { id: id },
-            });
-          }
-          let location = {
-            lat: 38.9586307,
-            lng: -77.35700279999999,
-            formattedAddress: "Reston, VA, USA",
-          };
+    setSelectedSegment(selectedCategories);
+    setSegmentListOpen(false);
+  };
 
-          // if (data.post.formattedLocation && data.post.formattedLocation.lat) {
-          //   location = {
-          //     lat:
-          //       data.post.formattedLocation && data.post.formattedLocation.lat,
-          //     lng:
-          //       data.post.formattedLocation && data.post.formattedLocation.lng,
-          //     formattedAddress:
-          //       data.post.formattedLocation &&
-          //       data.post.formattedLocation.formattedAddress
-          //         ? data.post.formattedLocation.formattedAddress
-          //         : "",
-          //   };
-          // }
+  //validations
+  const validateForm = () => {
+    //TODO: category specific validation
+    return true;
 
-          dispatch({
-            type: "UPDATE_FULL_ADPOST",
-            payload: {
-              title: data.post.title,
-              condition: data.post.condition,
-              price: data.post.price,
-              image: data.post.image,
-              gallery: data.post.gallery,
-              isNegotiable: data.post.isNegotiable,
-              authorId: props.data.userId,
-              content: data.post.content,
-              status: data.post.status,
-              slug: data.post.slug,
-              location,
-              categories: data.post.categories,
-              contactNumber: data.post.contactNumber,
-            },
-          });
-          counter++;
-        }
-      }
-      return () => {
-        null;
-      };
-    }, [data]);
-
-    // Error Rendering.
-    if (error) return <Alert>{`Error! ${error.message}`}</Alert>;
-  } else {
-    useEffect(() => {
-      fetchPostSegments();
-    }, []);
-  }
+    if (
+      adPost.brand &&
+      Object.keys(adPost.categories).length &&
+      adPost.price &&
+      adPost.originalPrice &&
+      adPost.condition &&
+      adPost.belongsTo != ""
+    ) {
+      return true;
+    }
+    return false;
+  };
 
   let options = [];
   if (postSegments.length) {
@@ -315,8 +283,6 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
         postData.categories[0].id === item.id &&
         !postData.categories[0].sections
       ) {
-        console.log("postSegments -->", item.id);
-
         setSelectedSegment(item);
         setPostData({
           ...postData,
@@ -325,38 +291,6 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
       }
     });
   }
-  //listen to image upload success
-  const {
-    preImage,
-    preGallery,
-    localImage,
-    localGallery,
-    location,
-    ...prossedAdPostData
-  } = adPost;
-
-  let finalData = prossedAdPostData;
-  if (location && location.lat) {
-    finalData = {
-      ...prossedAdPostData,
-      location,
-    };
-  }
-
-  console.log("prossedAdPostData ->", prossedAdPostData);
-
-  useEffect(() => {
-    (async function() {
-      if (imagesUrl.length) {
-        try {
-          console.log("on submit ->", finalData);
-          uploadPost();
-        } catch (error) {
-          setPublishBtnLoading(false);
-        }
-      }
-    })();
-  }, [prossedAdPostData.gallery]);
 
   const uploadPost = async () => {
     submitPostServer();
@@ -442,6 +376,10 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           //reqdata
 
           const reqData = {
+            isNegotiable: false,
+            condition: adPost.condition,
+            contactNumber: "",
+
             image: adPost.image,
             brand: adPost.brand,
             authorId: props.data.userId,
@@ -463,31 +401,28 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
             ],
             content: adPost.content,
             contactNumber: "",
-            status: "draft",
             location: {
               lat: 38.9586307,
               lng: -77.35700279999999,
               formattedAddress: "Reston, VA, USA",
             },
           };
-          if (Object.keys(postData).length) {
+
+          if (adPost.id) {
             reqData.id = adPost.id;
           }
 
-          console.log("reqData ->", JSON.stringify(reqData, null, 2));
+          console.log("reqData ->", JSON.stringify(reqData));
 
           const data = await postMutation({
             variables: {
-              post: { ...reqData, status: "publish" },
+              post: {
+                ...reqData,
+                status: "publish",
+              },
             },
           });
           setPublishBtnLoading(false);
-          if (!adPost.id) {
-            dispatch({
-              type: "UPDATE_ADPOST",
-              payload: { key: "id", value: data.data.addPost.id },
-            });
-          }
 
           props.data.closeModal();
         } catch (error) {
