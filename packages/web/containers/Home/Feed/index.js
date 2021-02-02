@@ -1,19 +1,19 @@
-import React from "react";
-import Link from "next/link";
-import { CURRENCY } from "../../../Config";
-import { useQuery } from "@apollo/react-hooks";
-import { GET_ALL_POST } from "core/graphql/AllPost.query";
-import { RECENT_POST_PAGE, SINGLE_POST_PAGE } from "core/navigation/constant";
-import { PostLoader } from "../../../components/Placeholder";
-import NavSidebar from "../../../components/NavSidebar";
+import React from 'react';
+import Link from 'next/link';
+import { CURRENCY } from '../../../Config';
+import { useQuery } from '@apollo/react-hooks';
+import { GET_ALL_POST } from 'core/graphql/AllPost.query';
+import { RECENT_POST_PAGE, SINGLE_POST_PAGE } from 'core/navigation/constant';
+import { PostLoader } from '../../../components/Placeholder';
+import NavSidebar from '../../../components/NavSidebar';
 
-import PostCard from "../../../components/PostCard";
-import ListGrid from "reusecore/src/elements/ListGrid";
-import Box from "reusecore/src/elements/Box";
-import Heading from "reusecore/src/elements/Heading";
-import Button from "reusecore/src/elements/Button";
-import NoItemFound from "../../../components/NoItemFound";
-import OnError from "../../../components/OnError";
+import PostCard from '../../../components/PostCard';
+import ListGrid from 'reusecore/src/elements/ListGrid';
+import Box from 'reusecore/src/elements/Box';
+import Heading from 'reusecore/src/elements/Heading';
+import Button from 'reusecore/src/elements/Button';
+import NoItemFound from '../../../components/NoItemFound';
+import OnError from '../../../components/OnError';
 
 export default function Feed() {
   // QUERY SECTION
@@ -30,12 +30,15 @@ export default function Feed() {
   // Extract Post Data
   const recentPosts = data && data.posts ? data.posts.data : [];
   // Post Loop Control Area
-
-  const renderRecentPost = (item) => {
+  console.log('Recent Posts===>', recentPosts);
+  const renderRecentPost = item => {
     const {
       title,
       slug,
       price,
+      author: { name },
+      content,
+      createdAt: { seconds },
       image: { url, largeUrl },
     } = item;
     return (
@@ -46,9 +49,9 @@ export default function Feed() {
         <a>
           <PostCard
             style={{
-              flexDirection: "row",
-              display: "flex",
-              justifyContent: "center",
+              flexDirection: 'row',
+              display: 'flex',
+              justifyContent: 'center',
             }}
             imageStyle={{
               marginRight: 20,
@@ -57,6 +60,9 @@ export default function Feed() {
             title={title}
             price={price}
             imageSrc={[url, largeUrl]}
+            author={name}
+            createdAt={seconds}
+            content={content}
           />
         </a>
       </Link>
