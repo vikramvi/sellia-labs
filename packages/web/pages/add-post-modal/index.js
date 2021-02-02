@@ -422,6 +422,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
                     fontSize: 18,
                     fontWeight: 600,
                     color: "#333333",
+                    backgroundColor: "#44a73f",
                     lineHeight: "20px",
                     marginRight: "40px",
                   }}
