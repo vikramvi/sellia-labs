@@ -70,6 +70,7 @@ export const GET_POST_FOR_EDIT = gql`
       content
       price
       slug
+      category
       status
       condition
       isNegotiable

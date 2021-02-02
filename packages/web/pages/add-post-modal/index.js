@@ -413,15 +413,6 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           <Box>
             {selectedSegment && selectedSegment.sections && (
               <Box flexBox flexDirection="row" alignItems="center">
-                {/* <Text
-                  content="I am looking"
-                  pr={10}
-                  style={{
-                    fontSize: 16,
-                    fontWeight: 400,
-                    color: "#595959",
-                  }}
-                /> */}
                 <Text
                   onClick={() => setSegmentListOpen(true)}
                   content={selectedSegment.title}
@@ -431,9 +422,20 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
                     fontSize: 18,
                     fontWeight: 600,
                     color: "#333333",
+                    backgroundColor: "#30C56D",
                     lineHeight: "20px",
+                    marginRight: "40px",
                   }}
                 ></Text>
+                {selectedSegment.feature.belongs_to && (
+                  <SelctionListSection
+                    section={{
+                      ...selectedSegment.belongsTo,
+                      title: "",
+                      type: "selectionList",
+                    }}
+                  />
+                )}
               </Box>
             )}
 
