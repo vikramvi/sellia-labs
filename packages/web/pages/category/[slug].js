@@ -1,21 +1,21 @@
-import { Fragment, useState } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { Grid } from 'react-styled-flexboxgrid';
-import { useQuery } from '@apollo/react-hooks';
-import { GET_CATEGORY_POST } from 'core/graphql/CategoryPost.query';
-import { CURRENCY } from '../../Config';
-import { SINGLE_POST_PAGE } from 'core/navigation/constant';
-import withLayout from '../../hoc/withLayout';
-import Box from 'reusecore/src/elements/Box';
-import Heading from 'reusecore/src/elements/Heading';
-import ListGrid from 'reusecore/src/elements/ListGrid';
-import CardLoader from '../../components/Loader/CardLoader';
-import PostCard from '../../components/PostCard';
-import NoItemFound from '../../components/NoItemFound';
-import OnError from '../../components/OnError';
-import PageMeta from '../../components/PageMeta';
-import { withApollo } from '../../helpers/apollo';
+import { Fragment, useState } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { Grid } from "react-styled-flexboxgrid";
+import { useQuery } from "@apollo/react-hooks";
+import { GET_CATEGORY_POST } from "core/graphql/CategoryPost.query";
+import { CURRENCY } from "../../Config";
+import { SINGLE_POST_PAGE } from "core/navigation/constant";
+import withLayout from "../../hoc/withLayout";
+import Box from "reusecore/src/elements/Box";
+import Heading from "reusecore/src/elements/Heading";
+import ListGrid from "reusecore/src/elements/ListGrid";
+import CardLoader from "../../components/Loader/CardLoader";
+import PostCard from "../../components/PostCard";
+import NoItemFound from "../../components/NoItemFound";
+import OnError from "../../components/OnError";
+import PageMeta from "../../components/PageMeta";
+import { withApollo } from "../../helpers/apollo";
 const SingleCategory = ({ data, loading, fetchMore, limit }) => {
   const [loadingMore, toggleLoading] = useState(false);
   const [page, paginate] = useState(1);
@@ -25,13 +25,16 @@ const SingleCategory = ({ data, loading, fetchMore, limit }) => {
   const totalPost = data && data.category ? data.category.posts.total : null;
   const categoryName = data && data.category ? data.category.name : null;
 
-  const renderCategoryPost = item => {
+  const renderCategoryPost = (item) => {
     const {
       title,
       price = `0.00`,
       slug,
-      image: { url, largeUrl },
+      // image: { url, largeUrl },
     } = item;
+
+    const { url, largeUrl } = item.image || {};
+
     return (
       <Link
         href={`${SINGLE_POST_PAGE}/[slug]`}
@@ -54,7 +57,7 @@ const SingleCategory = ({ data, loading, fetchMore, limit }) => {
         <Heading
           content={categoryName}
           mb={40}
-          style={{ fontSize: 24, fontWeight: 600, color: '#333333' }}
+          style={{ fontSize: 24, fontWeight: 600, color: "#333333" }}
         />
         {!fetchedCategoryPost ? (
           <NoItemFound />
@@ -69,7 +72,7 @@ const SingleCategory = ({ data, loading, fetchMore, limit }) => {
             isLoading={loadingMore}
             placeholder={<CardLoader />}
             limit={limit}
-            handleLoadMore={loading => {
+            handleLoadMore={(loading) => {
               toggleLoading(true);
               paginate(page + 1);
               fetchMore({
@@ -116,7 +119,7 @@ export default withApollo(
 
     if (error) return <OnError />;
 
-    const { name } = data && data.category ? data.category : '';
+    const { name } = data && data.category ? data.category : "";
     return (
       <Fragment>
         <PageMeta title={name} description="Product categories" />
