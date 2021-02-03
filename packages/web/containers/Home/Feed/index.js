@@ -51,7 +51,7 @@ export default function Feed() {
             style={{
               flexDirection: "row",
               display: "flex",
-              justifyContent: "center",
+              justifyContent: "flex-start",
             }}
             imageStyle={{
               marginRight: 20,
@@ -73,7 +73,7 @@ export default function Feed() {
   return (
     <>
       <NavSidebar></NavSidebar>
-      <Box mt={20} ml={255} mr={255}>
+      <Box mt={20} ml={"25%"} mr={"25%"}>
         {!recentPosts ? (
           <NoItemFound />
         ) : (
