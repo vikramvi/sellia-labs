@@ -38,8 +38,11 @@ const FeedPostCard = ({
   const HeadingContent = () => {
     return (
       <Box>
-        {(props.author ? props.author : "Sellia user") + " is "}
-        {"  "}
+        <Heading
+          content={props.author ? props.author : "Sellia user"}
+          style={{ display: "inline", ...titleStyle }}
+        />
+        {" is "}
         {item.categories && item.categories[0] && (
           <Link
             key={item.categories[0].id}
@@ -58,7 +61,8 @@ const FeedPostCard = ({
             </a>
           </Link>
         )}{" "}
-        {(item.category && item.category) || (item.brand && item.brand)}{" "}
+        {(item.category && item.category.toLowerCase()) ||
+          (item.brand && item.brand)}{" "}
         {item.belongsTo &&
           "for " + (item.belongsTo == "Mine" ? "himself" : item.belongsTo)}
       </Box>
