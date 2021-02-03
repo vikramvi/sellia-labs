@@ -11,6 +11,14 @@ export const GET_ALL_POST = gql`
         content
         createdAt
         price
+        belongsTo
+        condition
+        category
+        categories {
+          id
+          slug
+          name
+        }
         author {
           name
           username

@@ -1,15 +1,20 @@
 import React from "react";
-import PropTypes from "prop-types";
+import PropTypes, { element } from "prop-types";
 import Card from "reusecore/src/elements/Card";
 import Heading from "reusecore/src/elements/Heading";
 import Text from "reusecore/src/elements/Text";
 import PlaceholderImage from "core/static/images/thumb-grid-placeholder.svg";
 import Box from "reusecore/src/elements/Box";
+import Link from "next/link";
 
 import Img from "react-image";
 // import Description from "../../containers/SinglePost/Description";
 import { timeDifference } from "../../helpers/utility";
-const PostCard = ({
+import Tag, { TagGroup, LabelTag } from "../../components/TagGroup";
+
+import { SINGLE_CATEGORY_PAGE } from "core/navigation/constant";
+
+const FeedPostCard = ({
   imageSrc,
   title,
   price,
@@ -30,23 +35,41 @@ const PostCard = ({
   //   props
 
   // }
+  const HeadingContent = () => {
+    return (
+      <Box>
+        {(props.author ? props.author : "Sellia user") + " is "}
+        {"  "}
+        {item.categories && item.categories[0] && (
+          <Link
+            key={item.categories[0].id}
+            href={{
+              pathname: `${SINGLE_CATEGORY_PAGE}/${item.categories[0].slug}`,
+              state: {
+                termId: item.categories[0].id,
+              },
+            }}
+          >
+            <a>
+              <Tag
+                tagContent={item.categories[0].name}
+                style={{ marginRight: 10 }}
+              />
+            </a>
+          </Link>
+        )}{" "}
+        {(item.category && item.category) || (item.brand && item.brand)}{" "}
+        {item.belongsTo &&
+          "for " + (item.belongsTo == "Mine" ? "himself" : item.belongsTo)}
+      </Box>
+    );
+  };
+
   return (
     <Card {...props}>
       <Box>
         <div>
-          {props.author && (
-            <Text
-              content={
-                props.author +
-                " is " +
-                item.categories[0].slug +
-                " " +
-                item.category
-              }
-              {...priceStyle}
-              mb="0"
-            />
-          )}
+          <HeadingContent />
 
           {imageSrc && (
             <div className="real-estate-promo-card-image">
@@ -89,7 +112,7 @@ const PostCard = ({
   );
 };
 
-PostCard.propTypes = {
+FeedPostCard.propTypes = {
   title: PropTypes.string.isRequired,
   imageSrc: PropTypes.array,
   postNumber: PropTypes.string,
@@ -98,7 +121,7 @@ PostCard.propTypes = {
   postNumberStyle: PropTypes.object,
 };
 
-PostCard.defaultProps = {
+FeedPostCard.defaultProps = {
   boxShadow: "1px",
   borderRadius: "3px",
   width: "100%",
@@ -117,4 +140,4 @@ PostCard.defaultProps = {
   },
 };
 
-export default PostCard;
+export default FeedPostCard;
