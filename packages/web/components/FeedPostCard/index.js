@@ -1,19 +1,19 @@
-import React from "react";
-import PropTypes, { element } from "prop-types";
-import Card from "reusecore/src/elements/Card";
-import Heading from "reusecore/src/elements/Heading";
-import Text from "reusecore/src/elements/Text";
-import PlaceholderImage from "core/static/images/thumb-grid-placeholder.svg";
-import Box from "reusecore/src/elements/Box";
-import Link from "next/link";
+import React from 'react';
+import PropTypes, { element } from 'prop-types';
+import Card from 'reusecore/src/elements/Card';
+import Heading from 'reusecore/src/elements/Heading';
+import Text from 'reusecore/src/elements/Text';
+import PlaceholderImage from 'core/static/images/thumb-grid-placeholder.svg';
+import Box from 'reusecore/src/elements/Box';
+import Link from 'next/link';
 
-import Img from "react-image";
+import Img from 'react-image';
 // import Description from "../../containers/SinglePost/Description";
-import { timeDifference } from "../../helpers/utility";
-import Tag, { TagGroup, LabelTag } from "../../components/TagGroup";
-
-import { SINGLE_CATEGORY_PAGE } from "core/navigation/constant";
-
+import { timeDifference } from '../../helpers/utility';
+import Tag, { TagGroup, LabelTag } from '../../components/TagGroup';
+import { SINGLE_CATEGORY_PAGE } from 'core/navigation/constant';
+import profileImg from 'core/static/images/user-placeholder.svg';
+const profileImgStyle = { width: 40, height: 40, borderRadius: '50%' };
 const FeedPostCard = ({
   imageSrc,
   title,
@@ -25,6 +25,7 @@ const FeedPostCard = ({
   item,
   ...props
 }) => {
+  console.log('props', props);
   // const postData= {
   //   title,
   //   price,
@@ -36,13 +37,32 @@ const FeedPostCard = ({
 
   // }
   const HeadingContent = () => {
+    const avatar = props.avatar ? props.avatar : '';
     return (
       <Box>
-        <Heading
-          content={props.author ? props.author : "Sellia user"}
-          style={{ display: "inline", ...titleStyle }}
+        <Img
+          src={avatar}
+          loader={
+            <img
+              style={profileImgStyle}
+              src={profileImg}
+              alt="profile picture"
+            />
+          }
+          unloader={
+            <img
+              style={profileImgStyle}
+              src={profileImg}
+              alt="profile picture"
+            />
+          }
+          style={profileImgStyle}
         />
-        {" is "}
+        <Heading
+          content={props.author ? props.author : 'Sellia user'}
+          style={{ display: 'inline', ...titleStyle }}
+        />
+        {' is '}
         {item.categories && item.categories[0] && (
           <Link
             key={item.categories[0].id}
@@ -60,11 +80,11 @@ const FeedPostCard = ({
               />
             </a>
           </Link>
-        )}{" "}
+        )}{' '}
         {(item.category && item.category.toLowerCase()) ||
-          (item.brand && item.brand)}{" "}
+          (item.brand && item.brand)}{' '}
         {item.belongsTo &&
-          "for " + (item.belongsTo == "Mine" ? "himself" : item.belongsTo)}
+          'for ' + (item.belongsTo == 'Mine' ? 'himself' : item.belongsTo)}
       </Box>
     );
   };
@@ -86,7 +106,12 @@ const FeedPostCard = ({
               />
             </div>
           )}
-          {title && <Heading content={title} {...titleStyle} mb="1" mt={15} />}
+          <div className="title">
+            {title && (
+              <Heading content={title} {...titleStyle} mb="1" mt={15} />
+            )}
+            {props.condition && '(' + props.condition + ')'}
+          </div>
           {price && currency && (
             <Text content={`${currency} ${price}`} {...priceStyle} mb="0" />
           )}
@@ -126,21 +151,21 @@ FeedPostCard.propTypes = {
 };
 
 FeedPostCard.defaultProps = {
-  boxShadow: "1px",
-  borderRadius: "3px",
-  width: "100%",
-  mb: "40px",
-  color: "#595959",
+  boxShadow: '1px',
+  borderRadius: '3px',
+  width: '100%',
+  mb: '40px',
+  color: '#595959',
   imageStyle: {
-    width: "210px",
-    height: "210px",
-    color: "#fff",
-    borderRadius: "3px",
-    objectFit: "cover",
+    width: '210px',
+    height: '210px',
+    color: '#fff',
+    borderRadius: '3px',
+    objectFit: 'cover',
   },
   titleStyle: {
-    fontSize: "14px",
-    mt: "10px",
+    fontSize: '14px',
+    mt: '10px',
   },
 };
 
