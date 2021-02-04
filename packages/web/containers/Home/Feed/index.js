@@ -36,10 +36,11 @@ export default function Feed() {
       title,
       slug,
       price,
-      author: { name },
+      author: { name, image },
       content,
       createdAt: { seconds },
       image: { url, largeUrl },
+      condition,
     } = item;
     return (
       <Link
@@ -64,6 +65,8 @@ export default function Feed() {
             createdAt={seconds}
             content={content}
             item={item}
+            avatar={image?.url}
+            condition={condition}
           />
         </a>
       </Link>

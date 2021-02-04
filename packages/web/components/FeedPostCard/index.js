@@ -11,19 +11,9 @@ import Img from "react-image";
 // import Description from "../../containers/SinglePost/Description";
 import { timeDifference } from "../../helpers/utility";
 import Tag, { TagGroup, LabelTag } from "../../components/TagGroup";
-
 import { SINGLE_CATEGORY_PAGE } from "core/navigation/constant";
-import Avatar from "core/static/images/user-placeholder.svg";
-
-import styled from "styled-components";
-
-const Image = styled(Img)`
-  width: 45px;
-  height: 45px;
-  border-radius: 0;
-  object-fit: cover;
-`;
-
+import profileImg from "core/static/images/user-placeholder.svg";
+const profileImgStyle = { width: 40, height: 40, borderRadius: "50%" };
 const FeedPostCard = ({
   imageSrc,
   title,
@@ -35,6 +25,7 @@ const FeedPostCard = ({
   item,
   ...props
 }) => {
+  console.log("props", props);
   // const postData= {
   //   title,
   //   price,
@@ -46,21 +37,26 @@ const FeedPostCard = ({
 
   // }
   const HeadingContent = () => {
+    const avatar = props.avatar ? props.avatar : "";
     return (
-      <Box
-        mt="2"
-        mb="2"
-        flexBox
-        justifyContent="flex-start"
-        style={{ lineHeight: "45px" }}
-      >
-        <Image
-          src={[
-            props.author && props.author.image && props.author.image.url,
-            props.author && props.author.image && props.author.image.url,
-          ]}
-          loader={<Image src={Avatar} />}
-          unloader={<Image src={Avatar} />}
+      <Box>
+        <Img
+          src={avatar}
+          loader={
+            <img
+              style={profileImgStyle}
+              src={profileImg}
+              alt="profile picture"
+            />
+          }
+          unloader={
+            <img
+              style={profileImgStyle}
+              src={profileImg}
+              alt="profile picture"
+            />
+          }
+          style={profileImgStyle}
         />
         <Text
           mr="2"
@@ -68,7 +64,7 @@ const FeedPostCard = ({
           content={props.author ? props.author : "Sellia user"}
           style={{ display: "inline", fontWeight: "bold" }}
         />
-        <Text mr="2" content={"is"} style={{ display: "inline" }} />
+        {" is "}
         {item.categories && item.categories[0] && (
           <Link
             key={item.categories[0].id}
