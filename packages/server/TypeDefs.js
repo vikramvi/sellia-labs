@@ -156,8 +156,8 @@ export const typeDefs = `
     title: String!
     slug: String!
     content: String
-    mileage: String
-    miles: String
+    mileage: Int
+    miles: Int
     status: String
     image: imageInput
     price: Float

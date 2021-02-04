@@ -6,6 +6,10 @@ import Text from "reusecore/src/elements/Text";
 import PlaceholderImage from "core/static/images/thumb-grid-placeholder.svg";
 import Box from "reusecore/src/elements/Box";
 import Link from "next/link";
+import Button from "reusecore/src/elements/Button";
+import Icon from "../../components/Icon";
+import Router from "next/router";
+import { CHAT_PAGE } from "core/navigation/constant";
 
 import Img from "react-image";
 // import Description from "../../containers/SinglePost/Description";
@@ -244,6 +248,24 @@ const FeedPostCard = ({
         <div>
           <HeadingContent />
           {imageSrc && imageSrc[0] ? <ContentImage /> : <Content />}
+          {item.status === "publish" && (
+            <Button
+              disabled
+              iconPosition="left"
+              title="Send message"
+              bg="#30C56D"
+              style={{ marginBottom: 38, width: "100%" }}
+              icon={
+                <Icon name="ios-chatboxes" fontSize={19} color="#fff" mr={10} />
+              }
+              onClick={() =>
+                Router.push({
+                  pathname: CHAT_PAGE,
+                  query: { post: JSON.stringify(item) },
+                })
+              }
+            />
+          )}
         </div>
       </Box>
     </Card>

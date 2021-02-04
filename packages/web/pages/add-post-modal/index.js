@@ -23,7 +23,7 @@ import RowContainer from "../../containers/AddPost/RowContainer";
 import SelctionListSection from "../../containers/AddPost/SelctionListSection";
 
 import CategoryAndDetailInfo from "../../containers/AddPost/CategoryAndDetailInfo";
-import LocationInfo from "../../containers/AddPost/LocationInfo";
+import LocationInfo from "../../containers/AddPostModal/LocationInfo";
 import ContactNumberInfo from "../../containers/AddPost/ContactNumberInfo";
 import TopToolBar from "../../containers/AddPostModal/TopToolBar";
 
@@ -168,7 +168,8 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
             content: postData.content || "",
             contactNumber: postData.contactNumber || "",
             status: postData.status || "",
-            location: postData.formattedLocation || {},
+            location: postData.location || {},
+
             mileage: postData.mileage || 0,
             miles: postData.miles || 0,
             slug: postData.slug,
@@ -474,6 +475,9 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
                     //TODO change component
                     case "textField":
                       return <TitleInfo section={section} />;
+
+                    case "location":
+                      return <LocationInfo section={section} />;
 
                     //TODO change component
                     case "textBox":

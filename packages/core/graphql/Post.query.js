@@ -39,6 +39,11 @@ export const GET_POST = gql`
         largeUrl
       }
       favouritedBy
+      location {
+        lat
+        lng
+        formattedAddress
+      }
       formattedLocation {
         lat
         lng

@@ -11,6 +11,7 @@ export const GET_ALL_POST = gql`
         content
         createdAt
         price
+        originalPrice
         belongsTo
         condition
         category
