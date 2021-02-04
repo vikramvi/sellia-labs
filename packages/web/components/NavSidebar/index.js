@@ -63,39 +63,6 @@ const NavSidebar = ({
               role="presentation"
               data-testid="menu-box_container"
             ></div>
-
-            <li className="nav-menu-item-li">
-              <a href="/map/" className="nav-menu-item-link">
-                <svg
-                  className="nav-menu-item-icon css-ec7kfw"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  color="#000000"
-                  role="img"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M10 16.82l4.129-4.105a5.762 5.762 0 000-8.184 5.866 5.866 0 00-8.258 0 5.762 5.762 0 000 8.184L10 16.82zm-.458 1.66l-4.729-4.7a7.262 7.262 0 010-10.313c2.865-2.848 7.51-2.848 10.374 0a7.262 7.262 0 010 10.312l-4.729 4.701a.65.65 0 01-.916 0z"
-                    fill="currentColor"
-                  ></path>
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M10 9.166a.5.5 0 100-1 .5.5 0 000 1zm0 1.5a2 2 0 100-4 2 2 0 000 4z"
-                    fill="currentColor"
-                  ></path>
-                </svg>
-                <span
-                  className="nav-menu-item-label-refresh css-1y777s2"
-                  data-testid="Map"
-                >
-                  Map
-                </span>
-              </a>
-            </li>
           </ul>
           <hr className="nav-bar-hr"></hr>
           <div

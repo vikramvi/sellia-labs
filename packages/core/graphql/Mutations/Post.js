@@ -15,6 +15,7 @@ export const ADD_POST = gql`
       belongsTo
       slug
       price
+      originalPrice
       location {
         lat
         lng

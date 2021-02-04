@@ -97,80 +97,153 @@ const FeedPostCard = ({
     );
   };
 
+  const Content = () => {
+    return (
+      <>
+        <Box
+          flexBox
+          justifyContent="space-around"
+          style={{
+            background: "rgb(0, 0, 0)" /* fallback color */,
+            background: "rgba(0, 0, 0, 0.5)",
+
+            height: "100%",
+            bottom: 0,
+            width: "100%",
+          }}
+        >
+          <Box flexBox flexDirection="column">
+            {title && (
+              <Text
+                mt="2"
+                mb="1"
+                content={title}
+                style={{
+                  ...titleStyle,
+                  fontSize: "16px",
+                  color: "#ffffff",
+                  fontWeight: "bold",
+                }}
+              />
+            )}
+            {props.createdAt && (
+              <Text
+                style={{
+                  color: "#30C56D",
+                  fontWeight: "bold",
+                  fontSize: "12px",
+                }}
+                content={timeDifference(
+                  new Date().getTime(),
+                  props.createdAt * 1000
+                )}
+                mb="2"
+                mt="1"
+              />
+            )}
+          </Box>
+          <Box></Box>
+          <Box></Box>
+          <Box flexBox flexDirection="column">
+            {price && currency && (
+              <Text
+                content={`${currency} ${price}`}
+                style={{ color: "#30C56D", fontWeight: "bold" }}
+              />
+            )}
+          </Box>
+        </Box>
+
+        {props.content && (
+          <Text content={props.content} {...priceStyle} mb="2" mt="2" />
+        )}
+      </>
+    );
+  };
+
+  const ContentImage = () => {
+    return (
+      <>
+        <div className="real-estate-promo-card-image">
+          {imageSrc && (
+            <Img
+              src={imageSrc}
+              alt={title}
+              style={imageStyle}
+              loader={<img src={PlaceholderImage} />}
+              unloader={<img src={PlaceholderImage} />}
+            />
+          )}
+
+          <Box
+            flexBox
+            justifyContent="space-around"
+            style={{
+              background: "rgb(0, 0, 0)" /* fallback color */,
+              background: "rgba(0, 0, 0, 0.5)",
+              position: "absolute",
+              height: "50",
+              bottom: 0,
+              width: "100%",
+            }}
+          >
+            <Box flexBox flexDirection="column">
+              {title && (
+                <Text
+                  mt="2"
+                  mb="1"
+                  content={title}
+                  style={{
+                    ...titleStyle,
+                    fontSize: "16px",
+                    color: "#ffffff",
+                    fontWeight: "bold",
+                  }}
+                />
+              )}
+              {props.createdAt && (
+                <Text
+                  style={{
+                    color: "#30C56D",
+                    fontWeight: "bold",
+                    fontSize: "12px",
+                  }}
+                  content={timeDifference(
+                    new Date().getTime(),
+                    props.createdAt * 1000
+                  )}
+                  mb="2"
+                  mt="1"
+                />
+              )}
+            </Box>
+            <Box></Box>
+            <Box></Box>
+            <Box flexBox flexDirection="column">
+              {price && currency && (
+                <Text
+                  content={`${currency} ${price}`}
+                  style={{ color: "#30C56D", fontWeight: "bold" }}
+                />
+              )}
+            </Box>
+          </Box>
+        </div>
+
+        {props.content && (
+          <Text content={props.content} {...priceStyle} mb="2" mt="2" />
+        )}
+      </>
+    );
+  };
+
+  console.log("imageSrc -", imageSrc);
   return (
     <Card {...props}>
       <Box>
         <div>
           <HeadingContent />
-          <div className="real-estate-promo-card-image">
-            {imageSrc && (
-              <Img
-                src={imageSrc}
-                alt={title}
-                style={imageStyle}
-                loader={<img src={PlaceholderImage} />}
-                unloader={<img src={PlaceholderImage} />}
-              />
-            )}
-
-            <Box
-              flexBox
-              justifyContent="space-around"
-              style={{
-                background: "rgb(0, 0, 0)" /* fallback color */,
-                background: "rgba(0, 0, 0, 0.5)",
-                position: "absolute",
-                height: "50",
-                bottom: 0,
-                width: "100%",
-              }}
-            >
-              <Box flexBox flexDirection="column">
-                {title && (
-                  <Text
-                    mt="2"
-                    mb="1"
-                    content={title}
-                    style={{
-                      ...titleStyle,
-                      fontSize: "16px",
-                      color: "#ffffff",
-                      fontWeight: "bold",
-                    }}
-                  />
-                )}
-                {props.createdAt && (
-                  <Text
-                    style={{
-                      color: "#30C56D",
-                      fontWeight: "bold",
-                      fontSize: "12px",
-                    }}
-                    content={timeDifference(
-                      new Date().getTime(),
-                      props.createdAt * 1000
-                    )}
-                    mb="2"
-                    mt="1"
-                  />
-                )}
-              </Box>
-              <Box></Box>
-              <Box></Box>
-              <Box flexBox flexDirection="column">
-                {price && currency && (
-                  <Text
-                    content={`${currency} ${price}`}
-                    style={{ color: "#30C56D", fontWeight: "bold" }}
-                  />
-                )}
-              </Box>
-            </Box>
-          </div>
-
-          {props.content && (
-            <Text content={props.content} {...priceStyle} mb="2" mt="2" />
-          )}
+          {imageSrc && imageSrc[0] ? <ContentImage /> : <Content />}
         </div>
       </Box>
     </Card>
