@@ -286,7 +286,15 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
 
   let options = [];
   if (postSegments.length) {
-    postSegments.forEach((item) => {
+    let segments = postSegments;
+    //filter
+    if (selectedSegment) {
+      segments = segments.filter((segment) => {
+        return segment.id !== selectedSegment.id;
+      });
+    }
+
+    segments.forEach((item) => {
       let categoryOptions = { ...item, value: item.title, label: item.title };
       options.push(categoryOptions);
       if (
