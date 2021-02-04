@@ -42,6 +42,8 @@ export const Mutation = {
     if (input.miles) postData.miles = input.miles;
     if (input.mileage) postData.mileage = input.mileage;
     if (input.belongsTo) postData.belongsTo = input.belongsTo;
+    if (input.city) postData.city = input.city;
+    if (input.originalPrice) postData.originalPrice = input.originalPrice;
 
     // post slug duplication check start
     const allPost = await post.all();

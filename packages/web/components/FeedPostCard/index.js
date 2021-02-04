@@ -172,13 +172,6 @@ const FeedPostCard = ({
             <Text content={props.content} {...priceStyle} mb="2" mt="2" />
           )}
         </div>
-
-        {/* <Description
-          // loading={loading}
-          postData={postData}
-          // isLoggedIn={isLoggedIn}
-          // userId={userId}
-        /> */}
       </Box>
     </Card>
   );

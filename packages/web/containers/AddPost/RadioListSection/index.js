@@ -210,6 +210,7 @@ const RadioListSection = (props) => {
 
   const name = props.section.key;
 
+  console.log("adPost[name] ->", adPost);
   return (
     <Box flexBox flexDirection="column" mb={10}>
       <Text

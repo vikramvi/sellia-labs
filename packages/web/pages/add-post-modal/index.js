@@ -153,6 +153,8 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
               value: selectedCategories.value,
             })),
             brand: postData.brand || "",
+            category: postData.category || "",
+            city: postData.city || "",
             image: postData.image,
             authorId: postData.authorId,
             id: postData.id,
