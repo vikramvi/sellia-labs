@@ -11,6 +11,7 @@ export const ADD_POST = gql`
       content
       contactNumber
       status
+      city
       belongsTo
       slug
       price

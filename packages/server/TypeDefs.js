@@ -5,6 +5,7 @@ export const typeDefs = `
     title: String
     slug: String
     content: String
+    city: String
     belongsTo: String
     brand: String
     category: String

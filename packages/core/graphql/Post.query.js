@@ -8,6 +8,7 @@ export const GET_POST = gql`
       status
       content
       price
+      city
       authorId
       slug
       contactNumber
