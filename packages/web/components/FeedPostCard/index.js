@@ -39,7 +39,13 @@ const FeedPostCard = ({
   const HeadingContent = () => {
     const avatar = props.avatar ? props.avatar : "";
     return (
-      <Box>
+      <Box
+        mt="2"
+        mb="2"
+        flexBox
+        justifyContent="flex-start"
+        style={{ lineHeight: "45px" }}
+      >
         <Img
           src={avatar}
           loader={
