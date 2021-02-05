@@ -185,7 +185,8 @@ const FeedPostCard = ({
             justifyContent="space-around"
             style={{
               background: 'rgb(0, 0, 0)' /* fallback color */,
-              background: 'rgba(0, 0, 0, 0.5)',
+              background: 'rgba(0, 0, 0, 0.85)',
+
               position: 'absolute',
               height: '50',
               bottom: 0,
@@ -247,7 +248,13 @@ const FeedPostCard = ({
 
   console.log('imageSrc -', imageSrc);
   return (
-    <Card {...props}>
+    <Card
+      {...props}
+      style={{
+        boxShadow:
+          'rgba(60, 64, 67, 0.15) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px',
+      }}
+    >
       <Box>
         <div>
           <HeadingContent />
@@ -258,7 +265,7 @@ const FeedPostCard = ({
               iconPosition="left"
               title="Send message"
               bg="#30C56D"
-              style={{ marginBottom: 38, width: '100%' }}
+              style={{ marginBottom: 10, width: '40%' }}
               icon={
                 <Icon name="ios-chatboxes" fontSize={19} color="#fff" mr={10} />
               }
@@ -292,11 +299,9 @@ FeedPostCard.defaultProps = {
   mb: '40px',
   color: '#595959',
   imageStyle: {
-    width: '100%',
-    height: '210px',
     color: '#fff',
     borderRadius: '3px',
-    objectFit: 'cover',
+    objectFit: 'fill',
   },
   titleStyle: {
     fontSize: '16px',

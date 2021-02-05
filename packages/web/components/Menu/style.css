@@ -3,9 +3,9 @@
   z-index: 999999;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
   display: none;
   align-items: center;
   justify-content: center;
@@ -14,7 +14,7 @@
 .addPostNewModal {
   background: white;
   outline: none;
-  min-height: "650px";
+  min-height: '650px';
   box-shadow: 0 0 34px 0 rgba(0, 0, 0, 0.24);
   overflow-y: scroll;
   position: fixed;
