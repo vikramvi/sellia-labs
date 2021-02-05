@@ -413,7 +413,10 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           width: "100%",
         }}
       >
-        {/* {console.log("postSegments ->", JSON.stringify(postSegments, null, 2))} */}
+        {console.log(
+          "postSegments ->",
+          JSON.stringify(postSegments[4], null, 2)
+        )}
 
         <TopToolBar
           onClose={() => {
