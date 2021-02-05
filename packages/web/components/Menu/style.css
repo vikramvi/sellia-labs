@@ -14,7 +14,7 @@
 .addPostNewModal {
   background: white;
   outline: none;
-  min-height: "650px";
+  min-height: '650px';
   box-shadow: 0 0 34px 0 rgba(0, 0, 0, 0.24);
   overflow-y: scroll;
   position: fixed;

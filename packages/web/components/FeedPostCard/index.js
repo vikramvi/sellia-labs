@@ -130,6 +130,7 @@ const FeedPostCard = ({
                 }}
               />
             )}
+            {props.condition && "(" + props.condition + ")"}
             {props.createdAt && (
               <Text
                 style={{
@@ -230,6 +231,9 @@ const FeedPostCard = ({
                   content={`${currency} ${price}`}
                   style={{ color: "#30C56D", fontWeight: "bold" }}
                 />
+              )}
+              {props.originalPrice && currency && (
+                <del> ${props.originalPrice}</del>
               )}
             </Box>
           </Box>
