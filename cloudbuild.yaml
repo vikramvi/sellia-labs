@@ -15,7 +15,7 @@ steps:
     args: ["deploy", "--project=sellia-42377"]
     dir: "packages/cloud"
 # steps:
-#   # Install
+#
 #   - name: "gcr.io/cloud-builders/yarn"
 #     args: ["install"]
 #   # Build
