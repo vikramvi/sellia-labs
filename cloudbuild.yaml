@@ -12,7 +12,7 @@ steps:
     id: "server-build"
     waitFor: ["web-build"]
   - name: gcr.io/sellia-42377/firebase
-    args: ["deploy", "--project=sellia-42377", "--only=hosting"]
+    args: ["deploy", "--project=sellia-42377"]
     dir: "packages/cloud"
 # steps:
 #   - name: node:10
