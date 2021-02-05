@@ -236,7 +236,7 @@ const FeedPostCard = ({
         </div>
 
         {props.content && (
-          <Text content={props.content} {...priceStyle} mb="2" mt="2" />
+          <Text content={props.content} {...priceStyle} mb="5" mt="5" />
         )}
       </>
     );
@@ -261,7 +261,7 @@ const FeedPostCard = ({
               iconPosition="left"
               title="Send message"
               bg="#30C56D"
-              style={{ marginBottom: 10, width: "40%" }}
+              style={{ marginBottom: 2, width: "30%" }}
               icon={
                 <Icon name="ios-chatboxes" fontSize={19} color="#fff" mr={10} />
               }
