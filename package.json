@@ -24,7 +24,7 @@
     "web:staging": "yarn workspace web run buildstaging",
     "web": "yarn workspace web run dev",
     "server": "yarn workspace server run dev",
-    "server:build": "babel packages/server --out-dir packages/cloud --ignore packages/server/node_modules && cp packages/server/{package.json,.env} packages/cloud/ && cp -r \"packages/web/.next\" \"packages/cloud/next\"",
+    "server:build": "babel packages/server --out-dir packages/cloud --ignore packages/server/node_modules && cp packages/server/package.json packages/cloud/  && cp packages/server/.env packages/cloud/ && cp -r \"packages/web/.next\" \"packages/cloud/next\"",
     "functions:build": "babel packages/server --out-dir packages/cloud --ignore packages/server/node_modules",
     "serve": "cd packages/cloud && NODE_ENV=production firebase serve",
     "deploy": "cd packages/cloud && NODE_ENV=production firebase deploy",
