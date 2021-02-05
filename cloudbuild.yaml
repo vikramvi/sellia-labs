@@ -11,12 +11,12 @@ steps:
     args: ["server:build"]
     id: "server-build"
     waitFor: ["web-build"]
-  - name: node:12.0.0
+  - name: node
     entrypoint: npm
     args:
       [
         "rebuild",
-        "--target=12.0.0",
+        "--target=15.0.0",
         "--target_platform=linux",
         "--target_arch=x64",
         "--target_libc=glibc",
