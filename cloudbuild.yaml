@@ -11,7 +11,7 @@ steps:
     args: ["server:build"]
     id: "server-build"
     waitFor: ["web-build"]
-  - name: gcr.io/sellia-42377/firebase:8.16.2
+  - name: gcr.io/sellia-42377/firebase
     args: ["deploy", "--project=sellia-42377", "--only=hosting"]
     dir: "packages/cloud"
 # steps:
