@@ -142,15 +142,9 @@ const configData = [
   {
     list: [
       {
-        id: "",
+        id: 1,
         key: "mileage",
         title: "Mileage",
-        type: "textBox",
-      },
-      {
-        id: "",
-        key: "miles",
-        title: "Miles run",
         type: "textBox",
       },
     ],

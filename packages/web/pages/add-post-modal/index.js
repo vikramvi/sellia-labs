@@ -513,7 +513,9 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           {!isSegmentListOpen && (
             <Button
               title="Post"
+              disabled={publishBtnLoading}
               onClick={submitPost}
+              loaderColor="#fff"
               isLoading={publishBtnLoading}
               style={{
                 backgroundColor: !validateForm() ? "#e2e2e2" : "#30C56D",
