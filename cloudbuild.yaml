@@ -1,10 +1,10 @@
 steps:
-  - name: node:12.0.0
+  - name: node
     entrypoint: yarn
     args: ["web:build"]
-  - name: node:12.0.0
+  - name: node
     entrypoint: yarn
     args: ["server:build"]
-  - name: node:12.0.0
+  - name: node
     entrypoint: yarn
     args: ["deploy"]
