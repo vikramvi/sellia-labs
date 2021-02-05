@@ -5,12 +5,16 @@ steps:
   - name: node:12.0.0
     entrypoint: yarn
     args: ["web:build"]
+    id: "web-build"
   - name: node:12.0.0
     entrypoint: yarn
     args: ["server:build"]
+    id: "server-build"
+    waitFor: ["web-build"]
   - name: node:12.0.0
     entrypoint: yarn
     args: ["deploy"]
+    waitFor: ["server-build"]
 # steps:
 #   - name: node:10
 #     entrypoint: yarn
