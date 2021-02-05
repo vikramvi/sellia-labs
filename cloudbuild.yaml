@@ -1,23 +1,31 @@
-# steps:
-#   - name: node
-#     entrypoint: yarn
-#     args: ["web:build"]
-#   - name: node
-#     entrypoint: yarn
-#     args: ["server:build"]
-#   - name: node
-#     entrypoint: yarn
-#     args: ["deploy"]
-
 steps:
-  # Install
-  - name: "gcr.io/cloud-builders/yarn"
+  - name: node:12.0.0
+    entrypoint: yarn
     args: ["install"]
-  # Build
-  - name: "gcr.io/cloud-builders/yarn"
-    args: ["run", "web:build"]
-  - name: "gcr.io/cloud-builders/yarn"
-    args: ["run", "server:build"]
-  # Deploy
-  - name: "gcr.io/cloud-builders/yarn"
-    args: ["run", "deploy"]
+  - name: node:12.0.0
+    entrypoint: yarn
+    args: ["web:build"]
+  - name: node:12.0.0
+    entrypoint: yarn
+    args: ["server:build"]
+  - name: node:12.0.0
+    entrypoint: yarn
+    args: ["deploy"]
+# steps:
+#   - name: node:10
+#     entrypoint: yarn
+#     args:
+#       - install
+
+# steps:
+#   # Install
+#   - name: "gcr.io/cloud-builders/yarn"
+#     args: ["install"]
+#   # Build
+#   - name: "gcr.io/cloud-builders/yarn"
+#     args: ["run", "web:build"]
+#   - name: "gcr.io/cloud-builders/yarn"
+#     args: ["run", "server:build"]
+#   # Deploy
+#   - name: "gcr.io/cloud-builders/yarn"
+#     args: ["run", "deploy"]
