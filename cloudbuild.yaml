@@ -11,6 +11,9 @@ steps:
     args: ["server:build"]
     id: "server-build"
     waitFor: ["web-build"]
+  - name: node:12.0.0
+    entrypoint: npm
+    args: ["rebuild"]
   - name: gcr.io/sellia-42377/firebase
     args: ["deploy", "--project=sellia-42377"]
     dir: "packages/cloud"
