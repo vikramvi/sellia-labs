@@ -109,7 +109,7 @@ const FeedPostCard = ({
           justifyContent="space-around"
           style={{
             background: "rgb(0, 0, 0)" /* fallback color */,
-            background: "rgba(0, 0, 0, 0.5)",
+            background: "rgba(0, 0, 0, 0.3)",
 
             height: "100%",
             bottom: 0,
@@ -117,20 +117,43 @@ const FeedPostCard = ({
           }}
         >
           <Box flexBox flexDirection="column">
-            {title && (
-              <Text
-                mt="2"
-                mb="1"
-                content={title}
-                style={{
-                  ...titleStyle,
-                  fontSize: "16px",
-                  color: "#ffffff",
-                  fontWeight: "bold",
-                }}
-              />
-            )}
-            {props.condition && "(" + props.condition + ")"}
+            <Box
+              flexBox
+              flexDirection="row"
+              justifyContent="center"
+              alignItem="center"
+            >
+              {title && (
+                <Text
+                  mt="2"
+                  mb="1"
+                  content={title}
+                  style={{
+                    ...titleStyle,
+                    fontSize: "16px",
+                    color: "#ffffff",
+                    lineHeight: "20px",
+                    fontWeight: "bold",
+                  }}
+                />
+              )}
+              {"   "}
+              {props.condition && (
+                <Text
+                  mt="2"
+                  ml="2"
+                  content={props.condition && "(" + props.condition + ")"}
+                  style={{
+                    ...titleStyle,
+                    fontSize: "12px",
+                    lineHeight: "20px",
+                    color: "grey",
+                    fontWeight: "bold",
+                  }}
+                />
+              )}{" "}
+            </Box>
+
             {props.createdAt && (
               <Text
                 style={{
@@ -185,7 +208,7 @@ const FeedPostCard = ({
             justifyContent="space-around"
             style={{
               background: "rgb(0, 0, 0)" /* fallback color */,
-              background: "rgba(0, 0, 0, 0.85)",
+              background: "rgba(0, 0, 0, 0.5)",
 
               position: "absolute",
               height: "50",
@@ -194,19 +217,43 @@ const FeedPostCard = ({
             }}
           >
             <Box flexBox flexDirection="column">
-              {title && (
-                <Text
-                  mt="2"
-                  mb="1"
-                  content={title}
-                  style={{
-                    ...titleStyle,
-                    fontSize: "16px",
-                    color: "#ffffff",
-                    fontWeight: "bold",
-                  }}
-                />
-              )}
+              <Box
+                flexBox
+                flexDirection="row"
+                justifyContent="center"
+                alignItem="center"
+              >
+                {title && (
+                  <Text
+                    mt="2"
+                    mb="1"
+                    content={title}
+                    style={{
+                      ...titleStyle,
+                      fontSize: "16px",
+                      color: "#ffffff",
+                      lineHeight: "20px",
+                      fontWeight: "bold",
+                    }}
+                  />
+                )}
+                {"   "}
+                {props.condition && (
+                  <Text
+                    mt="2"
+                    ml="2"
+                    content={props.condition && "(" + props.condition + ")"}
+                    style={{
+                      ...titleStyle,
+                      fontSize: "12px",
+                      lineHeight: "20px",
+                      color: "grey",
+                      fontWeight: "bold",
+                    }}
+                  />
+                )}{" "}
+              </Box>
+
               {props.createdAt && (
                 <Text
                   style={{
