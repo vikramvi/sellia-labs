@@ -11,19 +11,8 @@ steps:
     args: ["server:build"]
     id: "server-build"
     waitFor: ["web-build"]
-  - name: node:15.0.0
-    entrypoint: npm
-    args:
-      [
-        "rebuild",
-        "--target=15.0.0",
-        "--target_platform=linux",
-        "--target_arch=x64",
-        "--target_libc=glibc",
-        "--update-binary",
-      ]
   - name: gcr.io/sellia-42377/firebase
-    args: ["deploy", "--project=sellia-42377"]
+    args: ["deploy", "--project=sellia-42377", "--only hosting"]
     dir: "packages/cloud"
 # steps:
 #
@@ -37,3 +26,15 @@ steps:
 #   # Deploy
 #   - name: "gcr.io/cloud-builders/yarn"
 #     args: ["run", "deploy"]
+
+# - name: node:15.0.0
+#     entrypoint: npm
+#     args:
+#       [
+#         "rebuild",
+#         "--target=15.0.0",
+#         "--target_platform=linux",
+#         "--target_arch=x64",
+#         "--target_libc=glibc",
+#         "--update-binary",
+#       ]
