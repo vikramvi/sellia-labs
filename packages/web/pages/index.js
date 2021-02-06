@@ -47,7 +47,7 @@ const FeedPage = withLayout(({ location, ...props }) => {
 
       <Box flexBox as="main" pt={40} pb={0} pl={0} pr={0}>
         <Grid>
-          <Feed />
+          <Feed {...props} />
         </Grid>
       </Box>
     </>

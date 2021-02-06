@@ -15,11 +15,13 @@ import Button from "reusecore/src/elements/Button";
 import NoItemFound from "../../../components/NoItemFound";
 import OnError from "../../../components/OnError";
 
-export default function Feed() {
+export default function Feed({ userId }) {
   // QUERY SECTION
   let QUERY_VARIABLES = {
     LIMIT: 8,
   };
+
+  console.log("feed user --", userId);
 
   const { data, loading, error } = useQuery(GET_ALL_POST, {
     variables: QUERY_VARIABLES,
@@ -63,6 +65,7 @@ export default function Feed() {
           price={price}
           imageSrc={[url, largeUrl]}
           author={name}
+          userId={userId}
           createdAt={seconds}
           content={content}
           item={item}

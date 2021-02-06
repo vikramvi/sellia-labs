@@ -76,12 +76,10 @@ const Chat = (props) => {
   const inputRef = React.useRef(null);
   const { user } = useContext(ChatContext);
 
-  const [autoSelectItem, setAutoSelectItem] = props.currentPost
-    ? useState({
-        authorId: props.currentPost.authorId,
-        id: props.currentPost.id,
-      })
-    : useState({});
+  const [autoSelectItem, setAutoSelectItem] = useState({
+    authorId: props.currentPost && props.currentPost.authorId,
+    id: props.currentPost && props.currentPost.id,
+  });
 
   console.log("chat props ->", props);
 

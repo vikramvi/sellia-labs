@@ -27,6 +27,7 @@ const FeedPostCard = ({
   titleStyle,
   priceStyle,
   item,
+  userId,
   ...props
 }) => {
   console.log("props", props);
@@ -108,9 +109,6 @@ const FeedPostCard = ({
           flexBox
           justifyContent="space-around"
           style={{
-            background: "rgb(0, 0, 0)" /* fallback color */,
-            background: "rgba(0, 0, 0, 0.3)",
-
             height: "100%",
             bottom: 0,
             width: "100%",
@@ -131,7 +129,7 @@ const FeedPostCard = ({
                   style={{
                     ...titleStyle,
                     fontSize: "16px",
-                    color: "#ffffff",
+                    color: "#000000",
                     lineHeight: "20px",
                     fontWeight: "bold",
                   }}
@@ -306,7 +304,7 @@ const FeedPostCard = ({
         <div>
           <HeadingContent />
           {imageSrc && imageSrc[0] ? <ContentImage /> : <Content />}
-          {item.status === "publish" && (
+          {item.status === "publish" && userId !== item.authorId && (
             <Button
               iconPosition="left"
               title="Send message"
