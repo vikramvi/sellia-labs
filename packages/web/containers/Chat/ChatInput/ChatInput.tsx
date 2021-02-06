@@ -6,6 +6,7 @@ import Wrapper, { Send } from "./ChatInput.styled";
 type PropsType = {
   value: string;
   disabled: boolean;
+  inputRef: any;
   onChange: (e) => void;
   onSubmit?: (e) => void;
 };
@@ -15,10 +16,12 @@ const ChatInput: React.FC<PropsType> = ({
   onChange,
   onSubmit,
   disabled,
+  inputRef,
 }) => {
   return (
     <Wrapper onSubmit={onSubmit}>
       <Input
+        inputRef={inputRef}
         value={value}
         onChange={onChange}
         disabled={disabled}

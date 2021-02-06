@@ -73,7 +73,15 @@ const NoListingSelected = () => (
 );
 
 const Chat = (props) => {
+  const inputRef = React.useRef(null);
   const { user } = useContext(ChatContext);
+
+  const [autoSelectItem, setAutoSelectItem] = props.currentPost
+    ? useState({
+        authorId: props.currentPost.authorId,
+        id: props.currentPost.id,
+      })
+    : useState({});
 
   console.log("chat props ->", props);
 
@@ -177,6 +185,26 @@ const Chat = (props) => {
   };
 
   useEffect(() => {
+    //deafult selection
+
+    if (autoSelectItem) {
+      //post chat id
+      let chat_id = getNodename(
+        userId,
+        autoSelectItem.authorId,
+        autoSelectItem.id
+      );
+
+      const item = data[chat_id];
+
+      if (item) {
+        console.log("auto selection ->", item);
+        onListingSelect(item);
+      }
+    }
+  }, [data]);
+
+  useEffect(() => {
     console.log("useEffect in");
 
     let unsbscribe;
@@ -215,25 +243,6 @@ const Chat = (props) => {
           });
 
           setData(newChats);
-
-          //deafult selection
-
-          // if (currentPost) {
-          //   console.log("deafult selection");
-
-          //   //post chat id
-          //   let chat_id = getNodename(
-          //     userId,
-          //     currentPost.authorId,
-          //     currentPost.id
-          //   );
-
-          //   const item = data[chat_id];
-
-          //   if (item) {
-          //     onListingSelect(item);
-          //   }
-          // }
         },
         (err) => {
           console.log(`Encountered error: ${err}`);
@@ -321,6 +330,7 @@ const Chat = (props) => {
 
   const onListingSelect = async (item) => {
     setcurrentListing(item);
+    setAutoSelectItem({});
 
     const otherUser = item.seller.id == userId ? item.buyer : item.seller;
 
@@ -361,6 +371,9 @@ const Chat = (props) => {
       if (chatBody) {
         chatBody.scrollTop = chatBody.scrollHeight;
       }
+
+      //select input
+      inputRef.current && inputRef.current.focus();
     });
 
     //clear unread count
@@ -407,6 +420,7 @@ const Chat = (props) => {
               </Body>
               <Footer>
                 <ChatInput
+                  inputRef={inputRef}
                   value={value}
                   disabled={
                     currentListing.listingStatus === "sold" ? true : false

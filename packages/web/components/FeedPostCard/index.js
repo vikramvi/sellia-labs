@@ -315,12 +315,14 @@ const FeedPostCard = ({
               icon={
                 <Icon name="ios-chatboxes" fontSize={19} color="#fff" mr={10} />
               }
-              onClick={(e) => {
-                e.stopPropagation();
-                Router.push({
-                  pathname: CHAT_PAGE,
-                  query: { post: JSON.stringify(item) },
-                });
+              onClick={() => {
+                Router.push(
+                  {
+                    pathname: CHAT_PAGE,
+                    query: { post: JSON.stringify(item) },
+                  },
+                  CHAT_PAGE
+                );
               }}
             />
           )}
