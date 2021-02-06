@@ -209,13 +209,14 @@ const FeedPostCard = ({
               background: "rgba(0, 0, 0, 0.5)",
 
               position: "absolute",
-              height: "50",
+              height: "50px",
               bottom: 0,
               width: "100%",
             }}
           >
             <Box flexBox flexDirection="column">
               <Box
+                mt="1"
                 flexBox
                 flexDirection="row"
                 justifyContent="center"
@@ -223,14 +224,12 @@ const FeedPostCard = ({
               >
                 {title && (
                   <Text
-                    mt="2"
-                    mb="1"
+                    mb="0"
                     content={title}
                     style={{
                       ...titleStyle,
-                      fontSize: "16px",
+                      fontSize: "14px",
                       color: "#ffffff",
-                      lineHeight: "20px",
                       fontWeight: "bold",
                     }}
                   />
@@ -238,18 +237,16 @@ const FeedPostCard = ({
                 {"   "}
                 {props.condition && (
                   <Text
-                    mt="2"
                     ml="2"
                     content={props.condition && "(" + props.condition + ")"}
                     style={{
                       ...titleStyle,
-                      fontSize: "12px",
-                      lineHeight: "20px",
+                      fontSize: "10px",
                       color: "grey",
                       fontWeight: "bold",
                     }}
                   />
-                )}{" "}
+                )}
               </Box>
 
               {props.createdAt && (
@@ -264,21 +261,40 @@ const FeedPostCard = ({
                     props.createdAt * 1000
                   )}
                   mb="2"
-                  mt="1"
                 />
               )}
             </Box>
             <Box></Box>
             <Box></Box>
-            <Box flexBox flexDirection="column">
+            <Box
+              flexBox
+              flexDirection="column"
+              justifyContent="flex-end"
+              alignItems="flex-end"
+            >
               {price && currency && (
                 <Text
+                  mt="2"
+                  mb="0"
                   content={`${currency} ${price}`}
-                  style={{ color: "#30C56D", fontWeight: "bold" }}
+                  style={{
+                    color: "#30C56D",
+                    fontWeight: "bold",
+                    fontSize: "18px",
+                  }}
                 />
               )}
               {props.originalPrice && currency && (
-                <del> ${props.originalPrice}</del>
+                <del
+                  style={{
+                    marginRight: "0px",
+                    color: "#FFFFFF",
+                    fontWeight: "bold",
+                    fontSize: "12px",
+                  }}
+                >
+                  ${props.originalPrice}
+                </del>
               )}
             </Box>
           </Box>
