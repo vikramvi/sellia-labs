@@ -13,10 +13,6 @@ steps:
     waitFor: ["web-build"]
   - name: node
     entrypoint: npm
-    args: ["rebuild"]
-
-  - name: node
-    entrypoint: npm
     args:
       [
         "rebuild",
