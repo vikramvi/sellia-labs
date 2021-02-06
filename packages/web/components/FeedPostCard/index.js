@@ -308,7 +308,6 @@ const FeedPostCard = ({
           {imageSrc && imageSrc[0] ? <ContentImage /> : <Content />}
           {item.status === "publish" && (
             <Button
-              disabled
               iconPosition="left"
               title="Send message"
               bg="#30C56D"
@@ -316,12 +315,13 @@ const FeedPostCard = ({
               icon={
                 <Icon name="ios-chatboxes" fontSize={19} color="#fff" mr={10} />
               }
-              onClick={() =>
+              onClick={(e) => {
+                e.stopPropagation();
                 Router.push({
                   pathname: CHAT_PAGE,
                   query: { post: JSON.stringify(item) },
-                })
-              }
+                });
+              }}
             />
           )}
         </div>

@@ -6,6 +6,7 @@ export const GET_ALL_POST = gql`
       data {
         id
         slug
+        authorId
         status
         title
         content
