@@ -372,7 +372,7 @@ const FeedPostCard = ({
               bg="#FFFFFF"
               style={{
                 marginBottom: 2,
-                width: "30%",
+                width: "25%",
                 fontSize: "12px",
                 height: "30px",
                 color: "#1e2d8f",
