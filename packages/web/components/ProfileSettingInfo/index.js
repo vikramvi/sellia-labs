@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Box from 'reusecore/src/elements/Box';
-import Image from 'react-image';
-import Text from 'reusecore/src/elements/Text';
+import React from "react";
+import PropTypes from "prop-types";
+import Box from "reusecore/src/elements/Box";
+import Image from "react-image";
+import Text from "reusecore/src/elements/Text";
 
-import Avatar from 'core/static/images/user-placeholder.svg';
+import Avatar from "core/static/images/user-placeholder.svg";
 
 const ImageStyle = {
-  overflow: 'hidden',
-  borderRadius: '50%',
-  objectFit: 'cover',
+  overflow: "hidden",
+  borderRadius: "50%",
+  objectFit: "cover",
   marginRight: 15,
   width: 32,
   height: 32,
@@ -33,7 +33,7 @@ const ProfileSettingInfo = ({
       justifyContent="space-between"
       borderBottom="1px solid #e2e2e2"
       style={{
-        cursor: 'pointer',
+        cursor: "pointer",
       }}
       pt={15}
       pb={15}

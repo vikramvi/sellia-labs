@@ -10,6 +10,7 @@ import Button from "reusecore/src/elements/Button";
 import Icon from "../../components/Icon";
 import Router from "next/router";
 import { CHAT_PAGE } from "core/navigation/constant";
+import ShareModal from "../../containers/ModalContainer/ShareModal";
 
 import Img from "react-image";
 // import Description from "../../containers/SinglePost/Description";
@@ -18,6 +19,23 @@ import Tag, { TagGroup, LabelTag } from "../../components/TagGroup";
 import { SINGLE_CATEGORY_PAGE } from "core/navigation/constant";
 import profileImg from "core/static/images/user-placeholder.svg";
 const profileImgStyle = { width: 40, height: 40, borderRadius: "50%" };
+import styled from "styled-components";
+import { openModal, closeModal } from "@redq/reuse-modal";
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (max-width: 1023px) {
+    width: 100%;
+    margin-top: 20px;
+
+    .outlineButton {
+      width: calc(50% - 5px);
+    }
+  }
+`;
+
 const FeedPostCard = ({
   imageSrc,
   title,
@@ -65,7 +83,7 @@ const FeedPostCard = ({
         mb="2"
         flexBox
         justifyContent="flex-start"
-        style={{ lineHeight: "45px" }}
+        borderBottom="1px solid #e2e2e2"
       >
         <Img
           src={avatar}
@@ -119,21 +137,27 @@ const FeedPostCard = ({
 
   const Content = () => {
     return (
-      <>
+      <Box borderBottom="1px solid #e2e2e2">
         <Box
           flexBox
-          justifyContent="space-around"
+          justifyContent="flex-start"
+          borderBottom="1px solid #e2e2e2"
           style={{
             height: "100%",
-            bottom: 0,
             width: "100%",
           }}
         >
-          <Box flexBox flexDirection="column">
+          <Box
+            style={{
+              width: "80%",
+            }}
+            flexBox
+            flexDirection="column"
+          >
             <Box
               flexBox
               flexDirection="row"
-              justifyContent="center"
+              justifyContent="flex-start"
               alignItem="center"
             >
               {title && (
@@ -198,13 +222,13 @@ const FeedPostCard = ({
         {props.content && (
           <Text content={props.content} {...priceStyle} mb="2" mt="2" />
         )}
-      </>
+      </Box>
     );
   };
 
   const ContentImage = () => {
     return (
-      <>
+      <Box borderBottom="1px solid #e2e2e2">
         <div className="real-estate-promo-card-image">
           {imageSrc && (
             <Img
@@ -318,7 +342,7 @@ const FeedPostCard = ({
         {props.content && (
           <Text content={props.content} {...priceStyle} mb="5" mt="5" />
         )}
-      </>
+      </Box>
     );
   };
 
@@ -331,18 +355,36 @@ const FeedPostCard = ({
           "rgba(60, 64, 67, 0.15) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px",
       }}
     >
-      <Box>
-        <div>
-          <HeadingContent />
-          {imageSrc && imageSrc[0] ? <ContentImage /> : <Content />}
+      <Box
+        style={{
+          margin: "10px",
+        }}
+      >
+        <HeadingContent />
+
+        {imageSrc && imageSrc[0] ? <ContentImage /> : <Content />}
+
+        <ButtonWrapper style={{ flexGrow: 0 }}>
           {item.status === "publish" && userId !== item.authorId && (
             <Button
               iconPosition="left"
               title="Send message"
-              bg="#30C56D"
-              style={{ marginBottom: 2, width: "30%" }}
+              bg="#FFFFFF"
+              style={{
+                marginBottom: 2,
+                width: "30%",
+                fontSize: "12px",
+                height: "30px",
+                color: "#1e2d8f",
+                marginRight: 2,
+              }}
               icon={
-                <Icon name="ios-chatboxes" fontSize={19} color="#fff" mr={10} />
+                <Icon
+                  name="ios-chatboxes"
+                  fontSize={18}
+                  color="#1e2d8f"
+                  mr={10}
+                />
               }
               onClick={() => {
                 Router.push(
@@ -355,7 +397,47 @@ const FeedPostCard = ({
               }}
             />
           )}
-        </div>
+
+          <Button
+            iconPosition="left"
+            bg="#FFFFFF"
+            title="Share"
+            icon={<Icon name="ios-share-alt" fontSize={18} color="#1e2d8f" />}
+            style={{
+              fontSize: "12px",
+
+              marginBottom: 2,
+              color: "#1e2d8f",
+              width: "20%",
+
+              height: "30px",
+            }}
+            onClick={() =>
+              openModal({
+                config: {
+                  disableDragging: false,
+                  width: "auto",
+                  height: "auto",
+                  enableResizing: false,
+                  disableDragging: true,
+                  transition: {
+                    tension: 150,
+                  },
+                },
+                withRnd: false,
+                closeOnClickOutside: true,
+                component: ShareModal,
+                componentProps: {
+                  data: {
+                    author: item.author.name,
+                    link: process.browser ? window.location.href : null,
+                    title: item.title,
+                  },
+                },
+              })
+            }
+          />
+        </ButtonWrapper>
       </Box>
     </Card>
   );

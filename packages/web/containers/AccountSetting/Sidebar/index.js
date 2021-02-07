@@ -1,10 +1,10 @@
-import React from 'react';
-import Icon from 'react-icons-kit';
-import { androidLock } from 'react-icons-kit/ionicons/androidLock';
-import { iosArrowForward } from 'react-icons-kit/ionicons/iosArrowForward';
-import { iosTelephone } from 'react-icons-kit/ionicons/iosTelephone';
-import Box from 'reusecore/src/elements/Box';
-import ProfileSettingInfo from '../../../components/ProfileSettingInfo';
+import React from "react";
+import Icon from "react-icons-kit";
+import { androidLock } from "react-icons-kit/ionicons/androidLock";
+import { iosArrowForward } from "react-icons-kit/ionicons/iosArrowForward";
+import { iosTelephone } from "react-icons-kit/ionicons/iosTelephone";
+import Box from "reusecore/src/elements/Box";
+import ProfileSettingInfo from "../../../components/ProfileSettingInfo";
 
 export default ({ image, name, onToggleClick }) => (
   <Box
@@ -17,10 +17,10 @@ export default ({ image, name, onToggleClick }) => (
   >
     <ProfileSettingInfo
       avatarImage={image}
-      title={name || 'My Profile'}
+      title={name || "My Profile"}
       // description="Edit Profile"
       iconRight={<Icon icon={iosArrowForward} size={18} color="#BABABA" />}
-      onClick={() => onToggleClick('edit-profile')}
+      onClick={() => onToggleClick("edit-profile")}
     />
 
     {/* Change password section */}
@@ -28,11 +28,11 @@ export default ({ image, name, onToggleClick }) => (
       title="Change Password"
       avatarIcon={<Icon icon={androidLock} size={18} />}
       iconRight={<Icon icon={iosArrowForward} size={18} color="#BABABA" />}
-      onClick={() => onToggleClick('change-password')}
+      onClick={() => onToggleClick("change-password")}
       style={{
-        backgroundColor: '#3093FF',
-        color: '#fff',
-        borderRadius: '3px',
+        backgroundColor: "#3093FF",
+        color: "#fff",
+        borderRadius: "3px",
       }}
     />
 
@@ -42,11 +42,11 @@ export default ({ image, name, onToggleClick }) => (
       borderBottom="none"
       avatarIcon={<Icon icon={iosTelephone} size={21} />}
       iconRight={<Icon icon={iosArrowForward} size={18} />}
-      onClick={() => onToggleClick('add-mobile-number')}
+      onClick={() => onToggleClick("add-mobile-number")}
       style={{
-        backgroundColor: '#FF7946',
-        color: '#fff',
-        borderRadius: '3px',
+        backgroundColor: "#FF7946",
+        color: "#fff",
+        borderRadius: "3px",
       }}
     />
     {/* Deleted Account section */}
