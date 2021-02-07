@@ -72,14 +72,21 @@ const NoListingSelected = () => (
   </Box>
 );
 
+export interface ChatRequest {
+  authorId: string;
+  id: string;
+}
+
 const Chat = (props) => {
   const inputRef = React.useRef(null);
   const { user } = useContext(ChatContext);
 
-  const [autoSelectItem, setAutoSelectItem] = useState({
-    authorId: props.currentPost && props.currentPost.authorId,
-    id: props.currentPost && props.currentPost.id,
-  });
+  const [autoSelectItem, setAutoSelectItem] = props.currentPost
+    ? useState<ChatRequest | null>({
+        authorId: props.currentPost && props.currentPost.authorId,
+        id: props.currentPost && props.currentPost.id,
+      })
+    : useState<ChatRequest | null>(null);
 
   console.log("chat props ->", props);
 
@@ -184,7 +191,7 @@ const Chat = (props) => {
 
   useEffect(() => {
     //deafult selection
-
+    console.log("useEffect autoSelectItem ->", autoSelectItem);
     if (autoSelectItem) {
       //post chat id
       let chat_id = getNodename(
@@ -328,7 +335,7 @@ const Chat = (props) => {
 
   const onListingSelect = async (item) => {
     setcurrentListing(item);
-    setAutoSelectItem({});
+    setAutoSelectItem(null);
 
     const otherUser = item.seller.id == userId ? item.buyer : item.seller;
 

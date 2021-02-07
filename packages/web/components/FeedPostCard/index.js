@@ -41,6 +41,22 @@ const FeedPostCard = ({
   //   props
 
   // }
+
+  const displayBelongsTo = (param) => {
+    switch (param.toLowerCase()) {
+      case "for myself":
+        return "for himself";
+      case "mine":
+        return "for himself";
+      case "for my friend":
+        return "for his friend";
+      case "for my family":
+        return "for his family";
+      default:
+        return "";
+    }
+  };
+
   const HeadingContent = () => {
     const avatar = props.avatar ? props.avatar : "";
     return (
@@ -96,8 +112,7 @@ const FeedPostCard = ({
         )}{" "}
         {(item.category && item.category.toLowerCase()) ||
           (item.brand && item.brand)}{" "}
-        {item.belongsTo &&
-          "for " + (item.belongsTo == "Mine" ? "himself" : item.belongsTo)}
+        {item.belongsTo && displayBelongsTo(item.belongsTo)}
       </Box>
     );
   };
