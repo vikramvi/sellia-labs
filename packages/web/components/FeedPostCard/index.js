@@ -210,7 +210,7 @@ const FeedPostCard = ({
           <Box></Box>
           <Box></Box>
           <Box flexBox flexDirection="column">
-            {price && currency && (
+            {price > 0 && currency && (
               <Text
                 content={`${currency} ${price}`}
                 style={{ color: "#30C56D", fontWeight: "bold" }}

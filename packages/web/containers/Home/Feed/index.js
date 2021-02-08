@@ -18,7 +18,7 @@ import OnError from "../../../components/OnError";
 export default function Feed({ userId }) {
   // QUERY SECTION
   let QUERY_VARIABLES = {
-    LIMIT: 15,
+    LIMIT: 20,
   };
 
   console.log("feed user --", userId);
