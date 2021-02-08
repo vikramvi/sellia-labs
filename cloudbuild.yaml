@@ -12,7 +12,7 @@ steps:
     id: "server-build"
     waitFor: ["web-build"]
   - name: gcr.io/cloud-builders/npm
-    entrypoint: "node"
+    entrypoint: "npm"
     args: ["rebuild"]
     dir: "packages/cloud"
     waitFor: ["server-build"]
