@@ -6,8 +6,11 @@ packages/web/.next/*
 # dotenv environment variables file (build for Zeit Now)
 .env
 .env.build
+
 # Dependency directories
 node_modules/
+packages/server/node_modules
+
 # Logs
 npm-debug.log*
 yarn-debug.log*

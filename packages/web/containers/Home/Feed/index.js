@@ -46,35 +46,35 @@ export default function Feed({ userId }) {
       originalPrice,
     } = item;
     return (
-      <Link
-        href={`${SINGLE_POST_PAGE}/[slug]`}
-        as={`${SINGLE_POST_PAGE}/${slug}`}
-      >
-        <a>
-          <FeedPostCard
-            style={{
-              flexDirection: "row",
-              display: "flex",
-              justifyContent: "flex-start",
-            }}
-            imageStyle={{
-              marginRight: 20,
-            }}
-            currency={CURRENCY}
-            title={title}
-            price={price}
-            imageSrc={[url, largeUrl]}
-            author={name}
-            userId={userId}
-            createdAt={seconds}
-            content={content}
-            item={item}
-            avatar={image?.url}
-            condition={condition}
-            originalPrice={originalPrice}
-          />
-        </a>
-      </Link>
+      // <Link
+      //   href={`${SINGLE_POST_PAGE}/[slug]`}
+      //   as={`${SINGLE_POST_PAGE}/${slug}`}
+      // >
+      <a>
+        <FeedPostCard
+          style={{
+            flexDirection: "row",
+            display: "flex",
+            justifyContent: "flex-start",
+          }}
+          imageStyle={{
+            marginRight: 20,
+          }}
+          currency={CURRENCY}
+          title={title}
+          price={price}
+          imageSrc={[url, largeUrl]}
+          author={name}
+          userId={userId}
+          createdAt={seconds}
+          content={content}
+          item={item}
+          avatar={image?.url}
+          condition={condition}
+          originalPrice={originalPrice}
+        />
+      </a>
+      // </Link>
     );
   };
 
