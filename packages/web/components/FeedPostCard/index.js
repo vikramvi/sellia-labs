@@ -111,7 +111,7 @@ const FeedPostCard = ({
           content={props.author ? props.author : "Sellia user"}
           style={{ display: "inline", fontWeight: "bold" }}
         />
-        {" is "}
+        {" is looking "}
         {item.categories && item.categories[0] && (
           <Link
             key={item.categories[0].id}
@@ -131,7 +131,8 @@ const FeedPostCard = ({
           </Link>
         )}{" "}
         {(item.category && item.category.toLowerCase()) ||
-          (item.brand && item.brand)}{" "}
+          (item.brand && item.brand)}
+        {"  "}
         {item.belongsTo && displayBelongsTo(item.belongsTo)}
       </Box>
     );
