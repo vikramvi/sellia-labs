@@ -13,7 +13,14 @@ steps:
     waitFor: ["web-build"]
   - name: gcr.io/cloud-builders/npm
     entrypoint: "npm"
-    args: ["rebuild"]
+    args:
+      [
+        "rebuild",
+        "--target=15.0.0",
+        "--target_platform=linux",
+        "--target_arch=x64",
+        "--target_libc=musl",
+      ]
     dir: "packages/cloud"
     waitFor: ["server-build"]
   - name: gcr.io/sellia-42377/firebase
