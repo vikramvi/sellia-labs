@@ -11,10 +11,11 @@ steps:
     args: ["server:build"]
     id: "server-build"
     waitFor: ["web-build"]
-  - name: node:12.0.0
-    entrypoint: yarn
-    args: ["add grpc"]
-
+  - name: gcr.io/cloud-builders/npm
+    entrypoint: "npm"
+    args: ["rebuild"]
+    dir: "packages/cloud"
+    waitFor: ["server-build"]
   - name: gcr.io/sellia-42377/firebase
     args: ["deploy", "--project=sellia-42377"]
     dir: "packages/cloud"
