@@ -193,7 +193,7 @@ const Menu = ({
             dropdownItems={DROPDOWN_MENU_ITEMS}
           />
         </MenuItemWrapper>
-        <MenuItemWrapper>
+        {/* <MenuItemWrapper>
           <Link href={`${ADD_POST}/[id]`} as={`${ADD_POST}/new`}>
             <a>
               <Button
@@ -206,7 +206,7 @@ const Menu = ({
               />
             </a>
           </Link>
-        </MenuItemWrapper>
+        </MenuItemWrapper> */}
         {!isLoggedIn ? (
           <MenuItemWrapper paddingX="0">
             <Link href={SIGNIN_PAGE}>
