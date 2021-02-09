@@ -86,7 +86,13 @@ export default ({ section }) => {
         changed={(title) => {
           dispatch({
             type: "UPDATE_ADPOST",
-            payload: { key: section.key, value: title.target.value },
+            payload: {
+              key: section.key,
+              value:
+                section.dataType && section.dataType == "number"
+                  ? parseFloat(title.target.value)
+                  : title.target.value,
+            },
           });
           // if (adPost.slug === '') {
           // dispatch({

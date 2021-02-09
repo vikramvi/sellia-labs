@@ -9,6 +9,7 @@ export const typeDefs = `
     belongsTo: String
     brand: String
     category: String
+    amenities: String
     status: String
     author: Author
     authorId: ID
@@ -156,6 +157,14 @@ export const typeDefs = `
     title: String!
     slug: String!
     content: String
+    address: String
+    zip: String
+    beds: String
+    baths: String
+    roomies: String
+    lotSize: String
+    sqft: String
+    type: String
     mileage: Int
     miles: Int
     status: String
@@ -166,6 +175,7 @@ export const typeDefs = `
     belongsTo: String
     category: String
     city: String
+    amenities: String
     location: locationInput
     categories: [categoryInput]
     gallery: [imageInput!]

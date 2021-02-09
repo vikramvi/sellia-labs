@@ -62,6 +62,8 @@ const FeedPostCard = ({
 
   const displayBelongsTo = (param) => {
     switch (param.toLowerCase()) {
+      case "my friend's":
+        return "for his friend";
       case "for myself":
         return "for himself";
       case "mine":

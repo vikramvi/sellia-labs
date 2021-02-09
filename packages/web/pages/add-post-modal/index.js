@@ -121,16 +121,14 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   }, []);
 
   useEffect(() => {
-    (async function() {
-      if (imagesUrl.length) {
-        try {
-          console.log("on submit ->", finalData);
-          uploadPost();
-        } catch (error) {
-          setPublishBtnLoading(false);
-        }
+    if (imagesUrl.length) {
+      try {
+        console.log("on submit ->", finalData);
+        uploadPost();
+      } catch (error) {
+        setPublishBtnLoading(false);
       }
-    })();
+    }
   }, [prossedAdPostData.gallery]);
 
   //check for edit mode

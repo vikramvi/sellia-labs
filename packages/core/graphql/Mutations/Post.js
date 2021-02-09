@@ -10,6 +10,7 @@ export const ADD_POST = gql`
       category
       content
       contactNumber
+      amenities
       status
       city
       belongsTo
