@@ -112,39 +112,6 @@ const NavSidebar = ({
             })}
           </ul>
 
-          <div
-            className="nav-bar-section-title"
-            tabIndex="0"
-            aria-label="Directories"
-          >
-            Directories
-          </div>
-          <ul className="nav-bar-list">
-            <li className="nav-menu-item-li">
-              <a className="nav-menu-item-link" href="/directory/">
-                <svg
-                  className="nav-menu-item-icon css-ec7kfw"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  color="#000000"
-                  role="img"
-                >
-                  <path
-                    d="M10.004 10.038c2.039 0 3.69-1.803 3.69-4.01 0-2.174-1.651-3.901-3.69-3.901-2.03 0-3.698 1.752-3.69 3.917.008 2.2 1.651 3.994 3.69 3.994zm0-1.474c-1.162 0-2.148-1.104-2.148-2.52-.009-1.381.977-2.443 2.148-2.443 1.18 0 2.149 1.045 2.149 2.427 0 1.415-.978 2.536-2.149 2.536zm-5.257 9.31h10.506c1.457 0 2.157-.464 2.157-1.458 0-2.317-2.89-5.4-7.406-5.4s-7.414 3.083-7.414 5.4c0 .994.7 1.457 2.157 1.457zm-.261-1.475c-.202 0-.278-.068-.278-.22 0-1.288 2.08-3.69 5.796-3.69 3.707 0 5.788 2.402 5.788 3.69 0 .152-.076.22-.278.22H4.486z"
-                    fill="currentColor"
-                  ></path>
-                </svg>
-                <span
-                  className="nav-menu-item-label-refresh css-1y777s2"
-                  data-testid="Neighbors"
-                >
-                  Neighbors
-                </span>
-              </a>
-            </li>
-          </ul>
           <div className="nav-bar-list_global_footer">
             <a className="nav-bar-inline-list" href="/privacy_policy/">
               Privacy
