@@ -6,6 +6,9 @@ import Menu from "../Menu";
 import { NavSidebarWrapper } from "./style";
 import logoImg from "core/static/images/headless-logo.svg";
 import { SEARCH_PAGE } from "core/navigation/constant";
+import { GET_CATEGORIES } from "core/graphql/Category.query";
+import { useQuery } from "@apollo/react-hooks";
+
 import "./style.css";
 
 const NavSidebar = ({
@@ -19,6 +22,17 @@ const NavSidebar = ({
   pathname,
   avatar,
 }) => {
+  let QUERY_VARIABLES = {
+    LIMIT: 20,
+  };
+  const { data, loading, error, fetchMore } = useQuery(GET_CATEGORIES, {
+    variables: QUERY_VARIABLES,
+  });
+  const categories =
+    data && data.categories && data.categories.data ? data.categories.data : [];
+
+  console.log("categories - sidebar -", categories);
+
   return (
     <NavSidebarWrapper>
       <div>
@@ -73,97 +87,29 @@ const NavSidebar = ({
             Categories
           </div>
           <ul className="nav-bar-list">
-            <li className="nav-menu-item-li">
-              <a href="/groups/?is=nav_menu" className="nav-menu-item-link ">
-                <svg
-                  className="nav-menu-item-icon css-ec7kfw"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  color="#006344"
-                  role="img"
-                ></svg>
-                <span
-                  className="nav-menu-item-label-refresh css-1y777s2"
-                  data-testid="All Groups"
-                >
-                  Motor Cycle
-                </span>
-              </a>
-            </li>
-
-            <li className="nav-menu-item-li">
-              <a href="/category/car" className="nav-menu-item-link ">
-                <svg
-                  className="nav-menu-item-icon css-ec7kfw"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  color="#006344"
-                  role="img"
-                ></svg>
-                <span
-                  className="nav-menu-item-label-refresh css-1y777s2"
-                  data-testid="All Groups"
-                >
-                  Car
-                </span>
-              </a>
-            </li>
-          </ul>
-
-          <div
-            className="nav-bar-section-title"
-            tabIndex="0"
-            aria-label="Neighborhood"
-          >
-            Neighborhood
-          </div>
-          <ul className="nav-bar-list">
-            <li className="nav-menu-item-li">
-              <a
-                className="nav-menu-item-link"
-                href="/for_sale_and_free/?init_source=more_menu"
-              >
-                <svg
-                  className="nav-menu-item-icon css-ec7kfw"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  color="#000000"
-                  role="img"
-                ></svg>
-                <span
-                  className="nav-menu-item-label-refresh css-1y777s2"
-                  data-testid="For Sale &amp; Free"
-                >
-                  For Sale &amp; Free
-                </span>
-              </a>
-            </li>
-
-            <li className="nav-menu-item-li">
-              <a className="nav-menu-item-link" href="/real-estate?is=sidebar">
-                <svg
-                  className="nav-menu-item-icon css-ec7kfw"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  color="#000000"
-                  role="img"
-                ></svg>
-                <span
-                  className="nav-menu-item-label-refresh css-1y777s2"
-                  data-testid="Real Estate"
-                >
-                  Real Estate
-                </span>
-              </a>
-            </li>
+            {categories.map((item) => {
+              return (
+                <li className="nav-menu-item-li">
+                  <a href="#" className="nav-menu-item-link ">
+                    <svg
+                      className="nav-menu-item-icon css-ec7kfw"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      color="#006344"
+                      role="img"
+                    ></svg>
+                    <span
+                      className="nav-menu-item-label-refresh css-1y777s2"
+                      data-testid="All Groups"
+                    >
+                      {item.name}
+                    </span>
+                  </a>
+                </li>
+              );
+            })}
           </ul>
 
           <div
