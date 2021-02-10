@@ -24,6 +24,7 @@ export default (props) => {
   const [errors, setError] = useState("");
   const [btnLoading, setBtnLoading] = useState(false);
   const [postMutation] = useMutation(ADD_POST);
+
   const handleDraftingPost = async () => {
     await AuthHelper.refreshToken();
     setBtnLoading(true);

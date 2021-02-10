@@ -1,4 +1,6 @@
 import React from "react";
+import { useContext, useEffect } from "react";
+
 import Button from "reusecore/src/elements/Button";
 import Logo from "../Logo";
 import Search from "../Search";
@@ -8,6 +10,7 @@ import logoImg from "core/static/images/headless-logo.svg";
 import { SEARCH_PAGE } from "core/navigation/constant";
 import { GET_CATEGORIES } from "core/graphql/Category.query";
 import { useQuery } from "@apollo/react-hooks";
+import { FeedContext } from "../../contexts/FeedContext";
 
 import "./style.css";
 
@@ -32,6 +35,15 @@ const NavSidebar = ({
     data && data.categories && data.categories.data ? data.categories.data : [];
 
   console.log("categories - sidebar -", categories);
+
+  const { state, dispatch } = useContext(FeedContext);
+
+  const handleClick = (item) => {
+    dispatch({
+      type: "UPDATE_FEED_FILTER",
+      payload: { key: "categorySlug", value: item.slug },
+    });
+  };
 
   return (
     <NavSidebarWrapper>
@@ -89,7 +101,10 @@ const NavSidebar = ({
           <ul className="nav-bar-list">
             {categories.map((item) => {
               return (
-                <li className="nav-menu-item-li">
+                <li
+                  className="nav-menu-item-li"
+                  onClick={() => handleClick(item)}
+                >
                   <a href="#" className="nav-menu-item-link ">
                     <svg
                       className="nav-menu-item-icon css-ec7kfw"

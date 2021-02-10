@@ -12,6 +12,7 @@ import withLayout from "../hoc/withLayout";
 import PageMeta from "../components/PageMeta";
 import { withApollo } from "../helpers/apollo";
 import SecretPage from "../hoc/secretPage";
+import { FeedProvider } from "../contexts/FeedContext";
 
 // Static Images
 import BannerImage from "core/static/images/banner.png";
@@ -44,12 +45,13 @@ const FeedPage = withLayout(({ location, ...props }) => {
         title="Sellia - Marketplace"
         description="Place where you can buy &amp; sell products"
       />
-
-      <Box flexBox as="main" pt={40} pb={0} pl={0} pr={0}>
-        <Grid>
-          <Feed {...props} />
-        </Grid>
-      </Box>
+      <FeedProvider>
+        <Box flexBox as="main" pt={40} pb={0} pl={0} pr={0}>
+          <Grid>
+            <Feed {...props} />
+          </Grid>
+        </Box>
+      </FeedProvider>
     </>
   );
 });
