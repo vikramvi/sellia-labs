@@ -169,9 +169,7 @@ export default function Feed({ userId, isLoggedIn }) {
               <div class="_1IukxMPo _2YwTbt9g _1uAKrEJw">
                 <span>
                   Post a <span class="prompt-bold">message</span>,{" "}
-                  <span class="prompt-bold">event</span>,{" "}
-                  <span class="prompt-bold">poll</span> or{" "}
-                  <span class="prompt-bold">alert</span> to your neighborhood
+                  <span class="prompt-bold">listing</span> to your neighborhood
                 </span>
               </div>
             </div>
