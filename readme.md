@@ -1,5 +1,3 @@
-Active branch: develop
-
 ## Installation
 
 1. Checkout the repository
