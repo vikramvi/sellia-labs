@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const GET_CATEGORY_POST = gql`
   query getCategoryPost($id: ID, $SLUG: String, $LIMIT: Int, $page: Int) {
@@ -6,6 +6,15 @@ export const GET_CATEGORY_POST = gql`
       id
       name
       slug
+      createdAt
+      author {
+        name
+        username
+        image {
+          url
+          largeUrl
+        }
+      }
       posts(limit: $LIMIT, page: $page) {
         data {
           id

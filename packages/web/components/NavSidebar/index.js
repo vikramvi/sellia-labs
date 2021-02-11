@@ -55,10 +55,23 @@ const NavSidebar = ({
           aria-label="Navigation menu"
         >
           <ul className="nav-bar-list">
-            <li className="nav-menu-item-li">
+            <li
+              className="nav-menu-item-li"
+              onClick={() =>
+                dispatch({
+                  type: "UPDATE_FEED_FILTER",
+                  payload: { key: "categorySlug", value: "" },
+                })
+              }
+            >
               <a
-                className="nav-menu-item-link nav-bar-list-item-active"
-                href="/news_feed/"
+                className={
+                  "nav-menu-item-link " +
+                  (state.feedFilter.categorySlug == ""
+                    ? "nav-bar-list-item-active"
+                    : "")
+                }
+                href="#"
               >
                 <svg
                   className="nav-menu-item-icon css-ec7kfw"
@@ -105,7 +118,15 @@ const NavSidebar = ({
                   className="nav-menu-item-li"
                   onClick={() => handleClick(item)}
                 >
-                  <a href="#" className="nav-menu-item-link ">
+                  <a
+                    href="#"
+                    className={
+                      "nav-menu-item-link " +
+                      (state.feedFilter.categorySlug == item.slug
+                        ? "nav-bar-list-item-active"
+                        : "")
+                    }
+                  >
                     <svg
                       className="nav-menu-item-icon css-ec7kfw"
                       width="20"

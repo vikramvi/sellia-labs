@@ -14,23 +14,52 @@ import Heading from "reusecore/src/elements/Heading";
 import Button from "reusecore/src/elements/Button";
 import NoItemFound from "../../../components/NoItemFound";
 import OnError from "../../../components/OnError";
+import { FeedContext } from "../../../contexts/FeedContext";
+import { useContext, useEffect } from "react";
+import { GET_CATEGORY_POST } from "core/graphql/CategoryPost.query";
 
 export default function Feed({ userId, isLoggedIn }) {
-  // QUERY SECTION
-  let QUERY_VARIABLES = {
-    LIMIT: 20,
-  };
+  const { state, dispatch } = useContext(FeedContext);
+  const { feedFilter } = state;
 
-  console.log("feed user --", userId);
+  console.log("feedFilter.categorySlug --", feedFilter.categorySlug);
 
-  const { data, loading, error } = useQuery(GET_ALL_POST, {
-    variables: QUERY_VARIABLES,
-  });
+  let recentPosts;
+  let queryResult;
+  let QUERY_VARIABLES;
 
-  // Error Rendering.
-  if (error) return <OnError />;
-  // Extract Post Data
-  const recentPosts = data && data.posts ? data.posts.data : [];
+  if (!feedFilter.categorySlug || feedFilter.categorySlug == "") {
+    // QUERY SECTION
+    QUERY_VARIABLES = {
+      LIMIT: 20,
+    };
+    queryResult = useQuery(GET_ALL_POST, {
+      variables: QUERY_VARIABLES,
+    });
+
+    const { data, loading, error, fetchMore } = queryResult;
+    recentPosts = data && data.posts ? data.posts.data : [];
+    // Error Rendering.
+    if (error) return <OnError />;
+  } else {
+    QUERY_VARIABLES = {
+      SLUG: feedFilter.categorySlug,
+      LIMIT: 20,
+    };
+    queryResult = useQuery(GET_CATEGORY_POST, {
+      variables: QUERY_VARIABLES,
+    });
+    // Extract Post Data
+    const { data, loading, error, fetchMore } = queryResult;
+    console.log("data ---", data);
+    recentPosts =
+      data && data.category && data.category.posts.data
+        ? data.category.posts.data
+        : [];
+    // Error Rendering.
+    if (error) return <OnError />;
+  }
+
   // Post Loop Control Area
   console.log("Recent Posts===>", recentPosts);
   const renderRecentPost = (item) => {
@@ -38,16 +67,19 @@ export default function Feed({ userId, isLoggedIn }) {
       title,
       slug,
       price,
-      author: { name, image },
       content,
-      createdAt: { seconds },
-      image: { url, largeUrl },
+
       condition,
       originalPrice,
       authorId,
       status,
       id,
     } = item;
+
+    const { name, image } = item.author || {};
+    const { seconds } = item.createdAt || {};
+    const { url, largeUrl } = item.image || {};
+
     return (
       // <Link
       //   href={`${SINGLE_POST_PAGE}/[slug]`}
@@ -97,7 +129,7 @@ export default function Feed({ userId, isLoggedIn }) {
             columnWidth={[1]}
             limit={QUERY_VARIABLES.LIMIT}
             component={renderRecentPost}
-            loading={loading}
+            loading={queryResult.loading}
             placeholder={<PostLoader />}
           />
         )}

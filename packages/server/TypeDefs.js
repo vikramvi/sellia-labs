@@ -60,6 +60,7 @@ export const typeDefs = `
     posts(limit: Int, page: Int ): PostWithCount
     createdAt: Date
     updatedAt: Date
+    author: Author
   }
   type PostWithCount {
     data: [Post],
