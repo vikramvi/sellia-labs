@@ -476,7 +476,10 @@ const FeedPostCard = ({
                 componentProps: {
                   data: {
                     author: item.author.name,
-                    link: process.browser ? window.location.href : null,
+                    link: process.browser
+                      ? window.location.href.replace(window.location.hash, "") +
+                        `?slug=${item.slug}`
+                      : null,
                     title: item.title,
                   },
                 },
