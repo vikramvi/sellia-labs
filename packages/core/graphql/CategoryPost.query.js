@@ -18,9 +18,30 @@ export const GET_CATEGORY_POST = gql`
       posts(limit: $LIMIT, page: $page) {
         data {
           id
-          title
-          price
           slug
+          authorId
+          status
+          title
+          content
+          createdAt
+          price
+          originalPrice
+          belongsTo
+          condition
+          category
+          categories {
+            id
+            slug
+            name
+          }
+          author {
+            name
+            username
+            image {
+              url
+              largeUrl
+            }
+          }
           image {
             url
             largeUrl

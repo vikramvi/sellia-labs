@@ -109,20 +109,23 @@ export const Mutation = {
         geohash,
         createdAt,
       } = data;
-      const categoryPost = {
-        image,
-        price,
-        slug,
-        title,
-        id,
-        status,
-        location: geopointLocation,
-        condition,
-        formattedLocation,
-        isNegotiable,
-        geohash,
-        createdAt,
-      };
+
+      const categoryPost = postData;
+
+      // const categoryPost = {
+      //   image,
+      //   price,
+      //   slug,
+      //   title,
+      //   id,
+      //   status,
+      //   location: geopointLocation,
+      //   condition,
+      //   formattedLocation,
+      //   isNegotiable,
+      //   geohash,
+      //   createdAt,
+      // };
       categories &&
         categories.forEach(async (categoryItem) => {
           const categoryId = categoryItem.id;
