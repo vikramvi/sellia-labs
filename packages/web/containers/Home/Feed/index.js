@@ -3,6 +3,8 @@ import Link from "next/link";
 import { CURRENCY } from "../../../Config";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_ALL_POST } from "core/graphql/AllPost.query";
+import { GET_POST } from "core/graphql/Post.query";
+
 import { RECENT_POST_PAGE, SINGLE_POST_PAGE } from "core/navigation/constant";
 import { PostLoader } from "../../../components/Placeholder";
 import NavSidebar from "../../../components/NavSidebar";
@@ -21,8 +23,15 @@ import "./style.css";
 import Img from "react-image";
 import profileImg from "core/static/images/user-placeholder.svg";
 import { openModal, closeModal } from "@redq/reuse-modal";
+import { useRouter } from "next/router";
 
-export default function Feed({ userId, isLoggedIn }) {
+export default function Feed({ userId, isLoggedIn, location }) {
+  const {
+    query: { slug },
+  } = useRouter();
+
+  console.log("feed slug ->", slug);
+
   const { state, dispatch } = useContext(FeedContext);
   const { feedFilter } = state;
 
@@ -32,7 +41,23 @@ export default function Feed({ userId, isLoggedIn }) {
   let queryResult;
   let QUERY_VARIABLES;
 
-  if (!feedFilter.categorySlug || feedFilter.categorySlug == "") {
+  if (slug) {
+    QUERY_VARIABLES = {
+      lat: location && location.lat ? location.lat : null,
+      lng: location && location.lng ? location.lng : null,
+      LIMIT: 4,
+      slug: slug,
+    };
+
+    queryResult = useQuery(GET_POST, {
+      variables: QUERY_VARIABLES,
+    });
+    const { data, loading, error, fetchMore } = queryResult;
+
+    recentPosts = data && data.post ? [data.post] : [];
+
+    if (error) return <p>{error.message}</p>;
+  } else if (!feedFilter.categorySlug || feedFilter.categorySlug == "") {
     // QUERY SECTION
     QUERY_VARIABLES = {
       LIMIT: 20,

@@ -13,6 +13,7 @@ import PageMeta from "../components/PageMeta";
 import { withApollo } from "../helpers/apollo";
 import SecretPage from "../hoc/secretPage";
 import { FeedProvider } from "../contexts/FeedContext";
+import { useRouter } from "next/router";
 
 // Static Images
 import BannerImage from "core/static/images/banner.png";

@@ -11,6 +11,8 @@ import { SEARCH_PAGE } from "core/navigation/constant";
 import { GET_CATEGORIES } from "core/graphql/Category.query";
 import { useQuery } from "@apollo/react-hooks";
 import { FeedContext } from "../../contexts/FeedContext";
+import { useRouter } from "next/router";
+import Router from "next/router";
 
 import "./style.css";
 
@@ -25,6 +27,10 @@ const NavSidebar = ({
   pathname,
   avatar,
 }) => {
+  const {
+    query: { slug },
+  } = useRouter();
+
   let QUERY_VARIABLES = {
     LIMIT: 20,
   };
@@ -38,10 +44,13 @@ const NavSidebar = ({
 
   const { state, dispatch } = useContext(FeedContext);
 
-  const handleClick = (item) => {
+  const handleClick = (itemSlug) => {
+    if (slug) {
+      Router.replace("/");
+    }
     dispatch({
       type: "UPDATE_FEED_FILTER",
-      payload: { key: "categorySlug", value: item.slug },
+      payload: { key: "categorySlug", value: itemSlug },
     });
   };
 
@@ -57,17 +66,14 @@ const NavSidebar = ({
           <ul className="nav-bar-list">
             <li
               className="nav-menu-item-li"
-              onClick={() =>
-                dispatch({
-                  type: "UPDATE_FEED_FILTER",
-                  payload: { key: "categorySlug", value: "" },
-                })
-              }
+              onClick={() => {
+                handleClick("");
+              }}
             >
               <a
                 className={
                   "nav-menu-item-link " +
-                  (state.feedFilter.categorySlug == ""
+                  (!slug && state.feedFilter.categorySlug == ""
                     ? "nav-bar-list-item-active"
                     : "")
                 }
@@ -116,13 +122,13 @@ const NavSidebar = ({
               return (
                 <li
                   className="nav-menu-item-li"
-                  onClick={() => handleClick(item)}
+                  onClick={() => handleClick(item.slug)}
                 >
                   <a
                     href="#"
                     className={
                       "nav-menu-item-link " +
-                      (state.feedFilter.categorySlug == item.slug
+                      (!slug && state.feedFilter.categorySlug == item.slug
                         ? "nav-bar-list-item-active"
                         : "")
                     }
