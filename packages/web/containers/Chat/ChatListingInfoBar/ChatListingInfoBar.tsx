@@ -79,12 +79,16 @@ const ChatListingInfoBar = ({
       flexBox
       style={{
         height: "100%",
-        width: "100%",
         backgroundColor: "#44BB3F",
         justifyContent: "flex-start",
+        alignItems: "flex-start",
+        flexDirection: "column",
+        padding: 10,
+        flex: 1,
       }}
     >
-      <Box borderBottom="1px solid #e2e2e2">
+      {/* carousel view */}
+      <Box style={{ flexBasis: "20%", width: "100%" }}>
         {
           <Carousel showThumbs={false} showIndicators={false}>
             {postGallery.map((image, index) => (
@@ -100,42 +104,45 @@ const ChatListingInfoBar = ({
             ))}
           </Carousel>
         }
+      </Box>
 
-        <Box flexBox flexDirection="column">
-          <Box
-            mt="1"
-            flexBox
-            flexDirection="row"
-            justifyContent="flex-start"
-            alignItem="flex-start"
-          >
-            {title && (
-              <Text
-                mb="0"
-                content={title}
-                style={{
-                  ...titleStyle,
-                  fontSize: "14px",
-                  color: "#ffffff",
-                  fontWeight: "bold",
-                }}
-              />
-            )}
-            {"   "}
-            {condition && (
-              <Text
-                ml="2"
-                content={condition && "(" + condition + ")"}
-                style={{
-                  ...titleStyle,
-                  fontSize: "10px",
-                  color: "grey",
-                  fontWeight: "bold",
-                }}
-              />
-            )}
-          </Box>
+      {/* title, price view */}
 
+      <Box
+        mt="1"
+        flexBox
+        flexDirection="row"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        style={{ flexBasis: "20%", width: "100%" }}
+      >
+        <Box justifyContent="flex-start" style={{ flexBasis: "50%" }}>
+          {title && (
+            <Text
+              mb="0"
+              content={title}
+              style={{
+                ...titleStyle,
+                fontSize: "14px",
+                color: "#ffffff",
+                fontWeight: "bold",
+                width: "100px",
+              }}
+            />
+          )}
+
+          {condition && (
+            <Text
+              ml="2"
+              content={condition && "(" + condition + ")"}
+              style={{
+                ...titleStyle,
+                fontSize: "10px",
+                color: "grey",
+                fontWeight: "bold",
+              }}
+            />
+          )}
           {createdAt && (
             <Text
               style={{
@@ -148,40 +155,38 @@ const ChatListingInfoBar = ({
             />
           )}
         </Box>
-        <Box></Box>
-        <Box></Box>
         <Box
-          flexBox
-          flexDirection="column"
           justifyContent="flex-end"
           alignItems="flex-end"
+          style={{ flexBasis: "50%" }}
         >
-          {price && currency && (
+          {price && (
             <Text
-              mt="2"
               mb="0"
-              content={`${currency} ${price}`}
+              content={`$${price}`}
               style={{
                 color: "#FFFFFF",
                 fontWeight: "bold",
-                fontSize: "18px",
+                fontSize: "16px",
               }}
             />
           )}
-          {originalPrice && currency && (
+          {originalPrice && (
             <del
               style={{
-                marginRight: "0px",
                 color: "#FFFFFF",
                 fontWeight: "bold",
-                fontSize: "12px",
+                fontSize: "10px",
               }}
             >
               ${originalPrice}
             </del>
           )}
         </Box>
+      </Box>
 
+      {/* content view */}
+      <Box style={{ flexBasis: "60%", width: "100%" }}>
         {content && <Text content={content} {...priceStyle} mb="5" mt="5" />}
       </Box>
     </Box>

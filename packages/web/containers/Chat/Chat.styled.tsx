@@ -2,20 +2,21 @@ import { styled } from "baseui";
 
 const Wrapper = styled("div", ({ $theme }) => ({
   display: "flex",
-  height: "560px",
+  height: "100%",
+  width: "100%",
   backgroundColor: $theme.colors.primaryB,
   boxShadow: $theme.lighting.shadow400,
   overflow: "hidden",
-  "@media only screen and (max-width: 667px)": {
-    maxWidth: "375px",
-    marginLeft: "auto",
-    marginRight: "auto",
-    position: "relative",
-  },
+  // "@media only screen and (max-width: 667px)": {
+  //   maxWidth: "375px",
+  //   marginLeft: "10%",
+  //   marginRight: "auto",
+  //   position: "relative",
+  // },
 }));
 
 export const Sidebar = styled("div", (props: any) => ({
-  flexBasis: "400px",
+  flexBasis: "450px",
   padding: "20px",
   backgroundColor: props.$theme.colors.backgroundSecondary,
   "@media only screen and (max-width: 667px)": {
@@ -36,7 +37,7 @@ export const Message = styled("div", {
   padding: "25px",
   display: "flex",
   flexDirection: "column",
-  flexBasis: "calc(100% - 280px)",
+  flexBasis: "calc(100% - 560px)",
   overflow: "hidden",
   "@media only screen and (max-width: 667px)": {
     flexBasis: "100%",
