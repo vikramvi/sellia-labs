@@ -5,6 +5,8 @@ import "./css/main.css";
 import { BsArrowLeft } from "react-icons/bs";
 import ChatProvider from "./ChatContext";
 import ChatSidebar from "./ChatSidebar/ChatSidebar";
+import ChatListingInfoBar from "./ChatListingInfoBar/ChatListingInfoBar";
+
 import ChatHeader from "./ChatHeader/ChatHeader";
 import ShowChats from "./ShowChats/ShowChats";
 import ChatInput from "./ChatInput/ChatInput";
@@ -50,7 +52,7 @@ const NoConversation = () => (
 );
 
 const NoListingSelected = () => (
-  <Box flexBox alignItems="center" ml={200}>
+  <Box flexBox alignItems="center" style={{ width: "100%", flexGrow: 1 }}>
     <div className="_2ZFwQ">
       <div className="_3WOCp">
         <picture>
@@ -334,8 +336,19 @@ const Chat = (props) => {
   };
 
   const onListingSelect = async (item) => {
-    setcurrentListing(item);
+    // setcurrentListing(item);
     setAutoSelectItem(null);
+
+    //fetch post data
+    if (item.listingID) {
+      db.collection("posts")
+        .doc(item.listingID)
+        .get()
+        .then((listingDoc) => {
+          item.postData = listingDoc.data();
+          setcurrentListing(item);
+        });
+    }
 
     const otherUser = item.seller.id == userId ? item.buyer : item.seller;
 
@@ -438,6 +451,15 @@ const Chat = (props) => {
           ) : (
             <NoListingSelected />
           )}
+          <Sidebar $isActive={toggleSidebar}>
+            <ChatListingInfoBar
+              data={currentListing && currentListing.postData}
+              userId={userId}
+              resetChat={resetChat}
+              setToggleSidebar={setToggleSidebar}
+              onListingSelect={onListingSelect}
+            />
+          </Sidebar>
         </Wrapper>
       ) : (
         <NoConversation />

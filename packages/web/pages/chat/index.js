@@ -11,6 +11,7 @@ import withLayout from "../../hoc/withLayout";
 import PageMeta from "../../components/PageMeta";
 import { withApollo } from "../../helpers/apollo";
 import SecretPage from "../../hoc/secretPage";
+import Box from "reusecore/src/elements/Box";
 
 // const DynamicChatWithNoSSR = dynamic(
 //   () => import('../containers/Chat/Chat'),
@@ -27,11 +28,13 @@ const ChatPage = withLayout(({ userId, user }) => {
   const postData = post && JSON.parse(post);
   return (
     <>
-      <Container>
-        <Block paddingTop={["15px", "20px", "30px", "40px"]}>
-          <Chat currentPost={postData} userId={userId} loginUser={user} />
-        </Block>
-      </Container>
+      <Box
+        flexBox
+        justifyContent="center"
+        paddingTop={["15px", "20px", "30px", "40px"]}
+      >
+        <Chat currentPost={postData} userId={userId} loginUser={user} />
+      </Box>
     </>
   );
 });
