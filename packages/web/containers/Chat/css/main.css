@@ -9,3 +9,11 @@
 .rce-mbox.rce-mbox-right {
   background-color: palegreen !important;
 }
+
+::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.rce-citem {
+  background-color: transparent !important;
+}

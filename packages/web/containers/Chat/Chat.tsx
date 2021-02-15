@@ -52,7 +52,11 @@ const NoConversation = () => (
 );
 
 const NoListingSelected = () => (
-  <Box flexBox alignItems="center" style={{ width: "100%", flexGrow: 1 }}>
+  <Box
+    flexBox
+    alignItems="center"
+    style={{ width: "100%", flexGrow: 1, marginLeft: "25%" }}
+  >
     <div className="_2ZFwQ">
       <div className="_3WOCp">
         <picture>
@@ -419,47 +423,49 @@ const Chat = (props) => {
             />
           </Sidebar>
           {currentListing ? (
-            <Message>
-              <Header>
-                <ArrowButton onClick={() => setToggleSidebar(!toggleSidebar)}>
-                  <BsArrowLeft />
-                </ArrowButton>
-                <ChatHeader opponentUser={opponentUser} />
-              </Header>
-              <Body id="chatBody">
-                {/* <MessageList dataSource={chats} /> */}
-                <div>
-                  <ShowChats
-                    userId={userId}
-                    chats={generateItems(chats)}
-                    opponentUser={opponentUser}
+            <>
+              <Message>
+                <Header>
+                  <ArrowButton onClick={() => setToggleSidebar(!toggleSidebar)}>
+                    <BsArrowLeft />
+                  </ArrowButton>
+                  <ChatHeader opponentUser={opponentUser} />
+                </Header>
+                <Body id="chatBody">
+                  {/* <MessageList dataSource={chats} /> */}
+                  <div>
+                    <ShowChats
+                      userId={userId}
+                      chats={generateItems(chats)}
+                      opponentUser={opponentUser}
+                    />
+                  </div>
+                </Body>
+                <Footer>
+                  <ChatInput
+                    inputRef={inputRef}
+                    value={value}
+                    disabled={
+                      currentListing.listingStatus === "sold" ? true : false
+                    }
+                    onChange={(e) => setValue(e.target.value)}
+                    onSubmit={handleChat}
                   />
-                </div>
-              </Body>
-              <Footer>
-                <ChatInput
-                  inputRef={inputRef}
-                  value={value}
-                  disabled={
-                    currentListing.listingStatus === "sold" ? true : false
-                  }
-                  onChange={(e) => setValue(e.target.value)}
-                  onSubmit={handleChat}
+                </Footer>
+              </Message>
+              <Sidebar $isActive={toggleSidebar}>
+                <ChatListingInfoBar
+                  data={currentListing && currentListing.postData}
+                  userId={userId}
+                  resetChat={resetChat}
+                  setToggleSidebar={setToggleSidebar}
+                  onListingSelect={onListingSelect}
                 />
-              </Footer>
-            </Message>
+              </Sidebar>
+            </>
           ) : (
             <NoListingSelected />
           )}
-          <Sidebar $isActive={toggleSidebar}>
-            <ChatListingInfoBar
-              data={currentListing && currentListing.postData}
-              userId={userId}
-              resetChat={resetChat}
-              setToggleSidebar={setToggleSidebar}
-              onListingSelect={onListingSelect}
-            />
-          </Sidebar>
         </Wrapper>
       ) : (
         <NoConversation />

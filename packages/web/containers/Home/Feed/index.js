@@ -170,9 +170,9 @@ export default function Feed({ userId, isLoggedIn, location }) {
   };
 
   return (
-    <>
+    <Box mt={0} ml={"25%"} mr={"25%"}>
       <NavSidebar></NavSidebar>
-      <Box mt={20} ml={"25%"} mr={"25%"}>
+      <Box>
         <div class="css-1dkvlfs">
           <Box
             mb={15}
@@ -223,6 +223,6 @@ export default function Feed({ userId, isLoggedIn, location }) {
           </a>
         </Link>
       </Box>
-    </>
+    </Box>
   );
 }

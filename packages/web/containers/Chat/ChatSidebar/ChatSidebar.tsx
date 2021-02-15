@@ -58,6 +58,7 @@ const ChatSidebar = ({
           placeholder="Search"
         />
       </SearchInput> */}
+      <SearchInput>Chats</SearchInput>
       <UserList>
         {Object.keys(data).map((key) => {
           console.log("data -->", key);

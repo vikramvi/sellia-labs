@@ -56,7 +56,7 @@ export const UserListItem = styled("div", (props: any) => ({
   padding: "15px 20px",
   alignItems: "center",
   backgroundColor: props.$isActive
-    ? props.$theme.colors.primaryB
+    ? "#44BB3F"
     : props.$theme.colors.backgroundSecondary,
 }));
 

@@ -7,6 +7,7 @@ const Wrapper = styled("div", ({ $theme }) => ({
   backgroundColor: $theme.colors.primaryB,
   boxShadow: $theme.lighting.shadow400,
   overflow: "hidden",
+  marginTop: "20px",
   // "@media only screen and (max-width: 667px)": {
   //   maxWidth: "375px",
   //   marginLeft: "10%",
@@ -37,6 +38,8 @@ export const Message = styled("div", {
   padding: "25px",
   display: "flex",
   flexDirection: "column",
+  border: `1px solid #44BB3F`,
+
   flexBasis: "calc(100% - 560px)",
   overflow: "hidden",
   "@media only screen and (max-width: 667px)": {
