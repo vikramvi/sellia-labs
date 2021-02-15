@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { BsBell } from "react-icons/bs";
 import { ChatContext } from "../ChatContext";
-import PlaceholderImage from "core/static/images/thumb-grid-placeholder.svg";
-import profileImg from "core/static/images/user-placeholder.svg";
+
+const PlaceholderImage = require("core/static/images/thumb-grid-placeholder.svg");
+const profileImg = require("core/static/images/user-placeholder.svg");
 
 import Img from "react-image";
 
