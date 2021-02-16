@@ -69,6 +69,12 @@
    yarn deploy
 ```
 
+6. Changed will be refelcted to test URL,
+
+```bash
+   https://sellia-42377.web.app/
+```
+
 ## Firebase Helper commands
 
 1. Upload cloud functions changes,
@@ -76,7 +82,3 @@
 ```bash
    cd packages/cloud && NODE_ENV=production firebase deploy --only functions:userActivityNotificationListner
 ```
-
-## Test URL
-
-https://sellia-42377.web.app/
