@@ -477,8 +477,7 @@ const FeedPostCard = ({
                   data: {
                     author: item.author.name,
                     link: process.browser
-                      ? window.location.href.replace(window.location.hash, "") +
-                        `?slug=${item.slug}`
+                      ? window.location.host + `/?slug=${item.slug}`
                       : null,
                     title: item.title,
                   },
