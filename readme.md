@@ -39,7 +39,13 @@
    yarn server
 ```
 
-## Deployment:
+3. In the browser, Sellia web app should be running on localhost:3000 (if port is not changed)
+
+```bash
+   http://localhost:3000/
+```
+
+## Deployment
 
 1. Confirm web/package.json and server/package.json have same entries
 
@@ -63,7 +69,7 @@
    yarn deploy
 ```
 
-## Firebase Helper commands:
+## Firebase Helper commands
 
 1. Upload cloud functions changes,
 
@@ -71,6 +77,6 @@
    cd packages/cloud && NODE_ENV=production firebase deploy --only functions:userActivityNotificationListner
 ```
 
-## Test URL:
+## Test URL
 
 https://sellia-42377.web.app/
