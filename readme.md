@@ -71,7 +71,7 @@
 
 6. Changes will be reflected to test URL,
 
-[https://sellia-42377.web.app/](https://sellia-42377.web.app/)
+   [https://sellia-42377.web.app/](https://sellia-42377.web.app/)
 
 ## Firebase Helper commands
 
