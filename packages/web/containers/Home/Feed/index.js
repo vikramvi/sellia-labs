@@ -24,6 +24,7 @@ import Img from "react-image";
 import profileImg from "core/static/images/user-placeholder.svg";
 import { openModal, closeModal } from "@redq/reuse-modal";
 import { useRouter } from "next/router";
+import AddPostModal from "../../ModalContainer/AddPostModal";
 
 export default function Feed({ userId, isLoggedIn, location }) {
   const {
@@ -91,6 +92,29 @@ export default function Feed({ userId, isLoggedIn, location }) {
 
   // Post Loop Control Area
   console.log("Recent Posts===>", recentPosts);
+
+  const handleAddPost = () => {
+    openModal({
+      overlayClassName: "customeOverlayClass",
+      closeOnClickOutside: false,
+      componentProps: {
+        data: {
+          closeModal,
+          userId,
+        },
+      },
+      config: {
+        className: "addPostNewModal",
+        height: "auto",
+        width: "50%",
+        transition: {
+          tension: 150,
+        },
+      },
+      component: AddPostModal,
+    });
+  };
+
   const renderRecentPost = (item) => {
     const {
       title,
@@ -108,28 +132,6 @@ export default function Feed({ userId, isLoggedIn, location }) {
     const { name, image } = item.author || {};
     const { seconds } = item.createdAt || {};
     const { url, largeUrl } = item.image || {};
-
-    const handleAddPost = () => {
-      openModal({
-        overlayClassName: "customeOverlayClass",
-        closeOnClickOutside: false,
-        componentProps: {
-          data: {
-            closeModal,
-            userId,
-          },
-        },
-        config: {
-          className: "addPostNewModal",
-          height: "auto",
-          width: "50%",
-          transition: {
-            tension: 150,
-          },
-        },
-        component: AddPostModal,
-      });
-    };
 
     return (
       // <Link
@@ -179,6 +181,7 @@ export default function Feed({ userId, isLoggedIn, location }) {
             aria-live="off"
             id="main_content"
             class="_19x6ASDS _1eW-tOzA"
+            onClick={handleAddPost}
           >
             <span class="_1EhANPqp">
               <div class="avatar">

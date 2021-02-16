@@ -117,6 +117,16 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
 
   //effects
   useEffect(() => {
+    const close = (e) => {
+      if (e.keyCode === 27) {
+        props.data.closeModal();
+      }
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, []);
+
+  useEffect(() => {
     fetchPostSegments();
   }, []);
 
