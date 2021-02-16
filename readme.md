@@ -69,11 +69,9 @@
    yarn deploy
 ```
 
-6. Changed will be refelcted to test URL,
+6. Changes will be reflected to test URL,
 
-```bash
-   https://sellia-42377.web.app/
-```
+[https://sellia-42377.web.app/](https://sellia-42377.web.app/)
 
 ## Firebase Helper commands
 
