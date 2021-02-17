@@ -34,6 +34,7 @@ export const typeDefs = `
   type Author {
     id: ID
     email: String
+    secondEmail: String
     username: String
     mobile: [Mobile]
     image: Image

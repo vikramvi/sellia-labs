@@ -24,6 +24,9 @@ const EditProfileEnhancher = withFormik({
     const { author, loading } = props;
     const name = !loading && author && author.name ? author.name : "";
     const email = !loading && author && author.email ? author.email : "";
+    const secondEmail =
+      !loading && author && author.secondEmail ? author.secondEmail : "";
+
     const title = !loading && author && author.title ? author.title : "";
     const website = !loading && author && author.website ? author.website : "";
     const homeLocation =
@@ -35,6 +38,7 @@ const EditProfileEnhancher = withFormik({
       name,
       website,
       email,
+      secondEmail,
       title,
       homeLocation,
       workLocation,
@@ -250,6 +254,18 @@ const EditProfile = (props) => {
         label="Email"
         value={values.email}
         error={errors.email}
+        touched={touched}
+      />
+
+      <Input
+        elementType="input"
+        elementConfig={{
+          type: "text",
+          required: "required",
+        }}
+        label="Secondary email"
+        value={values.secondEmail}
+        error={errors.secondEmail}
         touched={touched}
       />
 

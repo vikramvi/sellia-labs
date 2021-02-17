@@ -19,6 +19,7 @@ export const GET_AUTHOR = gql`
       }
 
       website
+      secondEmail
       email
       mobile {
         number
