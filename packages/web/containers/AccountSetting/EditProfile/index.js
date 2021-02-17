@@ -264,6 +264,7 @@ const EditProfile = (props) => {
           required: "required",
         }}
         label="Secondary email"
+        changed={handleChange("secondEmail")}
         value={values.secondEmail}
         error={errors.secondEmail}
         touched={touched}

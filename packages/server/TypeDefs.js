@@ -101,6 +101,7 @@ export const typeDefs = `
   input authorInput {
     id: ID
     email: String
+    secondEmail: String
     username: String
     image: imageInput
     website: String
