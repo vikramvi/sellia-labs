@@ -61,14 +61,9 @@ const SignInForm = ({
       const { email, password } = values;
       const provider = "password";
       const { user, error } = await AuthHelper.login(provider, email, password);
-      if (user && user.emailVerified) {
+      if (user) {
         token = await user.getIdToken();
         setFieldValue("token", token);
-      } else if (user && !user.emailVerified) {
-        setLoading(false);
-        setError({
-          message: "Please verify your email address, check you email inbox.",
-        });
       } else if (error) {
         setLoading(false);
         setError(error);
