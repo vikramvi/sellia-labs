@@ -145,10 +145,7 @@ const Chat = (props) => {
     const sellerID = currentPost.authorId;
     const listingID = currentPost.id;
     const from = currentPost.author && currentPost.author.name;
-    const image =
-      currentPost.gallery && currentPost.gallery.length > 0
-        ? currentPost.gallery[0]
-        : "";
+    const image = currentPost.image ? currentPost.image : "";
 
     let chat_id = getNodename(userId, sellerID, listingID);
     const loginUser = await AuthHelper.getCurrentUser();

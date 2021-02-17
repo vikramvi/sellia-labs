@@ -45,7 +45,6 @@ const ChatSidebar = ({
   //     return true;
   //   }
   // });
-
   return (
     <>
       {/* <SearchInput>
@@ -63,6 +62,8 @@ const ChatSidebar = ({
         {Object.keys(data).map((key) => {
           console.log("data -->", key);
           const item = data[key];
+          console.log("item.image ->", item);
+
           return (
             <UserListItem
               key={`user-item--${item.listingID}`}
@@ -71,7 +72,8 @@ const ChatSidebar = ({
               onClick={() => handleOnClick(item)}
             >
               <ChatItem
-                avatar={item.image && item.image.url}
+                avatarFlexible={false}
+                avatar={item.image && item.image.largeUrl}
                 alt={item.name}
                 title={
                   item.listingStatus === "sold"

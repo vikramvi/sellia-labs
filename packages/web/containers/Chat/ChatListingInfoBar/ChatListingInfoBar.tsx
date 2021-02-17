@@ -187,7 +187,17 @@ const ChatListingInfoBar = ({
 
       {/* content view */}
       <Box style={{ flexBasis: "60%", width: "100%" }}>
-        {content && <Text content={content} {...priceStyle} mb="5" mt="5" />}
+        {content && (
+          <Text
+            style={{
+              color: "#FFFFFF",
+            }}
+            content={content}
+            {...priceStyle}
+            mb="5"
+            mt="5"
+          />
+        )}
       </Box>
     </Box>
   );
