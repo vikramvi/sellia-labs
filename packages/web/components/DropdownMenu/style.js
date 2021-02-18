@@ -16,17 +16,22 @@ export const DropdownMenuItemsWrapper = styled('ul')`
   left: ${props => (props.dropdownDirection === 'left' ? '0' : 'auto')};
   right: ${props => (props.dropdownDirection === 'right' ? '0' : 'auto')};
   z-index: 15;
-  min-width: 190px;
+  min-width: 140px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.16);
   border-radius: 3px;
 `;
 
 export const DropdownMenuItemWrapper = styled('li')`
   transition: background-color 0.3s ease-in-out;
-  a {
+  a, button{
     display: block;
-    padding: 10px 15px;
+    padding: 10px;
   }
+
+  button{
+    text-align: left;
+  }
+
   &:hover {
     background-color: #e2e2e2;
   }
