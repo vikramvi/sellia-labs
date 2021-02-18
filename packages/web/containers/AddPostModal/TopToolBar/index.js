@@ -8,24 +8,28 @@ import Box from "reusecore/src/elements/Box";
 const TopToolBar = ({ onClose }) => (
   <>
     <Box
-      style={{ backgroundColor: "blue" }}
+      style={{ backgroundColor: "blue", height: "70px" }}
       flexBox
       justifyContent="space-between"
       alignItems="center"
-      mb={5}
     >
       <Heading
         content="I am looking.."
         mb={0}
-        style={{ fontSize: 24, fontWeight: 600, color: "#FFFFFF" }}
+        style={{
+          fontSize: 24,
+          fontWeight: 600,
+          color: "#FFFFFF",
+          marginLeft: "20px",
+        }}
       />
 
       <Button
-        icon={<Icon icon={androidClose} size={24} color="#595959" />}
+        icon={<Icon icon={androidClose} size={24} color="#FFFFFF" />}
         variant="textButton"
         onClick={onClose}
         style={{
-          color: "#595959",
+          color: "#FFFFFF",
         }}
       />
     </Box>

@@ -417,7 +417,7 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
       <Grid
         flexBox
         style={{
-          paddingTop: "10px",
+          padding: "0px",
           width: "100%",
         }}
       >
@@ -431,7 +431,11 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
             props.data.closeModal();
           }}
         />
-        <Row>
+        <Row
+          style={{
+            margin: "20px",
+          }}
+        >
           <Box>
             {selectedSegment && selectedSegment.sections && (
               <Box flexBox flexDirection="row" alignItems="center">
@@ -473,7 +477,11 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           </Box>
         </Row>
         {!isSegmentListOpen && (
-          <Row>
+          <Row
+            style={{
+              margin: "20px",
+            }}
+          >
             {/* <Col xs={12}> */}
             <Col xs={12} sm={12} md={12}>
               {selectedSegment &&

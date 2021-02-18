@@ -97,6 +97,7 @@ export default function Feed({ userId, isLoggedIn, location }) {
     openModal({
       overlayClassName: "customeOverlayClass",
       closeOnClickOutside: false,
+      closeComponent: () => <></>,
       componentProps: {
         data: {
           closeModal,

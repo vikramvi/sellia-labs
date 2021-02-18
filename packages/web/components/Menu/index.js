@@ -141,6 +141,7 @@ const Menu = ({
     openModal({
       overlayClassName: "customeOverlayClass",
       closeOnClickOutside: false,
+      closeComponent: () => <></>,
       componentProps: {
         data: {
           closeModal,

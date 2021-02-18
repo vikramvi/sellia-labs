@@ -12,7 +12,7 @@ export const NavSidebarWrapper = styled("div")`
   top: 200;
   left: 0;
   bottom: 20;
-  z-index: 10;
+  z-index: 3;
   background-color: #ffffff;
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.06);
   padding-top: 66;
