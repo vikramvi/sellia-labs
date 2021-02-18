@@ -97,13 +97,6 @@ const Menu = ({
       variant="textButton"
       width={1}
       color="#EF5A5A"
-      style={{
-        minHeight: "auto",
-        minWidth: "auto",
-        textDecoration: "none",
-        justifyContent: "flex-start",
-        marginLeft: "-4px",
-      }}
     />,
   ];
 
@@ -217,33 +210,33 @@ const Menu = ({
             </Link>
           </MenuItemWrapper>
         ) : (
-          <MenuItemWrapper>
-            <DropdownMenu
-              dropdownDirection="right"
-              content={
-                <Image
-                  src={avatar}
-                  loader={
-                    <img
-                      style={imageStyle}
-                      src={profileImg}
-                      alt="profile picture"
-                    />
-                  }
-                  unloader={
-                    <img
-                      style={imageStyle}
-                      src={profileImg}
-                      alt="profile picture"
-                    />
-                  }
-                  style={imageStyle}
-                />
-              }
-              dropdownItems={PROFILE_MENU_ITEMS}
-            />
-          </MenuItemWrapper>
-        )}
+            <MenuItemWrapper>
+              <DropdownMenu
+                dropdownDirection="right"
+                content={
+                  <Image
+                    src={avatar}
+                    loader={
+                      <img
+                        style={imageStyle}
+                        src={profileImg}
+                        alt="profile picture"
+                      />
+                    }
+                    unloader={
+                      <img
+                        style={imageStyle}
+                        src={profileImg}
+                        alt="profile picture"
+                      />
+                    }
+                    style={imageStyle}
+                  />
+                }
+                dropdownItems={PROFILE_MENU_ITEMS}
+              />
+            </MenuItemWrapper>
+          )}
       </MenuWrapper>
       <Modal />
     </>
