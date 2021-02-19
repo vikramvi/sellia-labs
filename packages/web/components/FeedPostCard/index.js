@@ -22,6 +22,8 @@ const profileImgStyle = { width: 40, height: 40, borderRadius: "50%" };
 import styled from "styled-components";
 import { openModal, closeModal } from "@redq/reuse-modal";
 import AddPostModal from "../../containers/ModalContainer/AddPostModal";
+import { useContext, useEffect } from "react";
+import { FeedContext } from "../../contexts/FeedContext";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -51,6 +53,8 @@ const FeedPostCard = ({
   ...props
 }) => {
   console.log("props", props);
+  const { state, dispatch } = useContext(FeedContext);
+
   // const postData= {
   //   title,
   //   price,
@@ -101,6 +105,12 @@ const FeedPostCard = ({
     }
   };
 
+  const handleClick = (itemSlug) => {
+    dispatch({
+      type: "UPDATE_FEED_FILTER",
+      payload: { key: "categorySlug", value: itemSlug },
+    });
+  };
   const HeadingContent = () => {
     const avatar = props.avatar ? props.avatar : "";
     console.log("propss===>", props);
@@ -138,22 +148,12 @@ const FeedPostCard = ({
         />
         {" is looking "}
         {item.categories && item.categories[0] && (
-          <Link
-            key={item.categories[0].id}
-            href={{
-              pathname: `${SINGLE_CATEGORY_PAGE}/${item.categories[0].slug}`,
-              state: {
-                termId: item.categories[0].id,
-              },
-            }}
-          >
-            <a>
-              <Tag
-                tagContent={item.categories[0].name}
-                style={{ marginRight: 10 }}
-              />
-            </a>
-          </Link>
+          <a onClick={() => handleClick(item.categories[0].slug)}>
+            <Tag
+              tagContent={item.categories[0].name}
+              style={{ marginRight: 10 }}
+            />
+          </a>
         )}{" "}
         {(item.category && item.category.toLowerCase()) ||
           (item.brand && item.brand)}
