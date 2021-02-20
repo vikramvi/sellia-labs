@@ -7,37 +7,23 @@ import PlaceholderImage from "core/static/images/thumb-grid-placeholder.svg";
 import Box from "reusecore/src/elements/Box";
 import Link from "next/link";
 import Button from "reusecore/src/elements/Button";
-import Icon from "../../components/Icon";
 import Router from "next/router";
 import { CHAT_PAGE } from "core/navigation/constant";
-import ShareModal from "../../containers/ModalContainer/ShareModal";
 
 import Img from "react-image";
 // import Description from "../../containers/SinglePost/Description";
 import { timeDifference } from "../../helpers/utility";
 import Tag, { TagGroup, LabelTag } from "../../components/TagGroup";
+
+import PostAction from "../Authorized/PostAction";
+
 import { SINGLE_CATEGORY_PAGE } from "core/navigation/constant";
 import profileImg from "core/static/images/user-placeholder.svg";
 const profileImgStyle = { width: 40, height: 40, borderRadius: "50%" };
-import styled from "styled-components";
 import { openModal, closeModal } from "@redq/reuse-modal";
 import AddPostModal from "../../containers/ModalContainer/AddPostModal";
 import { useContext, useEffect } from "react";
 import { FeedContext } from "../../contexts/FeedContext";
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  @media screen and (max-width: 1023px) {
-    width: 100%;
-    margin-top: 20px;
-
-    .outlineButton {
-      width: calc(50% - 5px);
-    }
-  }
-`;
 
 const FeedPostCard = ({
   id,
@@ -410,82 +396,7 @@ const FeedPostCard = ({
 
         {imageSrc && imageSrc[0] ? <ContentImage /> : <Content />}
 
-        <ButtonWrapper style={{ flexGrow: 0 }}>
-          {item.status === "publish" && userId !== item.authorId && (
-            <Button
-              iconPosition="left"
-              title="Send message"
-              bg="#FFFFFF"
-              style={{
-                marginBottom: 2,
-                width: "25%",
-                fontSize: "12px",
-                height: "30px",
-                color: "#1e2d8f",
-                marginRight: 2,
-              }}
-              icon={
-                <Icon
-                  name="ios-chatboxes"
-                  fontSize={18}
-                  color="#1e2d8f"
-                  mr={10}
-                />
-              }
-              onClick={() => {
-                Router.push(
-                  {
-                    pathname: CHAT_PAGE,
-                    query: { post: JSON.stringify(item) },
-                  },
-                  CHAT_PAGE
-                );
-              }}
-            />
-          )}
-
-          <Button
-            iconPosition="left"
-            bg="#FFFFFF"
-            title="Share"
-            icon={<Icon name="ios-share-alt" fontSize={18} color="#1e2d8f" />}
-            style={{
-              fontSize: "12px",
-
-              marginBottom: 2,
-              color: "#1e2d8f",
-              width: "20%",
-
-              height: "30px",
-            }}
-            onClick={() =>
-              openModal({
-                config: {
-                  disableDragging: false,
-                  width: "auto",
-                  height: "auto",
-                  enableResizing: false,
-                  disableDragging: true,
-                  transition: {
-                    tension: 150,
-                  },
-                },
-                withRnd: false,
-                closeOnClickOutside: true,
-                component: ShareModal,
-                componentProps: {
-                  data: {
-                    author: item.author.name,
-                    link: process.browser
-                      ? window.location.host + `/?slug=${item.slug}`
-                      : null,
-                    title: item.title,
-                  },
-                },
-              })
-            }
-          />
-        </ButtonWrapper>
+        <PostAction item={item} userId={userId} />
       </Box>
     </Card>
   );

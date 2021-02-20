@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Button from "reusecore/src/elements/Button";
+
+import AddPostButton from "../Authorized/AddPostButton";
+
 import DropdownMenu from "../DropdownMenu";
 import Image from "react-image";
 import { MenuWrapper, MenuItemWrapper } from "./style";
@@ -9,9 +12,9 @@ import Badge from "../UiElements/Badge/Badge";
 import SvgIcon from "../UiElements/SvgIcon/SvgIcon";
 import { styled } from "baseui";
 import { db } from "../../helpers/init";
-import AddPostModal from "../../containers/ModalContainer/AddPostModal";
 import { Modal } from "@redq/reuse-modal";
 import { openModal, closeModal } from "@redq/reuse-modal";
+import AuthHelper from "../../helpers/authHelper";
 
 import { BsBell } from "react-icons/bs";
 import { IoMdAdd, IoMdHome, IoMdMail } from "react-icons/io";
@@ -130,28 +133,6 @@ const Menu = ({
     subscribeUserChat();
     return observer;
   }, []);
-  const handleAddPost = () => {
-    openModal({
-      overlayClassName: "customeOverlayClass",
-      closeOnClickOutside: false,
-      closeComponent: () => <></>,
-      componentProps: {
-        data: {
-          closeModal,
-          userId,
-        },
-      },
-      config: {
-        className: "addPostNewModal",
-        height: "auto",
-        width: "50%",
-        transition: {
-          tension: 150,
-        },
-      },
-      component: AddPostModal,
-    });
-  };
 
   return (
     <>
@@ -172,12 +153,7 @@ const Menu = ({
         </MenuItemWrapper>
 
         <MenuItemWrapper>
-          <Button
-            onClick={handleAddPost}
-            icon={<IoMdAdd size={30} />}
-            bg="transparent"
-            color="#30C56D"
-          />
+          <AddPostButton userId={userId} />
         </MenuItemWrapper>
 
         <MenuItemWrapper>
@@ -210,33 +186,33 @@ const Menu = ({
             </Link>
           </MenuItemWrapper>
         ) : (
-            <MenuItemWrapper>
-              <DropdownMenu
-                dropdownDirection="right"
-                content={
-                  <Image
-                    src={avatar}
-                    loader={
-                      <img
-                        style={imageStyle}
-                        src={profileImg}
-                        alt="profile picture"
-                      />
-                    }
-                    unloader={
-                      <img
-                        style={imageStyle}
-                        src={profileImg}
-                        alt="profile picture"
-                      />
-                    }
-                    style={imageStyle}
-                  />
-                }
-                dropdownItems={PROFILE_MENU_ITEMS}
-              />
-            </MenuItemWrapper>
-          )}
+          <MenuItemWrapper>
+            <DropdownMenu
+              dropdownDirection="right"
+              content={
+                <Image
+                  src={avatar}
+                  loader={
+                    <img
+                      style={imageStyle}
+                      src={profileImg}
+                      alt="profile picture"
+                    />
+                  }
+                  unloader={
+                    <img
+                      style={imageStyle}
+                      src={profileImg}
+                      alt="profile picture"
+                    />
+                  }
+                  style={imageStyle}
+                />
+              }
+              dropdownItems={PROFILE_MENU_ITEMS}
+            />
+          </MenuItemWrapper>
+        )}
       </MenuWrapper>
       <Modal />
     </>

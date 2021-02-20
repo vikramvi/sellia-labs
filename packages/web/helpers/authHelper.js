@@ -238,6 +238,12 @@ class AuthHelper {
   getCurrentUser = async () => {
     return firebaseAuth().currentUser;
   };
+
+  isVerified = async () => {
+    return (
+      firebaseAuth().currentUser && firebaseAuth().currentUser.emailVerified
+    );
+  };
 }
 
 export default new AuthHelper();
