@@ -151,6 +151,7 @@ const FeedPostCard = ({
                 marginBottom: "0px",
               }}
             />
+            {/* TODO: dynamic company name */}
             <Text
               content={"(Yahoo)"}
               style={{
