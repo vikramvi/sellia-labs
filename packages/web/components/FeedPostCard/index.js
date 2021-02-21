@@ -22,7 +22,7 @@ import profileImg from "core/static/images/user-placeholder.svg";
 const profileImgStyle = {
   width: 40,
   height: 40,
-  borderRadius: "50%",
+  borderRadius: "10%",
   margin: "5px",
 };
 import { openModal, closeModal } from "@redq/reuse-modal";
@@ -118,49 +118,81 @@ const FeedPostCard = ({
         alignItems="center"
         style={{ position: "relative" }}
       >
-        <Img
-          src={avatar}
-          loader={
-            <img
-              style={profileImgStyle}
-              src={profileImg}
-              alt="profile picture"
+        <Box>
+          <Img
+            src={avatar}
+            loader={
+              <img
+                style={profileImgStyle}
+                src={profileImg}
+                alt="profile picture"
+              />
+            }
+            unloader={
+              <img
+                style={profileImgStyle}
+                src={profileImg}
+                alt="profile picture"
+              />
+            }
+            style={profileImgStyle}
+          />
+        </Box>
+        <Box flexDirection="column">
+          <Box flexDirection="row">
+            <Text
+              mr="1"
+              ml="2"
+              content={props.author ? props.author : "Sellia user"}
+              style={{
+                display: "inline",
+                fontWeight: "bold",
+                marginTop: "0px",
+                marginBottom: "0px",
+              }}
             />
-          }
-          unloader={
-            <img
-              style={profileImgStyle}
-              src={profileImg}
-              alt="profile picture"
+            <Text
+              content={"(Yahoo)"}
+              style={{
+                display: "inline",
+                color: "#30C56D",
+                fontWeight: "bold",
+              }}
             />
-          }
-          style={profileImgStyle}
-        />
-        <Text
-          mr="2"
-          ml="2"
-          content={props.author ? props.author : "Sellia user"}
-          style={{
-            display: "inline",
-            fontWeight: "bold",
-            marginTop: "0px",
-            marginBottom: "0px",
-          }}
-        />
-        {" is looking "}
-        {item.categories && item.categories[0] && (
-          <a onClick={() => handleClick(item.categories[0].slug)}>
-            <Tag
-              tagContent={item.categories[0].name}
-              style={{ marginRight: 10, marginTop: "0px", marginBottom: "0px" }}
-            />
-          </a>
-        )}{" "}
-        {(item.category && item.category.toLowerCase()) ||
-          (item.brand && item.brand)}
-        {"  "}
-        {item.belongsTo && displayBelongsTo(item.belongsTo)}
-        {"   "}
+            {" is looking "}
+            {item.categories && item.categories[0] && (
+              <a onClick={() => handleClick(item.categories[0].slug)}>
+                <Tag
+                  tagContent={item.categories[0].name}
+                  style={{
+                    marginRight: 10,
+                    marginTop: "0px",
+                    marginBottom: "0px",
+                  }}
+                />
+              </a>
+            )}{" "}
+            {(item.category && item.category.toLowerCase()) ||
+              (item.brand && item.brand)}
+            {"  "}
+            {item.belongsTo && displayBelongsTo(item.belongsTo)}
+            {"   "}
+          </Box>
+
+          <Text
+            mr="2"
+            ml="2"
+            content={"CNF Place, San Jose"}
+            style={{
+              display: "inline",
+              fontWeight: "bold",
+              marginTop: "0px",
+              marginBottom: "0px",
+              fontSize: "12px",
+            }}
+          />
+        </Box>
+
         {/* temp hidden */}
         <Box style={{ position: "absolute", top: 0, right: 0 }}>
           <DropdownMenu
