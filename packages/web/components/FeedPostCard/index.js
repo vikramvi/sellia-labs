@@ -29,6 +29,9 @@ import { openModal, closeModal } from "@redq/reuse-modal";
 import AddPostModal from "../../containers/ModalContainer/AddPostModal";
 import { useContext, useEffect } from "react";
 import { FeedContext } from "../../contexts/FeedContext";
+import DropdownMenu from "../DropdownMenu";
+import Icon from "react-icons-kit";
+import { more } from "react-icons-kit/ionicons/more";
 
 const FeedPostCard = ({
   id,
@@ -113,6 +116,7 @@ const FeedPostCard = ({
         justifyContent="flex-start"
         borderBottom="1px solid #e2e2e2"
         alignItems="center"
+        style={{ position: "relative" }}
       >
         <Img
           src={avatar}
@@ -158,6 +162,23 @@ const FeedPostCard = ({
         {item.belongsTo && displayBelongsTo(item.belongsTo)}
         {"   "}
         {/* temp hidden */}
+        <Box style={{ position: "absolute", top: 0, right: 0 }}>
+          <DropdownMenu
+            content={<Icon icon={more} size={30} color="#595959" />}
+            dropdownDirection="right"
+            dropdownItems={[
+              <Button
+                title="Edit Listing"
+                iconPosition="left"
+                style={{
+                  float: "right",
+                }}
+                // onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
+                onClick={() => handleEditPost(id)}
+              />,
+            ]}
+          />
+        </Box>
         {/* {props.isLoggedIn &&
           props.authorId &&
           userId === props.authorId &&
