@@ -19,7 +19,12 @@ import PostAction from "../Authorized/PostAction";
 
 import { SINGLE_CATEGORY_PAGE } from "core/navigation/constant";
 import profileImg from "core/static/images/user-placeholder.svg";
-const profileImgStyle = { width: 40, height: 40, borderRadius: "50%" };
+const profileImgStyle = {
+  width: 40,
+  height: 40,
+  borderRadius: "50%",
+  margin: "5px",
+};
 import { openModal, closeModal } from "@redq/reuse-modal";
 import AddPostModal from "../../containers/ModalContainer/AddPostModal";
 import { useContext, useEffect } from "react";
@@ -107,6 +112,7 @@ const FeedPostCard = ({
         flexBox
         justifyContent="flex-start"
         borderBottom="1px solid #e2e2e2"
+        alignItems="center"
       >
         <Img
           src={avatar}
@@ -130,14 +136,19 @@ const FeedPostCard = ({
           mr="2"
           ml="2"
           content={props.author ? props.author : "Sellia user"}
-          style={{ display: "inline", fontWeight: "bold" }}
+          style={{
+            display: "inline",
+            fontWeight: "bold",
+            marginTop: "0px",
+            marginBottom: "0px",
+          }}
         />
         {" is looking "}
         {item.categories && item.categories[0] && (
           <a onClick={() => handleClick(item.categories[0].slug)}>
             <Tag
               tagContent={item.categories[0].name}
-              style={{ marginRight: 10 }}
+              style={{ marginRight: 10, marginTop: "0px", marginBottom: "0px" }}
             />
           </a>
         )}{" "}
