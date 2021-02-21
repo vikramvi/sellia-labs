@@ -172,31 +172,6 @@ const Menu = ({
                 />
               </a>
             </Link>
-
-            {/* <DropdownMenu
-              dropdownDirection="right"
-              content={
-                <Image
-                  src={avatar}
-                  loader={
-                    <img
-                      style={imageStyle}
-                      src={profileImg}
-                      alt="profile picture"
-                    />
-                  }
-                  unloader={
-                    <img
-                      style={imageStyle}
-                      src={profileImg}
-                      alt="profile picture"
-                    />
-                  }
-                  style={imageStyle}
-                />
-              }
-              dropdownItems={PROFILE_MENU_ITEMS}
-            /> */}
           </MenuItemWrapper>
         )}
 
