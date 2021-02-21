@@ -17,7 +17,7 @@ import { openModal, closeModal } from "@redq/reuse-modal";
 import AuthHelper from "../../helpers/authHelper";
 
 import { BsBell } from "react-icons/bs";
-import { IoMdAdd, IoMdHome, IoMdMail } from "react-icons/io";
+import { IoMdAdd, IoMdHome, IoMdMail, IoMdNotifications } from "react-icons/io";
 import "./style.css";
 
 import {
@@ -137,46 +137,6 @@ const Menu = ({
   return (
     <>
       <MenuWrapper className={className}>
-        <MenuItemWrapper>
-          <Link href={HOME_PAGE}>
-            <IoMdHome size={30} />
-          </Link>
-        </MenuItemWrapper>
-
-        <MenuItemWrapper>
-          <Link href={CHAT_PAGE}>
-            <Badge
-              icon={<IoMdMail size={30} />}
-              count={router.pathname !== CHAT_PAGE ? badgeCount : 0}
-            />
-          </Link>
-        </MenuItemWrapper>
-
-        <MenuItemWrapper>
-          <AddPostButton userId={userId} />
-        </MenuItemWrapper>
-
-        <MenuItemWrapper>
-          <DropdownMenu
-            content={dropdownMenuIcon}
-            dropdownDirection="right"
-            dropdownItems={DROPDOWN_MENU_ITEMS}
-          />
-        </MenuItemWrapper>
-        {/* <MenuItemWrapper>
-          <Link href={`${ADD_POST}/[id]`} as={`${ADD_POST}/new`}>
-            <a>
-              <Button
-                title="Add Post"
-                icon={buttonIcon}
-                iconPosition="left"
-                bg="transparent"
-                color="#30C56D"
-                border="1px solid #30C56D"
-              />
-            </a>
-          </Link>
-        </MenuItemWrapper> */}
         {!isLoggedIn ? (
           <MenuItemWrapper paddingX="0">
             <Link href={SIGNIN_PAGE}>
@@ -187,7 +147,33 @@ const Menu = ({
           </MenuItemWrapper>
         ) : (
           <MenuItemWrapper>
-            <DropdownMenu
+            <Link
+              href={`${PROFILE_PAGE}/[username]`}
+              as={`${PROFILE_PAGE}/${userId}`}
+            >
+              <a>
+                <Image
+                  src={avatar}
+                  loader={
+                    <img
+                      style={imageStyle}
+                      src={profileImg}
+                      alt="profile picture"
+                    />
+                  }
+                  unloader={
+                    <img
+                      style={imageStyle}
+                      src={profileImg}
+                      alt="profile picture"
+                    />
+                  }
+                  style={imageStyle}
+                />
+              </a>
+            </Link>
+
+            {/* <DropdownMenu
               dropdownDirection="right"
               content={
                 <Image
@@ -210,9 +196,36 @@ const Menu = ({
                 />
               }
               dropdownItems={PROFILE_MENU_ITEMS}
-            />
+            /> */}
           </MenuItemWrapper>
         )}
+
+        <MenuItemWrapper>
+          <AddPostButton userId={userId} />
+        </MenuItemWrapper>
+
+        <MenuItemWrapper>
+          <Link href={CHAT_PAGE}>
+            <Badge
+              icon={<IoMdMail size={30} />}
+              count={router.pathname !== CHAT_PAGE ? badgeCount : 0}
+            />
+          </Link>
+        </MenuItemWrapper>
+
+        <MenuItemWrapper>
+          <Link href={HOME_PAGE}>
+            <IoMdNotifications size={30} />
+          </Link>
+        </MenuItemWrapper>
+
+        <MenuItemWrapper>
+          <DropdownMenu
+            content={dropdownMenuIcon}
+            dropdownDirection="right"
+            dropdownItems={PROFILE_MENU_ITEMS}
+          />
+        </MenuItemWrapper>
       </MenuWrapper>
       <Modal />
     </>

@@ -24,10 +24,10 @@ const Navbar = ({
       {/* {pathname !== '/' && pathname !== SEARCH_PAGE ? ( */}
       {pathname !== "/" ? (
         <>
-          <Search
+          {/* <Search
             className="topSearch lg-show"
             style={{ flexGrow: 1, marginLeft: 100, marginRight: 100 }}
-          />
+          /> */}
         </>
       ) : null}
 
