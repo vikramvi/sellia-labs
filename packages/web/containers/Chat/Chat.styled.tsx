@@ -2,12 +2,13 @@ import { styled } from "baseui";
 
 const Wrapper = styled("div", ({ $theme }) => ({
   display: "flex",
-  height: "100%",
+  height: "80vh",
   width: "100%",
   backgroundColor: $theme.colors.primaryB,
   boxShadow: $theme.lighting.shadow400,
   overflow: "hidden",
   marginTop: "20px",
+  marginBottom: "20px",
   // "@media only screen and (max-width: 667px)": {
   //   maxWidth: "375px",
   //   marginLeft: "10%",
