@@ -1,12 +1,12 @@
-import React from 'react';
-import Link from 'next/link';
-import styled, { css } from 'styled-components';
+import React from "react";
+import Link from "next/link";
+import styled, { css } from "styled-components";
 
 const LogoImage = styled.img`
   display: block;
-  width: 45px;
+  width: 65px;
   height: auto;
-  ${props =>
+  ${(props) =>
     props.auto &&
     css`
       margin-left: auto;
