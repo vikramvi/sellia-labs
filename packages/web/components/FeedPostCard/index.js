@@ -147,6 +147,7 @@ const FeedPostCard = ({
               style={{
                 display: "inline",
                 fontWeight: "bold",
+                fontSize: 14,
                 marginTop: "0px",
                 marginBottom: "0px",
               }}
@@ -162,15 +163,17 @@ const FeedPostCard = ({
             />
             {" is looking "}
             {item.categories && item.categories[0] && (
-              <a onClick={() => handleClick(item.categories[0].slug)}>
-                <Tag
-                  tagContent={item.categories[0].name}
-                  style={{
-                    marginRight: 10,
-                    marginTop: "0px",
-                    marginBottom: "0px",
-                  }}
-                />
+              <a
+                style={{
+                  textAlign: "center",
+                  fontSize: 14,
+                  color: "blue",
+                  cursor: "pointer",
+                  textDecorationLine: "underline",
+                }}
+                onClick={() => handleClick(item.categories[0].slug)}
+              >
+                {item.categories[0].name}
               </a>
             )}{" "}
             {(item.category && item.category.toLowerCase()) ||
