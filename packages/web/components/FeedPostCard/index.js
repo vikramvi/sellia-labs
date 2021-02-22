@@ -105,6 +105,47 @@ const FeedPostCard = ({
       payload: { key: "categorySlug", value: itemSlug },
     });
   };
+
+  const dropDownOptions = () => {
+    let options = [
+      <Button
+        title="Report Spam"
+        iconPosition="left"
+        variant="textButton"
+        style={{
+          marginBottom: 10,
+
+          float: "right",
+        }}
+        // onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
+        // onClick={() => handleEditPost(id)}
+      />,
+    ];
+
+    {
+      props.isLoggedIn &&
+        props.authorId &&
+        userId === props.authorId &&
+        props.postStatus === "publish" &&
+        options.push(
+          <Button
+            title="Edit Listing"
+            iconPosition="left"
+            variant="textButton"
+            style={{
+              marginBottom: 10,
+
+              float: "right",
+            }}
+            // onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
+            onClick={() => handleEditPost(id)}
+          />
+        );
+    }
+
+    return options;
+  };
+
   const HeadingContent = () => {
     const avatar = props.avatar ? props.avatar : "";
     console.log("propss===>", props);
@@ -202,35 +243,9 @@ const FeedPostCard = ({
           <DropdownMenu
             content={<Icon icon={more} size={30} color="#595959" />}
             dropdownDirection="right"
-            dropdownItems={[
-              <Button
-                title="Edit Listing"
-                iconPosition="left"
-                style={{
-                  float: "right",
-                }}
-                // onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
-                onClick={() => handleEditPost(id)}
-              />,
-            ]}
+            dropdownItems={dropDownOptions()}
           />
         </Box>
-        {/* {props.isLoggedIn &&
-          props.authorId &&
-          userId === props.authorId &&
-          props.postStatus === "publish" && (
-            <Button
-              title="Edit Listing"
-              iconPosition="left"
-              style={{
-                marginBottom: 10,
-
-                float: "right",
-              }}
-              // onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
-              onClick={() => handleEditPost(id)}
-            />
-          )} */}
       </Box>
     );
   };
