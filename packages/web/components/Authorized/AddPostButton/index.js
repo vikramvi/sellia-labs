@@ -1,9 +1,5 @@
-import IsAuthorized from "../../../hoc/isAuthorized";
 import Button from "reusecore/src/elements/Button";
-
 import AddPostModal from "../../../containers/ModalContainer/AddPostModal";
-import GetVerifiedModal from "../../../containers/ModalContainer/GetVerifiedModal";
-
 import { IoMdAdd } from "react-icons/io";
 import isAuthorized from "../../../hoc/isAuthorized";
 import { openModal, closeModal } from "@redq/reuse-modal";
@@ -11,25 +7,6 @@ import { openModal, closeModal } from "@redq/reuse-modal";
 const AddPostButton = (props) => {
   console.log("props -", props);
   const { isVerified, userId } = props;
-
-  const handleNotAuthorize = () => {
-    openModal({
-      config: {
-        disableDragging: false,
-        width: "auto",
-        height: "auto",
-        enableResizing: false,
-        disableDragging: true,
-        transition: {
-          tension: 150,
-        },
-      },
-      withRnd: false,
-      closeOnClickOutside: true,
-      component: GetVerifiedModal,
-      componentProps: {},
-    });
-  };
 
   const handleAddPost = async () => {
     if (isVerified) {

@@ -6,7 +6,6 @@ import Text from "reusecore/src/elements/Text";
 import PlaceholderImage from "core/static/images/thumb-grid-placeholder.svg";
 import Box from "reusecore/src/elements/Box";
 import Link from "next/link";
-import Button from "reusecore/src/elements/Button";
 import Router from "next/router";
 import { CHAT_PAGE } from "core/navigation/constant";
 
@@ -29,9 +28,25 @@ import { openModal, closeModal } from "@redq/reuse-modal";
 import AddPostModal from "../../containers/ModalContainer/AddPostModal";
 import { useContext, useEffect } from "react";
 import { FeedContext } from "../../contexts/FeedContext";
-import DropdownMenu from "../DropdownMenu";
-import Icon from "react-icons-kit";
-import { more } from "react-icons-kit/ionicons/more";
+import styled from "styled-components";
+
+import FeedPostCardAction from "../Authorized/FeedPostCardAction";
+
+const MenuItemWrapper = styled("span")`
+  display: block;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: #595959;
+  a {
+    color: #595959;
+  }
+  @media (min-width: 768px) {
+    display: inline-block;
+    padding-left: ${(props) => props.paddingX || "1rem"};
+    padding-right: ${(props) => props.paddingX || "1rem"};
+    flex-shrink: 0;
+  }
+`;
 
 const FeedPostCard = ({
   id,
@@ -104,46 +119,6 @@ const FeedPostCard = ({
       type: "UPDATE_FEED_FILTER",
       payload: { key: "categorySlug", value: itemSlug },
     });
-  };
-
-  const dropDownOptions = () => {
-    let options = [
-      <Button
-        title="Report Spam"
-        iconPosition="left"
-        variant="textButton"
-        style={{
-          marginBottom: 10,
-
-          float: "right",
-        }}
-        // onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
-        // onClick={() => handleEditPost(id)}
-      />,
-    ];
-
-    {
-      props.isLoggedIn &&
-        props.authorId &&
-        userId === props.authorId &&
-        props.postStatus === "publish" &&
-        options.push(
-          <Button
-            title="Edit Listing"
-            iconPosition="left"
-            variant="textButton"
-            style={{
-              marginBottom: 10,
-
-              float: "right",
-            }}
-            // onClick={() => Router.push(`${ADD_POST}/${postData.id}`)}
-            onClick={() => handleEditPost(id)}
-          />
-        );
-    }
-
-    return options;
   };
 
   const HeadingContent = () => {
@@ -240,11 +215,7 @@ const FeedPostCard = ({
 
         {/* temp hidden */}
         <Box style={{ position: "absolute", top: 0, right: 0 }}>
-          <DropdownMenu
-            content={<Icon icon={more} size={30} color="#595959" />}
-            dropdownDirection="right"
-            dropdownItems={dropDownOptions()}
-          />
+          <FeedPostCardAction {...props} userId={userId} />
         </Box>
       </Box>
     );

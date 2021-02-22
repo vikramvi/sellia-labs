@@ -6,8 +6,7 @@ import Router from "next/router";
 import { CHAT_PAGE } from "core/navigation/constant";
 import { openModal, closeModal } from "@redq/reuse-modal";
 import ShareModal from "../../../containers/ModalContainer/ShareModal";
-
-import GetVerifiedModal from "../../../containers/ModalContainer/GetVerifiedModal";
+import NotAuthorizeModal from "../NotAuthorizeModal";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -63,25 +62,6 @@ const PostAction = (props) => {
     });
   };
 
-  const handleNotAuthorize = () => {
-    openModal({
-      config: {
-        disableDragging: false,
-        width: "auto",
-        height: "auto",
-        enableResizing: false,
-        disableDragging: true,
-        transition: {
-          tension: 150,
-        },
-      },
-      withRnd: false,
-      closeOnClickOutside: true,
-      component: GetVerifiedModal,
-      componentProps: {},
-    });
-  };
-
   return (
     <ButtonWrapper style={{ flexGrow: 0 }}>
       {item.status === "publish" && userId !== item.authorId && (
@@ -101,7 +81,7 @@ const PostAction = (props) => {
             <Icon name="ios-chatboxes" fontSize={18} color="#1e2d8f" mr={10} />
           }
           onClick={() =>
-            isVerified ? handleSendMessage() : handleNotAuthorize()
+            isVerified ? handleSendMessage() : NotAuthorizeModal()
           }
         />
       )}
@@ -120,7 +100,7 @@ const PostAction = (props) => {
 
           height: "30px",
         }}
-        onClick={() => (isVerified ? handleShare() : handleNotAuthorize())}
+        onClick={() => (isVerified ? handleShare() : NotAuthorizeModal())}
       />
     </ButtonWrapper>
   );
