@@ -176,7 +176,7 @@ export default function Feed({ userId, isLoggedIn, location }) {
     <Box mt={0} ml={"25%"} mr={"25%"}>
       <NavSidebar></NavSidebar>
       <Box>
-        <div class="css-1dkvlfs">
+        <div className="css-1dkvlfs">
           <Box
             mb={15}
             aria-live="off"
@@ -207,15 +207,15 @@ export default function Feed({ userId, isLoggedIn, location }) {
         {!recentPosts ? (
           <NoItemFound />
         ) : (
-          <ListGrid
-            data={recentPosts}
-            columnWidth={[1]}
-            limit={QUERY_VARIABLES.LIMIT}
-            component={renderRecentPost}
-            loading={queryResult.loading}
-            placeholder={<PostLoader />}
-          />
-        )}
+            <ListGrid
+              data={recentPosts}
+              columnWidth={[1]}
+              limit={QUERY_VARIABLES.LIMIT}
+              component={renderRecentPost}
+              loading={queryResult.loading}
+              placeholder={<PostLoader />}
+            />
+          )}
         <Link href={RECENT_POST_PAGE}>
           <a>
             <Button
