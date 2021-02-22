@@ -12,7 +12,7 @@ export default (ComposedComponent) =>
 
     async componentDidMount() {
       const isVerified = await AuthHelper.isVerified();
-      this.setState({ isVerified: !isVerified });
+      this.setState({ isVerified: isVerified });
     }
 
     render() {
