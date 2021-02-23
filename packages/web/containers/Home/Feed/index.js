@@ -1,9 +1,11 @@
-import React from "react";
+import React, { Fragment, useContext, useState, useEffect } from "react";
+
 import Link from "next/link";
 import { CURRENCY } from "../../../Config";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_ALL_POST } from "core/graphql/AllPost.query";
 import { GET_POST } from "core/graphql/Post.query";
+import { getUrlToState, setStateToUrl } from "../../../helpers/urlHandler";
 
 import { RECENT_POST_PAGE, SINGLE_POST_PAGE } from "core/navigation/constant";
 import { PostLoader } from "../../../components/Placeholder";
@@ -17,7 +19,6 @@ import Button from "reusecore/src/elements/Button";
 import NoItemFound from "../../../components/NoItemFound";
 import OnError from "../../../components/OnError";
 import { FeedContext } from "../../../contexts/FeedContext";
-import { useContext, useEffect } from "react";
 import { GET_CATEGORY_POST } from "core/graphql/CategoryPost.query";
 import "./style.css";
 import Img from "react-image";
@@ -32,11 +33,14 @@ export default function Feed({ userId, isLoggedIn, location }) {
   } = useRouter();
 
   console.log("feed slug ->", slug);
+  const urlState = getUrlToState();
 
   const { state, dispatch } = useContext(FeedContext);
   const { feedFilter } = state;
 
   console.log("feedFilter.categorySlug --", feedFilter.categorySlug);
+
+  const [loadingMore, toggleLoading] = useState(false);
 
   let recentPosts;
   let queryResult;
@@ -48,12 +52,13 @@ export default function Feed({ userId, isLoggedIn, location }) {
       lng: location && location.lng ? location.lng : null,
       LIMIT: 4,
       slug: slug,
+      page: state.page,
     };
 
     queryResult = useQuery(GET_POST, {
       variables: QUERY_VARIABLES,
     });
-    const { data, loading, error, fetchMore } = queryResult;
+    const { data, loading, error } = queryResult;
 
     recentPosts = data && data.post ? [data.post] : [];
 
@@ -61,26 +66,28 @@ export default function Feed({ userId, isLoggedIn, location }) {
   } else if (!feedFilter.categorySlug || feedFilter.categorySlug == "") {
     // QUERY SECTION
     QUERY_VARIABLES = {
-      LIMIT: 20,
+      LIMIT: 3,
+      page: state.page,
     };
     queryResult = useQuery(GET_ALL_POST, {
       variables: QUERY_VARIABLES,
     });
 
-    const { data, loading, error, fetchMore } = queryResult;
+    const { data, loading, error } = queryResult;
     recentPosts = data && data.posts ? data.posts.data : [];
     // Error Rendering.
     if (error) return <OnError />;
   } else {
     QUERY_VARIABLES = {
       SLUG: feedFilter.categorySlug,
-      LIMIT: 20,
+      LIMIT: 3,
+      page: state.page,
     };
     queryResult = useQuery(GET_CATEGORY_POST, {
       variables: QUERY_VARIABLES,
     });
     // Extract Post Data
-    const { data, loading, error, fetchMore } = queryResult;
+    const { data, loading, error } = queryResult;
     console.log("data ---", data);
     recentPosts =
       data && data.category && data.category.posts.data
@@ -90,8 +97,15 @@ export default function Feed({ userId, isLoggedIn, location }) {
     if (error) return <OnError />;
   }
 
+  const postCount = recentPosts ? recentPosts.length : 1;
+  const totalPost = recentPosts ? recentPosts.total : 1;
+
+  const { fetchMore } = queryResult;
+
   // Post Loop Control Area
   console.log("Recent Posts===>", recentPosts);
+
+  console.log("fetchMore ->", fetchMore);
 
   const handleAddPost = () => {
     openModal({
@@ -207,16 +221,54 @@ export default function Feed({ userId, isLoggedIn, location }) {
         {!recentPosts ? (
           <NoItemFound />
         ) : (
-            <ListGrid
-              data={recentPosts}
-              columnWidth={[1]}
-              limit={QUERY_VARIABLES.LIMIT}
-              component={renderRecentPost}
-              loading={queryResult.loading}
-              placeholder={<PostLoader />}
-            />
-          )}
-        <Link href={RECENT_POST_PAGE}>
+          <ListGrid
+            data={recentPosts}
+            columnWidth={[1]}
+            postCount={5}
+            totalPost={10}
+            limit={QUERY_VARIABLES.LIMIT}
+            component={renderRecentPost}
+            loading={queryResult.loading}
+            placeholder={<PostLoader />}
+            handleLoadMore={(loading) => {
+              toggleLoading(true);
+              setStateToUrl({ page: state.page + 1 });
+              fetchMore({
+                variables: {
+                  ...QUERY_VARIABLES,
+                  page: state.page + 1,
+                },
+                updateQuery: (prev, { fetchMoreResult }) => {
+                  console.log("fetchMoreResult ->", fetchMoreResult);
+
+                  if (!fetchMoreResult) {
+                    toggleLoading(false);
+                    return prev;
+                  }
+                  if (postCount && totalPost) {
+                    if (postCount <= totalPost) {
+                      toggleLoading(false);
+                      dispatch({
+                        type: "UPDATE_PAGE",
+                        payload: { ...state, page: state.page + 1 },
+                      });
+                      return {
+                        recentPosts: {
+                          data: [
+                            ...prev.posts.data,
+                            ...fetchMoreResult.posts.data,
+                          ],
+                          total: totalPost,
+                        },
+                      };
+                    }
+                  }
+                },
+              });
+            }}
+          />
+        )}
+        {/* <Link href={RECENT_POST_PAGE}>
           <a>
             <Button
               title="See all"
@@ -225,7 +277,7 @@ export default function Feed({ userId, isLoggedIn, location }) {
               variant="textButton"
             />
           </a>
-        </Link>
+        </Link> */}
       </Box>
     </Box>
   );

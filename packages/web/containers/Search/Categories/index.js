@@ -1,13 +1,13 @@
-import React, { Fragment, useState, useContext } from 'react';
-import { CategoryListCard } from '../../../components/CategoryCard';
-import { CategoryLoader } from '../../../components/Placeholder';
-import { useQuery } from '@apollo/react-hooks';
-import { GET_SEARCH_CATEGORY } from 'core/graphql/Search.query';
-import { SearchContext } from '../../../contexts/SearchContext';
-import { addOrRemove, inArray } from '../../../helpers';
-import { setStateToUrl, getUrlToState } from '../../../helpers/urlHandler';
-import ListGrid from 'reusecore/src/elements/ListGrid';
-import OnError from '../../../components/OnError';
+import React, { Fragment, useState, useContext } from "react";
+import { CategoryListCard } from "../../../components/CategoryCard";
+import { CategoryLoader } from "../../../components/Placeholder";
+import { useQuery } from "@apollo/react-hooks";
+import { GET_SEARCH_CATEGORY } from "core/graphql/Search.query";
+import { SearchContext } from "../../../contexts/SearchContext";
+import { addOrRemove, inArray } from "../../../helpers";
+import { setStateToUrl, getUrlToState } from "../../../helpers/urlHandler";
+import ListGrid from "reusecore/src/elements/ListGrid";
+import OnError from "../../../components/OnError";
 
 function SearchCategory() {
   const urlState = getUrlToState();
@@ -34,14 +34,14 @@ function SearchCategory() {
       ? data.categories.total
       : 1;
 
-  const handleCategorySelection = async slug => {
+  const handleCategorySelection = async (slug) => {
     const selectedCategories = await addOrRemove(slug, state.categories);
     setStateToUrl({
       categories: selectedCategories,
     });
 
     dispatch({
-      type: 'UPDATE',
+      type: "UPDATE",
       payload: {
         categories: selectedCategories,
       },
@@ -54,13 +54,13 @@ function SearchCategory() {
         totalPost={total}
         postCount={allCategories.length}
         columnWidth={[1]}
-        component={item => {
+        component={(item) => {
           return (
             <CategoryListCard
               title={item.name}
               selected={inArray(item.slug, urlState.categories)}
               postNumber={`${item.posts.total} posts`}
-              source={item.image ? item.image.url : ''}
+              source={item.image ? item.image.url : ""}
               style={{ paddingLeft: 30, paddingRight: 20 }}
               handleClick={() => handleCategorySelection(item.slug)}
             />
@@ -69,8 +69,8 @@ function SearchCategory() {
         loading={loading ? loading : loadingMore}
         buttonVariant="textButton"
         loadMoreButtonStyle={{
-          color: '#595959',
-          textDecoration: 'none !important',
+          color: "#595959",
+          textDecoration: "none !important",
         }}
         placeholder={<CategoryLoader />}
         limit={QUERY_VARIABLES.LIMIT}
@@ -84,15 +84,15 @@ function SearchCategory() {
           pr: 0,
         }}
         loadMoreWrapperStyle={{
-          width: '100%',
+          width: "100%",
           flexBox: true,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          pt: '5px',
-          pb: '5px',
-          borderTop: '1px solid #e2e2e2',
+          flexDirection: "row",
+          justifyContent: "center",
+          pt: "5px",
+          pb: "5px",
+          borderTop: "1px solid #e2e2e2",
         }}
-        handleLoadMore={loading => {
+        handleLoadMore={(loading) => {
           toggleLoading(true);
           paginate(page + 1);
           fetchMore({
@@ -106,11 +106,11 @@ function SearchCategory() {
               }
               const oldPosts = prev.categories.data;
               const newPosts = fetchMoreResult.categories.data;
-              console.log('before everything');
+              console.log("before everything");
               if (categoryCount && total) {
-                console.log('called');
+                console.log("called");
                 if (categoryCount <= total) {
-                  console.log('called 1');
+                  console.log("called 1");
                   toggleLoading(false);
                   const concatedPosts = oldPosts.concat(newPosts);
                   fetchMoreResult.categories.data = concatedPosts;

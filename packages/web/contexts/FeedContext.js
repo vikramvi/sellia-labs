@@ -1,6 +1,8 @@
 import React, { useReducer, createContext } from "react";
 
 const initState = {
+  page: 1,
+  limit: 8,
   feedFilter: {
     categorySlug: "",
   },
@@ -18,6 +20,9 @@ export default function feedReducer(state, action) {
         },
       };
     }
+
+    case "UPDATE_PAGE":
+      return { ...state, ...action.payload };
 
     default:
       return state;
