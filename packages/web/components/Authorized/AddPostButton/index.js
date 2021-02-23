@@ -1,5 +1,8 @@
 import Button from "reusecore/src/elements/Button";
 import AddPostModal from "../../../containers/ModalContainer/AddPostModal";
+
+import NotAuthorizeModal from "../NotAuthorizeModal";
+
 import { IoMdAdd } from "react-icons/io";
 import isAuthorized from "../../../hoc/isAuthorized";
 import { openModal, closeModal } from "@redq/reuse-modal";
@@ -37,7 +40,7 @@ const AddPostButton = (props) => {
   };
   return (
     <Button
-      onClick={() => (isVerified ? handleAddPost() : handleNotAuthorize())}
+      onClick={() => (isVerified ? handleAddPost() : NotAuthorizeModal())}
       icon={<IoMdAdd size={30} />}
       bg="transparent"
       color="#30C56D"
