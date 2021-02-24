@@ -8,35 +8,30 @@ import isAuthorized from "../../../hoc/isAuthorized";
 import { openModal, closeModal } from "@redq/reuse-modal";
 
 const AddPostButton = (props) => {
-  console.log("props -", props);
+  console.log("AddPostButton -", props);
   const { isVerified, userId } = props;
 
   const handleAddPost = async () => {
-    if (isVerified) {
-      openModal({
-        overlayClassName: "customeOverlayClass",
-        closeOnClickOutside: false,
-        closeComponent: () => <></>,
-        componentProps: {
-          data: {
-            closeModal,
-            userId,
-          },
+    openModal({
+      overlayClassName: "customeOverlayClass",
+      closeOnClickOutside: false,
+      closeComponent: () => <></>,
+      componentProps: {
+        data: {
+          closeModal,
+          userId,
         },
-        config: {
-          className: "addPostNewModal",
-          height: "auto",
-          width: "50%",
-          transition: {
-            tension: 150,
-          },
+      },
+      config: {
+        className: "addPostNewModal",
+        height: "auto",
+        width: "50%",
+        transition: {
+          tension: 150,
         },
-        component: AddPostModal,
-      });
-    } else {
-      //ask for email verification
-      alert("Please verify your primary email");
-    }
+      },
+      component: AddPostModal,
+    });
   };
   return (
     <Button
