@@ -47,60 +47,79 @@ export default function Feed({ userId, isLoggedIn, location }) {
   let QUERY_VARIABLES;
   let totalPost;
 
-  if (slug) {
-    QUERY_VARIABLES = {
-      lat: location && location.lat ? location.lat : null,
-      lng: location && location.lng ? location.lng : null,
-      LIMIT: state.limit,
-      slug: slug,
-      page: state.page,
-    };
+  // if (slug) {
+  //   QUERY_VARIABLES = {
+  //     lat: location && location.lat ? location.lat : null,
+  //     lng: location && location.lng ? location.lng : null,
+  //     LIMIT: state.limit,
+  //     slug: slug,
+  //     page: state.page,
+  //   };
 
-    queryResult = useQuery(GET_POST, {
-      variables: QUERY_VARIABLES,
-    });
-    const { data, loading, error } = queryResult;
+  //   queryResult = useQuery(GET_POST, {
+  //     variables: QUERY_VARIABLES,
+  //   });
+  //   const { data, loading, error } = queryResult;
 
-    recentPosts = data && data.post ? [data.post] : [];
+  //   recentPosts = data && data.post ? [data.post] : [];
 
-    if (error) return <p>{error.message}</p>;
-  } else if (!feedFilter.categorySlug || feedFilter.categorySlug == "") {
-    // QUERY SECTION
-    QUERY_VARIABLES = {
-      LIMIT: state.limit,
-      page: state.page,
-    };
-    queryResult = useQuery(GET_ALL_POST, {
-      variables: QUERY_VARIABLES,
-    });
+  //   if (error) return <p>{error.message}</p>;
+  // } else if (!feedFilter.categorySlug || feedFilter.categorySlug == "") {
+  //   // QUERY SECTION
+  //   QUERY_VARIABLES = {
+  //     LIMIT: state.limit,
+  //     page: state.page,
+  //   };
+  //   queryResult = useQuery(GET_ALL_POST, {
+  //     variables: QUERY_VARIABLES,
+  //   });
 
-    const { data, loading, error } = queryResult;
+  //   const { data, loading, error } = queryResult;
 
-    console.log("Recent Posts===>", data);
+  //   console.log("Feed data Posts===>", data);
 
-    recentPosts = data && data.posts ? data.posts.data : [];
-    totalPost = data && data.posts ? data.posts.total : 1;
+  //   recentPosts = data && data.posts ? data.posts.data : [];
+  //   totalPost = data && data.posts ? data.posts.total : 1;
 
-    // Error Rendering.
-    if (error) return <OnError />;
-  } else {
-    QUERY_VARIABLES = {
-      SLUG: feedFilter.categorySlug,
-      LIMIT: state.limit,
-      page: state.page,
-    };
-    queryResult = useQuery(GET_CATEGORY_POST, {
-      variables: QUERY_VARIABLES,
-    });
-    // Extract Post Data
-    const { data, loading, error } = queryResult;
-    recentPosts =
-      data && data.category && data.category.posts.data
-        ? data.category.posts.data
-        : [];
-    // Error Rendering.
-    if (error) return <OnError />;
-  }
+  //   // Error Rendering.
+  //   if (error) return <OnError />;
+  // } else {
+  //   QUERY_VARIABLES = {
+  //     SLUG: feedFilter.categorySlug,
+  //     LIMIT: state.limit,
+  //     page: state.page,
+  //   };
+  //   queryResult = useQuery(GET_CATEGORY_POST, {
+  //     variables: QUERY_VARIABLES,
+  //   });
+  //   // Extract Post Data
+  //   const { data, loading, error } = queryResult;
+  //   recentPosts =
+  //     data && data.category && data.category.posts.data
+  //       ? data.category.posts.data
+  //       : [];
+  //   // Error Rendering.
+  //   if (error) return <OnError />;
+  // }
+
+  // QUERY SECTION
+  QUERY_VARIABLES = {
+    LIMIT: state.limit,
+    page: state.page,
+  };
+  queryResult = useQuery(GET_ALL_POST, {
+    variables: QUERY_VARIABLES,
+  });
+
+  const { data, loading, error } = queryResult;
+
+  console.log("Feed data Posts===>", data);
+
+  recentPosts = data && data.posts ? data.posts.data : [];
+  totalPost = data && data.posts ? data.posts.total : 1;
+
+  // Error Rendering.
+  if (error) return <OnError />;
 
   const postCount = recentPosts ? recentPosts.length : 1;
 
@@ -233,9 +252,9 @@ export default function Feed({ userId, isLoggedIn, location }) {
             columnWidth={[1]}
             postCount={postCount}
             totalPost={totalPost}
-            limit={QUERY_VARIABLES.LIMIT}
+            limit={state.limit}
             component={renderRecentPost}
-            loading={queryResult.loading}
+            loading={queryResult.loading ? queryResult.loading : loadingMore}
             placeholder={<PostLoader />}
             handleLoadMore={(loading) => {
               toggleLoading(true);
@@ -261,6 +280,10 @@ export default function Feed({ userId, isLoggedIn, location }) {
                   if (postCount && totalPost) {
                     if (postCount <= totalPost) {
                       console.log("prev.posts.data ->", prev.posts.data);
+                      console.log(
+                        "fetchMoreResult.posts.data ->",
+                        fetchMoreResult.posts.data
+                      );
 
                       toggleLoading(false);
                       dispatch({
