@@ -27,6 +27,8 @@ const SearchPostItem = (props) => {
   const { state, dispatch } = useContext(SearchContext);
   const [loadingMore, toggleLoading] = useState(false);
 
+  console.log("urlState ->", urlState);
+
   const { data, loading, error, fetchMore } = useQuery(GET_SEARCH_POST, {
     variables: {
       queryVariables: urlState,

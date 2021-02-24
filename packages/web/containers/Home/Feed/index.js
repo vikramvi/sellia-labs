@@ -45,12 +45,13 @@ export default function Feed({ userId, isLoggedIn, location }) {
   let recentPosts;
   let queryResult;
   let QUERY_VARIABLES;
+  let totalPost;
 
   if (slug) {
     QUERY_VARIABLES = {
       lat: location && location.lat ? location.lat : null,
       lng: location && location.lng ? location.lng : null,
-      LIMIT: 4,
+      LIMIT: state.limit,
       slug: slug,
       page: state.page,
     };
@@ -66,7 +67,7 @@ export default function Feed({ userId, isLoggedIn, location }) {
   } else if (!feedFilter.categorySlug || feedFilter.categorySlug == "") {
     // QUERY SECTION
     QUERY_VARIABLES = {
-      LIMIT: 3,
+      LIMIT: state.limit,
       page: state.page,
     };
     queryResult = useQuery(GET_ALL_POST, {
@@ -74,13 +75,18 @@ export default function Feed({ userId, isLoggedIn, location }) {
     });
 
     const { data, loading, error } = queryResult;
+
+    console.log("Recent Posts===>", data);
+
     recentPosts = data && data.posts ? data.posts.data : [];
+    totalPost = data && data.posts ? data.posts.total : 1;
+
     // Error Rendering.
     if (error) return <OnError />;
   } else {
     QUERY_VARIABLES = {
       SLUG: feedFilter.categorySlug,
-      LIMIT: 3,
+      LIMIT: state.limit,
       page: state.page,
     };
     queryResult = useQuery(GET_CATEGORY_POST, {
@@ -88,7 +94,6 @@ export default function Feed({ userId, isLoggedIn, location }) {
     });
     // Extract Post Data
     const { data, loading, error } = queryResult;
-    console.log("data ---", data);
     recentPosts =
       data && data.category && data.category.posts.data
         ? data.category.posts.data
@@ -98,7 +103,6 @@ export default function Feed({ userId, isLoggedIn, location }) {
   }
 
   const postCount = recentPosts ? recentPosts.length : 1;
-  const totalPost = recentPosts ? recentPosts.total : 1;
 
   const { fetchMore } = queryResult;
 
@@ -106,6 +110,9 @@ export default function Feed({ userId, isLoggedIn, location }) {
   console.log("Recent Posts===>", recentPosts);
 
   console.log("fetchMore ->", fetchMore);
+
+  console.log("postCount ->", postCount);
+  console.log("totalPost ->", totalPost);
 
   const handleAddPost = () => {
     openModal({
@@ -224,8 +231,8 @@ export default function Feed({ userId, isLoggedIn, location }) {
           <ListGrid
             data={recentPosts}
             columnWidth={[1]}
-            postCount={5}
-            totalPost={10}
+            postCount={postCount}
+            totalPost={totalPost}
             limit={QUERY_VARIABLES.LIMIT}
             component={renderRecentPost}
             loading={queryResult.loading}
@@ -239,21 +246,30 @@ export default function Feed({ userId, isLoggedIn, location }) {
                   page: state.page + 1,
                 },
                 updateQuery: (prev, { fetchMoreResult }) => {
-                  console.log("fetchMoreResult ->", fetchMoreResult);
+                  console.log("prev ->", prev.posts.data[0].id);
+                  console.log(
+                    "fetchMoreResult ->",
+                    fetchMoreResult.posts.data[0].id
+                  );
 
                   if (!fetchMoreResult) {
                     toggleLoading(false);
                     return prev;
                   }
+                  toggleLoading(false);
+
                   if (postCount && totalPost) {
                     if (postCount <= totalPost) {
+                      console.log("prev.posts.data ->", prev.posts.data);
+
                       toggleLoading(false);
                       dispatch({
                         type: "UPDATE_PAGE",
                         payload: { ...state, page: state.page + 1 },
                       });
+
                       return {
-                        recentPosts: {
+                        posts: {
                           data: [
                             ...prev.posts.data,
                             ...fetchMoreResult.posts.data,

@@ -2,7 +2,7 @@ import React, { useReducer, createContext } from "react";
 
 const initState = {
   page: 1,
-  limit: 8,
+  limit: 3,
   feedFilter: {
     categorySlug: "",
   },
@@ -14,6 +14,7 @@ export default function feedReducer(state, action) {
       let key = action.payload.key;
       return {
         ...state,
+        page: 1,
         feedFilter: {
           ...state.feedFilter,
           [key]: action.payload.value,
