@@ -123,7 +123,6 @@ const FeedPostCard = ({
 
   const HeadingContent = () => {
     const avatar = props.avatar ? props.avatar : "";
-    console.log("propss===>", props);
     return (
       <Box
         mt="2"
@@ -432,7 +431,6 @@ const FeedPostCard = ({
     );
   };
 
-  console.log("imageSrc -", imageSrc);
   return (
     <Card
       {...props}

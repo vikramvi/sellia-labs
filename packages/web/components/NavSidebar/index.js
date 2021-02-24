@@ -40,8 +40,6 @@ const NavSidebar = ({
   const categories =
     data && data.categories && data.categories.data ? data.categories.data : [];
 
-  console.log("categories - sidebar -", categories);
-
   const { state, dispatch } = useContext(FeedContext);
 
   const handleClick = (itemSlug) => {
