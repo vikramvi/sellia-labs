@@ -36,6 +36,8 @@ const SearchPostItem = (props) => {
   });
   if (error) return <OnError />;
 
+  console.log("searchPosts Posts===>", data);
+
   let searchPosts =
     data && data.searchPosts && data.searchPosts.data
       ? data.searchPosts.data
@@ -46,8 +48,6 @@ const SearchPostItem = (props) => {
       ? data.searchPosts.total
       : 1;
   const searchPostsData = searchPosts.map((post) => {
-    console.log("Search result ->", post);
-
     let createdTime = "";
 
     if (post.createdAt) {

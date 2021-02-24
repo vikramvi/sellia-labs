@@ -61,7 +61,6 @@ const FeedPostCard = ({
   userId,
   ...props
 }) => {
-  console.log("props", props);
   const { state, dispatch } = useContext(FeedContext);
 
   // const postData= {

@@ -5,7 +5,6 @@ import isAuthorized from "../../../hoc/isAuthorized";
 import { openModal, closeModal } from "@redq/reuse-modal";
 
 const AddPostButton = (props) => {
-  console.log("props -", props);
   const { isVerified, userId } = props;
 
   const handleAddPost = async () => {
