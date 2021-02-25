@@ -6,6 +6,7 @@ import PageMeta from "../../components/PageMeta";
 import { withApollo } from "../../helpers/apollo";
 import Sidebar from "../../containers/Profile/Sidebar";
 import Box from "reusecore/src/elements/Box";
+import { ProfileProvider } from "../../contexts/ProfileContext";
 
 export default withApollo(
   withLayout((props) => {
@@ -15,8 +16,9 @@ export default withApollo(
     return (
       <>
         <PageMeta title="Profile Page" description="Profile Page" />
-
-        <ProfilePage {...props} username={username} />
+        <ProfileProvider>
+          <ProfilePage {...props} username={username} />
+        </ProfileProvider>
       </>
     );
   })
