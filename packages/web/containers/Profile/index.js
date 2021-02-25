@@ -23,6 +23,9 @@ import UserDraftPost from "./userDraft";
 import UserSoldPost from "./userSold";
 import LeftSidebar from "./LeftSidebar";
 import RightSidebar from "./RightSidebar";
+import ProfileView from "../Profile/EditProfile";
+import { GET_AUTHOR } from "core/graphql/Author";
+
 import { ProfileContext } from "../../contexts/ProfileContext";
 
 function Profile({ username, userId }) {
@@ -50,6 +53,12 @@ function Profile({ username, userId }) {
     USERNAME: username,
     limit: 12,
   };
+
+  const { data: authorData } = useQuery(GET_AUTHOR, {
+    variables: { id: userId },
+  });
+  const author = authorData && authorData.author ? authorData.author : {};
+
   const { data, loading, error, fetchMore } = useQuery(GET_PROFILE_INFO, {
     variables: QUERY_VARIABLES,
   });
@@ -89,7 +98,7 @@ function Profile({ username, userId }) {
       <LeftSidebar />
 
       <Box style={{ width: "50%" }}>
-        <div style={{ paddingTop: 70 }}>
+        {/* <div style={{ paddingTop: 70 }}>
           <UserInformation
             source={[imageUrl, imageLargeUrl]}
             imgWidth="120px"
@@ -119,10 +128,10 @@ function Profile({ username, userId }) {
             phoneIcon={<IoIosCall size={20} />}
             phoneNumber={authorNumber}
           />
-        </div>
+        </div> */}
 
         {/* Profile page tab */}
-        <div style={{ paddingTop: 60 }}>
+        {/* <div style={{ paddingTop: 60 }}>
           <div
             style={{
               flexDirection: "row",
@@ -240,20 +249,25 @@ function Profile({ username, userId }) {
               </Fragment>
             ) : null}
           </div>
-        </div>
+        </div> */}
 
         <div style={{ paddingBottom: 80, paddingTop: 10 }}>
           <Row>
             {/* Tab conetnt */}
+            {state.feedFilter.categorySlug === "profile" ? (
+              <ProfileView author={author} />
+            ) : null}
             {state.feedFilter.categorySlug === "postlist" ? (
               <UserListing />
             ) : null}
-            {tabStates.tabState === "favorite" ? <FavouriteListing /> : null}
-            {tabStates.tabState === "draft" && userId === id ? (
+            {state.feedFilter.categorySlug === "favorite" ? (
+              <FavouriteListing />
+            ) : null}
+            {state.feedFilter.categorySlug === "draft" && userId === id ? (
               <UserDraftPost />
             ) : null}
 
-            {tabStates.tabState === "sold" && userId === id ? (
+            {state.feedFilter.categorySlug === "sold" && userId === id ? (
               <UserSoldPost />
             ) : null}
           </Row>

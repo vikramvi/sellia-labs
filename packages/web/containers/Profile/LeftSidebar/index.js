@@ -57,7 +57,18 @@ export default ({ image, name }) => {
           borderRadius: "3px",
         }}
       />
-      {/* Deleted Account section */}
+
+      <ProfileSettingInfo
+        title="My Bookmark Posts"
+        borderBottom="none"
+        iconRight={<Icon icon={iosArrowForward} size={18} />}
+        onClick={() => onToggleClick("favorite")}
+        style={{
+          backgroundColor: "#FF7946",
+          color: "#fff",
+          borderRadius: "3px",
+        }}
+      />
     </Box>
   );
   // <Box
