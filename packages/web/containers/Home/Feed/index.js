@@ -25,8 +25,9 @@ import profileImg from "core/static/images/user-placeholder.svg";
 import { openModal, closeModal } from "@redq/reuse-modal";
 import { useRouter } from "next/router";
 import AddPostModal from "../../ModalContainer/AddPostModal";
+import { GET_AUTHOR } from "core/graphql/Author";
 
-export default function Feed({ userId, isLoggedIn, location }) {
+export default function Feed({ userId, isLoggedIn, location, loginUser }) {
   const {
     query: { slug },
   } = useRouter();
@@ -127,12 +128,16 @@ export default function Feed({ userId, isLoggedIn, location }) {
       originalPrice,
       authorId,
       status,
+
+      formattedLocation,
       id,
     } = item;
 
-    const { name, image } = item.author || {};
+    const { company, name, image } = item.author || {};
     const { seconds } = item.createdAt || {};
     const { url, largeUrl } = item.image || {};
+
+    console.log("formattedLocation ----", formattedLocation);
 
     return (
       // <Link
@@ -166,6 +171,10 @@ export default function Feed({ userId, isLoggedIn, location }) {
             authorId={authorId}
             postStatus={status}
             id={id}
+            company={company}
+            postLocation={
+              formattedLocation && formattedLocation.formattedAddress
+            }
           />
         </a>
       </>
@@ -207,15 +216,15 @@ export default function Feed({ userId, isLoggedIn, location }) {
         {!recentPosts ? (
           <NoItemFound />
         ) : (
-            <ListGrid
-              data={recentPosts}
-              columnWidth={[1]}
-              limit={QUERY_VARIABLES.LIMIT}
-              component={renderRecentPost}
-              loading={queryResult.loading}
-              placeholder={<PostLoader />}
-            />
-          )}
+          <ListGrid
+            data={recentPosts}
+            columnWidth={[1]}
+            limit={QUERY_VARIABLES.LIMIT}
+            component={renderRecentPost}
+            loading={queryResult.loading}
+            placeholder={<PostLoader />}
+          />
+        )}
         <Link href={RECENT_POST_PAGE}>
           <a>
             <Button

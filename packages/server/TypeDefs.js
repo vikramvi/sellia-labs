@@ -42,6 +42,7 @@ export const typeDefs = `
     title: String
     homeLocation: Location
     workLocation: Location
+    company: Company
     website: String
     name: String
     posts(limit: Int, page: Int): PostWithCount
@@ -75,6 +76,12 @@ export const typeDefs = `
     lng: Float
     formattedAddress: String
   }
+
+  type Company {
+    id: ID
+    name: String
+  }
+
   type Image {
     url: String
     largeUrl: String

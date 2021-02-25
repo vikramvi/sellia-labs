@@ -59,6 +59,8 @@ const FeedPostCard = ({
   priceStyle,
   item,
   userId,
+  company,
+  postLocation,
   ...props
 }) => {
   console.log("props", props);
@@ -169,14 +171,16 @@ const FeedPostCard = ({
               }}
             />
             {/* TODO: dynamic company name */}
-            <Text
-              content={"(Yahoo)"}
-              style={{
-                display: "inline",
-                color: "#30C56D",
-                fontWeight: "bold",
-              }}
-            />
+            {company && company.name && (
+              <Text
+                content={`(${company.name})`}
+                style={{
+                  display: "inline",
+                  color: "#30C56D",
+                  fontWeight: "bold",
+                }}
+              />
+            )}
             {" is looking "}
             {item.categories && item.categories[0] && (
               <a
@@ -199,18 +203,20 @@ const FeedPostCard = ({
             {"   "}
           </Box>
 
-          <Text
-            mr="2"
-            ml="2"
-            content={"CNF Place, San Jose"}
-            style={{
-              display: "inline",
-              fontWeight: "bold",
-              marginTop: "0px",
-              marginBottom: "0px",
-              fontSize: "12px",
-            }}
-          />
+          {postLocation && (
+            <Text
+              mr="2"
+              ml="2"
+              content={postLocation}
+              style={{
+                display: "inline",
+                fontWeight: "bold",
+                marginTop: "0px",
+                marginBottom: "0px",
+                fontSize: "12px",
+              }}
+            />
+          )}
         </Box>
 
         {/* temp hidden */}
