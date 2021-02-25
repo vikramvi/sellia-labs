@@ -154,7 +154,7 @@ const RowContainer = (props) => {
         {props.list.map((section, key) => {
           switch (section.type) {
             case "currency":
-              return <PriceInfo section={section} />;
+              return <PriceInfo section={section} key={key} />;
 
             case "textBox":
               return <TitleInfo section={section} />;

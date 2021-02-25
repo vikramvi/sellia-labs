@@ -106,7 +106,7 @@ const ChatListingInfoBar = ({
         }
       </Box>
 
-      {/* title, price view */}
+      {/* title */}
 
       <Box
         mt="1"
@@ -123,8 +123,8 @@ const ChatListingInfoBar = ({
               content={title}
               style={{
                 ...titleStyle,
-                fontSize: "14px",
-                color: "#ffffff",
+                fontSize: "16px",
+                color: "#0c0c0c",
                 fontWeight: "bold",
                 width: "100px",
               }}
@@ -138,23 +138,27 @@ const ChatListingInfoBar = ({
               style={{
                 ...titleStyle,
                 fontSize: "10px",
-                color: "grey",
+                color: "0c0c0c",
                 fontWeight: "bold",
+                margin: "5px",
               }}
             />
           )}
           {createdAt && (
             <Text
               style={{
-                color: "#30C56D",
+                color: "#0c0c0c",
                 fontWeight: "bold",
                 fontSize: "12px",
+                margin: "5px"
               }}
               content={timeDifference(new Date().getTime(), createdAt * 1000)}
               mb="2"
             />
           )}
         </Box>
+
+        {/* price */}
         <Box
           justifyContent="flex-end"
           alignItems="flex-end"
@@ -162,10 +166,10 @@ const ChatListingInfoBar = ({
         >
           {price && (
             <Text
-              mb="0"
+              mb="20"
               content={`$${price}`}
               style={{
-                color: "#FFFFFF",
+                color: "#0c0c0c",
                 fontWeight: "bold",
                 fontSize: "16px",
               }}
