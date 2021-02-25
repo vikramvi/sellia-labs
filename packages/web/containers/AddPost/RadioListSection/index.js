@@ -231,6 +231,7 @@ const RadioListSection = (props) => {
             <Radio
               style={{ width: "30%", margin: "2px" }}
               id={key}
+              key={key}
               value={adPost[name]}
               name={name}
               labelText={section.text}

@@ -202,7 +202,7 @@ const CategoryAndDetailInfo = (props) => {
   }
 
   useEffect(() => {
-    (async function() {
+    (async function () {
       if (imagesUrl.length) {
         try {
           const data = await postMutation({

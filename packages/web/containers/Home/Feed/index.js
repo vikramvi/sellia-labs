@@ -190,11 +190,11 @@ export default function Feed({ userId, isLoggedIn, location, loginUser }) {
             mb={15}
             aria-live="off"
             id="main_content"
-            class="_19x6ASDS _1eW-tOzA"
+            className="_19x6ASDS _1eW-tOzA"
             onClick={handleAddPost}
           >
-            <span class="_1EhANPqp">
-              <div class="avatar">
+            <span className="_1EhANPqp">
+              <div className="avatar">
                 <Img
                   src={profileImg}
                   style={{ width: 35, height: 35, borderRadius: "50%" }}
@@ -203,11 +203,11 @@ export default function Feed({ userId, isLoggedIn, location, loginUser }) {
                 />
               </div>
             </span>
-            <div class="_3zGsrPl_ _2wCEotpQ">
-              <div class="_1IukxMPo _2YwTbt9g _1uAKrEJw">
+            <div className="_3zGsrPl_ _2wCEotpQ">
+              <div className="_1IukxMPo _2YwTbt9g _1uAKrEJw">
                 <span>
-                  Post a <span class="prompt-bold">message</span>,{" "}
-                  <span class="prompt-bold">listing</span> to your neighborhood
+                  Post a <span className="prompt-bold">message</span>,{" "}
+                  <span className="prompt-bold">listing</span> to your neighborhood
                 </span>
               </div>
             </div>

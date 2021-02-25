@@ -192,10 +192,16 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   //rendering
   const renderRecentPost = (selectedCategories) => {
     const { value, label } = selectedCategories;
+
     return (
       <SegmentCard
         className="nav-menu-item-link"
-        titleStyle={{ fontSize: "18px", mt: "5px" }}
+        titleClass="category-item-link"
+        titleStyle={{
+          fontSize: "18px",
+          mt: "5px",
+          padding: "5px",
+        }}
         onClick={handleClick(selectedCategories)}
         style={{
           flexDirection: "row",
