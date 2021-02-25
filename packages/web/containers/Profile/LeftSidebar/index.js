@@ -1,53 +1,65 @@
-import React from "react";
+import React, { useContext } from "react";
 import Icon from "react-icons-kit";
 import { androidLock } from "react-icons-kit/ionicons/androidLock";
 import { iosArrowForward } from "react-icons-kit/ionicons/iosArrowForward";
 import { iosTelephone } from "react-icons-kit/ionicons/iosTelephone";
 import Box from "reusecore/src/elements/Box";
 import ProfileSettingInfo from "../../../components/ProfileSettingInfo";
+import { ProfileContext } from "../../../contexts/ProfileContext";
 
-export default ({ image, name, onToggleClick }) => (
-  <Box
-    pb={10}
-    pt={10}
-    borderRadius="3px"
-    border="1px solid #e2e2e2"
-    style={{ width: "295px", position: "fixed", left: 25 }}
-  >
-    <ProfileSettingInfo
-      avatarImage={image}
-      title={name || "My Profile"}
-      // description="Edit Profile"
-      iconRight={<Icon icon={iosArrowForward} size={18} color="#BABABA" />}
-      // onClick={() => onToggleClick("edit-profile")}
-    />
+export default ({ image, name }) => {
+  const { state, dispatch } = useContext(ProfileContext);
 
-    {/* Change password section */}
-    <ProfileSettingInfo
-      title="My Active Posts"
-      iconRight={<Icon icon={iosArrowForward} size={18} color="#BABABA" />}
-      // onClick={() => onToggleClick("change-password")}
-      style={{
-        backgroundColor: "#3093FF",
-        color: "#fff",
-        borderRadius: "3px",
-      }}
-    />
+  const onToggleClick = (itemSlug) => {
+    dispatch({
+      type: "UPDATE_FEED_FILTER",
+      payload: { key: "categorySlug", value: itemSlug },
+    });
+  };
 
-    {/* Email Notification section */}
-    <ProfileSettingInfo
-      title="My In-Active Posts"
-      borderBottom="none"
-      iconRight={<Icon icon={iosArrowForward} size={18} />}
-      // onClick={() => onToggleClick("add-mobile-number")}
-      style={{
-        backgroundColor: "#FF7946",
-        color: "#fff",
-        borderRadius: "3px",
-      }}
-    />
-    {/* Deleted Account section */}
-  </Box>
+  return (
+    <Box
+      pb={10}
+      pt={10}
+      borderRadius="3px"
+      border="1px solid #e2e2e2"
+      style={{ width: "295px", position: "fixed", left: 25 }}
+    >
+      <ProfileSettingInfo
+        avatarImage={image}
+        title={name || "My Profile"}
+        // description="Edit Profile"
+        iconRight={<Icon icon={iosArrowForward} size={18} color="#BABABA" />}
+        onClick={() => onToggleClick("edit-profile")}
+      />
+
+      {/* Change password section */}
+      <ProfileSettingInfo
+        title="My Active Posts"
+        iconRight={<Icon icon={iosArrowForward} size={18} color="#BABABA" />}
+        onClick={() => onToggleClick("change-password")}
+        style={{
+          backgroundColor: "#3093FF",
+          color: "#fff",
+          borderRadius: "3px",
+        }}
+      />
+
+      {/* Email Notification section */}
+      <ProfileSettingInfo
+        title="My In-Active Posts"
+        borderBottom="none"
+        iconRight={<Icon icon={iosArrowForward} size={18} />}
+        onClick={() => onToggleClick("add-mobile-number")}
+        style={{
+          backgroundColor: "#FF7946",
+          color: "#fff",
+          borderRadius: "3px",
+        }}
+      />
+      {/* Deleted Account section */}
+    </Box>
+  );
   // <Box
   //   pb={10}
   //   pt={10}
@@ -223,4 +235,4 @@ export default ({ image, name, onToggleClick }) => (
   //     </section>
   //   </div>
   // </Box>
-);
+};

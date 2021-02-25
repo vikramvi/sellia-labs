@@ -30,6 +30,8 @@ function Profile({ username, userId }) {
     return <Error statusCode="404" />;
   }
 
+  console.log("Profile ..");
+
   const { state, dispatch } = useContext(ProfileContext);
 
   const [tabStates, setTabState] = useState({
