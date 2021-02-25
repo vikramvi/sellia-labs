@@ -193,16 +193,6 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   const renderRecentPost = (selectedCategories) => {
     const { value, label } = selectedCategories;
 
-    const changeBackground = (e) => {
-      e.target.style.backgroundColor = "green";
-      e.target.style.color = "white";
-    };
-
-    const resetBackground = (e) => {
-      e.target.style.backgroundColor = "white";
-      e.target.style.color = "black";
-    };
-
     return (
       <SegmentCard
         className="nav-menu-item-link"
@@ -213,8 +203,6 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
           padding: "5px",
         }}
         onClick={handleClick(selectedCategories)}
-        // onMouseOver={changeBackground}
-        // onMouseOut={resetBackground}
         style={{
           flexDirection: "row",
           display: "flex",
