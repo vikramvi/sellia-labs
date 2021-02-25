@@ -15,11 +15,12 @@ const SegmentCard = ({
   imageStyle,
   titleStyle,
   priceStyle,
+  titleClass,
   ...props
 }) => {
   return (
     <Card {...props}>
-      <Box>
+      <Box className={titleClass}>
         {title && <Heading content={title} {...titleStyle} mb="1" mt={10} />}
       </Box>
     </Card>

@@ -194,28 +194,31 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
     const { value, label } = selectedCategories;
 
     const changeBackground = (e) => {
-      e.target.style.backgroundColor = 'green';
-      e.target.style.color = 'white';
-    }
+      e.target.style.backgroundColor = "green";
+      e.target.style.color = "white";
+    };
 
     const resetBackground = (e) => {
-      e.target.style.backgroundColor = 'white';
-      e.target.style.color = 'black';
-    }
+      e.target.style.backgroundColor = "white";
+      e.target.style.color = "black";
+    };
 
     return (
       <SegmentCard
         className="nav-menu-item-link"
+        titleClass="category-item-link"
         titleStyle={{
-          fontSize: "18px", mt: "5px"
+          fontSize: "18px",
+          mt: "5px",
+          padding: "5px",
         }}
         onClick={handleClick(selectedCategories)}
-        onMouseOver={changeBackground}
-        onMouseOut={resetBackground}
+        // onMouseOver={changeBackground}
+        // onMouseOut={resetBackground}
         style={{
           flexDirection: "row",
           display: "flex",
-          justifyContent: "flex-start"
+          justifyContent: "flex-start",
         }}
         title={label}
       />
