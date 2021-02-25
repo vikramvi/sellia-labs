@@ -2,7 +2,7 @@ import React, { useReducer, createContext } from "react";
 
 const initState = {
   feedFilter: {
-    categorySlug: "",
+    categorySlug: "profile",
   },
 };
 

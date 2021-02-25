@@ -18,7 +18,6 @@ export default ({ image, name, onToggleClick }) => (
     <ProfileSettingInfo
       title="Change Password"
       avatarIcon={<Icon icon={androidLock} size={18} />}
-      iconRight={<Icon icon={iosArrowForward} size={18} color="#BABABA" />}
       // onClick={() => onToggleClick("change-password")}
       style={{
         backgroundColor: "#3093FF",
@@ -32,7 +31,6 @@ export default ({ image, name, onToggleClick }) => (
       title="Mobile Numbers"
       borderBottom="none"
       avatarIcon={<Icon icon={iosTelephone} size={21} />}
-      iconRight={<Icon icon={iosArrowForward} size={18} />}
       // onClick={() => onToggleClick("add-mobile-number")}
       style={{
         backgroundColor: "#FF7946",
