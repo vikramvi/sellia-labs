@@ -4,8 +4,6 @@ import ProfilePage from "../../containers/Profile";
 import withLayout from "../../hoc/withLayout";
 import PageMeta from "../../components/PageMeta";
 import { withApollo } from "../../helpers/apollo";
-import Sidebar from "../../containers/Profile/Sidebar";
-import Box from "reusecore/src/elements/Box";
 import { ProfileProvider } from "../../contexts/ProfileContext";
 
 export default withApollo(

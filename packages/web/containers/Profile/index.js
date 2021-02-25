@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext } from "react";
 import Error from "next/error";
 import { Grid, Row } from "react-styled-flexboxgrid";
 import Box from "reusecore/src/elements/Box";
@@ -23,11 +23,15 @@ import UserDraftPost from "./userDraft";
 import UserSoldPost from "./userSold";
 import LeftSidebar from "./LeftSidebar";
 import RightSidebar from "./RightSidebar";
+import { ProfileContext } from "../../contexts/ProfileContext";
 
 function Profile({ username, userId }) {
   if (!username) {
     return <Error statusCode="404" />;
   }
+
+  const { state, dispatch } = useContext(ProfileContext);
+
   const [tabStates, setTabState] = useState({
     tabState: "postlist",
   });
