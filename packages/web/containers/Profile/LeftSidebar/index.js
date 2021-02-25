@@ -30,14 +30,14 @@ export default ({ image, name }) => {
         title={name || "My Profile"}
         // description="Edit Profile"
         iconRight={<Icon icon={iosArrowForward} size={18} color="#BABABA" />}
-        onClick={() => onToggleClick("edit-profile")}
+        onClick={() => onToggleClick("profile")}
       />
 
       {/* Change password section */}
       <ProfileSettingInfo
         title="My Active Posts"
         iconRight={<Icon icon={iosArrowForward} size={18} color="#BABABA" />}
-        onClick={() => onToggleClick("change-password")}
+        onClick={() => onToggleClick("postlist")}
         style={{
           backgroundColor: "#3093FF",
           color: "#fff",
@@ -50,7 +50,7 @@ export default ({ image, name }) => {
         title="My In-Active Posts"
         borderBottom="none"
         iconRight={<Icon icon={iosArrowForward} size={18} />}
-        onClick={() => onToggleClick("add-mobile-number")}
+        onClick={() => onToggleClick("sold")}
         style={{
           backgroundColor: "#FF7946",
           color: "#fff",

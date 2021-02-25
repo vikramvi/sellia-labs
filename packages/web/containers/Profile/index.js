@@ -34,6 +34,8 @@ function Profile({ username, userId }) {
 
   const { state, dispatch } = useContext(ProfileContext);
 
+  console.log("state.feedFilter.categorySlug", state.feedFilter.categorySlug);
+
   const [tabStates, setTabState] = useState({
     tabState: "postlist",
   });
@@ -243,7 +245,9 @@ function Profile({ username, userId }) {
         <div style={{ paddingBottom: 80, paddingTop: 10 }}>
           <Row>
             {/* Tab conetnt */}
-            {tabStates.tabState === "postlist" ? <UserListing /> : null}
+            {state.feedFilter.categorySlug === "postlist" ? (
+              <UserListing />
+            ) : null}
             {tabStates.tabState === "favorite" ? <FavouriteListing /> : null}
             {tabStates.tabState === "draft" && userId === id ? (
               <UserDraftPost />
