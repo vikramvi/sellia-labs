@@ -258,17 +258,17 @@ function Profile({ username, userId }) {
               <ProfileView author={author} />
             ) : null}
             {state.feedFilter.categorySlug === "postlist" ? (
-              <UserListing />
+              <UserListing userId={userId} />
             ) : null}
             {state.feedFilter.categorySlug === "favorite" ? (
-              <FavouriteListing />
+              <FavouriteListing userId={userId} />
             ) : null}
             {state.feedFilter.categorySlug === "draft" && userId === id ? (
-              <UserDraftPost />
+              <UserDraftPost userId={userId} />
             ) : null}
 
             {state.feedFilter.categorySlug === "sold" && userId === id ? (
-              <UserSoldPost />
+              <UserSoldPost userId={userId} />
             ) : null}
           </Row>
         </div>
