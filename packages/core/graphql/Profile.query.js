@@ -4,6 +4,18 @@ const AuthorPostsFragment = gql`
   fragment AuthorPostsQuery on Post {
     id
     slug
+    author {
+      name
+      username
+      company {
+        id
+        name
+      }
+      image {
+        url
+        largeUrl
+      }
+    }
     image {
       url
       largeUrl
