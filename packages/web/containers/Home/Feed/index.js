@@ -1,7 +1,6 @@
 import React, { Fragment, useContext, useState, useEffect } from "react";
 
 import Link from "next/link";
-import { CURRENCY } from "../../../Config";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_POST } from "core/graphql/Post.query";
 import { getUrlToState, setStateToUrl } from "../../../helpers/urlHandler";
@@ -10,7 +9,6 @@ import { RECENT_POST_PAGE, SINGLE_POST_PAGE } from "core/navigation/constant";
 import { PostLoader } from "../../../components/Placeholder";
 import NavSidebar from "../../../components/NavSidebar";
 
-import FeedPostCard from "../../../components/FeedPostCard";
 import ListGrid from "reusecore/src/elements/ListGrid";
 import Box from "reusecore/src/elements/Box";
 import Heading from "reusecore/src/elements/Heading";
@@ -66,7 +64,7 @@ export default function Feed({ userId, isLoggedIn, location, loginUser }) {
 
     if (error) return <p>{error.message}</p>;
   } else if (!feedFilter.categorySlug || feedFilter.categorySlug == "") {
-    return <FeedAllPost />;
+    return <FeedAllPost userId={userId} />;
   } else {
     QUERY_VARIABLES = {
       SLUG: feedFilter.categorySlug,
@@ -131,68 +129,6 @@ export default function Feed({ userId, isLoggedIn, location, loginUser }) {
       },
       component: AddPostModal,
     });
-  };
-
-  const renderRecentPost = (item) => {
-    const {
-      title,
-      slug,
-      price,
-      content,
-
-      condition,
-      originalPrice,
-      authorId,
-      status,
-
-      formattedLocation,
-      id,
-    } = item;
-
-    const { company, name, image } = item.author || {};
-    const { seconds } = item.createdAt || {};
-    const { url, largeUrl } = item.image || {};
-
-    return (
-      // <Link
-      //   href={`${SINGLE_POST_PAGE}/[slug]`}
-      //   as={`${SINGLE_POST_PAGE}/${slug}`}
-      // >
-      <>
-        <a>
-          <FeedPostCard
-            style={{
-              flexDirection: "row",
-              display: "flex",
-              justifyContent: "flex-start",
-            }}
-            imageStyle={{
-              marginRight: 20,
-            }}
-            currency={CURRENCY}
-            title={title}
-            price={price}
-            imageSrc={[url, largeUrl]}
-            author={name}
-            userId={userId}
-            createdAt={seconds}
-            content={content}
-            item={item}
-            avatar={image?.url}
-            condition={condition}
-            originalPrice={originalPrice}
-            isLoggedIn={isLoggedIn}
-            authorId={authorId}
-            postStatus={status}
-            id={id}
-            company={company}
-            postLocation={
-              formattedLocation && formattedLocation.formattedAddress
-            }
-          />
-        </a>
-      </>
-    );
   };
 
   return (
