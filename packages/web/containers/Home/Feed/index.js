@@ -16,7 +16,6 @@ import Button from "reusecore/src/elements/Button";
 import NoItemFound from "../../../components/NoItemFound";
 import OnError from "../../../components/OnError";
 import { FeedContext } from "../../../contexts/FeedContext";
-import { GET_CATEGORY_POST } from "core/graphql/CategoryPost.query";
 import "./style.css";
 import Img from "react-image";
 import profileImg from "core/static/images/user-placeholder.svg";
@@ -26,6 +25,8 @@ import AddPostModal from "../../ModalContainer/AddPostModal";
 import { GET_AUTHOR } from "core/graphql/Author";
 
 import FeedAllPost from "./FeedAllPost";
+import FeedCategoryPost from "./FeedCategoryPost";
+import FeedSinglePost from "./FeedSinglePost";
 
 export default function Feed({ userId, isLoggedIn, location, loginUser }) {
   const {
@@ -36,77 +37,6 @@ export default function Feed({ userId, isLoggedIn, location, loginUser }) {
 
   const { state, dispatch } = useContext(FeedContext);
   const { feedFilter } = state;
-
-  console.log("feedFilter.categorySlug --", feedFilter.categorySlug);
-
-  const [loadingMore, toggleLoading] = useState(false);
-
-  let recentPosts;
-  let queryResult;
-  let QUERY_VARIABLES;
-  let totalPost;
-
-  if (slug) {
-    QUERY_VARIABLES = {
-      lat: location && location.lat ? location.lat : null,
-      lng: location && location.lng ? location.lng : null,
-      LIMIT: state.limit,
-      slug: slug,
-      page: state.page,
-    };
-
-    queryResult = useQuery(GET_POST, {
-      variables: QUERY_VARIABLES,
-    });
-    const { data, loading, error } = queryResult;
-
-    recentPosts = data && data.post ? [data.post] : [];
-
-    if (error) return <p>{error.message}</p>;
-  } else if (!feedFilter.categorySlug || feedFilter.categorySlug == "") {
-    return <FeedAllPost userId={userId} />;
-  } else {
-    QUERY_VARIABLES = {
-      SLUG: feedFilter.categorySlug,
-      LIMIT: state.limit,
-      page: state.page,
-    };
-    queryResult = useQuery(GET_CATEGORY_POST, {
-      variables: QUERY_VARIABLES,
-    });
-    // Extract Post Data
-    const { data, loading, error } = queryResult;
-    recentPosts =
-      data && data.category && data.category.posts.data
-        ? data.category.posts.data
-        : [];
-    // Error Rendering.
-    if (error) return <OnError />;
-  }
-
-  const [page, paginate] = useState(1);
-
-  const { data, loading, error } = queryResult;
-
-  console.log("Feed data Posts===>", data);
-
-  recentPosts = data && data.posts ? data.posts.data : [];
-  totalPost = data && data.posts ? data.posts.total : 1;
-
-  // Error Rendering.
-  if (error) return <OnError />;
-
-  const postCount = recentPosts ? recentPosts.length : 1;
-
-  const { fetchMore } = queryResult;
-
-  // Post Loop Control Area
-  console.log("Recent Posts===>", recentPosts);
-
-  console.log("fetchMore ->", fetchMore);
-
-  console.log("postCount ->", postCount);
-  console.log("totalPost ->", totalPost);
 
   const handleAddPost = () => {
     openModal({
@@ -129,6 +59,21 @@ export default function Feed({ userId, isLoggedIn, location, loginUser }) {
       },
       component: AddPostModal,
     });
+  };
+
+  const renderFeedComponent = () => {
+    if (slug) {
+      return <FeedSinglePost userId={userId} />;
+    } else if (!feedFilter.categorySlug || feedFilter.categorySlug == "") {
+      return <FeedAllPost userId={userId} />;
+    } else {
+      return (
+        <FeedCategoryPost
+          userId={userId}
+          categorySlug={feedFilter.categorySlug}
+        />
+      );
+    }
   };
 
   return (
@@ -164,91 +109,8 @@ export default function Feed({ userId, isLoggedIn, location, loginUser }) {
             </div>
           </Box>
         </div>
-        {!recentPosts ? (
-          <NoItemFound />
-        ) : (
-          <ListGrid
-            data={recentPosts}
-            columnWidth={[1]}
-            postCount={postCount}
-            totalPost={totalPost}
-            limit={state.limit}
-            component={renderRecentPost}
-            loading={queryResult.loading ? queryResult.loading : loadingMore}
-            placeholder={<PostLoader />}
-            handleLoadMore={(loading) => {
-              toggleLoading(true);
-              paginate(page + 1);
-              // dispatch({
-              //   type: "UPDATE_PAGE",
-              //   payload: { ...state, page: state.page + 1 },
-              // });
-              fetchMore({
-                variables: {
-                  ...QUERY_VARIABLES,
-                  page: page + 1,
-                },
-                updateQuery: (prev, { fetchMoreResult }) => {
-                  if (
-                    !fetchMoreResult ||
-                    fetchMoreResult.posts.data.length === 0
-                  ) {
-                    toggleLoading(false);
-                    return prev;
-                  }
 
-                  if (postCount && totalPost) {
-                    if (postCount <= totalPost) {
-                      console.log("prev.posts.data ->", prev.posts.data);
-                      console.log(
-                        "fetchMoreResult.posts.data ->",
-                        fetchMoreResult.posts.data
-                      );
-
-                      toggleLoading(false);
-
-                      const oldPosts = prev.posts.data;
-                      const newPosts = fetchMoreResult.posts.data;
-
-                      const concatedPosts = oldPosts.concat(newPosts);
-                      fetchMoreResult.posts.data = concatedPosts;
-                      return fetchMoreResult;
-
-                      // return {
-                      //   posts: {
-                      //     data: prev.posts.data.concat(
-                      //       fetchMoreResult.posts.data
-                      //     ),
-                      //     total: totalPost,
-                      //   },
-                      // };
-
-                      // return {
-                      //   posts: {
-                      //     data: [
-                      //       ...prev.posts.data,
-                      //       ...fetchMoreResult.posts.data,
-                      //     ],
-                      //     total: totalPost,
-                      //   },
-                      // };
-                    }
-                  }
-                },
-              });
-            }}
-          />
-        )}
-        {/* <Link href={RECENT_POST_PAGE}>
-          <a>
-            <Button
-              title="See all"
-              color="#8c8c8c"
-              fontWeight={500}
-              variant="textButton"
-            />
-          </a>
-        </Link> */}
+        {renderFeedComponent()}
       </Box>
     </Box>
   );

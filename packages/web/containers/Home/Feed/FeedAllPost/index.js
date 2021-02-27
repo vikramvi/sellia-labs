@@ -19,7 +19,7 @@ const FeedAllPost = ({ userId }) => {
     variables: QUERY_VARIABLES,
   });
 
-  const { data, loading, error } = queryResult;
+  const { data, loading, error, fetchMore } = queryResult;
 
   console.log("FeedAllPost===>", data);
 
@@ -51,44 +51,36 @@ const FeedAllPost = ({ userId }) => {
     const { url, largeUrl } = item.image || {};
 
     return (
-      // <Link
-      //   href={`${SINGLE_POST_PAGE}/[slug]`}
-      //   as={`${SINGLE_POST_PAGE}/${slug}`}
-      // >
-      <>
-        <a>
-          <FeedPostCard
-            style={{
-              flexDirection: "row",
-              display: "flex",
-              justifyContent: "flex-start",
-            }}
-            imageStyle={{
-              marginRight: 20,
-            }}
-            currency={CURRENCY}
-            title={title}
-            price={price}
-            imageSrc={[url, largeUrl]}
-            author={name}
-            userId={userId}
-            createdAt={seconds}
-            content={content}
-            item={item}
-            avatar={image?.url}
-            condition={condition}
-            originalPrice={originalPrice}
-            // isLoggedIn={isLoggedIn}
-            authorId={authorId}
-            postStatus={status}
-            id={id}
-            company={company}
-            postLocation={
-              formattedLocation && formattedLocation.formattedAddress
-            }
-          />
-        </a>
-      </>
+      <a>
+        <FeedPostCard
+          style={{
+            flexDirection: "row",
+            display: "flex",
+            justifyContent: "flex-start",
+          }}
+          imageStyle={{
+            marginRight: 20,
+          }}
+          currency={CURRENCY}
+          title={title}
+          price={price}
+          imageSrc={[url, largeUrl]}
+          author={name}
+          userId={userId}
+          createdAt={seconds}
+          content={content}
+          item={item}
+          avatar={image?.url}
+          condition={condition}
+          originalPrice={originalPrice}
+          // isLoggedIn={isLoggedIn}
+          authorId={authorId}
+          postStatus={status}
+          id={id}
+          company={company}
+          postLocation={formattedLocation && formattedLocation.formattedAddress}
+        />
+      </a>
     );
   };
 
@@ -100,15 +92,12 @@ const FeedAllPost = ({ userId }) => {
       totalPost={totalPost}
       limit={QUERY_VARIABLES.limit}
       component={renderRecentPost}
-      loading={queryResult.loading ? queryResult.loading : loadingMore}
+      loading={loading ? loading : loadingMore}
       placeholder={<PostLoader />}
       handleLoadMore={(loading) => {
         toggleLoading(true);
         paginate(page + 1);
-        // dispatch({
-        //   type: "UPDATE_PAGE",
-        //   payload: { ...state, page: state.page + 1 },
-        // });
+
         fetchMore({
           variables: {
             ...QUERY_VARIABLES,
@@ -136,25 +125,6 @@ const FeedAllPost = ({ userId }) => {
                 const concatedPosts = oldPosts.concat(newPosts);
                 fetchMoreResult.posts.data = concatedPosts;
                 return fetchMoreResult;
-
-                // return {
-                //   posts: {
-                //     data: prev.posts.data.concat(
-                //       fetchMoreResult.posts.data
-                //     ),
-                //     total: totalPost,
-                //   },
-                // };
-
-                // return {
-                //   posts: {
-                //     data: [
-                //       ...prev.posts.data,
-                //       ...fetchMoreResult.posts.data,
-                //     ],
-                //     total: totalPost,
-                //   },
-                // };
               }
             }
           },
