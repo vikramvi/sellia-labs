@@ -14,14 +14,14 @@ const FeedCategoryPost = ({ userId, categorySlug }) => {
   // QUERY SECTION
   const QUERY_VARIABLES = {
     SLUG: categorySlug,
-    limit: 12,
+    limit: 4,
     page: page,
   };
   const queryResult = useQuery(GET_CATEGORY_POST, {
     variables: QUERY_VARIABLES,
   });
 
-  const { data, loading, error } = queryResult;
+  const { data, loading, error, fetchMore } = queryResult;
 
   console.log("FeedCategoryPost===>", data);
 
@@ -127,8 +127,8 @@ const FeedCategoryPost = ({ userId, categorySlug }) => {
 
                 toggleLoading(false);
 
-                const oldPosts = prev.posts.data;
-                const newPosts = fetchMoreResult.posts.data;
+                const oldPosts = prev.category.posts.data;
+                const newPosts = fetchMoreResult.category.posts.data;
 
                 const concatedPosts = oldPosts.concat(newPosts);
                 fetchMoreResult.posts.data = concatedPosts;

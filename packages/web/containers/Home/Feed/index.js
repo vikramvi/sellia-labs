@@ -33,8 +33,6 @@ export default function Feed({ userId, isLoggedIn, location, loginUser }) {
     query: { slug },
   } = useRouter();
 
-  console.log("feed slug ->", slug);
-
   const { state, dispatch } = useContext(FeedContext);
   const { feedFilter } = state;
 

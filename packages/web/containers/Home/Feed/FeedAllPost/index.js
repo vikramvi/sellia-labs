@@ -12,7 +12,7 @@ const FeedAllPost = ({ userId }) => {
 
   // QUERY SECTION
   const QUERY_VARIABLES = {
-    limit: 12,
+    limit: 4,
     page: page,
   };
   const queryResult = useQuery(GET_ALL_POST, {
@@ -26,6 +26,9 @@ const FeedAllPost = ({ userId }) => {
   const recentPosts = data && data.posts ? data.posts.data : [];
   const postCount = recentPosts ? recentPosts.length : 1;
   const totalPost = data && data.posts ? data.posts.total : 1;
+
+  console.log("postCount", postCount);
+  console.log("totalPost", totalPost);
 
   // Error Rendering.
   if (error) return <OnError />;
@@ -104,7 +107,9 @@ const FeedAllPost = ({ userId }) => {
             page: page + 1,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
-            if (!fetchMoreResult || fetchMoreResult.posts.data.length === 0) {
+            console.log("fetchMoreResult", fetchMoreResult);
+
+            if (!fetchMoreResult || !fetchMoreResult.posts) {
               toggleLoading(false);
               return prev;
             }
