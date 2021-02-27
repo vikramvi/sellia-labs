@@ -3,7 +3,6 @@ import React, { Fragment, useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import { CURRENCY } from "../../../Config";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_ALL_POST } from "core/graphql/AllPost.query";
 import { GET_POST } from "core/graphql/Post.query";
 import { getUrlToState, setStateToUrl } from "../../../helpers/urlHandler";
 
@@ -26,14 +25,16 @@ import profileImg from "core/static/images/user-placeholder.svg";
 import { openModal, closeModal } from "@redq/reuse-modal";
 import { useRouter } from "next/router";
 import AddPostModal from "../../ModalContainer/AddPostModal";
+import { GET_AUTHOR } from "core/graphql/Author";
 
-export default function Feed({ userId, isLoggedIn, location }) {
+import FeedAllPost from "./FeedAllPost";
+
+export default function Feed({ userId, isLoggedIn, location, loginUser }) {
   const {
     query: { slug },
   } = useRouter();
 
   console.log("feed slug ->", slug);
-  const urlState = getUrlToState();
 
   const { state, dispatch } = useContext(FeedContext);
   const { feedFilter } = state;
@@ -47,69 +48,45 @@ export default function Feed({ userId, isLoggedIn, location }) {
   let QUERY_VARIABLES;
   let totalPost;
 
-  // if (slug) {
-  //   QUERY_VARIABLES = {
-  //     lat: location && location.lat ? location.lat : null,
-  //     lng: location && location.lng ? location.lng : null,
-  //     LIMIT: state.limit,
-  //     slug: slug,
-  //     page: state.page,
-  //   };
+  if (slug) {
+    QUERY_VARIABLES = {
+      lat: location && location.lat ? location.lat : null,
+      lng: location && location.lng ? location.lng : null,
+      LIMIT: state.limit,
+      slug: slug,
+      page: state.page,
+    };
 
-  //   queryResult = useQuery(GET_POST, {
-  //     variables: QUERY_VARIABLES,
-  //   });
-  //   const { data, loading, error } = queryResult;
+    queryResult = useQuery(GET_POST, {
+      variables: QUERY_VARIABLES,
+    });
+    const { data, loading, error } = queryResult;
 
-  //   recentPosts = data && data.post ? [data.post] : [];
+    recentPosts = data && data.post ? [data.post] : [];
 
-  //   if (error) return <p>{error.message}</p>;
-  // } else if (!feedFilter.categorySlug || feedFilter.categorySlug == "") {
-  //   // QUERY SECTION
-  //   QUERY_VARIABLES = {
-  //     LIMIT: state.limit,
-  //     page: state.page,
-  //   };
-  //   queryResult = useQuery(GET_ALL_POST, {
-  //     variables: QUERY_VARIABLES,
-  //   });
+    if (error) return <p>{error.message}</p>;
+  } else if (!feedFilter.categorySlug || feedFilter.categorySlug == "") {
+    return <FeedAllPost />;
+  } else {
+    QUERY_VARIABLES = {
+      SLUG: feedFilter.categorySlug,
+      LIMIT: state.limit,
+      page: state.page,
+    };
+    queryResult = useQuery(GET_CATEGORY_POST, {
+      variables: QUERY_VARIABLES,
+    });
+    // Extract Post Data
+    const { data, loading, error } = queryResult;
+    recentPosts =
+      data && data.category && data.category.posts.data
+        ? data.category.posts.data
+        : [];
+    // Error Rendering.
+    if (error) return <OnError />;
+  }
 
-  //   const { data, loading, error } = queryResult;
-
-  //   console.log("Feed data Posts===>", data);
-
-  //   recentPosts = data && data.posts ? data.posts.data : [];
-  //   totalPost = data && data.posts ? data.posts.total : 1;
-
-  //   // Error Rendering.
-  //   if (error) return <OnError />;
-  // } else {
-  //   QUERY_VARIABLES = {
-  //     SLUG: feedFilter.categorySlug,
-  //     LIMIT: state.limit,
-  //     page: state.page,
-  //   };
-  //   queryResult = useQuery(GET_CATEGORY_POST, {
-  //     variables: QUERY_VARIABLES,
-  //   });
-  //   // Extract Post Data
-  //   const { data, loading, error } = queryResult;
-  //   recentPosts =
-  //     data && data.category && data.category.posts.data
-  //       ? data.category.posts.data
-  //       : [];
-  //   // Error Rendering.
-  //   if (error) return <OnError />;
-  // }
-
-  // QUERY SECTION
-  QUERY_VARIABLES = {
-    LIMIT: state.limit,
-    page: state.page,
-  };
-  queryResult = useQuery(GET_ALL_POST, {
-    variables: QUERY_VARIABLES,
-  });
+  const [page, paginate] = useState(1);
 
   const { data, loading, error } = queryResult;
 
@@ -167,10 +144,12 @@ export default function Feed({ userId, isLoggedIn, location }) {
       originalPrice,
       authorId,
       status,
+
+      formattedLocation,
       id,
     } = item;
 
-    const { name, image } = item.author || {};
+    const { company, name, image } = item.author || {};
     const { seconds } = item.createdAt || {};
     const { url, largeUrl } = item.image || {};
 
@@ -206,6 +185,10 @@ export default function Feed({ userId, isLoggedIn, location }) {
             authorId={authorId}
             postStatus={status}
             id={id}
+            company={company}
+            postLocation={
+              formattedLocation && formattedLocation.formattedAddress
+            }
           />
         </a>
       </>
@@ -221,11 +204,11 @@ export default function Feed({ userId, isLoggedIn, location }) {
             mb={15}
             aria-live="off"
             id="main_content"
-            class="_19x6ASDS _1eW-tOzA"
+            className="_19x6ASDS _1eW-tOzA"
             onClick={handleAddPost}
           >
-            <span class="_1EhANPqp">
-              <div class="avatar">
+            <span className="_1EhANPqp">
+              <div className="avatar">
                 <Img
                   src={profileImg}
                   style={{ width: 35, height: 35, borderRadius: "50%" }}
@@ -234,11 +217,12 @@ export default function Feed({ userId, isLoggedIn, location }) {
                 />
               </div>
             </span>
-            <div class="_3zGsrPl_ _2wCEotpQ">
-              <div class="_1IukxMPo _2YwTbt9g _1uAKrEJw">
+            <div className="_3zGsrPl_ _2wCEotpQ">
+              <div className="_1IukxMPo _2YwTbt9g _1uAKrEJw">
                 <span>
-                  Post a <span class="prompt-bold">message</span>,{" "}
-                  <span class="prompt-bold">listing</span> to your neighborhood
+                  Post a <span className="prompt-bold">message</span>,{" "}
+                  <span className="prompt-bold">listing</span> to your
+                  neighborhood
                 </span>
               </div>
             </div>
@@ -258,24 +242,24 @@ export default function Feed({ userId, isLoggedIn, location }) {
             placeholder={<PostLoader />}
             handleLoadMore={(loading) => {
               toggleLoading(true);
-              setStateToUrl({ page: state.page + 1 });
+              paginate(page + 1);
+              // dispatch({
+              //   type: "UPDATE_PAGE",
+              //   payload: { ...state, page: state.page + 1 },
+              // });
               fetchMore({
                 variables: {
                   ...QUERY_VARIABLES,
-                  page: state.page + 1,
+                  page: page + 1,
                 },
                 updateQuery: (prev, { fetchMoreResult }) => {
-                  console.log("prev ->", prev.posts.data[0].id);
-                  console.log(
-                    "fetchMoreResult ->",
-                    fetchMoreResult.posts.data[0].id
-                  );
-
-                  if (!fetchMoreResult) {
+                  if (
+                    !fetchMoreResult ||
+                    fetchMoreResult.posts.data.length === 0
+                  ) {
                     toggleLoading(false);
                     return prev;
                   }
-                  toggleLoading(false);
 
                   if (postCount && totalPost) {
                     if (postCount <= totalPost) {
@@ -286,20 +270,32 @@ export default function Feed({ userId, isLoggedIn, location }) {
                       );
 
                       toggleLoading(false);
-                      dispatch({
-                        type: "UPDATE_PAGE",
-                        payload: { ...state, page: state.page + 1 },
-                      });
 
-                      return {
-                        posts: {
-                          data: [
-                            ...prev.posts.data,
-                            ...fetchMoreResult.posts.data,
-                          ],
-                          total: totalPost,
-                        },
-                      };
+                      const oldPosts = prev.posts.data;
+                      const newPosts = fetchMoreResult.posts.data;
+
+                      const concatedPosts = oldPosts.concat(newPosts);
+                      fetchMoreResult.posts.data = concatedPosts;
+                      return fetchMoreResult;
+
+                      // return {
+                      //   posts: {
+                      //     data: prev.posts.data.concat(
+                      //       fetchMoreResult.posts.data
+                      //     ),
+                      //     total: totalPost,
+                      //   },
+                      // };
+
+                      // return {
+                      //   posts: {
+                      //     data: [
+                      //       ...prev.posts.data,
+                      //       ...fetchMoreResult.posts.data,
+                      //     ],
+                      //     total: totalPost,
+                      //   },
+                      // };
                     }
                   }
                 },

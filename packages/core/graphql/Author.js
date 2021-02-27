@@ -18,6 +18,11 @@ export const GET_AUTHOR = gql`
         formattedAddress
       }
 
+      company {
+        id
+        name
+      }
+
       website
       secondEmail
       email

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { getFirebaseCookie } from "../helpers/session";
 import Layout from "../containers/Layout";
 import Router from "next/router";
+import AuthHelper from "../helpers/authHelper";
 
 /**
  * HOC for all pages except authentication routes like login route.
@@ -15,11 +16,14 @@ export default (ComposedComponent) =>
       const token = await getFirebaseCookie("id_token", context);
       const location = await getFirebaseCookie("currentLocation", context);
       const user = await getFirebaseCookie("user", context);
+      const loginUser = await AuthHelper.getCurrentUser();
+
       const isLoggedIn = token ? true : false;
       return {
         isLoggedIn,
         pathname: context.pathname,
         location,
+        loginUser: loginUser,
         userId: user ? user.userId : "false",
         email: user ? user.email : false,
         error: user ? user.error : false,
@@ -32,6 +36,7 @@ export default (ComposedComponent) =>
           userId={this.props.userId}
           isLoggedIn={this.props.isLoggedIn}
           pathname={this.props.pathname}
+          loginUser={this.props.loginUser}
         >
           <ComposedComponent {...this.props} />
         </Layout>

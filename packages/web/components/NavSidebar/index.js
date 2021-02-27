@@ -119,6 +119,7 @@ const NavSidebar = ({
             {categories.map((item) => {
               return (
                 <li
+                  key={item.id}
                   className="nav-menu-item-li"
                   onClick={() => handleClick(item.slug)}
                 >

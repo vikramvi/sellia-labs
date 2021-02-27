@@ -4,12 +4,42 @@ const AuthorPostsFragment = gql`
   fragment AuthorPostsQuery on Post {
     id
     slug
+    authorId
+    status
+    title
+    content
+    createdAt
+    price
+    originalPrice
+    belongsTo
+    condition
+    category
+    categories {
+      id
+      slug
+      name
+    }
+
+    formattedLocation {
+      formattedAddress
+    }
+
+    author {
+      name
+      username
+      company {
+        id
+        name
+      }
+      image {
+        url
+        largeUrl
+      }
+    }
     image {
       url
       largeUrl
     }
-    title
-    price
   }
 `;
 
