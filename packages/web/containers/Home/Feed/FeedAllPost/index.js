@@ -44,6 +44,7 @@ const FeedAllPost = ({ userId }) => {
       originalPrice,
       authorId,
       status,
+      gallery,
 
       formattedLocation,
       id,
@@ -68,6 +69,7 @@ const FeedAllPost = ({ userId }) => {
           title={title}
           price={price}
           imageSrc={[url, largeUrl]}
+          postGallery={gallery}
           author={name}
           userId={userId}
           createdAt={seconds}

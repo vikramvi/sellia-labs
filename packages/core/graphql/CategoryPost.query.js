@@ -42,6 +42,10 @@ export const GET_CATEGORY_POST = gql`
               largeUrl
             }
           }
+          gallery {
+            url
+            largeUrl
+          }
           image {
             url
             largeUrl

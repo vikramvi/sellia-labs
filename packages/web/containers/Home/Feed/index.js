@@ -2,7 +2,6 @@ import React, { Fragment, useContext, useState, useEffect } from "react";
 
 import Link from "next/link";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_POST } from "core/graphql/Post.query";
 import { getUrlToState, setStateToUrl } from "../../../helpers/urlHandler";
 
 import { RECENT_POST_PAGE, SINGLE_POST_PAGE } from "core/navigation/constant";
@@ -61,7 +60,7 @@ export default function Feed({ userId, isLoggedIn, location, loginUser }) {
 
   const renderFeedComponent = () => {
     if (slug) {
-      return <FeedSinglePost userId={userId} />;
+      return <FeedSinglePost userId={userId} slug={slug} />;
     } else if (!feedFilter.categorySlug || feedFilter.categorySlug == "") {
       return <FeedAllPost userId={userId} />;
     } else {

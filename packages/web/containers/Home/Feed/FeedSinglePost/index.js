@@ -6,8 +6,10 @@ import { PostLoader } from "../../../../components/Placeholder";
 import FeedPostCard from "../../../../components/FeedPostCard";
 import { CURRENCY } from "../../../../Config";
 import { GET_CATEGORY_POST } from "core/graphql/CategoryPost.query";
+import { GET_POST } from "core/graphql/Post.query";
+import { Carousel, SectionWrapper } from "./singlePost.style";
 
-const FeedCategoryPost = ({ userId }) => {
+const FeedCategoryPost = ({ userId, location, slug }) => {
   const [page, paginate] = useState(1);
   const [loadingMore, toggleLoading] = useState(false);
 
@@ -15,15 +17,15 @@ const FeedCategoryPost = ({ userId }) => {
   const QUERY_VARIABLES = {
     lat: location && location.lat ? location.lat : null,
     lng: location && location.lng ? location.lng : null,
-    LIMIT: state.limit,
+    LIMIT: 4,
     slug: slug,
-    page: state.page,
+    page: page,
   };
   const queryResult = useQuery(GET_POST, {
     variables: QUERY_VARIABLES,
   });
   const { data, loading, error } = queryResult;
-  recentPosts = data && data.post ? [data.post] : [];
+  const recentPosts = data && data.post ? [data.post] : [];
 
   console.log("FeedCategoryPost===>", data);
 
@@ -44,7 +46,7 @@ const FeedCategoryPost = ({ userId }) => {
       originalPrice,
       authorId,
       status,
-
+      gallery,
       formattedLocation,
       id,
     } = item;
@@ -52,6 +54,8 @@ const FeedCategoryPost = ({ userId }) => {
     const { company, name, image } = item.author || {};
     const { seconds } = item.createdAt || {};
     const { url, largeUrl } = item.image || {};
+
+    console.log("single gallery ->", gallery);
 
     return (
       <a>
@@ -71,6 +75,7 @@ const FeedCategoryPost = ({ userId }) => {
           author={name}
           userId={userId}
           createdAt={seconds}
+          postGallery={gallery}
           content={content}
           item={item}
           avatar={image?.url}

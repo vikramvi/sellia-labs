@@ -49,7 +49,7 @@ const FeedCategoryPost = ({ userId, categorySlug }) => {
       originalPrice,
       authorId,
       status,
-
+      gallery,
       formattedLocation,
       id,
     } = item;
@@ -76,6 +76,7 @@ const FeedCategoryPost = ({ userId, categorySlug }) => {
           author={name}
           userId={userId}
           createdAt={seconds}
+          postGallery={gallery}
           content={content}
           item={item}
           avatar={image?.url}

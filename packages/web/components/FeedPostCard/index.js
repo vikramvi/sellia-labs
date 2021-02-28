@@ -31,6 +31,7 @@ import { FeedContext } from "../../contexts/FeedContext";
 import styled from "styled-components";
 
 import FeedPostCardAction from "../Authorized/FeedPostCardAction";
+import { Carousel, SectionWrapper } from "./singlePost.style";
 
 const MenuItemWrapper = styled("span")`
   display: block;
@@ -60,6 +61,7 @@ const FeedPostCard = ({
   item,
   userId,
   company,
+  postGallery,
   postLocation,
   ...props
 }) => {
@@ -317,10 +319,11 @@ const FeedPostCard = ({
   };
 
   const ContentImage = () => {
+    console.log("!postGallery && imageSrc -", postGallery.length);
     return (
       <Box borderBottom="1px solid #e2e2e2">
         <div className="real-estate-promo-card-image">
-          {imageSrc && (
+          {/* {imageSrc && (
             <Img
               src={imageSrc}
               alt={title}
@@ -328,6 +331,32 @@ const FeedPostCard = ({
               loader={<img src={PlaceholderImage} />}
               unloader={<img src={PlaceholderImage} />}
             />
+          )} */}
+
+          {postGallery.length > 1 ? (
+            <Carousel showIndicators={false}>
+              {postGallery.map((image, index) => (
+                <div key={index} style={{ height: "auto" }}>
+                  <img
+                    src={image.largeUrl}
+                    style={{
+                      maxWidth: "100%",
+                      height: "100%",
+                    }}
+                  />
+                </div>
+              ))}
+            </Carousel>
+          ) : (
+            imageSrc && (
+              <Img
+                src={imageSrc}
+                alt={title}
+                style={imageStyle}
+                loader={<img src={PlaceholderImage} />}
+                unloader={<img src={PlaceholderImage} />}
+              />
+            )
           )}
 
           <Box

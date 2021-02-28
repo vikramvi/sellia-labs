@@ -21,6 +21,10 @@ export const GET_ALL_POST = gql`
           slug
           name
         }
+        gallery {
+          url
+          largeUrl
+        }
 
         formattedLocation {
           formattedAddress
