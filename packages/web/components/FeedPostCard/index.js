@@ -319,7 +319,6 @@ const FeedPostCard = ({
   };
 
   const ContentImage = () => {
-    console.log("!postGallery && imageSrc -", postGallery.length);
     return (
       <Box borderBottom="1px solid #e2e2e2">
         <div className="real-estate-promo-card-image">
@@ -333,7 +332,7 @@ const FeedPostCard = ({
             />
           )} */}
 
-          {postGallery.length > 1 ? (
+          {postGallery && postGallery.length > 1 ? (
             <Carousel showIndicators={false}>
               {postGallery.map((image, index) => (
                 <div key={index} style={{ height: "auto" }}>

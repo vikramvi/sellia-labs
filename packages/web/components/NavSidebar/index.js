@@ -13,6 +13,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { FeedContext } from "../../contexts/FeedContext";
 import { useRouter } from "next/router";
 import Router from "next/router";
+import Text from "reusecore/src/elements/Text";
 
 import "./style.css";
 
@@ -141,9 +142,10 @@ const NavSidebar = ({
                       color="#006344"
                       role="img"
                     ></svg>
+
                     <span
                       className="nav-menu-item-label-refresh css-1y777s2"
-                      data-testid="All Groups"
+                      style={{ textTransform: "capitalize" }}
                     >
                       {item.name}
                     </span>
