@@ -6,32 +6,26 @@ import { PostLoader } from "../../../../components/Placeholder";
 import FeedPostCard from "../../../../components/FeedPostCard";
 import { CURRENCY } from "../../../../Config";
 
-const FeedAllPost = ({ userId }) => {
-  const [page, paginate] = useState(1);
-  const [loadingMore, toggleLoading] = useState(false);
+import NoItemFound from "../../../../components/NoItemFound";
 
-  // QUERY SECTION
+const FeedAllPost = ({ userId }) => {
+  const [loadingMore, toggleLoading] = useState(false);
+  const [page, paginate] = useState(1);
   const QUERY_VARIABLES = {
-    limit: 4,
-    page: page,
+    LIMIT: 4,
   };
-  const queryResult = useQuery(GET_ALL_POST, {
+  const { data, loading, error, fetchMore } = useQuery(GET_ALL_POST, {
     variables: QUERY_VARIABLES,
   });
 
-  const { data, loading, error, fetchMore } = queryResult;
+  if (error) return <OnError />;
 
-  console.log("FeedAllPost===>", data);
-
-  const recentPosts = data && data.posts ? data.posts.data : [];
-  const postCount = recentPosts ? recentPosts.length : 1;
+  const postCount =
+    data && data.posts && data.posts.data ? data.posts.data.length : 1;
+  const posts = data && data.posts && data.posts.data ? data.posts.data : [];
   const totalPost = data && data.posts ? data.posts.total : 1;
 
-  console.log("postCount", postCount);
-  console.log("totalPost", totalPost);
-
-  // Error Rendering.
-  if (error) return <OnError />;
+  console.log("FeedAllPost===>", data);
 
   const renderRecentPost = (item) => {
     const {
@@ -39,7 +33,6 @@ const FeedAllPost = ({ userId }) => {
       slug,
       price,
       content,
-
       condition,
       originalPrice,
       authorId,
@@ -57,14 +50,7 @@ const FeedAllPost = ({ userId }) => {
     return (
       <a>
         <FeedPostCard
-          style={{
-            flexDirection: "row",
-            display: "flex",
-            justifyContent: "flex-start",
-          }}
-          imageStyle={{
-            marginRight: 20,
-          }}
+          item={item}
           currency={CURRENCY}
           title={title}
           price={price}
@@ -88,56 +74,59 @@ const FeedAllPost = ({ userId }) => {
       </a>
     );
   };
-
   return (
-    <ListGrid
-      data={recentPosts}
-      columnWidth={[1]}
-      postCount={postCount}
-      totalPost={totalPost}
-      limit={QUERY_VARIABLES.limit}
-      component={renderRecentPost}
-      loading={loading ? loading : loadingMore}
-      placeholder={<PostLoader />}
-      handleLoadMore={(loading) => {
-        toggleLoading(true);
-        paginate(page + 1);
+    <>
+      {!loading && !posts.length ? (
+        <NoItemFound />
+      ) : (
+        <ListGrid
+          data={posts}
+          totalPost={totalPost}
+          postCount={postCount}
+          columnWidth={[1]}
+          component={renderRecentPost}
+          loading={loading ? loading : loadingMore}
+          loaderColor="#ffffff"
+          placeholder={<PostLoader />}
+          limit={QUERY_VARIABLES.LIMIT}
+          handleLoadMore={() => {
+            toggleLoading(true);
+            paginate(page + 1);
+            fetchMore({
+              variables: {
+                page: page + 1,
+              },
+              updateQuery: (prev, { fetchMoreResult }) => {
+                if (!fetchMoreResult) {
+                  toggleLoading(false);
+                  return prev;
+                }
+                if (postCount && totalPost) {
+                  if (postCount <= totalPost) {
+                    console.log("prev.recent.data ->", prev.posts.data);
+                    console.log(
+                      "fetchMoreResult.recent.data ->",
+                      fetchMoreResult.posts.data
+                    );
 
-        fetchMore({
-          variables: {
-            ...QUERY_VARIABLES,
-            page: page + 1,
-          },
-          updateQuery: (prev, { fetchMoreResult }) => {
-            console.log("fetchMoreResult", fetchMoreResult);
-
-            if (!fetchMoreResult || !fetchMoreResult.posts) {
-              toggleLoading(false);
-              return prev;
-            }
-
-            if (postCount && totalPost) {
-              if (postCount <= totalPost) {
-                console.log("prev.posts.data ->", prev.posts.data);
-                console.log(
-                  "fetchMoreResult.posts.data ->",
-                  fetchMoreResult.posts.data
-                );
-
-                toggleLoading(false);
-
-                const oldPosts = prev.posts.data;
-                const newPosts = fetchMoreResult.posts.data;
-
-                const concatedPosts = oldPosts.concat(newPosts);
-                fetchMoreResult.posts.data = concatedPosts;
-                return fetchMoreResult;
-              }
-            }
-          },
-        });
-      }}
-    />
+                    toggleLoading(false);
+                    return Object.assign({}, prev, {
+                      posts: {
+                        data: [
+                          ...prev.posts.data,
+                          ...fetchMoreResult.posts.data,
+                        ],
+                        total: totalPost,
+                      },
+                    });
+                  }
+                }
+              },
+            });
+          }}
+        />
+      )}
+    </>
   );
 };
 
