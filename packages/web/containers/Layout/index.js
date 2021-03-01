@@ -18,6 +18,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import SideDrawer from "reusecore/src/elements/Drawer";
 import { setFirebaseCookie } from "../../helpers/session";
+import AppWrapper, { ContentWrapper } from "./Layout.styled";
 
 import {
   HOME_PAGE,
@@ -146,9 +147,9 @@ export default ({
   ];
 
   const hasSidebar = !pathname || pathname === "/" ? true : false;
-
+  let layoutBg = "#ffffff";
   return (
-    <>
+    <AppWrapper style={{ backgroundColor: layoutBg }}>
       {loggingOut && <FullPageSpinner />}
       <Navbar
         onToggle={handleToggle}
@@ -252,9 +253,9 @@ export default ({
         </SideDrawer>
       )}
 
-      <Main>{children}</Main>
+      <ContentWrapper>{children}</ContentWrapper>
 
       {/* <Footer /> */}
-    </>
+    </AppWrapper>
   );
 };

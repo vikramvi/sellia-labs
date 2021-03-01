@@ -14,6 +14,8 @@ import { withApollo } from "../helpers/apollo";
 import SecretPage from "../hoc/secretPage";
 import { FeedProvider } from "../contexts/FeedContext";
 import { useRouter } from "next/router";
+import Container from "../components/UiElements/Container/Container";
+import { Block } from "baseui/block";
 
 // Static Images
 import BannerImage from "core/static/images/banner.png";
@@ -41,19 +43,17 @@ const bannerStyle = {
 
 const FeedPage = withLayout(({ location, ...props }) => {
   return (
-    <>
+    <Container>
       <PageMeta
         title="Sellia - Marketplace"
         description="Place where you can buy &amp; sell products"
       />
       <FeedProvider>
         <Box flexBox as="main" pt={40} pb={0} pl={0} pr={0}>
-          <Grid>
-            <Feed {...props} />
-          </Grid>
+          <Feed {...props} />
         </Box>
       </FeedProvider>
-    </>
+    </Container>
   );
 });
 

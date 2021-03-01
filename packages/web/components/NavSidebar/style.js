@@ -5,7 +5,7 @@ export const NavSidebarWrapper = styled("div")`
   display: block;
   align-items: center;
   justify-content: space-between;
-  position: fixed;
+  position: absolute;
   width: 295px;
   float: left;
   overflow-y: scroll;

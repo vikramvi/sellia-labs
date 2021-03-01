@@ -63,8 +63,6 @@ function Profile({ username, userId }) {
     variables: QUERY_VARIABLES,
   });
 
-  console.log("data sold ->", data && data.author.sold);
-
   if (error) return <p>{error.message}</p>;
   if (loading)
     return (
