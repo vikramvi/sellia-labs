@@ -74,7 +74,7 @@ export default function Feed({ userId, isLoggedIn, location, loginUser }) {
   };
 
   return (
-    <Box mt={0} ml={"25%"} mr={"25%"}>
+    <Box mt={0} width={"50%"} ml={"25%"} mr={"25%"}>
       <NavSidebar></NavSidebar>
       <Box>
         <div className="css-1dkvlfs">
