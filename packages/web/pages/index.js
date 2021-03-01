@@ -43,17 +43,19 @@ const bannerStyle = {
 
 const FeedPage = withLayout(({ location, ...props }) => {
   return (
-    <Container>
+    <>
       <PageMeta
         title="Sellia - Marketplace"
         description="Place where you can buy &amp; sell products"
       />
       <FeedProvider>
-        <Box flexBox as="main" pt={40} pb={0} pl={0} pr={0}>
-          <Feed {...props} />
-        </Box>
+        <Container>
+          <Box flexBox as="main" pt={40} pb={0} pl={0} pr={0}>
+            <Feed {...props} />
+          </Box>
+        </Container>
       </FeedProvider>
-    </Container>
+    </>
   );
 });
 

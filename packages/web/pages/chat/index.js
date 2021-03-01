@@ -27,7 +27,7 @@ const ChatPage = withLayout(({ userId, user }) => {
 
   const postData = post && JSON.parse(post);
   return (
-    <>
+    <Container>
       <Box
         flexBox
         justifyContent="center"
@@ -35,7 +35,7 @@ const ChatPage = withLayout(({ userId, user }) => {
       >
         <Chat currentPost={postData} userId={userId} loginUser={user} />
       </Box>
-    </>
+    </Container>
   );
 });
 

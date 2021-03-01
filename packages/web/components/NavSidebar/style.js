@@ -17,8 +17,7 @@ export const NavSidebarWrapper = styled("div")`
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.06);
   padding-top: 66;
   padding-bottom: ${(props) => props.paddingY || 0};
-  padding-left: ${(props) => props.paddingX || "2rem"};
-  padding-right: ${(props) => props.paddingX || "2rem"};
+  padding-right: ${(props) => props.paddingX || "4rem"};
   @media (min-width: 769px) {
     .sm-hidden {
       display: none;

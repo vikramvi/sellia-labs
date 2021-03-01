@@ -7,6 +7,53 @@ import Box from "reusecore/src/elements/Box";
 import ProfileSettingInfo from "../../../components/ProfileSettingInfo";
 import { ProfileContext } from "../../../contexts/ProfileContext";
 
+import styled from "styled-components";
+
+export const NavSidebarWrapper = styled("div")`
+  box-sizing: border-box;
+  display: block;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  width: 295px;
+  float: left;
+  overflow-y: scroll;
+  top: 200;
+  left: 0;
+  bottom: 20;
+  z-index: 3;
+  background-color: #ffffff;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.06);
+  padding-top: 66;
+  padding-bottom: ${(props) => props.paddingY || 0};
+  padding-left: ${(props) => props.paddingX || "2rem"};
+  padding-right: ${(props) => props.paddingX || "2rem"};
+  @media (min-width: 769px) {
+    .sm-hidden {
+      display: none;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .md-hidden {
+      display: none;
+    }
+  }
+  @media (max-width: 768px) {
+    .md-show {
+      display: none;
+    }
+    height: 60px;
+    padding-left: ${(props) => props.paddingX || "1rem"};
+    padding-right: ${(props) => props.paddingX || "0"};
+  }
+  @media (max-width: 992px) {
+    .lg-show {
+      display: none;
+    }
+  }
+`;
+
 export default ({ image, name }) => {
   const { state, dispatch } = useContext(ProfileContext);
 
@@ -18,58 +65,60 @@ export default ({ image, name }) => {
   };
 
   return (
-    <Box
-      pb={10}
-      pt={10}
-      borderRadius="3px"
-      border="1px solid #e2e2e2"
-      style={{ width: "295px", position: "fixed", left: 25 }}
-    >
-      <ProfileSettingInfo
-        avatarImage={image}
-        title={name || "My Profile"}
-        // description="Edit Profile"
-        iconRight={<Icon icon={iosArrowForward} size={18} color="#BABABA" />}
-        onClick={() => onToggleClick("profile")}
-      />
+    <NavSidebarWrapper>
+      <Box
+        pb={10}
+        pt={10}
+        borderRadius="3px"
+        border="1px solid #e2e2e2"
+        style={{ position: "fixed" }}
+      >
+        <ProfileSettingInfo
+          avatarImage={image}
+          title={name || "My Profile"}
+          // description="Edit Profile"
+          iconRight={<Icon icon={iosArrowForward} size={18} color="#BABABA" />}
+          onClick={() => onToggleClick("profile")}
+        />
 
-      {/* Change password section */}
-      <ProfileSettingInfo
-        title="My Active Posts"
-        iconRight={<Icon icon={iosArrowForward} size={18} color="#BABABA" />}
-        onClick={() => onToggleClick("postlist")}
-        style={{
-          backgroundColor: "#3093FF",
-          color: "#fff",
-          borderRadius: "3px",
-        }}
-      />
+        {/* Change password section */}
+        <ProfileSettingInfo
+          title="My Active Posts"
+          iconRight={<Icon icon={iosArrowForward} size={18} color="#BABABA" />}
+          onClick={() => onToggleClick("postlist")}
+          style={{
+            backgroundColor: "#3093FF",
+            color: "#fff",
+            borderRadius: "3px",
+          }}
+        />
 
-      {/* Email Notification section */}
-      <ProfileSettingInfo
-        title="My In-Active Posts"
-        borderBottom="none"
-        iconRight={<Icon icon={iosArrowForward} size={18} />}
-        onClick={() => onToggleClick("sold")}
-        style={{
-          backgroundColor: "#FF7946",
-          color: "#fff",
-          borderRadius: "3px",
-        }}
-      />
+        {/* Email Notification section */}
+        <ProfileSettingInfo
+          title="My In-Active Posts"
+          borderBottom="none"
+          iconRight={<Icon icon={iosArrowForward} size={18} />}
+          onClick={() => onToggleClick("sold")}
+          style={{
+            backgroundColor: "#FF7946",
+            color: "#fff",
+            borderRadius: "3px",
+          }}
+        />
 
-      <ProfileSettingInfo
-        title="My Bookmark Posts"
-        borderBottom="none"
-        iconRight={<Icon icon={iosArrowForward} size={18} />}
-        onClick={() => onToggleClick("favorite")}
-        style={{
-          backgroundColor: "#FF7946",
-          color: "#fff",
-          borderRadius: "3px",
-        }}
-      />
-    </Box>
+        <ProfileSettingInfo
+          title="My Bookmark Posts"
+          borderBottom="none"
+          iconRight={<Icon icon={iosArrowForward} size={18} />}
+          onClick={() => onToggleClick("favorite")}
+          style={{
+            backgroundColor: "#FF7946",
+            color: "#fff",
+            borderRadius: "3px",
+          }}
+        />
+      </Box>
+    </NavSidebarWrapper>
   );
   // <Box
   //   pb={10}
