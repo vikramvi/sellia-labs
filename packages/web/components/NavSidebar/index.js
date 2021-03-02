@@ -27,7 +27,6 @@ const NavSidebar = () => {
   };
   const { data, loading, error, fetchMore } = useQuery(GET_CATEGORIES, {
     variables: QUERY_VARIABLES,
-    fetchPolicy: "no-cache",
   });
 
   console.log("navsidebar data ---", data);
