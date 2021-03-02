@@ -27,6 +27,7 @@ import LeftSidebar from "./LeftSidebar";
 import RightSidebar from "./RightSidebar";
 import ProfileView from "../Profile/EditProfile";
 import { GET_AUTHOR } from "core/graphql/Author";
+import { CategoriesWrapper, Holder, Col, SideDrawerInner } from "./style";
 
 import { ProfileContext } from "../../contexts/ProfileContext";
 
@@ -94,37 +95,43 @@ function Profile({ username, userId }) {
     data && data.author && data.author.image ? data.author.image.largeUrl : "";
   const { id, name, posts, address, website } = data.author;
   return (
-    <Container>
-      <Box mt={0} ml={"25%"} mr={"25%"}>
-        <LeftSidebar />
+    <Grid>
+      <Row>
+        <Col xs={0} sm={5} md={2}>
+          <LeftSidebar />
+        </Col>
 
-        <Box>
-          <div style={{ paddingBottom: 80, paddingTop: 10 }}>
-            <Row>
-              {/* Tab conetnt */}
-              {state.feedFilter.categorySlug === "profile" ? (
-                <ProfileView author={author} />
-              ) : null}
-              {state.feedFilter.categorySlug === "postlist" ? (
-                <UserListing userId={userId} />
-              ) : null}
-              {state.feedFilter.categorySlug === "favorite" ? (
-                <FavouriteListing userId={userId} />
-              ) : null}
-              {state.feedFilter.categorySlug === "draft" && userId === id ? (
-                <UserDraftPost userId={userId} />
-              ) : null}
+        <Col xs={12} sm={12} md={6}>
+          <Box>
+            <div style={{ paddingBottom: 80, paddingTop: 10 }}>
+              <Row>
+                {/* Tab conetnt */}
+                {state.feedFilter.categorySlug === "profile" ? (
+                  <ProfileView author={author} />
+                ) : null}
+                {state.feedFilter.categorySlug === "postlist" ? (
+                  <UserListing userId={userId} />
+                ) : null}
+                {state.feedFilter.categorySlug === "favorite" ? (
+                  <FavouriteListing userId={userId} />
+                ) : null}
+                {state.feedFilter.categorySlug === "draft" && userId === id ? (
+                  <UserDraftPost userId={userId} />
+                ) : null}
 
-              {state.feedFilter.categorySlug === "sold" && userId === id ? (
-                <UserSoldPost userId={userId} />
-              ) : null}
-            </Row>
-          </div>
-        </Box>
+                {state.feedFilter.categorySlug === "sold" && userId === id ? (
+                  <UserSoldPost userId={userId} />
+                ) : null}
+              </Row>
+            </div>
+          </Box>
+        </Col>
 
-        {/* <RightSidebar /> */}
-      </Box>
-    </Container>
+        <Col xs={0} sm={5} md={2}>
+          <RightSidebar />
+        </Col>
+      </Row>
+    </Grid>
   );
 }
 

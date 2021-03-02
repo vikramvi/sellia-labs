@@ -27,6 +27,9 @@ import FeedAllPost from "./FeedAllPost";
 import FeedCategoryPost from "./FeedCategoryPost";
 import FeedSinglePost from "./FeedSinglePost";
 
+import { Grid, Row } from "react-styled-flexboxgrid";
+import { CategoriesWrapper, Holder, Col, SideDrawerInner } from "./style";
+
 export default function Feed({ userId, isLoggedIn, location, loginUser }) {
   const {
     query: { slug },
@@ -74,41 +77,47 @@ export default function Feed({ userId, isLoggedIn, location, loginUser }) {
   };
 
   return (
-    <Box mt={0} width={"50%"} ml={"25%"} mr={"25%"}>
-      <NavSidebar></NavSidebar>
-      <Box>
-        <div className="css-1dkvlfs">
-          <Box
-            mb={15}
-            aria-live="off"
-            id="main_content"
-            className="_19x6ASDS _1eW-tOzA"
-            onClick={handleAddPost}
-          >
-            <span className="_1EhANPqp">
-              <div className="avatar">
-                <Img
-                  src={profileImg}
-                  style={{ width: 35, height: 35, borderRadius: "50%" }}
-                  loader={<img src={profileImg} alt="profile picture" />}
-                  unloader={<img src={profileImg} alt="profile picture" />}
-                />
-              </div>
-            </span>
-            <div className="_3zGsrPl_ _2wCEotpQ">
-              <div className="_1IukxMPo _2YwTbt9g _1uAKrEJw">
-                <span>
-                  Post a <span className="prompt-bold">message</span>,{" "}
-                  <span className="prompt-bold">listing</span> to your
-                  neighborhood
+    <Grid>
+      <Row>
+        <Col xs={0} sm={5} md={3}>
+          <NavSidebar></NavSidebar>
+        </Col>
+        <Col xs={0} sm={5} md={6}>
+          <Box>
+            <div className="css-1dkvlfs">
+              <Box
+                mb={15}
+                aria-live="off"
+                id="main_content"
+                className="_19x6ASDS _1eW-tOzA"
+                onClick={handleAddPost}
+              >
+                <span className="_1EhANPqp">
+                  <div className="avatar">
+                    <Img
+                      src={profileImg}
+                      style={{ width: 35, height: 35, borderRadius: "50%" }}
+                      loader={<img src={profileImg} alt="profile picture" />}
+                      unloader={<img src={profileImg} alt="profile picture" />}
+                    />
+                  </div>
                 </span>
-              </div>
+                <div className="_3zGsrPl_ _2wCEotpQ">
+                  <div className="_1IukxMPo _2YwTbt9g _1uAKrEJw">
+                    <span>
+                      Post a <span className="prompt-bold">message</span>,{" "}
+                      <span className="prompt-bold">listing</span> to your
+                      neighborhood
+                    </span>
+                  </div>
+                </div>
+              </Box>
             </div>
-          </Box>
-        </div>
 
-        {renderFeedComponent()}
-      </Box>
-    </Box>
+            {renderFeedComponent()}
+          </Box>
+        </Col>
+      </Row>
+    </Grid>
   );
 }
