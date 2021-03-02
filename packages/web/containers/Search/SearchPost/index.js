@@ -12,6 +12,7 @@ import PlaceholderImg from "core/static/images/thumb-grid-placeholder.svg";
 import ListGrid from "reusecore/src/elements/ListGrid";
 import NoItemFound from "../../../components/NoItemFound";
 import OnError from "../../../components/OnError";
+import FeedPostCard from "../../../components/FeedPostCard";
 
 const timeFormatAMPM = (date) => {
   return date.toLocaleString("en-US", { timeStyle: "short" });
@@ -76,6 +77,55 @@ const SearchPostItem = (props) => {
       };
     }
   });
+
+  const renderRecentPost = (item) => {
+    const {
+      title,
+      slug,
+      price,
+      content,
+      condition,
+      originalPrice,
+      authorId,
+      status,
+      gallery,
+
+      formattedLocation,
+      id,
+    } = item;
+
+    const { company, name, image } = item.author || {};
+    const { seconds } = item.createdAt || {};
+    const { url, largeUrl } = item.image || {};
+
+    return (
+      <a>
+        <FeedPostCard
+          item={item}
+          currency={CURRENCY}
+          title={title}
+          price={price}
+          imageSrc={[url, largeUrl]}
+          postGallery={gallery}
+          author={name}
+          // userId={userId}
+          createdAt={seconds}
+          content={content}
+          item={item}
+          avatar={image?.url}
+          condition={condition}
+          originalPrice={originalPrice}
+          // isLoggedIn={isLoggedIn}
+          authorId={authorId}
+          postStatus={status}
+          id={id}
+          company={company}
+          postLocation={formattedLocation && formattedLocation.formattedAddress}
+        />
+      </a>
+    );
+  };
+
   return (
     <Fragment>
       {searchPostsData.length === 0 && !loading ? (
@@ -94,41 +144,42 @@ const SearchPostItem = (props) => {
             componentWrapperStyle={{
               margin: 0,
             }}
-            component={(item) => {
-              return (
-                <Link href={`${SINGLE_POST_PAGE}/${item.slug}`}>
-                  <a>
-                    <ListView
-                      currency={CURRENCY}
-                      title={item.title}
-                      price={item.price}
-                      source={item.image ? item.image.url : PlaceholderImg}
-                      fallbackSource={
-                        item.image ? item.image.largeUrl : PlaceholderImg
-                      }
-                      negotiable={item.isNegotiable}
-                      condition={item.condition}
-                      location={
-                        item &&
-                        item.formattedLocation &&
-                        item.formattedLocation.formattedAddress !== null
-                          ? item.formattedLocation.formattedAddress
-                          : "Location goes here"
-                      }
-                      distance={
-                        item.distance !== null && item.distance !== undefined
-                          ? `Approximately ${Math.floor(item.distance)} km away`
-                          : ""
-                      }
-                      icon="md-pin"
-                      postedBy={{ ...item.author, authorId: item.authorId }}
-                      postedTime={item.publishTime}
-                      userId={props.userId}
-                    />
-                  </a>
-                </Link>
-              );
-            }}
+            component={renderRecentPost}
+            // component={(item) => {
+            //   return (
+            //     <Link href={`${SINGLE_POST_PAGE}/${item.slug}`}>
+            //       <a>
+            //         <ListView
+            //           currency={CURRENCY}
+            //           title={item.title}
+            //           price={item.price}
+            //           source={item.image ? item.image.url : PlaceholderImg}
+            //           fallbackSource={
+            //             item.image ? item.image.largeUrl : PlaceholderImg
+            //           }
+            //           negotiable={item.isNegotiable}
+            //           condition={item.condition}
+            //           location={
+            //             item &&
+            //             item.formattedLocation &&
+            //             item.formattedLocation.formattedAddress !== null
+            //               ? item.formattedLocation.formattedAddress
+            //               : "Location goes here"
+            //           }
+            //           distance={
+            //             item.distance !== null && item.distance !== undefined
+            //               ? `Approximately ${Math.floor(item.distance)} km away`
+            //               : ""
+            //           }
+            //           icon="md-pin"
+            //           postedBy={{ ...item.author, authorId: item.authorId }}
+            //           postedTime={item.publishTime}
+            //           userId={props.userId}
+            //         />
+            //       </a>
+            //     </Link>
+            //   );
+            // }}
             loading={loading ? loading : loadingMore}
             loaderColor="#ffffff"
             placeholder={<ListLoader />}

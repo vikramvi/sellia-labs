@@ -22,10 +22,10 @@ const SearchPage = (props) => {
 
   return (
     <div style={{ paddingBottom: 50, paddingTop: 75 }}>
-      <Grid style={{ paddingLeft: "1rem", paddingRight: "1rem" }}>
+      <Grid>
         <Row>
-          <Col xs={0} sm={5} md={4}>
-            {process.browser && (
+          <Col xs={0} sm={5} md={2}>
+            {/* {process.browser && (
               <CategoriesWrapper style={{ marginBottom: 30 }}>
                 <Text
                   as="h3"
@@ -38,7 +38,7 @@ const SearchPage = (props) => {
                 />
                 <SearchCategory {...props} />
               </CategoriesWrapper>
-            )}
+            )} */}
           </Col>
 
           <Col xs={12} sm={12} md={8}>
