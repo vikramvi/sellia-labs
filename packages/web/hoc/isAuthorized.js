@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import AuthHelper from "../helpers/authHelper";
 
-/**
- * For those routes where authenticated used can't navigate like login route
- */
 export default (ComposedComponent) =>
   class IsAuthorized extends Component {
     state = {
@@ -11,13 +8,18 @@ export default (ComposedComponent) =>
     };
 
     async componentDidMount() {
-      const isVerified = await AuthHelper.isVerified();
-      this.setState({ isVerified: isVerified });
+      console.log("IsAuthorized componentDidMount", this.state.isVerified);
     }
 
+    isVerified = async () => {
+      return await AuthHelper.isVerified();
+    };
+
     render() {
+      console.log("IsAuthorized render", this.state.isVerified);
+
       return (
-        <ComposedComponent {...this.props} isVerified={this.state.isVerified} />
+        <ComposedComponent {...this.props} isVerified={this.isVerified()} />
       );
     }
   };

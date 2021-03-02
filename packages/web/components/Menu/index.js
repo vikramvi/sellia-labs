@@ -13,8 +13,6 @@ import SvgIcon from "../UiElements/SvgIcon/SvgIcon";
 import { styled } from "baseui";
 import { db } from "../../helpers/init";
 import { Modal } from "@redq/reuse-modal";
-import { openModal, closeModal } from "@redq/reuse-modal";
-import AuthHelper from "../../helpers/authHelper";
 
 import { BsBell } from "react-icons/bs";
 import { IoMdAdd, IoMdHome, IoMdMail, IoMdNotifications } from "react-icons/io";
