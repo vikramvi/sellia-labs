@@ -17,17 +17,7 @@ import Text from "reusecore/src/elements/Text";
 
 import "./style.css";
 
-const NavSidebar = ({
-  onToggle,
-  userId,
-  isLoggedIn,
-  logout,
-  buttonIcon,
-  menuButtonIcon,
-  dropdownMenuIcon,
-  pathname,
-  avatar,
-}) => {
+const NavSidebar = () => {
   const {
     query: { slug },
   } = useRouter();
@@ -37,7 +27,11 @@ const NavSidebar = ({
   };
   const { data, loading, error, fetchMore } = useQuery(GET_CATEGORIES, {
     variables: QUERY_VARIABLES,
+    fetchPolicy: "no-cache",
   });
+
+  console.log("navsidebar data ---", data);
+
   const categories =
     data && data.categories && data.categories.data ? data.categories.data : [];
 

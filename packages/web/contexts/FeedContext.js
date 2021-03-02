@@ -22,9 +22,6 @@ export default function feedReducer(state, action) {
       };
     }
 
-    case "UPDATE_PAGE":
-      return { ...state, ...action.payload };
-
     default:
       return state;
   }
