@@ -46,7 +46,7 @@ const SignInForm = ({
   const [error, setError] = useState({});
   const [loading, setLoading] = useState(false);
   const {
-    query: { isVerified, initiateSignup },
+    query: { isVerified, initiateSignup, origin },
   } = useRouter();
   const handleCheckboxChange = (checked) => {
     setFieldValue("remember", checked);
@@ -92,7 +92,8 @@ const SignInForm = ({
 
             setFirebaseCookie("id_token", values.token);
             setFirebaseCookie("user", { ...user });
-            redirect({}, "/");
+
+            origin ? redirect({}, origin) : redirect({}, "/");
           }
         }
       } catch (error) {

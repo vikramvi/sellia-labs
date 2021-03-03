@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import redirect from "../helpers/redirect";
 import { getFirebaseCookie } from "../helpers/session";
+import Router from "next/router";
 
 /**
  * HOC for all the secret route
@@ -8,12 +9,19 @@ import { getFirebaseCookie } from "../helpers/session";
 export default (ComposedComponent) =>
   class SecretPage extends Component {
     static async getInitialProps(context) {
+      console.log("context ---", context);
+
       const token = getFirebaseCookie("id_token", context);
       let user = false;
       user = getFirebaseCookie("user", context);
       const isLoggedIn = token ? true : false;
       if (!isLoggedIn) {
-        redirect(context, "/signin");
+        let signin = "/signin";
+
+        if (context.asPath.length > 1) {
+          signin += "?origin=" + context.asPath;
+        }
+        redirect(context, signin);
       }
       return {
         isLoggedIn,

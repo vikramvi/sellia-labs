@@ -1,4 +1,4 @@
-import Router from 'next/router';
+import Router from "next/router";
 
 /**
  * Redirect to any given url
