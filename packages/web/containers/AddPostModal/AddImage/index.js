@@ -17,18 +17,15 @@ import Box from "reusecore/src/elements/Box";
 import Image from "reusecore/src/elements/Image";
 
 const UpButton = styled("button")`
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  border: 2px dashed #dfdfdf;
-  border-radius: 3px;
   outline: 0;
-  flex-direction: column;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  border: 0;
+  flex-direction: row;
   cursor: pointer;
 `;
 
@@ -149,7 +146,6 @@ export default () => {
     return (
       <Box
         key={index}
-        mb={15}
         width="75px"
         style={{
           position: "relative",
@@ -253,11 +249,12 @@ export default () => {
                 <UpButton>
                   <Image src={UpIcon} alt={"upload icon"} width={40} />
                   <Heading
-                    as="h5"
+                    as="h4"
                     mb={2}
                     mt={2}
+                    ml={2}
                     content="Add photo"
-                    style={{ fontSize: 12, fontWeight: 400, color: "#333333" }}
+                    style={{ fontSize: 10, fontWeight: 200, color: "#333333" }}
                   />
                 </UpButton>
               </div>

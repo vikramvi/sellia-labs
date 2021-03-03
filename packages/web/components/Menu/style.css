@@ -16,7 +16,7 @@
   outline: none;
   min-height: "650px";
   box-shadow: 0 0 34px 0 rgba(0, 0, 0, 0.24);
-  overflow-y: auto;
+  /* overflow-y: auto; */
   position: fixed;
   padding: 0;
   margin: 0;

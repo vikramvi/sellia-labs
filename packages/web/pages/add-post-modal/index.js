@@ -419,76 +419,104 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
   };
 
   return (
-    <>
-      <Grid
-        flexBox
-        style={{
-          padding: "0px",
-          width: "100%",
+    <Box
+      flexBox
+      style={{
+        width: "100%",
+        height: "100%",
+        flexDirection: "column",
+      }}
+    >
+      <TopToolBar
+        onClose={() => {
+          props.data.closeModal();
         }}
-      >
-        {console.log(
-          "postSegments ->",
-          JSON.stringify(postSegments[4], null, 2)
-        )}
+      />
 
-        <TopToolBar
-          onClose={() => {
-            props.data.closeModal();
-          }}
-        />
-        <Row
+      {isSegmentListOpen && (
+        <Grid
+          flexBox
           style={{
-            margin: "20px",
+            marginTop: "70px",
+            height: "100%",
+            overflow: "auto",
           }}
         >
-          <Box>
-            {selectedSegment && selectedSegment.sections && (
-              <Box flexBox flexDirection="row" alignItems="center">
-                <Text
-                  onClick={() => setSegmentListOpen(true)}
-                  content={selectedSegment.title}
-                  textAlign="center"
-                  className="segment-menu-item-link"
-                  style={{
-                    fontSize: 18,
-                    fontWeight: 600,
-                    color: "#333333",
-                    backgroundColor: "#30C56D",
-                    lineHeight: "20px",
-                    marginRight: "40px",
+          {selectedSegment && selectedSegment.sections && (
+            <Box flexBox flexDirection="row" alignItems="center">
+              <Text
+                onClick={() => setSegmentListOpen(true)}
+                content={selectedSegment.title}
+                textAlign="center"
+                className="segment-menu-item-link"
+                style={{
+                  fontSize: 18,
+                  fontWeight: 600,
+                  color: "#333333",
+                  backgroundColor: "#30C56D",
+                  lineHeight: "20px",
+                  marginRight: "40px",
+                }}
+              ></Text>
+              {selectedSegment.feature.belongs_to && (
+                <SelctionListSection
+                  section={{
+                    ...selectedSegment.belongsTo,
+                    title: "",
+                    type: "selectionList",
                   }}
-                ></Text>
-                {selectedSegment.feature.belongs_to && (
-                  <SelctionListSection
-                    section={{
-                      ...selectedSegment.belongsTo,
-                      title: "",
-                      type: "selectionList",
-                    }}
-                  />
-                )}
-              </Box>
-            )}
+                />
+              )}
+            </Box>
+          )}
+          <ListGrid
+            data={options}
+            columnWidth={[1]}
+            limit={10}
+            component={renderRecentPost}
+            placeholder={<PostLoader />}
+          />
+        </Grid>
+      )}
 
-            {isSegmentListOpen && (
-              <ListGrid
-                data={options}
-                columnWidth={[1]}
-                limit={10}
-                component={renderRecentPost}
-                placeholder={<PostLoader />}
-              />
-            )}
-          </Box>
-        </Row>
-        {!isSegmentListOpen && (
-          <Row
-            style={{
-              margin: "20px",
-            }}
-          >
-            {/* <Col xs={12}> */}
+      {!isSegmentListOpen && (
+        <Grid
+          flexBox
+          style={{
+            marginTop: "70px",
+            height: "500px",
+            overflowY: "scroll",
+            width: "100%",
+          }}
+        >
+          {selectedSegment && selectedSegment.sections && (
+            <Box flexBox flexDirection="row" alignItems="center">
+              <Text
+                onClick={() => setSegmentListOpen(true)}
+                content={selectedSegment.title}
+                textAlign="center"
+                className="segment-menu-item-link"
+                style={{
+                  fontSize: 18,
+                  fontWeight: 600,
+                  color: "#333333",
+                  backgroundColor: "#30C56D",
+                  lineHeight: "20px",
+                  marginRight: "40px",
+                }}
+              ></Text>
+              {selectedSegment.feature.belongs_to && (
+                <SelctionListSection
+                  section={{
+                    ...selectedSegment.belongsTo,
+                    title: "",
+                    type: "selectionList",
+                  }}
+                />
+              )}
+            </Box>
+          )}
+          <Row style={{ marginBottom: "70px", width: "100%" }}>
             <Col xs={12} sm={12} md={12}>
               {selectedSegment &&
                 selectedSegment.sections &&
@@ -520,33 +548,43 @@ const AddPost = ({ isLoggedIn, userId, email, closeModal, ...props }) => {
                 })}
             </Col>
           </Row>
-        )}
-
-        <Box
-          flexBox
-          alignItems="center"
-          justifyContent="space-between"
-          mt={20}
-          flexDirection="row"
-        >
-          {!isSegmentListOpen &&
-            selectedSegment &&
-            selectedSegment.feature.add_photo && <AdImagesInfo />}
-          {!isSegmentListOpen && (
-            <Button
-              title="Post"
-              disabled={publishBtnLoading}
-              onClick={submitPost}
-              loaderColor="#fff"
-              isLoading={publishBtnLoading}
-              style={{
-                backgroundColor: !validateForm() ? "#e2e2e2" : "#30C56D",
-              }}
-            />
-          )}
-        </Box>
-      </Grid>
-    </>
+          <Box
+            flexBox
+            alignItems="center"
+            justifyContent="space-between"
+            flexDirection="row"
+            style={{
+              width: "100%",
+              backgroundColor: "#ffffff",
+              height: "60px",
+              position: "absolute",
+              bottom: 0,
+              padding: 10,
+              left: 0,
+            }}
+          >
+            {!isSegmentListOpen &&
+              selectedSegment &&
+              selectedSegment.feature.add_photo && <AdImagesInfo />}
+            {!isSegmentListOpen && (
+              <Button
+                title="Post"
+                disabled={publishBtnLoading}
+                onClick={submitPost}
+                loaderColor="#fff"
+                isLoading={publishBtnLoading}
+                style={{
+                  position: "absolute",
+                  bottom: 5,
+                  right: 10,
+                  backgroundColor: !validateForm() ? "#e2e2e2" : "#30C56D",
+                }}
+              />
+            )}
+          </Box>
+        </Grid>
+      )}
+    </Box>
   );
 };
 

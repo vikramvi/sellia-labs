@@ -8,7 +8,13 @@ import Box from "reusecore/src/elements/Box";
 const TopToolBar = ({ onClose }) => (
   <>
     <Box
-      style={{ backgroundColor: "blue", height: "70px" }}
+      style={{
+        backgroundColor: "blue",
+        height: "70px",
+        width: "100%",
+        position: "absolute",
+        zIndex: 3,
+      }}
       flexBox
       justifyContent="space-between"
       alignItems="center"
