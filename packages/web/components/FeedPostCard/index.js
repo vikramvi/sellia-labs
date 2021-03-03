@@ -506,6 +506,8 @@ FeedPostCard.defaultProps = {
     color: "#fff",
     borderRadius: "3px",
     objectFit: "fill",
+    width: "100%",
+    height: "auto",
   },
   titleStyle: {
     fontSize: "16px",

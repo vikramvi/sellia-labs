@@ -82,7 +82,7 @@ export default function Feed({ userId, isLoggedIn, location, loginUser }) {
         <Col xs={0} sm={5} md={3}>
           <NavSidebar></NavSidebar>
         </Col>
-        <Col xs={0} sm={5} md={6}>
+        <Col xs={12} sm={6} md={6}>
           <Box>
             <div className="css-1dkvlfs">
               <Box

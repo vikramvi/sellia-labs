@@ -48,7 +48,7 @@ const NavSidebar = () => {
 
   return (
     <NavSidebarWrapper>
-      <div style={{ position: "fixed" }}>
+      <div className="md-show" style={{ position: "fixed" }}>
         <section
           className="nav-bar"
           id="navigation"

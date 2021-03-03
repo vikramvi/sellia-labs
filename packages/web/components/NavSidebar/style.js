@@ -13,7 +13,7 @@ export const NavSidebarWrapper = styled("div")`
   left: 0;
   bottom: 20;
   z-index: 3;
-  background-color: #ffffff;
+  background-color: transparent;
   box-shadow: 0 3px 7px rgba(0, 0, 0, 0.06);
   padding-top: 66;
   padding-bottom: ${(props) => props.paddingY || 0};
